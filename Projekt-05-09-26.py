@@ -90,6 +90,8 @@ def pokaz_wykres(event=None):
                     wiersz["dlp_zmierzony_lacznie_mGy_cm"],
                     wiersz["przekroczenie_o"]
                 )
+            )
+
         return
     # Tworzymy wykres
     fig, ax = plt.subplots(figsize=(10, 6))
