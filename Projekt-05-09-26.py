@@ -31,27 +31,73 @@ dane["przekroczenie_o"] = (
 # FUNKCJA POKAZUJĄCA WYKRES
 # =========================
 
+import tkinter as tk
+import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from tkinter import ttk
+
+
+# =========================
+# WCZYTANIE DANYCH
+# =========================
+
+dane = pd.read_csv("ct_patients_data.csv")
+
+dane["dlp_referencyjny_lacznie"] = (
+        dane["dlp_referencyjny_na_faze_mGy_cm"]
+        * dane["liczba_faz"]
+)
+
+dane["przekroczenie_dlp"] = (
+        dane["dlp_zmierzony_lacznie_mGy_cm"]
+        > dane["dlp_referencyjny_lacznie"]
+)
+
+dane["przekroczenie_o"] = (
+        dane["dlp_zmierzony_lacznie_mGy_cm"]
+        - dane["dlp_referencyjny_lacznie"]
+)
+
+
+# =========================
+# FUNKCJA POKAZUJĄCA WYKRES
+# =========================
 def pokaz_wykres(event=None):
+
+    # Usuwamy poprzedni wykres lub tabelę
+    for widget in miejsce_na_wykres.winfo_children():
+        widget.destroy()
+
     global canvas
+    canvas = None
 
     wybrany_wykres = wybor.get()
 
-    if wybrany_wykres == "Liczba pacjentów wg rodzaju badania":
-        liczba_badan = dane["rodzaj_badania_tk"].value_counts()
+    # ==========================================
+    # PACJENCI Z PRZEKROCZONĄ DAWKĄ
+    # ==========================================
 
-    elif wybrany_wykres == "Liczba pacjentów wg wieku":
-        liczba_badan = dane["wiek"].value_counts().sort_index()
+    if wybrany_wykres == "Pacjenci z przekroczoną dawką":
 
-    elif wybrany_wykres == "Liczba pacjentów wg płci":
-        liczba_badan = dane["plec"].value_counts().sort_index()
+        pacjenci_przekroczenie = dane[
+            dane["przekroczenie_dlp"] == True
+        ]
 
-    elif wybrany_wykres == "Pacjenci z przekroczoną dawką":
-        liczba_badan = dane["przekroczenie_dlp"].value_counts()
+        # Ramka przeznaczona tylko na tabelę
+        ramka_tabeli = tk.Frame(miejsce_na_wykres)
 
-        pacjenci_przekroczenie = dane[dane["przekroczenie_dlp"] == True]
+        ramka_tabeli.pack(
+            fill="both",
+            expand=True
+        )
+
+        # ==========================================
+        # TABELA
+        # ==========================================
 
         tabela = ttk.Treeview(
-            miejsce_na_wykres,
+            ramka_tabeli,
             columns=(
                 "patient_id",
                 "wiek",
@@ -65,18 +111,245 @@ def pokaz_wykres(event=None):
             show="headings"
         )
 
-        tabela.heading("patient_id", text="Pacjent")
-        tabela.heading("wiek", text="Wiek")
-        tabela.heading("badanie", text="Rodzaj badania")
-        tabela.heading("fazy", text="Liczba faz")
-        tabela.heading("onkologiczny", text="Protokół onkologiczny")
-        tabela.heading("dlp_referencyjny", text="DLP referencyjne")
-        tabela.heading("dlp_zmierzony", text="DLP zmierzone")
-        tabela.heading("przekroczenie", text="Przekroczenie")
+        # Nagłówki
+        tabela.heading(
+            "patient_id",
+            text="Pacjent"
+        )
 
-        tabela.pack(fill="both", expand=True)
+        tabela.heading(
+            "wiek",
+            text="Wiek"
+        )
+
+        tabela.heading(
+            "badanie",
+            text="Rodzaj badania"
+        )
+
+        tabela.heading(
+            "fazy",
+            text="Liczba faz"
+        )
+
+        tabela.heading(
+            "onkologiczny",
+            text="Protokół onkologiczny"
+        )
+
+        tabela.heading(
+            "dlp_referencyjny",
+            text="DLP referencyjne"
+        )
+
+        tabela.heading(
+            "dlp_zmierzony",
+            text="DLP zmierzone"
+        )
+
+        tabela.heading(
+            "przekroczenie",
+            text="Przekroczenie"
+        )
+
+        # ==========================================
+        # SZEROKOŚĆ KOLUMN
+        # ==========================================
+
+        tabela.column(
+            "patient_id",
+            width=80,
+            anchor="center"
+        )
+
+        tabela.column(
+            "wiek",
+            width=60,
+            anchor="center"
+        )
+
+        tabela.column(
+            "badanie",
+            width=220,
+            anchor="w"
+        )
+
+        tabela.column(
+            "fazy",
+            width=80,
+            anchor="center"
+        )
+
+        tabela.column(
+            "onkologiczny",
+            width=160,
+            anchor="center"
+        )
+
+        tabela.column(
+            "dlp_referencyjny",
+            width=150,
+            anchor="center"
+        )
+
+        tabela.column(
+            "dlp_zmierzony",
+            width=150,
+            anchor="center"
+        )
+
+        tabela.column(
+            "przekroczenie",
+            width=120,
+            anchor="center"
+        )
+
+        # ==========================================
+        # PASEK PIONOWY
+        # ==========================================
+
+        pasek_pionowy = ttk.Scrollbar(
+            ramka_tabeli,
+            orient="vertical",
+            command=tabela.yview
+        )
+
+        # ==========================================
+        # PASEK POZIOMY
+        # ==========================================
+
+        pasek_poziomy = ttk.Scrollbar(
+            ramka_tabeli,
+            orient="horizontal",
+            command=tabela.xview
+        )
+
+        tabela.configure(
+            yscrollcommand=pasek_pionowy.set,
+            xscrollcommand=pasek_poziomy.set
+        )
+
+        # ==========================================
+        # UMIESZCZENIE TABELI
+        # ==========================================
+
+        tabela.grid(
+            row=0,
+            column=0,
+            sticky="nsew"
+        )
+
+        pasek_pionowy.grid(
+            row=0,
+            column=1,
+            sticky="ns"
+        )
+
+        pasek_poziomy.grid(
+            row=1,
+            column=0,
+            sticky="ew"
+        )
+
+        ramka_tabeli.grid_rowconfigure(
+            0,
+            weight=1
+        )
+
+        ramka_tabeli.grid_columnconfigure(
+            0,
+            weight=1
+        )
+
+        # ==========================================
+        # TOOLTIP DLA DLP
+        # ==========================================
+
+        tooltip = None
+
+        def pokaz_tooltip(event):
+
+            nonlocal tooltip
+
+            region = tabela.identify_region(
+                event.x,
+                event.y
+            )
+
+            # Jeżeli nie jesteśmy nad nagłówkiem,
+            # nic nie robimy
+            if region != "heading":
+
+                if tooltip is not None:
+                    tooltip.destroy()
+                    tooltip = None
+
+                return
+
+            kolumna = tabela.identify_column(event.x)
+
+            # Tooltip tylko dla kolumn DLP
+            if kolumna not in ("#6", "#7"):
+
+                if tooltip is not None:
+                    tooltip.destroy()
+                    tooltip = None
+
+                return
+
+            # Jeżeli tooltip już istnieje,
+            # nie tworzymy kolejnego
+            if tooltip is not None:
+                return
+
+            tooltip = tk.Toplevel(tabela)
+
+            tooltip.wm_overrideredirect(True)
+
+            tooltip.geometry(
+                f"+{event.x_root + 10}+"
+                f"{event.y_root + 10}"
+            )
+
+            napis = tk.Label(
+                tooltip,
+                text=(
+                    "DLP – iloczyn dawka-długość\n"
+                    "reprezentuje dawkę z całego badania."
+                ),
+                justify="left",
+                padx=10,
+                pady=8,
+                relief="solid",
+                borderwidth=1
+            )
+
+            napis.pack()
+
+        def ukryj_tooltip(event):
+
+            nonlocal tooltip
+
+            if tooltip is not None:
+                tooltip.destroy()
+                tooltip = None
+
+        tabela.bind(
+            "<Motion>",
+            pokaz_tooltip
+        )
+
+        tabela.bind(
+            "<Leave>",
+            ukryj_tooltip
+        )
+
+        # ==========================================
+        # WSTAWIENIE DANYCH DO TABELI
+        # ==========================================
 
         for _, wiersz in pacjenci_przekroczenie.iterrows():
+
             tabela.insert(
                 "",
                 "end",
@@ -85,33 +358,85 @@ def pokaz_wykres(event=None):
                     wiersz["wiek"],
                     wiersz["rodzaj_badania_tk"],
                     wiersz["liczba_faz"],
-                    wiersz["protokol_onkologiczny_jamy_brzusznej"],
-                    wiersz["dlp_referencyjny_lacznie"],
-                    wiersz["dlp_zmierzony_lacznie_mGy_cm"],
-                    wiersz["przekroczenie_o"]
+                    wiersz[
+                        "protokol_onkologiczny_jamy_brzusznej"
+                    ],
+                    round(
+                        wiersz["dlp_referencyjny_lacznie"],
+                        1
+                    ),
+                    round(
+                        wiersz[
+                            "dlp_zmierzony_lacznie_mGy_cm"
+                        ],
+                        1
+                    ),
+                    round(
+                        wiersz["przekroczenie_o"],
+                        1
+                    )
                 )
             )
 
         return
-    # Tworzymy wykres
-    fig, ax = plt.subplots(figsize=(10, 6))
 
-    # Jeżeli istnieje poprzedni wykres - usuwamy go
-    if canvas is not None:
-        canvas.get_tk_widget().destroy()
+    # ==========================================
+    # WYKRES
+    # ==========================================
+
+    if wybrany_wykres == "Liczba pacjentów wg rodzaju badania":
+
+        liczba_badan = dane[
+            "rodzaj_badania_tk"
+        ].value_counts()
+
+    elif wybrany_wykres == "Liczba pacjentów wg wieku":
+
+        liczba_badan = dane[
+            "wiek"
+        ].value_counts().sort_index()
+
+    elif wybrany_wykres == "Liczba pacjentów wg płci":
+
+        liczba_badan = dane[
+            "plec"
+        ].value_counts().sort_index()
 
     print("Wybrano:", wybrany_wykres)
 
-    # Rysowanie wykresu
-    liczba_badan.plot(kind="bar", ax=ax)
+    # Tworzymy wykres
+    fig, ax = plt.subplots(
+        figsize=(10, 6)
+    )
 
-    ax.set_title(wybrany_wykres)
-    ax.set_xlabel(wybrany_wykres)
-    ax.set_yticks(range(0, liczba_badan.max() + 1))
-    ax.set_ylabel("Liczba pacjentów")
+    liczba_badan.plot(
+        kind="bar",
+        ax=ax
+    )
 
+    ax.set_title(
+        wybrany_wykres
+    )
 
-    ax.tick_params(axis="x", rotation=45)
+    ax.set_xlabel(
+        wybrany_wykres
+    )
+
+    ax.set_yticks(
+        range(
+            0,
+            liczba_badan.max() + 1
+        )
+    )
+
+    ax.set_ylabel(
+        "Liczba pacjentów"
+    )
+
+    ax.tick_params(
+        axis="x",
+        rotation=45
+    )
 
     plt.tight_layout()
 
@@ -128,7 +453,6 @@ def pokaz_wykres(event=None):
         expand=True
     )
 
-
 # =========================
 # TWORZYMY GŁÓWNE OKNO
 # =========================
@@ -136,8 +460,9 @@ def pokaz_wykres(event=None):
 okno = tk.Tk()
 
 okno.title("Analiza dawek TK")
-okno.geometry("800x600")
-
+okno.geometry("1200x800")
+okno.minsize(1200, 800)
+okno.maxsize(1200, 800)
 
 # =========================
 # NAPIS
@@ -171,7 +496,8 @@ rodzaje_wykresow = [
 wybor = ttk.Combobox(
     panel_wyboru,
     values=rodzaje_wykresow,
-    state="readonly"
+    state="readonly",
+    width=45
 )
 
 wybor.pack(side="left", padx=5)
