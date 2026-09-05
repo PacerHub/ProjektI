@@ -1,0 +1,101 @@
+﻿patient_id,wiek,plec,bmi,rodzaj_badania_tk,protokol_onkologiczny_jamy_brzusznej,liczba_faz,ctdiw_referencyjny_mGy,ctdiw_zmierzony_mGy,dlp_referencyjny_na_faze_mGy_cm,dlp_zmierzony_na_faze_mGy_cm,dlp_zmierzony_lacznie_mGy_cm
+1,51,M,22.0,TK odcinka lędźwiowo-krzyżowego kręgosłupa,,1,15,8.5,820,529.7,529.7
+2,72,K,28.6,Rutynowe badanie brzucha lub jamy brzusznej,False,1,35,20.7,780,645.7,645.7
+3,48,K,26.6,Angio-TK tętnic szyjnych,,1,21,15.5,600,373.1,373.1
+4,61,K,33.0,TK kręgosłupa szyjnego,,1,27,26.1,600,740.1,740.1
+5,37,K,22.1,Rutynowe badanie głowy lub mózgu,,1,60,30.9,1050,842.6,842.6
+6,54,M,21.6,Angio-TK jamy brzusznej i miednicy mniejszej,,2,21,17.4,1050,1247.6,2495.2
+7,65,M,16.3,TK odcinka lędźwiowo-krzyżowego kręgosłupa,,1,15,7.4,820,444.1,444.1
+8,47,K,31.6,TK odcinka lędźwiowo-krzyżowego kręgosłupa,,1,15,12.6,820,567.3,567.3
+9,29,M,26.2,Badanie twarzy i zatok,,1,35,27.8,360,344.8,344.8
+10,49,K,21.9,Rutynowe badanie brzucha lub jamy brzusznej,False,1,35,20.3,780,651.2,651.2
+11,42,M,28.3,Rutynowe badanie brzucha lub jamy brzusznej,False,1,35,24.5,780,696.4,696.4
+12,50,K,20.4,Angio-TK serca i naczyń klatki piersiowej,,2,19,17.9,700,469.4,938.8
+13,62,K,27.6,Badanie kości miednicy lub obręczy biodrowej,,1,25,25.4,520,455.3,455.3
+14,84,K,20.6,"TK szyi, tkanki miękkie",,1,18,17.4,500,490.1,490.1
+15,54,K,33.5,Rutynowe badanie brzucha lub jamy brzusznej,False,1,35,26.0,780,811.4,811.4
+16,51,M,25.7,Rutynowe badanie klatki piersiowej,,1,30,31.2,650,505.7,505.7
+17,68,K,26.3,Rutynowe badanie miednicy lub narządów miednicy,,1,35,20.7,570,363.4,363.4
+18,52,M,20.1,Rutynowe badanie głowy lub mózgu,,1,60,35.7,1050,646.6,646.6
+19,75,M,32.9,"TK szyi, tkanki miękkie",,1,18,13.8,500,424.7,424.7
+20,62,M,21.3,Badanie kości miednicy lub obręczy biodrowej,,1,25,18.0,520,618.3,618.3
+21,89,M,25.1,TK odcinka lędźwiowo-krzyżowego kręgosłupa,,1,15,9.9,820,660.8,660.8
+22,78,M,23.4,Rutynowe badanie brzucha lub jamy brzusznej,True,2,35,20.0,780,482.3,964.5
+23,56,M,19.5,Angio-TK jamy brzusznej i miednicy mniejszej,,1,21,10.3,1050,537.0,537.0
+24,89,K,20.9,Angio-TK serca i naczyń klatki piersiowej,,1,19,13.9,700,692.4,692.4
+25,41,K,30.2,TK odcinka lędźwiowo-krzyżowego kręgosłupa,,1,15,11.6,820,671.7,671.7
+26,34,K,25.2,Rutynowe badanie klatki piersiowej,,1,30,20.0,650,543.4,543.4
+27,75,K,28.2,Badanie wątroby i śledziony,False,2,35,24.1,900,745.4,1490.7
+28,15,K,22.2,Rutynowe badanie głowy lub mózgu,,1,60,35.5,1050,575.1,575.1
+29,78,K,28.8,Rutynowe badanie klatki piersiowej,,1,30,30.1,650,587.9,587.9
+30,39,M,27.8,TK kręgosłupa szyjnego,,1,27,20.3,600,469.4,469.4
+31,53,M,33.6,TK odcinka piersiowego kręgosłupa,,1,21,18.0,750,705.5,705.5
+32,63,K,18.1,Angio-TK jamy brzusznej i miednicy mniejszej,,1,21,19.2,1050,468.9,468.9
+33,72,K,26.2,Rutynowe badanie brzucha lub jamy brzusznej,False,1,35,35.9,780,684.2,684.2
+34,87,K,28.6,Rutynowe badanie brzucha lub jamy brzusznej,False,1,35,34.2,780,595.4,595.4
+35,59,K,31.3,Badanie wątroby i śledziony,True,3,35,29.0,900,1027.3,3082.0
+36,70,M,26.2,Rutynowe badanie klatki piersiowej,,2,30,20.7,650,638.2,1276.4
+37,46,M,26.7,Badanie twarzy i zatok,,1,35,23.6,360,301.0,301.0
+38,77,M,15.5,Badanie wątroby i śledziony,False,2,35,22.2,900,537.3,1074.6
+39,47,K,18.9,Rutynowe badanie klatki piersiowej,,1,30,20.8,650,501.3,501.3
+40,48,M,31.6,TK kręgosłupa szyjnego,,1,27,24.7,600,553.2,553.2
+41,43,K,25.8,Rutynowe badanie brzucha lub jamy brzusznej,True,4,35,21.2,780,602.5,2409.8
+42,61,K,26.6,"TK szyi, tkanki miękkie",,2,18,16.9,500,454.3,908.5
+43,95,M,16.9,TK kręgosłupa szyjnego,,1,27,14.8,600,371.2,371.2
+44,80,M,20.5,Rutynowe badanie brzucha lub jamy brzusznej,False,1,35,25.8,780,585.6,585.6
+45,62,K,15.4,"TK szyi, tkanki miękkie",,1,18,9.4,500,319.3,319.3
+46,69,M,23.3,TK odcinka lędźwiowo-krzyżowego kręgosłupa,,1,15,12.8,820,620.4,620.4
+47,67,K,25.6,Rutynowe badanie brzucha lub jamy brzusznej,False,1,35,24.4,780,665.5,665.5
+48,53,K,30.5,"TK klatki piersiowej, wysoka rozdzielczość",,1,35,22.3,280,171.6,171.6
+49,18,K,30.1,TK kręgosłupa szyjnego,,2,27,23.7,600,659.1,1318.3
+50,56,K,26.0,Rutynowe badanie klatki piersiowej,,1,30,23.5,650,415.2,415.2
+51,47,M,22.2,Rutynowe badanie klatki piersiowej,,1,30,25.0,650,664.0,664.0
+52,11,K,14.4,Rutynowe badanie głowy lub mózgu,,1,60,32.6,1050,392.5,392.5
+53,73,K,23.9,TK odcinka lędźwiowo-krzyżowego kręgosłupa,,2,15,9.5,820,616.1,1232.2
+54,63,K,32.8,TK kręgosłupa szyjnego,,1,27,17.4,600,675.6,675.6
+55,52,M,28.3,TK kręgosłupa szyjnego,,1,27,23.6,600,746.0,746.0
+56,93,K,27.3,TK odcinka lędźwiowo-krzyżowego kręgosłupa,,1,15,9.9,820,698.3,698.3
+57,57,K,22.5,Rutynowe badanie brzucha lub jamy brzusznej,True,3,35,19.3,780,618.3,1854.8
+58,76,M,28.2,Rutynowe badanie miednicy lub narządów miednicy,,1,35,26.6,570,479.5,479.5
+59,68,M,31.6,Rutynowe badanie klatki piersiowej,,1,30,26.1,650,1000.1,1000.1
+60,61,M,26.9,Badanie twarzy i zatok,,2,35,27.1,360,254.9,509.7
+61,65,M,29.7,TK kręgosłupa szyjnego,,1,27,24.4,600,470.2,470.2
+62,65,K,31.0,Badanie wątroby i śledziony,False,1,35,19.4,900,555.8,555.8
+63,81,K,23.0,Rutynowe badanie miednicy lub narządów miednicy,,1,35,13.0,570,361.1,361.1
+64,95,M,23.8,TK odcinka lędźwiowo-krzyżowego kręgosłupa,,1,15,7.8,820,559.5,559.5
+65,59,K,30.3,Badanie kości miednicy lub obręczy biodrowej,,1,25,24.5,520,377.8,377.8
+66,73,M,21.8,Rutynowe badanie miednicy lub narządów miednicy,,1,35,32.5,570,378.4,378.4
+67,81,K,33.5,Rutynowe badanie miednicy lub narządów miednicy,,1,35,33.5,570,726.2,726.2
+68,51,K,24.3,Rutynowe badanie brzucha lub jamy brzusznej,True,2,35,29.7,780,625.6,1251.3
+69,17,K,18.4,Rutynowe badanie głowy lub mózgu,,1,60,40.0,1050,637.1,637.1
+70,53,M,27.5,Rutynowe badanie brzucha lub jamy brzusznej,True,2,35,32.2,780,687.9,1375.8
+71,63,M,26.1,Rutynowe badanie klatki piersiowej,,1,30,19.6,650,398.7,398.7
+72,36,K,24.0,Rutynowe badanie brzucha lub jamy brzusznej,True,2,35,27.6,780,529.9,1059.9
+73,73,K,25.7,Angio-TK tętnic szyjnych,,2,21,18.1,600,404.8,809.6
+74,56,K,22.2,Rutynowe badanie klatki piersiowej,,1,30,15.2,650,610.1,610.1
+75,79,M,28.2,Rutynowe badanie głowy lub mózgu,,1,60,37.6,1050,794.9,794.9
+76,39,K,36.1,"TK klatki piersiowej, wysoka rozdzielczość",,1,35,27.6,280,280.1,280.1
+77,85,M,27.7,"TK klatki piersiowej, wysoka rozdzielczość",,1,35,19.4,280,168.7,168.7
+78,50,K,30.4,TK kręgosłupa szyjnego,,1,27,15.5,600,569.4,569.4
+79,48,K,23.5,Rutynowe badanie miednicy lub narządów miednicy,,1,35,28.5,570,487.4,487.4
+80,65,K,29.1,TK odcinka lędźwiowo-krzyżowego kręgosłupa,,1,15,13.0,820,493.9,493.9
+81,65,M,20.3,TK kręgosłupa szyjnego,,1,27,18.9,600,348.8,348.8
+82,82,M,26.7,Rutynowe badanie brzucha lub jamy brzusznej,False,1,35,30.3,780,541.4,541.4
+83,51,M,21.5,"TK szyi, tkanki miękkie",,1,18,17.6,500,601.9,601.9
+84,51,M,25.0,Rutynowe badanie klatki piersiowej,,1,30,21.6,650,381.6,381.6
+85,9,K,19.1,Rutynowe badanie głowy lub mózgu,,1,60,45.1,1050,1061.9,1061.9
+86,60,K,25.8,Rutynowe badanie głowy lub mózgu,,1,60,31.3,1050,832.2,832.2
+87,51,K,25.7,TK odcinka piersiowego kręgosłupa,,1,21,12.6,750,650.8,650.8
+88,63,K,27.4,Badanie wątroby i śledziony,True,2,35,19.1,900,648.2,1296.5
+89,52,M,18.3,Rutynowe badanie klatki piersiowej,,1,30,21.0,650,364.7,364.7
+90,16,M,27.8,Badanie wątroby i śledziony,False,1,35,33.7,900,777.9,777.9
+91,95,M,28.4,Rutynowe badanie klatki piersiowej,,1,30,29.1,650,605.0,605.0
+92,79,M,24.4,TK kręgosłupa szyjnego,,1,27,23.8,600,616.7,616.7
+93,50,M,28.0,Rutynowe badanie brzucha lub jamy brzusznej,True,2,35,17.1,780,525.4,1050.8
+94,18,K,22.1,Rutynowe badanie brzucha lub jamy brzusznej,False,1,35,23.1,780,433.8,433.8
+95,57,K,21.8,Rutynowe badanie brzucha lub jamy brzusznej,True,2,35,23.1,780,580.6,1161.2
+96,69,M,26.4,Badanie kości miednicy lub obręczy biodrowej,,1,25,14.8,520,285.8,285.8
+97,69,M,21.6,Rutynowe badanie brzucha lub jamy brzusznej,True,2,35,14.6,780,412.5,825.1
+98,82,K,30.2,Rutynowe badanie głowy lub mózgu,,1,60,39.6,1050,977.5,977.5
+99,3,K,16.9,Badanie twarzy i zatok,,1,35,21.9,360,258.1,258.1
+100,71,K,15.7,Angio-TK jamy brzusznej i miednicy mniejszej,,1,21,15.9,1050,488.7,488.7

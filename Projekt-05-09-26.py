@@ -110,6 +110,7 @@ def pokaz_wykres(event=None):
     ax.set_yticks(range(0, liczba_badan.max() + 1))
     ax.set_ylabel("Liczba pacjentów")
 
+
     ax.tick_params(axis="x", rotation=45)
 
     plt.tight_layout()
