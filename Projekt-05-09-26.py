@@ -22,11 +22,52 @@ dane["przekroczenie_o"] = (
         - dane["dlp_referencyjny_na_faze_mGy_cm"]
 )
 
+# =========================
+
+okno = tk.Tk()
+
+okno.title("Analiza dawek TK")
+okno.geometry("1200x800")
+okno.minsize(1200, 800)
+okno.maxsize(1200, 800)
+
+
+# =========================
+# PANEL WYBORU
+# =========================
+
+panel_wyboru = tk.Frame(okno)
+panel_wyboru.pack(pady=10)
+
+
+rodzaje_wykresow = [
+    "Liczba pacjentów wg rodzaju badania",
+    "Liczba pacjentów wg wieku",
+    "Liczba pacjentów wg płci",
+    "Pacjenci z przekroczoną dawką"
+]
+
+# =========================
+# MIEJSCE NA WYKRES
+# =========================
+
+miejsce_na_wykres = tk.Frame(okno)
+
+miejsce_na_wykres.pack(
+    fill="both",
+    expand=True
+)
+
+
+# Na początku nie ma jeszcze wykresu
+canvas = None
 
 # =========================
 # FUNKCJA POKAZUJĄCA WYKRES
 # =========================
-def pokaz_wykres(event=None):
+def pokaz_wykres(wybrany_wykres):
+    for tekst, przycisk in przyciski.items():
+        przycisk.config(relief="sunken" if tekst == wybrany_wykres else "raised")
 
     # Usuwamy poprzedni wykres lub tabelę
     for widget in miejsce_na_wykres.winfo_children():
@@ -35,9 +76,7 @@ def pokaz_wykres(event=None):
     global canvas
     canvas = None
 
-    wybrany_wykres = wybor.get()
-
-    # ==========================================
+   # ==========================================
     # PACJENCI Z PRZEKROCZONĄ DAWKĄ
     # ==========================================
 
@@ -442,16 +481,6 @@ def pokaz_wykres(event=None):
         expand=True
     )
 
-# =========================
-# TWORZYMY GŁÓWNE OKNO
-# =========================
-
-okno = tk.Tk()
-
-okno.title("Analiza dawek TK")
-okno.geometry("1200x800")
-okno.minsize(1200, 800)
-okno.maxsize(1200, 800)
 
 # =========================
 # NAPIS
@@ -467,38 +496,20 @@ napis.pack(pady=30)
 
 
 # =========================
-# PANEL WYBORU
+# PRZYCISKI
 # =========================
+przyciski = {}
 
-panel_wyboru = tk.Frame(okno)
-panel_wyboru.pack(pady=10)
+for tekst in rodzaje_wykresow:
+    przycisk = tk.Button(
+        panel_wyboru,
+        text=tekst,
+        command=lambda t=tekst: pokaz_wykres(t)
+    )
+    przycisk.pack(side="left", padx=5)
+    przyciski[tekst] = przycisk
+pokaz_wykres(rodzaje_wykresow[0])
 
-
-rodzaje_wykresow = [
-    "Liczba pacjentów wg rodzaju badania",
-    "Liczba pacjentów wg wieku",
-    "Liczba pacjentów wg płci",
-    "Pacjenci z przekroczoną dawką"
-]
-
-
-wybor = ttk.Combobox(
-    panel_wyboru,
-    values=rodzaje_wykresow,
-    state="readonly",
-    width=45
-)
-
-wybor.pack(side="left", padx=5)
-
-wybor.set(rodzaje_wykresow[0])
-
-wybor.bind("<<ComboboxSelected>>", pokaz_wykres)
-
-
-# =========================
-# PRZYCISK
-# =========================
 
 #przycisk = tk.Button(
     #panel_wyboru,
@@ -507,28 +518,6 @@ wybor.bind("<<ComboboxSelected>>", pokaz_wykres)
 #)
 
 #przycisk.pack(side="left", padx=5)
-
-
-# =========================
-# MIEJSCE NA WYKRES
-# =========================
-
-miejsce_na_wykres = tk.Frame(okno)
-
-miejsce_na_wykres.pack(
-    fill="both",
-    expand=True
-)
-
-
-# Na początku nie ma jeszcze wykresu
-canvas = None
-
-print(dane[[
-    "patient_id",
-    "dlp_zmierzony_lacznie_mGy_cm",
-    "przekroczenie_dlp"
-]])
 
 
 # =========================
