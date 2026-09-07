@@ -109,6 +109,9 @@ def pokaz_wykres(wybrany_wykres):
         # ==========================================
         # TABELA
         # ==========================================
+        styl = ttk.Style()
+        styl.theme_use("clam")
+        styl.configure("Treeview.Heading", padding=(5, 15))
 
         tabela = ttk.Treeview(
             ramka_tabeli,
@@ -120,8 +123,8 @@ def pokaz_wykres(wybrany_wykres):
                 "onkologiczny",
                 "dlp_referencyjny",
                 "dlp_zmierzony",
-                "dlp_lacznie",
                 "przekroczenie",
+                "dlp_lacznie",
             ),
             show="headings"
         )
@@ -163,15 +166,14 @@ def pokaz_wykres(wybrany_wykres):
         )
 
         tabela.heading(
-            "dlp_lacznie",
-            text="DLP całego badania (informacyjnie)"
-        )
-
-        tabela.heading(
             "przekroczenie",
             text="Przekroczenie"
         )
 
+        tabela.heading(
+            "dlp_lacznie",
+            text=("DLP całego badania \n (informacyjnie)")
+        )
 
 
         # ==========================================
@@ -422,11 +424,11 @@ def pokaz_wykres(wybrany_wykres):
                         1
                     ),
                     round(
-                        wiersz["dlp_zmierzony_lacznie_mGy_cm"],
+                        wiersz["przekroczenie_o"],
                         1
                     ),
                     round(
-                        wiersz["przekroczenie_o"],
+                        wiersz["dlp_zmierzony_lacznie_mGy_cm"],
                         1
                     )
                 )
