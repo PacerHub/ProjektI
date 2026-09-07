@@ -33,6 +33,18 @@ okno.maxsize(1200, 800)
 
 
 # =========================
+# NAPIS
+# =========================
+
+napis = tk.Label(
+    okno,
+    text="Analiza danych pacjentów TK",
+    font=("Arial", 18)
+)
+
+napis.pack(pady=30)
+
+# =========================
 # PANEL WYBORU
 # =========================
 
@@ -305,7 +317,7 @@ def pokaz_wykres(wybrany_wykres):
             kolumna = tabela.identify_column(event.x)
 
             # Tooltip tylko dla kolumn DLP
-            if kolumna not in ("#7", "#8"):
+            if kolumna not in ("#6","#7", "#8"):
 
                 if tooltip is not None:
                     tooltip.destroy()
@@ -327,14 +339,29 @@ def pokaz_wykres(wybrany_wykres):
                 f"{event.y_root + 10}"
             )
 
+            if kolumna == "#6":
+                tresc_tootltipa = ("DPR – Diagnostyczny Poziom Referencyjny.\n"
+                "Punkt odniesienia dla typowego pacjenta,\n"
+                "nie sztywny limit prawny. Może być\n"
+                "przekroczony przy uzasadnieniu klinicznym.")
+            elif kolumna == "#7":
+                tresc_tootltipa = ("DLP – iloczyn dawka-długość.\n"
+                "Rzeczywista wartość zmierzona\n"
+                "u pacjenta dla pojedynczej fazy\n"
+                "badania — porównywana z DPR.")
+            elif kolumna == "#8":
+                tresc_tootltipa = ("DLP – iloczyn dawka-długość.\n"
+                "Rzeczywista wartość zmierzona\n"
+                "u pacjenta dla pojedynczej fazy\n"
+                "badania — porównywana z DPR.")
             napis = tk.Label(
                 tooltip,
-                text=(
-                    "DLP – iloczyn dawka-długość"),
+                text=tresc_tootltipa,
                 justify="left",
                 padx=10,
                 pady=8,
                 relief="solid",
+                wraplength=250,
                 borderwidth=1
             )
 
@@ -481,18 +508,6 @@ def pokaz_wykres(wybrany_wykres):
         expand=True
     )
 
-
-# =========================
-# NAPIS
-# =========================
-
-napis = tk.Label(
-    okno,
-    text="Analiza danych pacjentów TK",
-    font=("Arial", 18)
-)
-
-napis.pack(pady=30)
 
 
 # =========================
