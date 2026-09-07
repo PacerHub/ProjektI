@@ -11,52 +11,15 @@ from tkinter import ttk
 
 dane = pd.read_csv("ct_patients_data.csv")
 
-dane["dlp_referencyjny_lacznie"] = (
-        dane["dlp_referencyjny_na_faze_mGy_cm"]
-        * dane["liczba_faz"]
+dane["przekroczenie_dlp"] = (
+        dane["dlp_zmierzony_na_faze_mGy_cm"]
+        > dane["dlp_referencyjny_na_faze_mGy_cm"]
 )
 
-dane["przekroczenie_dlp"] = (
-        dane["dlp_zmierzony_lacznie_mGy_cm"]
-        > dane["dlp_referencyjny_lacznie"]
-)
 
 dane["przekroczenie_o"] = (
-        dane["dlp_zmierzony_lacznie_mGy_cm"]
-        - dane["dlp_referencyjny_lacznie"]
-)
-
-
-# =========================
-# FUNKCJA POKAZUJĄCA WYKRES
-# =========================
-
-import tkinter as tk
-import pandas as pd
-import matplotlib.pyplot as plt
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from tkinter import ttk
-
-
-# =========================
-# WCZYTANIE DANYCH
-# =========================
-
-dane = pd.read_csv("ct_patients_data.csv")
-
-dane["dlp_referencyjny_lacznie"] = (
-        dane["dlp_referencyjny_na_faze_mGy_cm"]
-        * dane["liczba_faz"]
-)
-
-dane["przekroczenie_dlp"] = (
-        dane["dlp_zmierzony_lacznie_mGy_cm"]
-        > dane["dlp_referencyjny_lacznie"]
-)
-
-dane["przekroczenie_o"] = (
-        dane["dlp_zmierzony_lacznie_mGy_cm"]
-        - dane["dlp_referencyjny_lacznie"]
+        dane["dlp_zmierzony_na_faze_mGy_cm"]
+        - dane["dlp_referencyjny_na_faze_mGy_cm"]
 )
 
 
@@ -106,7 +69,8 @@ def pokaz_wykres(event=None):
                 "onkologiczny",
                 "dlp_referencyjny",
                 "dlp_zmierzony",
-                "przekroczenie"
+                "dlp_lacznie",
+                "przekroczenie",
             ),
             show="headings"
         )
@@ -139,18 +103,25 @@ def pokaz_wykres(event=None):
 
         tabela.heading(
             "dlp_referencyjny",
-            text="DLP referencyjne"
+            text="DPR na fazę"
         )
 
         tabela.heading(
             "dlp_zmierzony",
-            text="DLP zmierzone"
+            text="DLP zmierzone na fazę"
+        )
+
+        tabela.heading(
+            "dlp_lacznie",
+            text="DLP całego badania (informacyjnie)"
         )
 
         tabela.heading(
             "przekroczenie",
             text="Przekroczenie"
         )
+
+
 
         # ==========================================
         # SZEROKOŚĆ KOLUMN
@@ -200,6 +171,12 @@ def pokaz_wykres(event=None):
 
         tabela.column(
             "przekroczenie",
+            width=120,
+            anchor="center"
+        )
+
+        tabela.column(
+            "dlp_lacznie",
             width=120,
             anchor="center"
         )
@@ -289,7 +266,7 @@ def pokaz_wykres(event=None):
             kolumna = tabela.identify_column(event.x)
 
             # Tooltip tylko dla kolumn DLP
-            if kolumna not in ("#6", "#7"):
+            if kolumna not in ("#7", "#8"):
 
                 if tooltip is not None:
                     tooltip.destroy()
@@ -314,9 +291,7 @@ def pokaz_wykres(event=None):
             napis = tk.Label(
                 tooltip,
                 text=(
-                    "DLP – iloczyn dawka-długość\n"
-                    "reprezentuje dawkę z całego badania."
-                ),
+                    "DLP – iloczyn dawka-długość"),
                 justify="left",
                 padx=10,
                 pady=8,
@@ -350,6 +325,17 @@ def pokaz_wykres(event=None):
 
         for _, wiersz in pacjenci_przekroczenie.iterrows():
 
+            onkologiczny = wiersz[
+                "protokol_onkologiczny_jamy_brzusznej"
+            ]
+
+            if pd.isna(onkologiczny):
+                onkologiczny = "nie dotyczy"
+            elif onkologiczny:
+                onkologiczny = "tak"
+            else:
+                onkologiczny = "nie"
+
             tabela.insert(
                 "",
                 "end",
@@ -358,17 +344,19 @@ def pokaz_wykres(event=None):
                     wiersz["wiek"],
                     wiersz["rodzaj_badania_tk"],
                     wiersz["liczba_faz"],
-                    wiersz[
-                        "protokol_onkologiczny_jamy_brzusznej"
-                    ],
+                    onkologiczny,
                     round(
-                        wiersz["dlp_referencyjny_lacznie"],
+                        wiersz["dlp_referencyjny_na_faze_mGy_cm"],
                         1
                     ),
                     round(
                         wiersz[
-                            "dlp_zmierzony_lacznie_mGy_cm"
+                            "dlp_zmierzony_na_faze_mGy_cm"
                         ],
+                        1
+                    ),
+                    round(
+                        wiersz["dlp_zmierzony_lacznie_mGy_cm"],
                         1
                     ),
                     round(
@@ -433,9 +421,10 @@ def pokaz_wykres(event=None):
         "Liczba pacjentów"
     )
 
-    ax.tick_params(
-        axis="x",
-        rotation=45
+    plt.setp(
+        ax.get_xticklabels(),
+        rotation=45,
+        ha="right",
     )
 
     plt.tight_layout()
@@ -537,7 +526,6 @@ canvas = None
 
 print(dane[[
     "patient_id",
-    "dlp_referencyjny_lacznie",
     "dlp_zmierzony_lacznie_mGy_cm",
     "przekroczenie_dlp"
 ]])
