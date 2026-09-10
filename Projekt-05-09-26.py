@@ -109,6 +109,18 @@ def kategoria_liczby_faz(n):
     else:
         return f"więcej faz ({n})"
 
+def kategoria_bmi(wiek, bmi):
+    if wiek < 16:
+        return "nie dotyczy (pacjent pediatryczny)"
+    elif bmi < 18.5:
+        return "niedowaga"
+    elif bmi < 25:
+        return "waga prawidłowa"
+    elif bmi < 30:
+        return "nadwaga"
+    else:
+        return "otyłość"
+
 
 def klasyfikuj_przyczyne(factors):
     label_map = {
@@ -116,6 +128,7 @@ def klasyfikuj_przyczyne(factors):
         "onkologiczny": "protokół onkologiczny",
         "wielofazowy": "wielofazowe badanie",
         "wysoki_dlp_fazy": "wysokie DLP pojedynczej fazy",
+        "nadwaga_otylosc": "nadwaga/otyłość pacjenta",
     }
     active = [name for name, is_active in factors.items() if is_active]
 
@@ -145,19 +158,27 @@ def analizuj_pacjenta(wiersz):
     ratio_na_faze = dlp_faza / dlp_ref
     procent_przekroczenia = round((ratio_na_faze - 1) * 100, 1)
 
+
     wysokie_dlp_pojedynczej_fazy = ratio_na_faze >= PROG_WYSOKIEGO_DLP_FAZY
+
+    bmi = float(wiersz["bmi"])
+    kat_bmi = kategoria_bmi(wiek, bmi)
+    ma_nadwage_lub_otylosc = bool((not jest_pediatryczny) and bmi >= 25)
 
     factors = {
         "pediatryczny": jest_pediatryczny,
         "onkologiczny": jest_onkologiczny,
         "wielofazowy": jest_wielofazowy,
         "wysoki_dlp_fazy": wysokie_dlp_pojedynczej_fazy,
+        "nadwaga_otylosc": ma_nadwage_lub_otylosc,
     }
     klasyfikacja, aktywne_czynniki = klasyfikuj_przyczyne(factors)
 
     return {
         "okolica": okolica,
         "kategoria_faz": kategoria_liczby_faz(liczba_faz),
+        "bmi": round(bmi, 1),
+        "kategoria_bmi": kat_bmi,
         "procent_przekroczenia": procent_przekroczenia,
         "klasyfikacja": klasyfikacja,
         "aktywne_czynniki": ", ".join(aktywne_czynniki) if aktywne_czynniki else "brak",
@@ -538,6 +559,7 @@ def pokaz_wykres(wybrany_wykres):
             columns=(
                 "patient_id",
                 "okolica",
+                "bmi",
                 "kategoria_faz",
                 "procent",
                 "klasyfikacja",
@@ -548,6 +570,7 @@ def pokaz_wykres(wybrany_wykres):
 
         tabela_analizy.heading("patient_id", text="Pacjent")
         tabela_analizy.heading("okolica", text="Okolica anatomiczna")
+        tabela_analizy.heading("bmi", text="BMI (kategoria)")
         tabela_analizy.heading("kategoria_faz", text="Liczba faz")
         tabela_analizy.heading("procent", text="% przekroczenia")
         tabela_analizy.heading("klasyfikacja", text="Klasyfikacja przyczyny")
@@ -555,6 +578,7 @@ def pokaz_wykres(wybrany_wykres):
 
         tabela_analizy.column("patient_id", width=70, anchor="center")
         tabela_analizy.column("okolica", width=150, anchor="w")
+        tabela_analizy.column("bmi", width=160, anchor="center")
         tabela_analizy.column("kategoria_faz", width=90, anchor="center")
         tabela_analizy.column("procent", width=110, anchor="center")
         tabela_analizy.column("klasyfikacja", width=230, anchor="w")
@@ -576,6 +600,7 @@ def pokaz_wykres(wybrany_wykres):
                 values=(
                     wiersz["patient_id"],
                     wynik["okolica"],
+                    f"{wynik['bmi']} ({wynik['kategoria_bmi']})",
                     wynik["kategoria_faz"],
                     f"{wynik['procent_przekroczenia']:+.1f}%",
                     wynik["klasyfikacja"],
