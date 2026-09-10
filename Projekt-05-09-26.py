@@ -156,7 +156,7 @@ def analizuj_pacjenta(wiersz):
     dlp_ref = float(wiersz["dlp_referencyjny_na_faze_mGy_cm"])
     dlp_faza = float(wiersz["dlp_zmierzony_na_faze_mGy_cm"])
     ratio_na_faze = dlp_faza / dlp_ref
-    procent_przekroczenia = round((ratio_na_faze - 1) * 100, 1)
+    procent_przekroczenia = round((ratio_na_faze - 1) * 100, 3)
 
 
     wysokie_dlp_pojedynczej_fazy = ratio_na_faze >= PROG_WYSOKIEGO_DLP_FAZY
@@ -602,7 +602,7 @@ def pokaz_wykres(wybrany_wykres):
                     wynik["okolica"],
                     f"{wynik['bmi']} ({wynik['kategoria_bmi']})",
                     wynik["kategoria_faz"],
-                    f"{wynik['procent_przekroczenia']:+.1f}%",
+                    f"{wynik['procent_przekroczenia']:+.3f}%",
                     wynik["klasyfikacja"],
                     wynik["aktywne_czynniki"],
                 )
@@ -631,7 +631,6 @@ def pokaz_wykres(wybrany_wykres):
             "plec"
         ].value_counts().sort_index()
 
-    print("Wybrano:", wybrany_wykres)
 
     # Tworzymy wykres
     fig, ax = plt.subplots(
