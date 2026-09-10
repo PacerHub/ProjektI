@@ -342,21 +342,21 @@ def pokaz_wykres(wybrany_wykres):
             )
 
             if kolumna == "#6":
-                tresc_tootltipa = ("DPR – Diagnostyczny Poziom Referencyjny.\n"
+                tresc_tooltipa = ("DPR – Diagnostyczny Poziom Referencyjny.\n"
                 "Punkt odniesienia dla typowego pacjenta,\n"
                 "nie sztywny limit prawny. Może być\n"
                 "przekroczony przy uzasadnieniu klinicznym.")
             elif kolumna == "#7":
-                tresc_tootltipa = ("DLP – iloczyn dawka-długość.\n"
+                tresc_tooltipa = ("DLP – iloczyn dawka-długość.\n"
                 "Rzeczywista wartość zmierzona\n"
                 "u pacjenta dla pojedynczej fazy\n"
                 "badania — porównywana z DPR.")
             elif kolumna == "#9":
-                tresc_tootltipa = ("Suma DLP z wszystkich\n"
+                tresc_tooltipa = ("Suma DLP z wszystkich\n"
                 "faz badania (informacyjnie).\n")
             napis = tk.Label(
                 tooltip,
-                text=tresc_tootltipa,
+                text=tresc_tooltipa,
                 justify="left",
                 padx=10,
                 pady=8,
