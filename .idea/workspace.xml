@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Poszerzenie belki w tabeli, podział tekstu na 2 linijki">
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Poprawiony podpis kursora przy kolumnach w ostatniej tabeli">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Projekt-05-09-26.py" beforeDir="false" afterPath="$PROJECT_DIR$/Projekt-05-09-26.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,7 +72,7 @@
       <updated>1788617017345</updated>
       <workItem from="1788617018400" duration="3438000" />
       <workItem from="1788801787493" duration="9373000" />
-      <workItem from="1789060704905" duration="558000" />
+      <workItem from="1789060704905" duration="1221000" />
     </task>
     <task id="LOCAL-00001" summary="Tabela do przekroczonych dawek zrobiona, do zrobienia kursor, szerokość listy, szerokosc okna aplikacji.">
       <option name="closed" value="true" />
@@ -153,7 +154,39 @@
       <option name="project" value="LOCAL" />
       <updated>1788812348894</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Poprawiony podpis kursora przy kolumnach w ostatniej tabeli">
+      <option name="closed" value="true" />
+      <created>1789061471545</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1789061471545</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Poprawiony podpis kursora przy kolumnach w ostatniej tabeli">
+      <option name="closed" value="true" />
+      <created>1789061517431</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1789061517431</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Poprawiony podpis kursora przy kolumnach w ostatniej tabeli">
+      <option name="closed" value="true" />
+      <created>1789061540427</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1789061540427</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Poprawiony podpis kursora przy kolumnach w ostatniej tabeli">
+      <option name="closed" value="true" />
+      <created>1789061595730</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1789061595730</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,9 +202,10 @@
     <MESSAGE value="Zmiana listy na przyciski" />
     <MESSAGE value="Napis na górze, nad przyciskami, zmienione ,,dymki&quot; pod kursorem" />
     <MESSAGE value="Poszerzenie belki w tabeli, podział tekstu na 2 linijki" />
-    <option name="LAST_COMMIT_MESSAGE" value="Poszerzenie belki w tabeli, podział tekstu na 2 linijki" />
+    <MESSAGE value="Poprawiony podpis kursora przy kolumnach w ostatniej tabeli" />
+    <option name="LAST_COMMIT_MESSAGE" value="Poprawiony podpis kursora przy kolumnach w ostatniej tabeli" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1788812258356" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1789061672138" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
