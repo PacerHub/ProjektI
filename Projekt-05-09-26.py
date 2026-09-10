@@ -351,7 +351,7 @@ def pokaz_wykres(wybrany_wykres):
                 "Rzeczywista wartość zmierzona\n"
                 "u pacjenta dla pojedynczej fazy\n"
                 "badania — porównywana z DPR.")
-            elif kolumna == "#8":
+            elif kolumna == "#9":
                 tresc_tootltipa = ("DLP – iloczyn dawka-długość.\n"
                 "Rzeczywista wartość zmierzona\n"
                 "u pacjenta dla pojedynczej fazy\n"
@@ -527,12 +527,6 @@ for tekst in rodzaje_wykresow:
     przyciski[tekst] = przycisk
 pokaz_wykres(rodzaje_wykresow[0])
 
-
-#przycisk = tk.Button(
-    #panel_wyboru,
-    #text="Pokaż wykres",
-    #command=pokaz_wykres
-#)
 
 #przycisk.pack(side="left", padx=5)
 
