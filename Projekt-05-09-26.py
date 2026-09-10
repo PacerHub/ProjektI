@@ -56,7 +56,8 @@ rodzaje_wykresow = [
     "Liczba pacjentów wg rodzaju badania",
     "Liczba pacjentów wg wieku",
     "Liczba pacjentów wg płci",
-    "Pacjenci z przekroczoną dawką"
+    "Pacjenci z przekroczoną dawką",
+    "Analiza przyczyn przekroczeń"
 ]
 
 # =========================
@@ -74,6 +75,93 @@ miejsce_na_wykres.pack(
 # Na początku nie ma jeszcze wykresu
 canvas = None
 
+# =========================
+# MAPOWANIE BADAŃ NA OKOLICĘ ANATOMICZNĄ
+# =========================
+EXAM_REGION = {
+    "Rutynowe badanie głowy lub mózgu": "głowa",
+    "Badanie twarzy i zatok": "głowa",
+    "Angio-TK głowy": "głowa",
+    "Rutynowe badanie klatki piersiowej": "klatka piersiowa",
+    "TK klatki piersiowej, wysoka rozdzielczość": "klatka piersiowa",
+    "Angio-TK serca i naczyń klatki piersiowej": "klatka piersiowa",
+    "Angio-TK aorty piersiowej": "klatka piersiowa",
+    "Rutynowe badanie brzucha lub jamy brzusznej": "jama brzuszna",
+    "Badanie wątroby i śledziony": "jama brzuszna",
+    "Angio-TK jamy brzusznej i miednicy mniejszej": "jama brzuszna / miednica",
+    "Rutynowe badanie miednicy lub narządów miednicy": "miednica",
+    "Badanie kości miednicy lub obręczy biodrowej": "miednica",
+    "TK kręgosłupa szyjnego": "kręgosłup",
+    "TK odcinka piersiowego kręgosłupa": "kręgosłup",
+    "TK odcinka lędźwiowo-krzyżowego kręgosłupa": "kręgosłup",
+    "TK szyi, tkanki miękkie": "szyja",
+    "Angio-TK tętnic szyjnych": "szyja",
+}
+
+PROG_WYSOKIEGO_DLP_FAZY = 1.20  # 20% powyżej wartości referencyjnej
+
+
+def kategoria_liczby_faz(n):
+    if n == 1:
+        return "1 faza"
+    elif n == 2:
+        return "2 fazy"
+    else:
+        return f"więcej faz ({n})"
+
+
+def klasyfikuj_przyczyne(factors):
+    label_map = {
+        "pediatryczny": "pacjent <16 lat",
+        "onkologiczny": "protokół onkologiczny",
+        "wielofazowy": "wielofazowe badanie",
+        "wysoki_dlp_fazy": "wysokie DLP pojedynczej fazy",
+    }
+    active = [name for name, is_active in factors.items() if is_active]
+
+    if len(active) == 0:
+        return "przekroczenie wymagające indywidualnej analizy", []
+    elif len(active) == 1:
+        return label_map[active[0]], [label_map[active[0]]]
+    else:
+        return "połączenie kilku czynników", [label_map[a] for a in active]
+
+
+def analizuj_pacjenta(wiersz):
+    wiek = wiersz["wiek"]
+    jest_pediatryczny = bool(wiek < 16)
+
+    rodzaj_badania = wiersz["rodzaj_badania_tk"]
+    okolica = EXAM_REGION.get(rodzaj_badania, "nieznana")
+
+    liczba_faz = int(wiersz["liczba_faz"])
+    jest_wielofazowy = liczba_faz >= 2
+
+    protokol_onko_raw = wiersz["protokol_onkologiczny_jamy_brzusznej"]
+    jest_onkologiczny = bool(protokol_onko_raw is True or protokol_onko_raw == True)
+
+    dlp_ref = float(wiersz["dlp_referencyjny_na_faze_mGy_cm"])
+    dlp_faza = float(wiersz["dlp_zmierzony_na_faze_mGy_cm"])
+    ratio_na_faze = dlp_faza / dlp_ref
+    procent_przekroczenia = round((ratio_na_faze - 1) * 100, 1)
+
+    wysokie_dlp_pojedynczej_fazy = ratio_na_faze >= PROG_WYSOKIEGO_DLP_FAZY
+
+    factors = {
+        "pediatryczny": jest_pediatryczny,
+        "onkologiczny": jest_onkologiczny,
+        "wielofazowy": jest_wielofazowy,
+        "wysoki_dlp_fazy": wysokie_dlp_pojedynczej_fazy,
+    }
+    klasyfikacja, aktywne_czynniki = klasyfikuj_przyczyne(factors)
+
+    return {
+        "okolica": okolica,
+        "kategoria_faz": kategoria_liczby_faz(liczba_faz),
+        "procent_przekroczenia": procent_przekroczenia,
+        "klasyfikacja": klasyfikacja,
+        "aktywne_czynniki": ", ".join(aktywne_czynniki) if aktywne_czynniki else "brak",
+    }
 # =========================
 # FUNKCJA POKAZUJĄCA WYKRES
 # =========================
@@ -292,7 +380,7 @@ def pokaz_wykres(wybrany_wykres):
         )
 
         # ==========================================
-        # TOOLTIP DLA DLP
+        # TOOLTIP DLA DPR i DLP
         # ==========================================
 
         tooltip = None
@@ -353,7 +441,7 @@ def pokaz_wykres(wybrany_wykres):
                 "badania — porównywana z DPR.")
             elif kolumna == "#9":
                 tresc_tooltipa = ("Suma DLP z wszystkich\n"
-                "faz badania (informacyjnie).\n")
+                "faz badania (informacyjnie).")
             napis = tk.Label(
                 tooltip,
                 text=tresc_tooltipa,
@@ -434,6 +522,68 @@ def pokaz_wykres(wybrany_wykres):
 
         return
 
+        # ==========================================
+        # ANALIZA PRZYCZYN PRZEKROCZEŃ
+        # ==========================================
+
+    if wybrany_wykres == "Analiza przyczyn przekroczeń":
+
+        pacjenci_przekroczenie = dane[dane["przekroczenie_dlp"] == True]
+
+        ramka_tabeli = tk.Frame(miejsce_na_wykres)
+        ramka_tabeli.pack(fill="both", expand=True)
+
+        tabela_analizy = ttk.Treeview(
+            ramka_tabeli,
+            columns=(
+                "patient_id",
+                "okolica",
+                "kategoria_faz",
+                "procent",
+                "klasyfikacja",
+                "czynniki",
+            ),
+            show="headings"
+        )
+
+        tabela_analizy.heading("patient_id", text="Pacjent")
+        tabela_analizy.heading("okolica", text="Okolica anatomiczna")
+        tabela_analizy.heading("kategoria_faz", text="Liczba faz")
+        tabela_analizy.heading("procent", text="% przekroczenia")
+        tabela_analizy.heading("klasyfikacja", text="Klasyfikacja przyczyny")
+        tabela_analizy.heading("czynniki", text="Aktywne czynniki")
+
+        tabela_analizy.column("patient_id", width=70, anchor="center")
+        tabela_analizy.column("okolica", width=150, anchor="w")
+        tabela_analizy.column("kategoria_faz", width=90, anchor="center")
+        tabela_analizy.column("procent", width=110, anchor="center")
+        tabela_analizy.column("klasyfikacja", width=230, anchor="w")
+        tabela_analizy.column("czynniki", width=280, anchor="w")
+
+        pasek_pionowy2 = ttk.Scrollbar(ramka_tabeli, orient="vertical", command=tabela_analizy.yview)
+        tabela_analizy.configure(yscrollcommand=pasek_pionowy2.set)
+
+        tabela_analizy.grid(row=0, column=0, sticky="nsew")
+        pasek_pionowy2.grid(row=0, column=1, sticky="ns")
+        ramka_tabeli.grid_rowconfigure(0, weight=1)
+        ramka_tabeli.grid_columnconfigure(0, weight=1)
+
+        for _, wiersz in pacjenci_przekroczenie.iterrows():
+            wynik = analizuj_pacjenta(wiersz)
+            tabela_analizy.insert(
+                "",
+                "end",
+                values=(
+                    wiersz["patient_id"],
+                    wynik["okolica"],
+                    wynik["kategoria_faz"],
+                    f"{wynik['procent_przekroczenia']:+.1f}%",
+                    wynik["klasyfikacja"],
+                    wynik["aktywne_czynniki"],
+                )
+            )
+
+        return
     # ==========================================
     # WYKRES
     # ==========================================
