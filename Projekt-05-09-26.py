@@ -585,12 +585,85 @@ def pokaz_wykres(wybrany_wykres):
         tabela_analizy.column("czynniki", width=280, anchor="w")
 
         pasek_pionowy2 = ttk.Scrollbar(ramka_tabeli, orient="vertical", command=tabela_analizy.yview)
-        tabela_analizy.configure(yscrollcommand=pasek_pionowy2.set)
+        pasek_poziomy2 = ttk.Scrollbar(ramka_tabeli, orient="horizontal", command=tabela_analizy.xview)
+        tabela_analizy.configure(
+            yscrollcommand=pasek_pionowy2.set,
+            xscrollcommand=pasek_poziomy2.set
+        )
 
         tabela_analizy.grid(row=0, column=0, sticky="nsew")
         pasek_pionowy2.grid(row=0, column=1, sticky="ns")
+        pasek_poziomy2.grid(row=1, column=0, sticky="ew")
         ramka_tabeli.grid_rowconfigure(0, weight=1)
         ramka_tabeli.grid_columnconfigure(0, weight=1)
+        tooltip_analiza = None
+
+
+        tooltip_analiza = None
+        tooltip_job = None
+
+        def zaplanuj_tooltip(event):
+            nonlocal tooltip_job
+
+            if tooltip_job is not None:
+                tabela_analizy.after_cancel(tooltip_job)
+                tooltip_job = None
+
+            ukryj_tooltip_analiza()
+
+            region = tabela_analizy.identify_region(event.x, event.y)
+            if region != "cell":
+                return
+
+            kolumna = tabela_analizy.identify_column(event.x)
+            wiersz_id = tabela_analizy.identify_row(event.y)
+
+            if kolumna != "#7" or not wiersz_id:
+                return
+
+            tooltip_job = tabela_analizy.after(
+                400,
+                lambda: pokaz_tooltip_analiza(wiersz_id, event.x_root, event.y_root)
+            )
+
+        def pokaz_tooltip_analiza(wiersz_id, x_root, y_root):
+            nonlocal tooltip_analiza
+
+            pelny_tekst = tabela_analizy.set(wiersz_id, "czynniki")
+
+            tooltip_analiza = tk.Toplevel(tabela_analizy)
+            tooltip_analiza.wm_overrideredirect(True)
+            tooltip_analiza.geometry(f"+{x_root + 10}+{y_root + 10}")
+
+            tk.Label(
+                tooltip_analiza,
+                text=pelny_tekst,
+                justify="left",
+                padx=10,
+                pady=8,
+                relief="solid",
+                wraplength=350,
+                borderwidth=1
+            ).pack()
+
+        def ukryj_tooltip_analiza(event=None):
+            nonlocal tooltip_analiza, tooltip_job
+
+            if tooltip_job is not None:
+                tabela_analizy.after_cancel(tooltip_job)
+                tooltip_job = None
+
+            if tooltip_analiza is not None:
+                tooltip_analiza.destroy()
+                tooltip_analiza = None
+
+        tabela_analizy.bind("<Motion>", zaplanuj_tooltip)
+        tabela_analizy.bind("<Leave>", ukryj_tooltip_analiza)
+
+        for _, wiersz in pacjenci_przekroczenie.iterrows():
+
+            tabela_analizy.bind("<Motion>", zaplanuj_tooltip)
+            tabela_analizy.bind("<Leave>", ukryj_tooltip_analiza)
 
         for _, wiersz in pacjenci_przekroczenie.iterrows():
             wynik = analizuj_pacjenta(wiersz)
