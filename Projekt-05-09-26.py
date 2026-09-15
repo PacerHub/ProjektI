@@ -30,7 +30,7 @@ okno.title("Analiza dawek TK")
 okno.geometry("1200x800")
 okno.minsize(1200, 800)
 okno.maxsize(1200, 800)
-
+okno.option_add("*Font", "Cambria 10")
 
 # =========================
 # NAPIS
@@ -39,7 +39,7 @@ okno.maxsize(1200, 800)
 napis = tk.Label(
     okno,
     text="Analiza danych pacjentów TK",
-    font=("Arial", 18)
+    font=("Cambria", 18)
 )
 
 napis.pack(pady=30)
@@ -220,7 +220,8 @@ def pokaz_wykres(wybrany_wykres):
         # ==========================================
         styl = ttk.Style()
         styl.theme_use("clam")
-        styl.configure("Treeview.Heading", padding=(5, 15))
+        styl.configure("Treeview.Heading", padding=(5, 15), font=("Cambria", 10, "bold"))
+        styl.configure("Treeview", font=("Cambria", 10), rowheight=25)
 
         tabela = ttk.Treeview(
             ramka_tabeli,
