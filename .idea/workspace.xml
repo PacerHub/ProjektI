@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Dodane tooltipy do 6 i 7 kolumny w analizie przyczyn przekroczeń">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Zmiana czcionki na Cambria" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -75,7 +73,7 @@
       <workItem from="1788617018400" duration="3438000" />
       <workItem from="1788801787493" duration="9373000" />
       <workItem from="1789060704905" duration="1221000" />
-      <workItem from="1789485317387" duration="2678000" />
+      <workItem from="1789485317387" duration="3034000" />
     </task>
     <task id="LOCAL-00001" summary="Tabela do przekroczonych dawek zrobiona, do zrobienia kursor, szerokość listy, szerokosc okna aplikacji.">
       <option name="closed" value="true" />
@@ -237,7 +235,15 @@
       <option name="project" value="LOCAL" />
       <updated>1789487919684</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Zmiana czcionki na Cambria">
+      <option name="closed" value="true" />
+      <created>1789488626562</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1789488626562</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -260,9 +266,10 @@
     <MESSAGE value="Poprawka dokładności wyliczania przekroczeń dawki do 3 miejsc po przecinku" />
     <MESSAGE value="Dodane tooltipy do kolumny 7 w analizie przyczyn przekroczeń" />
     <MESSAGE value="Dodane tooltipy do 6 i 7 kolumny w analizie przyczyn przekroczeń" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dodane tooltipy do 6 i 7 kolumny w analizie przyczyn przekroczeń" />
+    <MESSAGE value="Zmiana czcionki na Cambria" />
+    <option name="LAST_COMMIT_MESSAGE" value="Zmiana czcionki na Cambria" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1789487870559" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1789488639712" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

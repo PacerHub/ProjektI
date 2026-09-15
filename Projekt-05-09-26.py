@@ -405,95 +405,89 @@ def pokaz_wykres(wybrany_wykres):
         # TOOLTIP DLA DPR i DLP
         # ==========================================
 
-        tooltip = None
-
-        def pokaz_tooltip(event):
-
-            nonlocal tooltip
-
-            region = tabela.identify_region(
-                event.x,
-                event.y
-            )
-
-            # Jeżeli nie jesteśmy nad nagłówkiem,
-            # nic nie robimy
-            if region != "heading":
-
-                if tooltip is not None:
-                    tooltip.destroy()
-                    tooltip = None
-
-                return
-
-            kolumna = tabela.identify_column(event.x)
-
-            # Tooltip tylko dla kolumn DLP
-            if kolumna not in ("#6","#7","#9"):
-
-                if tooltip is not None:
-                    tooltip.destroy()
-                    tooltip = None
-
-                return
-
-            # Jeżeli tooltip już istnieje,
-            # nie tworzymy kolejnego
-            if tooltip is not None:
-                return
-
-            tooltip = tk.Toplevel(tabela)
-
-            tooltip.wm_overrideredirect(True)
-
-            tooltip.geometry(
-                f"+{event.x_root + 10}+"
-                f"{event.y_root + 10}"
-            )
-
-            if kolumna == "#6":
-                tresc_tooltipa = ("DPR – Diagnostyczny Poziom Referencyjny.\n"
+        KOLUMNY_OPISY_NAGLOWKOW = {
+            "#6": (
+                "DPR – Diagnostyczny Poziom Referencyjny.\n"
                 "Punkt odniesienia dla typowego pacjenta,\n"
                 "nie sztywny limit prawny. Może być\n"
-                "przekroczony przy uzasadnieniu klinicznym.")
-            elif kolumna == "#7":
-                tresc_tooltipa = ("DLP – iloczyn dawka-długość.\n"
+                "przekroczony przy uzasadnieniu klinicznym."
+            ),
+            "#7": (
+                "DLP – iloczyn dawka-długość.\n"
                 "Rzeczywista wartość zmierzona\n"
                 "u pacjenta dla pojedynczej fazy\n"
-                "badania — porównywana z DPR.")
-            elif kolumna == "#9":
-                tresc_tooltipa = ("Suma DLP z wszystkich\n"
-                "faz badania (informacyjnie).")
-            napis = tk.Label(
+                "badania — porównywana z DPR."
+            ),
+            "#9": (
+                "Suma DLP z wszystkich\n"
+                "faz badania (informacyjnie)."
+            ),
+        }
+
+        tooltip = None
+        tooltip_job = None
+
+        def zaplanuj_tooltip(event):
+            nonlocal tooltip_job
+
+            if tooltip_job is not None:
+                tabela.after_cancel(tooltip_job)
+                tooltip_job = None
+
+            ukryj_tooltip()
+
+            region = tabela.identify_region(event.x, event.y)
+            kolumna = tabela.identify_column(event.x)
+
+            if region == "heading" and kolumna in KOLUMNY_OPISY_NAGLOWKOW:
+                tooltip_job = tabela.after(
+                    400,
+                    lambda: pokaz_tooltip(KOLUMNY_OPISY_NAGLOWKOW[kolumna], event.x_root, event.y_root)
+                )
+                return
+
+            if region == "cell" and kolumna == "#3":
+                wiersz_id = tabela.identify_row(event.y)
+                if not wiersz_id:
+                    return
+                pelny_tekst = tabela.set(wiersz_id, "badanie")
+                tooltip_job = tabela.after(
+                    400,
+                    lambda: pokaz_tooltip(pelny_tekst, event.x_root, event.y_root)
+                )
+                return
+
+        def pokaz_tooltip(tresc, x_root, y_root):
+            nonlocal tooltip
+
+            tooltip = tk.Toplevel(tabela)
+            tooltip.wm_overrideredirect(True)
+            tooltip.geometry(f"+{x_root + 10}+{y_root + 10}")
+
+            tk.Label(
                 tooltip,
-                text=tresc_tooltipa,
+                text=tresc,
                 justify="left",
                 padx=10,
                 pady=8,
                 relief="solid",
-                wraplength=250,
+                wraplength=300,
                 borderwidth=1
-            )
+            ).pack()
 
-            napis.pack()
+        def ukryj_tooltip(event=None):
+            nonlocal tooltip, tooltip_job
 
-        def ukryj_tooltip(event):
-
-            nonlocal tooltip
+            if tooltip_job is not None:
+                tabela.after_cancel(tooltip_job)
+                tooltip_job = None
 
             if tooltip is not None:
                 tooltip.destroy()
                 tooltip = None
 
-        tabela.bind(
-            "<Motion>",
-            pokaz_tooltip
-        )
-
-        tabela.bind(
-            "<Leave>",
-            ukryj_tooltip
-        )
+        tabela.bind("<Motion>", zaplanuj_tooltip)
+        tabela.bind("<Leave>", ukryj_tooltip)
 
         # ==========================================
         # WSTAWIENIE DANYCH DO TABELI
