@@ -596,8 +596,46 @@ def pokaz_wykres(wybrany_wykres):
         pasek_poziomy2.grid(row=1, column=0, sticky="ew")
         ramka_tabeli.grid_rowconfigure(0, weight=1)
         ramka_tabeli.grid_columnconfigure(0, weight=1)
-        tooltip_analiza = None
 
+        KLASYFIKACJA_OPISY = {
+            "pacjent <16 lat": (
+                "Główną przyczyną przekroczenia jest wiek\n"
+                "pacjenta (<16 lat) - wymaga odrębnego\n"
+                "podejścia i referencji pediatrycznych."
+            ),
+            "protokół onkologiczny": (
+                "Przekroczenie wynika z charakteru\n"
+                "protokołu onkologicznego (wielofazowe\n"
+                "skanowanie: natywna/tętnicza/żylna)."
+            ),
+            "wielofazowe badanie": (
+                "Przekroczenie wiąże się z liczbą\n"
+                "wykonanych faz (2 lub więcej) -\n"
+                "sumaryczna dawka pacjenta rośnie."
+            ),
+            "wysokie DLP pojedynczej fazy": (
+                "Nawet pojedyncza faza ma dawkę\n"
+                "wyraźnie (≥20%) powyżej DPR -\n"
+                "warto zweryfikować parametry ekspozycji."
+            ),
+            "nadwaga/otyłość pacjenta": (
+                "Podwyższona dawka może wynikać\n"
+                "z wyższego BMI pacjenta (aparat\n"
+                "zwiększa ekspozycję dla jakości obrazu)."
+            ),
+            "połączenie kilku czynników": (
+                "Kilka czynników nakłada się jednocześnie -\n"
+                "zobacz kolumnę 'Aktywne czynniki',\n"
+                "żeby zobaczyć które dokładnie."
+            ),
+            "przekroczenie wymagające indywidualnej analizy": (
+                "Żaden ze znanych czynników (wiek, protokół,\n"
+                "liczba faz, wysokie DLP, BMI) nie tłumaczy\n"
+                "tego przekroczenia - może to być zwykły\n"
+                "szum pomiarowy/losowy, błąd protokołu\n"
+                "lub coś, co wymaga ręcznej weryfikacji."
+            ),
+        }
 
         tooltip_analiza = None
         tooltip_job = None
@@ -618,18 +656,25 @@ def pokaz_wykres(wybrany_wykres):
             kolumna = tabela_analizy.identify_column(event.x)
             wiersz_id = tabela_analizy.identify_row(event.y)
 
-            if kolumna != "#7" or not wiersz_id:
+            if kolumna not in ("#6", "#7") or not wiersz_id:
                 return
 
             tooltip_job = tabela_analizy.after(
                 400,
-                lambda: pokaz_tooltip_analiza(wiersz_id, event.x_root, event.y_root)
+                lambda: pokaz_tooltip_analiza(wiersz_id, kolumna, event.x_root, event.y_root)
             )
 
-        def pokaz_tooltip_analiza(wiersz_id, x_root, y_root):
+        def pokaz_tooltip_analiza(wiersz_id, kolumna, x_root, y_root):
             nonlocal tooltip_analiza
 
-            pelny_tekst = tabela_analizy.set(wiersz_id, "czynniki")
+            if kolumna == "#7":
+                pelny_tekst = tabela_analizy.set(wiersz_id, "czynniki")
+            else:  # "#6" - klasyfikacja
+                wartosc_klasyfikacji = tabela_analizy.set(wiersz_id, "klasyfikacja")
+                pelny_tekst = KLASYFIKACJA_OPISY.get(
+                    wartosc_klasyfikacji,
+                    "Brak dodatkowego opisu dla tej klasyfikacji."
+                )
 
             tooltip_analiza = tk.Toplevel(tabela_analizy)
             tooltip_analiza.wm_overrideredirect(True)
@@ -656,6 +701,9 @@ def pokaz_wykres(wybrany_wykres):
             if tooltip_analiza is not None:
                 tooltip_analiza.destroy()
                 tooltip_analiza = None
+
+        tabela_analizy.bind("<Motion>", zaplanuj_tooltip)
+        tabela_analizy.bind("<Leave>", ukryj_tooltip_analiza)
 
         tabela_analizy.bind("<Motion>", zaplanuj_tooltip)
         tabela_analizy.bind("<Leave>", ukryj_tooltip_analiza)
