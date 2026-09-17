@@ -96,3 +96,8 @@ WIDOKI_LICZEBNOSCI = {
         "kolory": [PALETA_KOLOROW[0], PALETA_KOLOROW[2]],
     },
 }
+GRANICE_WIEKU = [15, 17, 25, 35, 45, 55, 65, 75]
+
+ETYKIETY_GRUP_WIEKOWYCH = [
+    "<16 lat", "16-18", "19-25", "26-35", "36-45", "46-55", "56-65", "66-75", "powyżej 75 lat",
+]
