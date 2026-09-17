@@ -137,3 +137,7 @@ def kategoria_wiekowa(wiek):
         if wiek <= gorna_granica:
             return etykieta
     return ETYKIETY_GRUP_WIEKOWYCH[-1]
+
+def zbuduj_liste_wynikow(pacjenci):
+    """Uruchamia analizę dla każdego wiersza DataFrame i zwraca listę wyników."""
+    return [analizuj_pacjenta(wiersz) for _, wiersz in pacjenci.iterrows()]
