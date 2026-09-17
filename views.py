@@ -36,27 +36,20 @@ def pokaz_dashboard_przekroczenia(parent, dane):
     return _osadz_wykres(parent, fig)
 
 def pokaz_analize_przyczyn(parent, dane):
+    """Widok 'Analiza przyczyn przekroczeń' – panel podsumowania + tabela z checkboxami."""
     pacjenci = filtruj_przekroczenia(dane)
-    kolumny = ("patient_id", "okolica", "bmi", "kategoria_faz", "procent", "klasyfikacja", "czynniki")
-    naglowki = {"patient_id": "Pacjent", "okolica": "Okolica anatomiczna",
-                "bmi": "BMI (kategoria)", "kategoria_faz": "Liczba faz",
-                "procent": "% przekroczenia", "klasyfikacja": "Klasyfikacja przyczyny",
-                "czynniki": "Aktywne czynniki"}
-    szerokosci = {"patient_id": 70, "okolica": 150, "bmi": 160, "kategoria_faz": 90,
-                  "procent": 110, "klasyfikacja": 230, "czynniki": 280}
-    tabela = zbuduj_tabele(parent, kolumny, naglowki, szerokosci, {"okolica": "w", "klasyfikacja": "w"})
+    wyniki = zbuduj_liste_wynikow(pacjenci)
 
-    for _, wiersz in pacjenci.iterrows():
-        wynik = analizuj_pacjenta(wiersz)
-        tabela.insert("", "end", values=(
-            wiersz["patient_id"], wynik["okolica"],
-            f"{wynik['bmi']} ({wynik['kategoria_bmi']})", wynik["kategoria_faz"],
-            f"{wynik['procent_przekroczenia']:+.3f}%", wynik["klasyfikacja"],
-            wynik["aktywne_czynniki"],
-        ))
+    zbuduj_panel_podsumowania(parent, wyniki, KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW)
 
-    Tooltip(tabela, "#6", lambda wid: KLASYFIKACJA_OPISY.get(
-        tabela.set(wid, "klasyfikacja"), "Brak dodatkowego opisu dla tej klasyfikacji."))
+    kolumny, naglowki, szerokosci, kotwice = _kolumny_tabeli_przyczyn()
+    tabela = zbuduj_tabele(parent, kolumny, naglowki, szerokosci, kotwice)
+
+    for (_, wiersz), wynik in zip(pacjenci.iterrows(), wyniki):
+        tabela.insert("", "end", values=_wiersz_tabeli_przyczyn(wiersz["patient_id"], wynik))
+
+    _dodaj_tooltip_klasyfikacji(tabela)
+
     return tabela
 
 def pokaz_liczbe_pacjentow_wg_wieku(parent, dane):

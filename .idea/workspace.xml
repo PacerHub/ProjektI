@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="W main.py zamiana pokaz_tabele_przekroczenia na pokaz_dashboard przekroczenia">
-      <change beforePath="$PROJECT_DIR$/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/constants.py" afterDir="false" />
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Dodanie w aggregations funkcji do liczenia aktywnych czynników">
+      <change beforePath="$PROJECT_DIR$/widgets.py" beforeDir="false" afterPath="$PROJECT_DIR$/widgets.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,31 +81,7 @@
       <workItem from="1788801787493" duration="9373000" />
       <workItem from="1789060704905" duration="1221000" />
       <workItem from="1789485317387" duration="9331000" />
-      <workItem from="1789671908927" duration="5907000" />
-    </task>
-    <task id="LOCAL-00009" summary="Napis na górze, nad przyciskami, zmienione ,,dymki&quot; pod kursorem">
-      <option name="closed" value="true" />
-      <created>1788811208975</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1788811208975</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Poszerzenie belki w tabeli, podział tekstu na 2 linijki">
-      <option name="closed" value="true" />
-      <created>1788812348894</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1788812348894</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Poprawiony podpis kursora przy kolumnach w ostatniej tabeli">
-      <option name="closed" value="true" />
-      <created>1789061471545</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1789061471545</updated>
+      <workItem from="1789671908927" duration="6230000" />
     </task>
     <task id="LOCAL-00012" summary="Poprawiony podpis kursora przy kolumnach w ostatniej tabeli">
       <option name="closed" value="true" />
@@ -475,16 +451,37 @@
       <option name="project" value="LOCAL" />
       <updated>1789678117068</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="W constants.py dodanie kluczy czynników i etykiet czynników">
+      <option name="closed" value="true" />
+      <created>1789678178741</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1789678178741</updated>
+    </task>
+    <task id="LOCAL-00059" summary="W data_processing.py.py dodanie do zwracanego słownika klucza &quot;factors&quot;: factors (żeby dało się później sprawdzić, które czynniki są aktywne, kolumna po kolumnie).">
+      <option name="closed" value="true" />
+      <created>1789678330657</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1789678330658</updated>
+    </task>
+    <task id="LOCAL-00060" summary="Dodanie w aggregations funkcji do liczenia aktywnych czynników">
+      <option name="closed" value="true" />
+      <created>1789678401153</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1789678401153</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Utworzenie pliku charts, w którym będą wykresy" />
-    <MESSAGE value="Utworzenie wykresu słupkowego w pliku charts" />
-    <MESSAGE value="Skoro jest charts.py, to usuwam tworzenie wykresów z main.py" />
     <MESSAGE value="Dodanie formułu pobierającej wykres z charts.py" />
     <MESSAGE value="Utworzenie pliku widgets, w którym będą tooltipy" />
     <MESSAGE value="Przeniesienie poleceń tooltipów do pliku widgets.py" />
@@ -507,7 +504,10 @@
     <MESSAGE value="Dodanie w charts  czterech funkcji rysujących pojedyncze panele oraz funkcji składającej dashboard: narysuj_liczbe_faz, narysuj_protokol_onkologiczny, narysuj_rodzaj_badania, narysuj_wiek, zbuduj_dashboard_przekroczenia" />
     <MESSAGE value="W views zamiana pokaz_tabele_przekroczenia na pokaz_dashboard przekroczenia" />
     <MESSAGE value="W main.py zamiana pokaz_tabele_przekroczenia na pokaz_dashboard przekroczenia" />
-    <option name="LAST_COMMIT_MESSAGE" value="W main.py zamiana pokaz_tabele_przekroczenia na pokaz_dashboard przekroczenia" />
+    <MESSAGE value="W constants.py dodanie kluczy czynników i etykiet czynników" />
+    <MESSAGE value="W data_processing.py.py dodanie do zwracanego słownika klucza &quot;factors&quot;: factors (żeby dało się później sprawdzić, które czynniki są aktywne, kolumna po kolumnie)." />
+    <MESSAGE value="Dodanie w aggregations funkcji do liczenia aktywnych czynników" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dodanie w aggregations funkcji do liczenia aktywnych czynników" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1789659520225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
