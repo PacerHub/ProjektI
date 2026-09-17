@@ -19,3 +19,6 @@ def policz_kategorie_onkologiczne(kolumna_onko):
         else ("nie" if x is False or x == False else "nie dotyczy")
     )
     return kategorie.value_counts()
+
+def policz_aktywne_czynniki(wyniki, klucz_czynnika):
+    return sum(1 for wynik in wyniki if wynik["factors"][klucz_czynnika])
