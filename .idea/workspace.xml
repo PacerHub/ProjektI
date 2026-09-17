@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Dodanie charts budowanie wykresu kołowego">
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Utworzenie dashboardu 2x2 z wykresami zamiast tabeli z danymi w aggregations">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/charts.py" beforeDir="false" afterPath="$PROJECT_DIR$/charts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +53,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Python.Projekt-05-09-26.executor": "Run",
     "Python.constants.executor": "Run",
+    "Python.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
@@ -81,47 +83,7 @@
       <workItem from="1788801787493" duration="9373000" />
       <workItem from="1789060704905" duration="1221000" />
       <workItem from="1789485317387" duration="9331000" />
-      <workItem from="1789671908927" duration="4159000" />
-    </task>
-    <task id="LOCAL-00001" summary="Tabela do przekroczonych dawek zrobiona, do zrobienia kursor, szerokość listy, szerokosc okna aplikacji.">
-      <option name="closed" value="true" />
-      <created>1788617388588</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1788617388588</updated>
-    </task>
-    <task id="LOCAL-00002" summary=" Nic">
-      <option name="closed" value="true" />
-      <created>1788617450821</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1788617450821</updated>
-    </task>
-    <task id="LOCAL-00003" summary=" 2">
-      <option name="closed" value="true" />
-      <created>1788618034145</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1788618034145</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Wstawiona tabela po przekroczeniu dawki">
-      <option name="closed" value="true" />
-      <created>1788618103963</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1788618103963</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Działa dymek nad kursorem, tabela, wyliczanie przekroczenia dawki.">
-      <option name="closed" value="true" />
-      <created>1788619947889</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1788619947889</updated>
+      <workItem from="1789671908927" duration="5582000" />
     </task>
     <task id="LOCAL-00006" summary="Poprawione podpisy pod kolumnami na wykresie I, zmienione obliczanie przekroczeń dla pojedynczej fazy, zamiast mnożenia wartości referencyjnych.">
       <option name="closed" value="true" />
@@ -443,20 +405,85 @@
       <option name="project" value="LOCAL" />
       <updated>1789676038003</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="rozszerz pokaz_liczebnosc_wg_kolumny o parametry typ_wykresu i kolory (gałąź if typ_wykresu == &quot;kolowy&quot;: ... else: ...)">
+      <option name="closed" value="true" />
+      <created>1789676447055</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1789676447055</updated>
+    </task>
+    <task id="LOCAL-00047" summary="rozszerz pokaz_liczebnosc_wg_kolumny o parametry typ_wykresu i kolory (gałąź if typ_wykresu == &quot;kolowy&quot;: ... else: ...)">
+      <option name="closed" value="true" />
+      <created>1789676593313</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1789676593313</updated>
+    </task>
+    <task id="LOCAL-00048" summary="rozszerz pokaz_liczebnosc_wg_kolumny o parametry typ_wykresu i kolory (gałąź if typ_wykresu == &quot;kolowy&quot;: ... else: ...)">
+      <option name="closed" value="true" />
+      <created>1789676598801</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1789676598801</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Zamiana gałęzi if/elif dla &quot;wg rodzaju badania&quot; i &quot;wg płci&quot; na jedną, sterowaną słownikiem WIDOKI_LICZEBNOSCI">
+      <option name="closed" value="true" />
+      <created>1789677024497</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1789677024497</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Dopisanie w constants.py granic wieku i etykiet grup wiekowych potrzebnych do wykresu">
+      <option name="closed" value="true" />
+      <created>1789677181730</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1789677181731</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Dopisanie w data_processing.py dopisz import GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH i funkcji do kategorii wiekowych">
+      <option name="closed" value="true" />
+      <created>1789677268799</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1789677268799</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Dopisanie w aggregations.py dopisz import ETYKIETY_GRUP_WIEKOWYCH i funkcji do liczenia wg grupy wiekowej">
+      <option name="closed" value="true" />
+      <created>1789677352448</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1789677352448</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Dodanie funkcji do zliczania pacjentów wg wieku">
+      <option name="closed" value="true" />
+      <created>1789677423156</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1789677423156</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Utworzenie dashboardu 2x2 z wykresami zamiast tabeli z danymi w aggregations">
+      <option name="closed" value="true" />
+      <created>1789677588344</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1789677588344</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Zmiana czcionki na Cambria" />
-    <MESSAGE value="Dodatkowe tooltipy w tabeli Pacjenci z przekroczoną dawką" />
-    <MESSAGE value="Zmiana nazwy na main, żeby porozbijać projekt na mniejsze pliki, z których każdy pełni inną rolę, aby uporządkować kod" />
-    <MESSAGE value="Dodanie pliku constants, aby umieścić w nim stałe konfiguracyjne aplikacji: mapowania, progi, etykiety i teksty opisowe." />
-    <MESSAGE value="Usunięcie:&#10;- linii dane = pd.read_csv(&quot;ct_patients_data.csv&quot;)-&gt; dopisanie zamiast tego from constants import EXAM_REGION, PROG_WYSOKIEGO_DLP_FAZY, RODZAJE_WIDOKOW, SCIEZKA_DANYCH, KLASYFIKACJA_OPISY&#10;- całego słownika EXAM_REGION = {...} (linie 81–99) — ponieważ jest teraz w constants.py&#10;- linii PROG_WYSOKIEGO_DLP_FAZY = 1.20&#10;- listy rodzaje_wykresow = [...] &#10;- lokalnego słownika KLASYFIKACJA_OPISY = {...} zdefiniowany wewnątrz pokaz_wykres (linie 595–633) — znowu w pliku constants" />
-    <MESSAGE value="Dodanie pliku data_processing.py" />
-    <MESSAGE value="W main.py usunięte funkcje:&#10;kategoria_liczby_faz, kategoria_bmi, klasyfikuj_przyczyne, analizuj_pacjenta&#10; - linie wczytania/oznaczenia danych na górze pliku" />
     <MESSAGE value="Dodanie pliku aggregations, który zbiera do jednej funkcji trzy prawie identyczne bloki  (rodzaj_badania_tk, wiek, plec), które liczą value_counts()" />
     <MESSAGE value="Usunięcie w main.py trzech gałęzi elif, które liczyły dane[&quot;...&quot;].value_counts()... i zamiana tego na wywołanie aggregations" />
     <MESSAGE value="Utworzenie pliku, w którym będą wykresy" />
@@ -475,10 +502,18 @@
     <MESSAGE value="Zmiana x.set_title(tytul) na _ustaw_tytul_panelu(ax, tytul) i dodaj kolory: kolory = kolory or _kolory_cyklicznie(len(counts)), a w counts.plot(kind=&quot;bar&quot;, ax=ax) dopisz color=kolory." />
     <MESSAGE value="Dodanie w constants widoków liczebnosci" />
     <MESSAGE value="Dodanie charts budowanie wykresu kołowego" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dodanie charts budowanie wykresu kołowego" />
+    <MESSAGE value="rozszerz pokaz_liczebnosc_wg_kolumny o parametry typ_wykresu i kolory (gałąź if typ_wykresu == &quot;kolowy&quot;: ... else: ...)" />
+    <MESSAGE value="Zamiana gałęzi if/elif dla &quot;wg rodzaju badania&quot; i &quot;wg płci&quot; na jedną, sterowaną słownikiem WIDOKI_LICZEBNOSCI" />
+    <MESSAGE value="Dopisanie w constants.py granic wieku i etykiet grup wiekowych potrzebnych do wykresu" />
+    <MESSAGE value="Dopisanie w data_processing.py dopisz import GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH i funkcji do kategorii wiekowych" />
+    <MESSAGE value="Dopisanie w aggregations.py dopisz import ETYKIETY_GRUP_WIEKOWYCH i funkcji do liczenia wg grupy wiekowej" />
+    <MESSAGE value="Dodanie funkcji do zliczania pacjentów wg wieku" />
+    <MESSAGE value="Utworzenie dashboardu 2x2 z wykresami zamiast tabeli z danymi w aggregations" />
+    <option name="LAST_COMMIT_MESSAGE" value="Utworzenie dashboardu 2x2 z wykresami zamiast tabeli z danymi w aggregations" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1789659520225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ProjektI$constants.coverage" NAME="constants Coverage Results" MODIFIED="1789675974157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ProjektI$main.coverage" NAME="main Coverage Results" MODIFIED="1789677079220" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

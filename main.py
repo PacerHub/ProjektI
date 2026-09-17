@@ -36,11 +36,11 @@ def wybierz_widok(wybrany, dane, kontener):
             wybrany,
             ustawienia["sortuj_wg_indeksu"],
             ustawienia["typ_wykresu"],
-            ustawienia["kolory"],
+            ustawienia["kolory"])
     elif wybrany == "Liczba pacjentów wg wieku":
         pokaz_liczebnosc_wg_kolumny(kontener, dane, "wiek", wybrany, sortuj_wg_indeksu=True)
     elif wybrany == "Pacjenci z przekroczoną dawką":
-        pokaz_tabele_przekroczenia(kontener, dane)
+        pokaz_dashboard_przekroczenia(kontener, dane)
     elif wybrany == "Analiza przyczyn przekroczeń":
         pokaz_analize_przyczyn(kontener, dane)
 
