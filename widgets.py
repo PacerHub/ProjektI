@@ -85,4 +85,4 @@ def zbuduj_tabele(parent, kolumny, naglowki, szerokosci, kotwice=None):
 
     return tabela
 
-def zbuduj_panel_podsumowania(parent, wyniki, klucze_czynnikow, etykiety_czynnikow)
+def zbuduj_panel_podsumowania(parent, wyniki, klucze_czynnikow, etykiety_czynnikow):
