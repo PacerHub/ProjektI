@@ -27,12 +27,18 @@ def wyczysc_kontener(kontener):
 
 
 def wybierz_widok(wybrany, dane, kontener):
-    if wybrany == "Liczba pacjentów wg rodzaju badania":
-        pokaz_liczebnosc_wg_kolumny(kontener, dane, "rodzaj_badania_tk", wybrany)
+    if wybrany in WIDOKI_LICZEBNOSCI:
+        ustawienia = WIDOKI_LICZEBNOSCI[wybrany]
+        pokaz_liczebnosc_wg_kolumny(
+            kontener,
+            dane,
+            ustawienia["kolumna"],
+            wybrany,
+            ustawienia["sortuj_wg_indeksu"],
+            ustawienia["typ_wykresu"],
+            ustawienia["kolory"],
     elif wybrany == "Liczba pacjentów wg wieku":
         pokaz_liczebnosc_wg_kolumny(kontener, dane, "wiek", wybrany, sortuj_wg_indeksu=True)
-    elif wybrany == "Liczba pacjentów wg płci":
-        pokaz_liczebnosc_wg_kolumny(kontener, dane, "plec", wybrany, sortuj_wg_indeksu=True)
     elif wybrany == "Pacjenci z przekroczoną dawką":
         pokaz_tabele_przekroczenia(kontener, dane)
     elif wybrany == "Analiza przyczyn przekroczeń":
