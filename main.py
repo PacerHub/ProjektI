@@ -10,18 +10,9 @@ from tkinter import ttk
 # =========================
 from constants import EXAM_REGION, PROG_WYSOKIEGO_DLP_FAZY, RODZAJE_WIDOKOW, SCIEZKA_DANYCH, KLASYFIKACJA_OPISY
 
-dane = pd.read_csv("ct_patients_data.csv")
-
-dane["przekroczenie_dlp"] = (
-        dane["dlp_zmierzony_na_faze_mGy_cm"]
-        > dane["dlp_referencyjny_na_faze_mGy_cm"]
-)
-
-
-dane["przekroczenie_o"] = (
-        dane["dlp_zmierzony_na_faze_mGy_cm"]
-        - dane["dlp_referencyjny_na_faze_mGy_cm"]
-)
+from data_processing import wczytaj_dane, oznacz_przekroczenia, analizuj_pacjenta
+...
+dane = oznacz_przekroczenia(wczytaj_dane(SCIEZKA_DANYCH))
 
 # =========================
 
@@ -68,92 +59,6 @@ miejsce_na_wykres.pack(
 # Na początku nie ma jeszcze wykresu
 canvas = None
 
-# =========================
-# MAPOWANIE BADAŃ NA OKOLICĘ ANATOMICZNĄ
-# =========================
-
-def kategoria_liczby_faz(n):
-    if n == 1:
-        return "1 faza"
-    elif n == 2:
-        return "2 fazy"
-    else:
-        return f"więcej faz ({n})"
-
-def kategoria_bmi(wiek, bmi):
-    if wiek < 16:
-        return "nie dotyczy (pacjent pediatryczny)"
-    elif bmi < 18.5:
-        return "niedowaga"
-    elif bmi < 25:
-        return "waga prawidłowa"
-    elif bmi < 30:
-        return "nadwaga"
-    else:
-        return "otyłość"
-
-
-def klasyfikuj_przyczyne(factors):
-    label_map = {
-        "pediatryczny": "pacjent <16 lat",
-        "onkologiczny": "protokół onkologiczny",
-        "wielofazowy": "wielofazowe badanie",
-        "wysoki_dlp_fazy": "wysokie DLP pojedynczej fazy",
-        "nadwaga_otylosc": "nadwaga/otyłość pacjenta",
-    }
-    active = [name for name, is_active in factors.items() if is_active]
-
-    if len(active) == 0:
-        return "przekroczenie wymagające indywidualnej analizy", []
-    elif len(active) == 1:
-        return label_map[active[0]], [label_map[active[0]]]
-    else:
-        return "połączenie kilku czynników", [label_map[a] for a in active]
-
-
-def analizuj_pacjenta(wiersz):
-    wiek = wiersz["wiek"]
-    jest_pediatryczny = bool(wiek < 16)
-
-    rodzaj_badania = wiersz["rodzaj_badania_tk"]
-    okolica = EXAM_REGION.get(rodzaj_badania, "nieznana")
-
-    liczba_faz = int(wiersz["liczba_faz"])
-    jest_wielofazowy = liczba_faz >= 2
-
-    protokol_onko_raw = wiersz["protokol_onkologiczny_jamy_brzusznej"]
-    jest_onkologiczny = bool(protokol_onko_raw is True or protokol_onko_raw == True)
-
-    dlp_ref = float(wiersz["dlp_referencyjny_na_faze_mGy_cm"])
-    dlp_faza = float(wiersz["dlp_zmierzony_na_faze_mGy_cm"])
-    ratio_na_faze = dlp_faza / dlp_ref
-    procent_przekroczenia = round((ratio_na_faze - 1) * 100, 3)
-
-
-    wysokie_dlp_pojedynczej_fazy = ratio_na_faze >= PROG_WYSOKIEGO_DLP_FAZY
-
-    bmi = float(wiersz["bmi"])
-    kat_bmi = kategoria_bmi(wiek, bmi)
-    ma_nadwage_lub_otylosc = bool((not jest_pediatryczny) and bmi >= 25)
-
-    factors = {
-        "pediatryczny": jest_pediatryczny,
-        "onkologiczny": jest_onkologiczny,
-        "wielofazowy": jest_wielofazowy,
-        "wysoki_dlp_fazy": wysokie_dlp_pojedynczej_fazy,
-        "nadwaga_otylosc": ma_nadwage_lub_otylosc,
-    }
-    klasyfikacja, aktywne_czynniki = klasyfikuj_przyczyne(factors)
-
-    return {
-        "okolica": okolica,
-        "kategoria_faz": kategoria_liczby_faz(liczba_faz),
-        "bmi": round(bmi, 1),
-        "kategoria_bmi": kat_bmi,
-        "procent_przekroczenia": procent_przekroczenia,
-        "klasyfikacja": klasyfikacja,
-        "aktywne_czynniki": ", ".join(aktywne_czynniki) if aktywne_czynniki else "brak",
-    }
 # =========================
 # FUNKCJA POKAZUJĄCA WYKRES
 # =========================
