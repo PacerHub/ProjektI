@@ -83,3 +83,8 @@ def pokaz_analize_przyczyn(parent, dane):
     Tooltip(tabela, "#6", lambda wid: KLASYFIKACJA_OPISY.get(
         tabela.set(wid, "klasyfikacja"), "Brak dodatkowego opisu dla tej klasyfikacji."))
     return tabela
+
+def pokaz_liczbe_pacjentow_wg_wieku(parent, dane):
+    counts = policz_wg_grupy_wiekowej(dane)
+    fig = zbuduj_wykres_liczebnosci(counts, "Liczba pacjentów wg wieku")
+    return _osadz_wykres(parent, fig)
