@@ -18,9 +18,15 @@ def _osadz_wykres(parent, fig):
     return canvas
 
 
-def pokaz_liczebnosc_wg_kolumny(parent, dane, kolumna, tytul, sortuj_wg_indeksu=False):
+def pokaz_liczebnosc_wg_kolumny(parent, dane, kolumna, tytul, sortuj_wg_indeksu=False, typ_wykresu="slupkowy", kolory=None):
+    """Widok wspólny dla przycisków 'Liczba pacjentów wg ...' (słupkowy albo kołowy)."""
     counts = policz_wg_kolumny(dane, kolumna, sortuj_wg_indeksu)
-    fig = zbuduj_wykres_liczebnosci(counts, tytul)
+
+    if typ_wykresu == "kolowy":
+        fig = zbuduj_wykres_kolowy_liczebnosci(counts, tytul, kolory)
+    else:
+        fig = zbuduj_wykres_liczebnosci(counts, tytul, kolory)
+
     return _osadz_wykres(parent, fig)
 
 
