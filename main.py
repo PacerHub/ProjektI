@@ -8,6 +8,7 @@ from tkinter import ttk
 # =========================
 # WCZYTANIE DANYCH
 # =========================
+from constants import EXAM_REGION, PROG_WYSOKIEGO_DLP_FAZY, RODZAJE_WIDOKOW, SCIEZKA_DANYCH, KLASYFIKACJA_OPISY
 
 dane = pd.read_csv("ct_patients_data.csv")
 
@@ -52,14 +53,6 @@ panel_wyboru = tk.Frame(okno)
 panel_wyboru.pack(pady=10)
 
 
-rodzaje_wykresow = [
-    "Liczba pacjentów wg rodzaju badania",
-    "Liczba pacjentów wg wieku",
-    "Liczba pacjentów wg płci",
-    "Pacjenci z przekroczoną dawką",
-    "Analiza przyczyn przekroczeń"
-]
-
 # =========================
 # MIEJSCE NA WYKRES
 # =========================
@@ -78,28 +71,6 @@ canvas = None
 # =========================
 # MAPOWANIE BADAŃ NA OKOLICĘ ANATOMICZNĄ
 # =========================
-EXAM_REGION = {
-    "Rutynowe badanie głowy lub mózgu": "głowa",
-    "Badanie twarzy i zatok": "głowa",
-    "Angio-TK głowy": "głowa",
-    "Rutynowe badanie klatki piersiowej": "klatka piersiowa",
-    "TK klatki piersiowej, wysoka rozdzielczość": "klatka piersiowa",
-    "Angio-TK serca i naczyń klatki piersiowej": "klatka piersiowa",
-    "Angio-TK aorty piersiowej": "klatka piersiowa",
-    "Rutynowe badanie brzucha lub jamy brzusznej": "jama brzuszna",
-    "Badanie wątroby i śledziony": "jama brzuszna",
-    "Angio-TK jamy brzusznej i miednicy mniejszej": "jama brzuszna / miednica",
-    "Rutynowe badanie miednicy lub narządów miednicy": "miednica",
-    "Badanie kości miednicy lub obręczy biodrowej": "miednica",
-    "TK kręgosłupa szyjnego": "kręgosłup",
-    "TK odcinka piersiowego kręgosłupa": "kręgosłup",
-    "TK odcinka lędźwiowo-krzyżowego kręgosłupa": "kręgosłup",
-    "TK szyi, tkanki miękkie": "szyja",
-    "Angio-TK tętnic szyjnych": "szyja",
-}
-
-PROG_WYSOKIEGO_DLP_FAZY = 1.20  # 20% powyżej wartości referencyjnej
-
 
 def kategoria_liczby_faz(n):
     if n == 1:
@@ -592,45 +563,6 @@ def pokaz_wykres(wybrany_wykres):
         ramka_tabeli.grid_rowconfigure(0, weight=1)
         ramka_tabeli.grid_columnconfigure(0, weight=1)
 
-        KLASYFIKACJA_OPISY = {
-            "pacjent <16 lat": (
-                "Główną przyczyną przekroczenia jest wiek\n"
-                "pacjenta (<16 lat) - wymaga odrębnego\n"
-                "podejścia i referencji pediatrycznych."
-            ),
-            "protokół onkologiczny": (
-                "Przekroczenie wynika z charakteru\n"
-                "protokołu onkologicznego (wielofazowe\n"
-                "skanowanie: natywna/tętnicza/żylna)."
-            ),
-            "wielofazowe badanie": (
-                "Przekroczenie wiąże się z liczbą\n"
-                "wykonanych faz (2 lub więcej) -\n"
-                "sumaryczna dawka pacjenta rośnie."
-            ),
-            "wysokie DLP pojedynczej fazy": (
-                "Nawet pojedyncza faza ma dawkę\n"
-                "wyraźnie (≥20%) powyżej DPR -\n"
-                "warto zweryfikować parametry ekspozycji."
-            ),
-            "nadwaga/otyłość pacjenta": (
-                "Podwyższona dawka może wynikać\n"
-                "z wyższego BMI pacjenta (aparat\n"
-                "zwiększa ekspozycję dla jakości obrazu)."
-            ),
-            "połączenie kilku czynników": (
-                "Kilka czynników nakłada się jednocześnie -\n"
-                "zobacz kolumnę 'Aktywne czynniki',\n"
-                "żeby zobaczyć które dokładnie."
-            ),
-            "przekroczenie wymagające indywidualnej analizy": (
-                "Żaden ze znanych czynników (wiek, protokół,\n"
-                "liczba faz, wysokie DLP, BMI) nie tłumaczy\n"
-                "tego przekroczenia - może to być zwykły\n"
-                "szum pomiarowy/losowy, błąd protokołu\n"
-                "lub coś, co wymaga ręcznej weryfikacji."
-            ),
-        }
 
         tooltip_analiza = None
         tooltip_job = None
