@@ -569,6 +569,12 @@ def pokaz_wykres(wybrany_wykres):
     ...
     liczba_badan = policz_wg_kolumny(dane, kolumna, sortuj_wg_indeksu)
 
+    from charts import zbuduj_wykres_liczebnosci
+    ...
+    fig = zbuduj_wykres_liczebnosci(liczba_badan, wybrany_wykres)
+    canvas = FigureCanvasTkAgg(fig, master=miejsce_na_wykres)
+    canvas.draw()
+    canvas.get_tk_widget().pack(fill="both", expand=True)
 
 # =========================
 # PRZYCISKI
