@@ -86,3 +86,30 @@ def zbuduj_tabele(parent, kolumny, naglowki, szerokosci, kotwice=None):
     return tabela
 
 def zbuduj_panel_podsumowania(parent, wyniki, klucze_czynnikow, etykiety_czynnikow):
+    """Tworzy poziomy pasek 'kart', po jednej na czynnik, z liczbą aktywnych pacjentów."""
+    panel = tk.Frame(parent)
+    panel.pack(fill="x", padx=10, pady=(5, 10))
+
+    liczba_wszystkich = len(wyniki)
+
+    for klucz in klucze_czynnikow:
+        liczba_aktywnych = policz_aktywne_czynniki(wyniki, klucz)
+
+        karta = tk.Frame(panel, relief="groove", borderwidth=1, padx=10, pady=6)
+        karta.pack(side="left", padx=5, fill="x", expand=True)
+
+        tk.Label(
+            karta,
+            text=f"{liczba_aktywnych}/{liczba_wszystkich}",
+            font=("Cambria", 15, "bold"),
+        ).pack()
+
+        tk.Label(
+            karta,
+            text=etykiety_czynnikow[klucz].replace("\n", " "),
+            font=("Cambria", 9),
+            wraplength=140,
+            justify="center",
+        ).pack()
+
+    return panel

@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Przebudowa pokaz_analize_przyczyn">
-      <change beforePath="$PROJECT_DIR$/data_processing.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_processing.py" afterDir="false" />
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Poprawka na import from constants import GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH zamiast samego import granice itd.">
+      <change beforePath="$PROJECT_DIR$/widgets.py" beforeDir="false" afterPath="$PROJECT_DIR$/widgets.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,6 +52,7 @@
     "Python.Projekt-05-09-26.executor": "Run",
     "Python.constants.executor": "Run",
     "Python.main.executor": "Run",
+    "Python.views.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
@@ -81,31 +82,7 @@
       <workItem from="1788801787493" duration="9373000" />
       <workItem from="1789060704905" duration="1221000" />
       <workItem from="1789485317387" duration="9331000" />
-      <workItem from="1789671908927" duration="6604000" />
-    </task>
-    <task id="LOCAL-00014" summary="Poprawiony podpis kursora przy kolumnach w ostatniej tabeli">
-      <option name="closed" value="true" />
-      <created>1789061595730</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1789061595730</updated>
-    </task>
-    <task id="LOCAL-00015" summary="Poprawki ostatniej tabeli">
-      <option name="closed" value="true" />
-      <created>1789062204711</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1789062204711</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Wstęp do analizy przyczyn przekroczeń dawek">
-      <option name="closed" value="true" />
-      <created>1789064175122</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1789064175122</updated>
+      <workItem from="1789671908927" duration="6956000" />
     </task>
     <task id="LOCAL-00017" summary="Dodanie BMI do analizowanych przyczyn przekroczeń">
       <option name="closed" value="true" />
@@ -475,16 +452,37 @@
       <option name="project" value="LOCAL" />
       <updated>1789678789396</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="Dodanie zbuduj liste wyników w data processing">
+      <option name="closed" value="true" />
+      <created>1789678868597</created>
+      <option name="number" value="00063" />
+      <option name="presentableId" value="LOCAL-00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1789678868597</updated>
+    </task>
+    <task id="LOCAL-00064" summary="Odświeżenie main po przeróbkach wszystkich pozostałych plików">
+      <option name="closed" value="true" />
+      <created>1789678955723</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1789678955723</updated>
+    </task>
+    <task id="LOCAL-00065" summary="Poprawka na import from constants import GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH zamiast samego import granice itd.">
+      <option name="closed" value="true" />
+      <created>1789679153433</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1789679153433</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Przeniesienie poleceń tooltipów do pliku widgets.py" />
-    <MESSAGE value="Usunięcie definicji tooltipów z main.py i budowanie ttk.Tressview oraz pasków przewijania (pionowy i poziomy)" />
-    <MESSAGE value="Dodanie pliku views.py, gdzie będą składane ,,widoki&quot;" />
     <MESSAGE value="Przeniesienie całej funkcji pokaz_wykres do views.py" />
     <MESSAGE value="Wyczyszczenie pliku main.py z funkcji pokaz_wykres, bo jest w  views.py" />
     <MESSAGE value="Dodanie palety kolorów do constants.py i jednolitej czcionki do tytułów wykresów (jeden rozmiar i grubość)" />
@@ -507,11 +505,15 @@
     <MESSAGE value="Dodanie w aggregations funkcji do liczenia aktywnych czynników" />
     <MESSAGE value="Dopisek funkcji zbuduj panel podsumowania w widgets.py" />
     <MESSAGE value="Przebudowa pokaz_analize_przyczyn" />
-    <option name="LAST_COMMIT_MESSAGE" value="Przebudowa pokaz_analize_przyczyn" />
+    <MESSAGE value="Dodanie zbuduj liste wyników w data processing" />
+    <MESSAGE value="Odświeżenie main po przeróbkach wszystkich pozostałych plików" />
+    <MESSAGE value="Poprawka na import from constants import GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH zamiast samego import granice itd." />
+    <option name="LAST_COMMIT_MESSAGE" value="Poprawka na import from constants import GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH zamiast samego import granice itd." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1789659520225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ProjektI$constants.coverage" NAME="constants Coverage Results" MODIFIED="1789675974157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ProjektI$main.coverage" NAME="main Coverage Results" MODIFIED="1789677079220" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ProjektI$views.coverage" NAME="views Coverage Results" MODIFIED="1789679001734" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ProjektI$main.coverage" NAME="main Coverage Results" MODIFIED="1789679161054" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
