@@ -87,3 +87,12 @@ PALETA_KOLOROW = [
     "#E56B6F",
     "#EAAC8B",
 ]
+WIDOKI_LICZEBNOSCI = {
+    "Liczba pacjentów wg rodzaju badania": {
+        "kolumna": "rodzaj_badania_tk", "sortuj_wg_indeksu": False, "typ_wykresu": "slupkowy", "kolory": None
+    },
+    "Liczba pacjentów wg płci": {
+        "kolumna": "plec", "sortuj_wg_indeksu": True, "typ_wykresu": "kolowy",
+        "kolory": [PALETA_KOLOROW[0], PALETA_KOLOROW[2]],
+    },
+}
