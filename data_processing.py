@@ -1,6 +1,8 @@
 """Wczytywanie danych oraz transformacje analityczne na poziomie pojedynczego pacjenta."""
 
 import pandas as pd
+import GRANICE_WIEKU
+import ETYKIETY_GRUP_WIEKOWYCH
 
 from constants import EXAM_REGION, PROG_WYSOKIEGO_DLP_FAZY
 
@@ -129,3 +131,8 @@ def analizuj_pacjenta(wiersz):
         "klasyfikacja": klasyfikacja,
         "aktywne_czynniki": ", ".join(aktywne_czynniki) if aktywne_czynniki else "brak",
     }
+def kategoria_wiekowa(wiek):
+    for gorna_granica, etykieta in zip(GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH):
+        if wiek <= gorna_granica:
+            return etykieta
+    return ETYKIETY_GRUP_WIEKOWYCH[-1]
