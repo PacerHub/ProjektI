@@ -7,8 +7,8 @@ from constants import PALETA_KOLOROW, ROZMIAR_TYTULU_WYKRESU, GRUBOSC_TYTULU_WYK
 def zbuduj_wykres_liczebnosci(counts, tytul, kolory=None):
     """Buduje pojedynczy wykres słupkowy liczebności z gotowej serii `counts`."""
     fig, ax = plt.subplots(figsize=(10, 6))
-    counts.plot(kind="bar", ax=ax)
-    ax.set_title(tytul)
+    counts.plot(kind="bar", ax=ax, color = kolory)
+    _ustaw_tytul_panelu(ax, tytul,kolory = kolory or _kolory_cyklicznie(len(counts)))
     ax.set_xlabel(tytul)
     ax.set_ylabel("Liczba pacjentów")
     ax.set_yticks(range(0, counts.max() + 1))
