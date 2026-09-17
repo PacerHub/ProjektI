@@ -565,25 +565,9 @@ def pokaz_wykres(wybrany_wykres):
     # ==========================================
     # WYKRES
     # ==========================================
-
-    if wybrany_wykres == "Liczba pacjentów wg rodzaju badania":
-
-        liczba_badan = dane[
-            "rodzaj_badania_tk"
-        ].value_counts()
-
-    elif wybrany_wykres == "Liczba pacjentów wg wieku":
-
-        liczba_badan = dane[
-            "wiek"
-        ].value_counts().sort_index()
-
-    elif wybrany_wykres == "Liczba pacjentów wg płci":
-
-        liczba_badan = dane[
-            "plec"
-        ].value_counts().sort_index()
-
+    from aggregations import policz_wg_kolumny
+    ...
+    liczba_badan = policz_wg_kolumny(dane, kolumna, sortuj_wg_indeksu)
 
     # Tworzymy wykres
     fig, ax = plt.subplots(
