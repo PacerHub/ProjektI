@@ -30,35 +30,10 @@ def pokaz_liczebnosc_wg_kolumny(parent, dane, kolumna, tytul, sortuj_wg_indeksu=
     return _osadz_wykres(parent, fig)
 
 
-def pokaz_tabele_przekroczenia(parent, dane):
-    """Surowa tabela pacjentów z przekroczoną dawką (docelowo zastąpimy ją dashboardem)."""
+def pokaz_dashboard_przekroczenia(parent, dane):
     pacjenci = filtruj_przekroczenia(dane)
-    kolumny = ("patient_id", "wiek", "badanie", "fazy", "onkologiczny",
-               "dlp_referencyjny", "dlp_zmierzony", "przekroczenie", "dlp_lacznie")
-    naglowki = {"patient_id": "Pacjent", "wiek": "Wiek", "badanie": "Rodzaj badania",
-                "fazy": "Liczba faz", "onkologiczny": "Protokół onkologiczny",
-                "dlp_referencyjny": "DPR na fazę", "dlp_zmierzony": "DLP zmierzone na fazę",
-                "przekroczenie": "Przekroczenie", "dlp_lacznie": "DLP całego badania \n (informacyjnie)"}
-    szerokosci = {"patient_id": 80, "wiek": 60, "badanie": 220, "fazy": 80,
-                  "onkologiczny": 160, "dlp_referencyjny": 150, "dlp_zmierzony": 150,
-                  "przekroczenie": 120, "dlp_lacznie": 120}
-    tabela = zbuduj_tabele(parent, kolumny, naglowki, szerokosci, {"badanie": "w"})
-
-    for _, wiersz in pacjenci.iterrows():
-        onko = wiersz["protokol_onkologiczny_jamy_brzusznej"]
-        onko_tekst = "nie dotyczy" if pd.isna(onko) else ("tak" if onko else "nie")
-        tabela.insert("", "end", values=(
-            wiersz["patient_id"], wiersz["wiek"], wiersz["rodzaj_badania_tk"],
-            wiersz["liczba_faz"], onko_tekst,
-            round(wiersz["dlp_referencyjny_na_faze_mGy_cm"], 1),
-            round(wiersz["dlp_zmierzony_na_faze_mGy_cm"], 1),
-            round(wiersz["przekroczenie_o"], 1),
-            round(wiersz["dlp_zmierzony_lacznie_mGy_cm"], 1),
-        ))
-
-    Tooltip(tabela, "#3", lambda wid: tabela.set(wid, "badanie"))
-    return tabela
-
+    fig = zbuduj_dashboard_przekroczenia(pacjenci)
+    return _osadz_wykres(parent, fig)
 
 def pokaz_analize_przyczyn(parent, dane):
     pacjenci = filtruj_przekroczenia(dane)
