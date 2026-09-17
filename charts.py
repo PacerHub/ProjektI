@@ -22,3 +22,12 @@ def _kolory_cyklicznie(n):
 
 def _ustaw_tytul_panelu(ax, tekst):
     ax.set_title(tekst, fontsize=ROZMIAR_TYTULU_WYKRESU, fontweight=GRUBOSC_TYTULU_WYKRESU)
+
+def zbuduj_wykres_kolowy_liczebnosci(counts, tytul, kolory=None):
+    fig, ax = plt.subplots(figsize=(8, 6))
+    kolory = kolory or _kolory_cyklicznie(len(counts))
+    ax.pie(counts.values, labels=counts.index, autopct="%1.0f%%", colors=kolory, startangle=90)
+    _ustaw_tytul_panelu(ax, tytul)
+    ax.axis("equal")
+    plt.tight_layout()
+    return fig

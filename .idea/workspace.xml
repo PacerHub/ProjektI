@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Wyczyszczenie pliku main.py z funkcji pokaz_wykres, bo jest w  views.py">
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Zmiana x.set_title(tytul) na _ustaw_tytul_panelu(ax, tytul) i dodaj kolory: kolory = kolory or _kolory_cyklicznie(len(counts)), a w counts.plot(kind=&quot;bar&quot;, ax=ax) dopisz color=kolory.">
       <change beforePath="$PROJECT_DIR$/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/constants.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -50,6 +50,7 @@
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Python.Projekt-05-09-26.executor": "Run",
+    "Python.constants.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.typescript.service.memoryLimit.init": "true",
@@ -79,7 +80,7 @@
       <workItem from="1788801787493" duration="9373000" />
       <workItem from="1789060704905" duration="1221000" />
       <workItem from="1789485317387" duration="9331000" />
-      <workItem from="1789671908927" duration="3206000" />
+      <workItem from="1789671908927" duration="3738000" />
     </task>
     <task id="LOCAL-00001" summary="Tabela do przekroczonych dawek zrobiona, do zrobienia kursor, szerokość listy, szerokosc okna aplikacji.">
       <option name="closed" value="true" />
@@ -401,16 +402,37 @@
       <option name="project" value="LOCAL" />
       <updated>1789675307533</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Dodanie palety kolorów do constants.py i jednolitej czcionki do tytułów wykresów (jeden rozmiar i grubość)">
+      <option name="closed" value="true" />
+      <created>1789675510699</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1789675510699</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Dodanie do charts.py importu palety kolorów i stylu czcionek wraz z funkcjami">
+      <option name="closed" value="true" />
+      <created>1789675707864</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1789675707864</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Zmiana x.set_title(tytul) na _ustaw_tytul_panelu(ax, tytul) i dodaj kolory: kolory = kolory or _kolory_cyklicznie(len(counts)), a w counts.plot(kind=&quot;bar&quot;, ax=ax) dopisz color=kolory.">
+      <option name="closed" value="true" />
+      <created>1789675941681</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1789675941681</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Wstęp do analizy przyczyn przekroczeń dawek" />
-    <MESSAGE value="Dodanie BMI do analizowanych przyczyn przekroczeń" />
-    <MESSAGE value="Poprawka dokładności wyliczania przekroczeń dawki do 3 miejsc po przecinku" />
     <MESSAGE value="Dodane tooltipy do kolumny 7 w analizie przyczyn przekroczeń" />
     <MESSAGE value="Dodane tooltipy do 6 i 7 kolumny w analizie przyczyn przekroczeń" />
     <MESSAGE value="Zmiana czcionki na Cambria" />
@@ -433,7 +455,10 @@
     <MESSAGE value="Dodanie pliku views.py, gdzie będą składane ,,widoki&quot;" />
     <MESSAGE value="Przeniesienie całej funkcji pokaz_wykres do views.py" />
     <MESSAGE value="Wyczyszczenie pliku main.py z funkcji pokaz_wykres, bo jest w  views.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Wyczyszczenie pliku main.py z funkcji pokaz_wykres, bo jest w  views.py" />
+    <MESSAGE value="Dodanie palety kolorów do constants.py i jednolitej czcionki do tytułów wykresów (jeden rozmiar i grubość)" />
+    <MESSAGE value="Dodanie do charts.py importu palety kolorów i stylu czcionek wraz z funkcjami" />
+    <MESSAGE value="Zmiana x.set_title(tytul) na _ustaw_tytul_panelu(ax, tytul) i dodaj kolory: kolory = kolory or _kolory_cyklicznie(len(counts)), a w counts.plot(kind=&quot;bar&quot;, ax=ax) dopisz color=kolory." />
+    <option name="LAST_COMMIT_MESSAGE" value="Zmiana x.set_title(tytul) na _ustaw_tytul_panelu(ax, tytul) i dodaj kolory: kolory = kolory or _kolory_cyklicznie(len(counts)), a w counts.plot(kind=&quot;bar&quot;, ax=ax) dopisz color=kolory." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1789659520225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
