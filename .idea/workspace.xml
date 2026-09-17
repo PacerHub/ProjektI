@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Utworzenie wykresu słupkowego w pliku charts">
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Przeniesienie poleceń tooltipów do pliku widgets.py">
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -79,7 +79,7 @@
       <workItem from="1788801787493" duration="9373000" />
       <workItem from="1789060704905" duration="1221000" />
       <workItem from="1789485317387" duration="9331000" />
-      <workItem from="1789671908927" duration="2310000" />
+      <workItem from="1789671908927" duration="2684000" />
     </task>
     <task id="LOCAL-00001" summary="Tabela do przekroczonych dawek zrobiona, do zrobienia kursor, szerokość listy, szerokosc okna aplikacji.">
       <option name="closed" value="true" />
@@ -337,17 +337,45 @@
       <option name="project" value="LOCAL" />
       <updated>1789674457531</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Skoro jest charts.py, to usuwam tworzenie wykresów z main.py">
+      <option name="closed" value="true" />
+      <created>1789674569753</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1789674569753</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Dodanie formułu pobierającej wykres z charts.py">
+      <option name="closed" value="true" />
+      <created>1789674646856</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1789674646856</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Utworzenie pliku widgets, w którym będą tooltipy">
+      <option name="closed" value="true" />
+      <created>1789674710409</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1789674710409</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Przeniesienie poleceń tooltipów do pliku widgets.py">
+      <option name="closed" value="true" />
+      <created>1789674758398</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1789674758398</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Wstawiona tabela po przekroczeniu dawki" />
-    <MESSAGE value="Działa dymek nad kursorem, tabela, wyliczanie przekroczenia dawki." />
-    <MESSAGE value="Poprawione podpisy pod kolumnami na wykresie I, zmienione obliczanie przekroczeń dla pojedynczej fazy, zamiast mnożenia wartości referencyjnych." />
-    <MESSAGE value="Zmiana listy na przyciski" />
     <MESSAGE value="Napis na górze, nad przyciskami, zmienione ,,dymki&quot; pod kursorem" />
     <MESSAGE value="Poszerzenie belki w tabeli, podział tekstu na 2 linijki" />
     <MESSAGE value="Poprawiony podpis kursora przy kolumnach w ostatniej tabeli" />
@@ -369,7 +397,11 @@
     <MESSAGE value="Utworzenie pliku, w którym będą wykresy" />
     <MESSAGE value="Utworzenie pliku charts, w którym będą wykresy" />
     <MESSAGE value="Utworzenie wykresu słupkowego w pliku charts" />
-    <option name="LAST_COMMIT_MESSAGE" value="Utworzenie wykresu słupkowego w pliku charts" />
+    <MESSAGE value="Skoro jest charts.py, to usuwam tworzenie wykresów z main.py" />
+    <MESSAGE value="Dodanie formułu pobierającej wykres z charts.py" />
+    <MESSAGE value="Utworzenie pliku widgets, w którym będą tooltipy" />
+    <MESSAGE value="Przeniesienie poleceń tooltipów do pliku widgets.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Przeniesienie poleceń tooltipów do pliku widgets.py" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1789659520225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
