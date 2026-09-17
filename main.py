@@ -569,57 +569,6 @@ def pokaz_wykres(wybrany_wykres):
     ...
     liczba_badan = policz_wg_kolumny(dane, kolumna, sortuj_wg_indeksu)
 
-    # Tworzymy wykres
-    fig, ax = plt.subplots(
-        figsize=(10, 6)
-    )
-
-    liczba_badan.plot(
-        kind="bar",
-        ax=ax
-    )
-
-    ax.set_title(
-        wybrany_wykres
-    )
-
-    ax.set_xlabel(
-        wybrany_wykres
-    )
-
-    ax.set_yticks(
-        range(
-            0,
-            liczba_badan.max() + 1
-        )
-    )
-
-    ax.set_ylabel(
-        "Liczba pacjentów"
-    )
-
-    plt.setp(
-        ax.get_xticklabels(),
-        rotation=45,
-        ha="right",
-    )
-
-    plt.tight_layout()
-
-    # Umieszczenie wykresu w Tkinterze
-    canvas = FigureCanvasTkAgg(
-        fig,
-        master=miejsce_na_wykres
-    )
-
-    canvas.draw()
-
-    canvas.get_tk_widget().pack(
-        fill="both",
-        expand=True
-    )
-
-
 
 # =========================
 # PRZYCISKI
