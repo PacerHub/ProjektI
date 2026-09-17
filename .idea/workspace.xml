@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Zmiana x.set_title(tytul) na _ustaw_tytul_panelu(ax, tytul) i dodaj kolory: kolory = kolory or _kolory_cyklicznie(len(counts)), a w counts.plot(kind=&quot;bar&quot;, ax=ax) dopisz color=kolory.">
-      <change beforePath="$PROJECT_DIR$/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/constants.py" afterDir="false" />
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Dodanie charts budowanie wykresu kołowego">
+      <change beforePath="$PROJECT_DIR$/charts.py" beforeDir="false" afterPath="$PROJECT_DIR$/charts.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +81,7 @@
       <workItem from="1788801787493" duration="9373000" />
       <workItem from="1789060704905" duration="1221000" />
       <workItem from="1789485317387" duration="9331000" />
-      <workItem from="1789671908927" duration="3738000" />
+      <workItem from="1789671908927" duration="4159000" />
     </task>
     <task id="LOCAL-00001" summary="Tabela do przekroczonych dawek zrobiona, do zrobienia kursor, szerokość listy, szerokosc okna aplikacji.">
       <option name="closed" value="true" />
@@ -426,15 +427,29 @@
       <option name="project" value="LOCAL" />
       <updated>1789675941681</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="Dodanie w constants widoków liczebnosci">
+      <option name="closed" value="true" />
+      <created>1789675997166</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1789675997166</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Dodanie charts budowanie wykresu kołowego">
+      <option name="closed" value="true" />
+      <created>1789676038003</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1789676038003</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Dodane tooltipy do kolumny 7 w analizie przyczyn przekroczeń" />
-    <MESSAGE value="Dodane tooltipy do 6 i 7 kolumny w analizie przyczyn przekroczeń" />
     <MESSAGE value="Zmiana czcionki na Cambria" />
     <MESSAGE value="Dodatkowe tooltipy w tabeli Pacjenci z przekroczoną dawką" />
     <MESSAGE value="Zmiana nazwy na main, żeby porozbijać projekt na mniejsze pliki, z których każdy pełni inną rolę, aby uporządkować kod" />
@@ -458,9 +473,12 @@
     <MESSAGE value="Dodanie palety kolorów do constants.py i jednolitej czcionki do tytułów wykresów (jeden rozmiar i grubość)" />
     <MESSAGE value="Dodanie do charts.py importu palety kolorów i stylu czcionek wraz z funkcjami" />
     <MESSAGE value="Zmiana x.set_title(tytul) na _ustaw_tytul_panelu(ax, tytul) i dodaj kolory: kolory = kolory or _kolory_cyklicznie(len(counts)), a w counts.plot(kind=&quot;bar&quot;, ax=ax) dopisz color=kolory." />
-    <option name="LAST_COMMIT_MESSAGE" value="Zmiana x.set_title(tytul) na _ustaw_tytul_panelu(ax, tytul) i dodaj kolory: kolory = kolory or _kolory_cyklicznie(len(counts)), a w counts.plot(kind=&quot;bar&quot;, ax=ax) dopisz color=kolory." />
+    <MESSAGE value="Dodanie w constants widoków liczebnosci" />
+    <MESSAGE value="Dodanie charts budowanie wykresu kołowego" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dodanie charts budowanie wykresu kołowego" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1789659520225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ProjektI$constants.coverage" NAME="constants Coverage Results" MODIFIED="1789675974157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
