@@ -12,3 +12,10 @@ def policz_wg_kolumny(dane, kolumna, sortuj_wg_indeksu=False):
     """Zlicza wystąpienia wartości w danej kolumnie DataFrame."""
     counts = dane[kolumna].value_counts()
     return counts.sort_index() if sortuj_wg_indeksu else counts
+
+def policz_kategorie_onkologiczne(kolumna_onko):
+    kategorie = kolumna_onko.apply(
+        lambda x: "tak" if x is True or x == True
+        else ("nie" if x is False or x == False else "nie dotyczy")
+    )
+    return kategorie.value_counts()
