@@ -1,10 +1,7 @@
 """Wczytywanie danych oraz transformacje analityczne na poziomie pojedynczego pacjenta."""
 
 import pandas as pd
-import GRANICE_WIEKU
-import ETYKIETY_GRUP_WIEKOWYCH
-
-from constants import EXAM_REGION, PROG_WYSOKIEGO_DLP_FAZY
+from constants import GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH, EXAM_REGION, PROG_WYSOKIEGO_DLP_FAZY
 
 
 def wczytaj_dane(sciezka):
