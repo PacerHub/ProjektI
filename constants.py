@@ -75,3 +75,15 @@ KLASYFIKACJA_OPISY = {
         "lub coś, co wymaga ręcznej weryfikacji."
     ),
 }
+
+ROZMIAR_TYTULU_WYKRESU = 13
+ROZMIAR_TYTULU_DASHBOARDU = 15
+GRUBOSC_TYTULU_WYKRESU = "bold"
+
+PALETA_KOLOROW = [
+    "#355070",
+    "#6D597A",
+    "#B56576",
+    "#E56B6F",
+    "#EAAC8B",
+]
