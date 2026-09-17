@@ -1,6 +1,7 @@
 """Budowa wykresów matplotlib."""
 
 import matplotlib.pyplot as plt
+from constants import PALETA_KOLOROW, ROZMIAR_TYTULU_WYKRESU, GRUBOSC_TYTULU_WYKRESU
 
 
 def zbuduj_wykres_liczebnosci(counts, tytul, kolory=None):
@@ -14,3 +15,10 @@ def zbuduj_wykres_liczebnosci(counts, tytul, kolory=None):
     plt.setp(ax.get_xticklabels(), rotation=45, ha="right")
     plt.tight_layout()
     return fig
+
+def _kolory_cyklicznie(n):
+    return [PALETA_KOLOROW[i % len(PALETA_KOLOROW)] for i in range(n)]
+
+
+def _ustaw_tytul_panelu(ax, tekst):
+    ax.set_title(tekst, fontsize=ROZMIAR_TYTULU_WYKRESU, fontweight=GRUBOSC_TYTULU_WYKRESU)
