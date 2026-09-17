@@ -130,6 +130,7 @@ def analizuj_pacjenta(wiersz):
         "procent_przekroczenia": oblicz_procent_przekroczenia(stosunek_dlp),
         "klasyfikacja": klasyfikacja,
         "aktywne_czynniki": ", ".join(aktywne_czynniki) if aktywne_czynniki else "brak",
+        "factors": factors,
     }
 def kategoria_wiekowa(wiek):
     for gorna_granica, etykieta in zip(GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH):

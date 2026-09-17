@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Utworzenie dashboardu 2x2 z wykresami zamiast tabeli z danymi w aggregations">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/charts.py" beforeDir="false" afterPath="$PROJECT_DIR$/charts.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="W main.py zamiana pokaz_tabele_przekroczenia na pokaz_dashboard przekroczenia">
+      <change beforePath="$PROJECT_DIR$/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/constants.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,31 +81,7 @@
       <workItem from="1788801787493" duration="9373000" />
       <workItem from="1789060704905" duration="1221000" />
       <workItem from="1789485317387" duration="9331000" />
-      <workItem from="1789671908927" duration="5582000" />
-    </task>
-    <task id="LOCAL-00006" summary="Poprawione podpisy pod kolumnami na wykresie I, zmienione obliczanie przekroczeń dla pojedynczej fazy, zamiast mnożenia wartości referencyjnych.">
-      <option name="closed" value="true" />
-      <created>1788809493614</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1788809493614</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Poprawione podpisy pod kolumnami na wykresie I, zmienione obliczanie przekroczeń dla pojedynczej fazy, zamiast mnożenia wartości referencyjnych.">
-      <option name="closed" value="true" />
-      <created>1788809510189</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1788809510189</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Zmiana listy na przyciski">
-      <option name="closed" value="true" />
-      <created>1788810264800</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1788810264800</updated>
+      <workItem from="1789671908927" duration="5907000" />
     </task>
     <task id="LOCAL-00009" summary="Napis na górze, nad przyciskami, zmienione ,,dymki&quot; pod kursorem">
       <option name="closed" value="true" />
@@ -477,16 +451,37 @@
       <option name="project" value="LOCAL" />
       <updated>1789677588344</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="Dodanie w charts  czterech funkcji rysujących pojedyncze panele oraz funkcji składającej dashboard: narysuj_liczbe_faz, narysuj_protokol_onkologiczny, narysuj_rodzaj_badania, narysuj_wiek, zbuduj_dashboard_przekroczenia">
+      <option name="closed" value="true" />
+      <created>1789677865182</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1789677865183</updated>
+    </task>
+    <task id="LOCAL-00056" summary="W views zamiana pokaz_tabele_przekroczenia na pokaz_dashboard przekroczenia">
+      <option name="closed" value="true" />
+      <created>1789677959042</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1789677959042</updated>
+    </task>
+    <task id="LOCAL-00057" summary="W main.py zamiana pokaz_tabele_przekroczenia na pokaz_dashboard przekroczenia">
+      <option name="closed" value="true" />
+      <created>1789678117068</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1789678117068</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Dodanie pliku aggregations, który zbiera do jednej funkcji trzy prawie identyczne bloki  (rodzaj_badania_tk, wiek, plec), które liczą value_counts()" />
-    <MESSAGE value="Usunięcie w main.py trzech gałęzi elif, które liczyły dane[&quot;...&quot;].value_counts()... i zamiana tego na wywołanie aggregations" />
-    <MESSAGE value="Utworzenie pliku, w którym będą wykresy" />
     <MESSAGE value="Utworzenie pliku charts, w którym będą wykresy" />
     <MESSAGE value="Utworzenie wykresu słupkowego w pliku charts" />
     <MESSAGE value="Skoro jest charts.py, to usuwam tworzenie wykresów z main.py" />
@@ -509,7 +504,10 @@
     <MESSAGE value="Dopisanie w aggregations.py dopisz import ETYKIETY_GRUP_WIEKOWYCH i funkcji do liczenia wg grupy wiekowej" />
     <MESSAGE value="Dodanie funkcji do zliczania pacjentów wg wieku" />
     <MESSAGE value="Utworzenie dashboardu 2x2 z wykresami zamiast tabeli z danymi w aggregations" />
-    <option name="LAST_COMMIT_MESSAGE" value="Utworzenie dashboardu 2x2 z wykresami zamiast tabeli z danymi w aggregations" />
+    <MESSAGE value="Dodanie w charts  czterech funkcji rysujących pojedyncze panele oraz funkcji składającej dashboard: narysuj_liczbe_faz, narysuj_protokol_onkologiczny, narysuj_rodzaj_badania, narysuj_wiek, zbuduj_dashboard_przekroczenia" />
+    <MESSAGE value="W views zamiana pokaz_tabele_przekroczenia na pokaz_dashboard przekroczenia" />
+    <MESSAGE value="W main.py zamiana pokaz_tabele_przekroczenia na pokaz_dashboard przekroczenia" />
+    <option name="LAST_COMMIT_MESSAGE" value="W main.py zamiana pokaz_tabele_przekroczenia na pokaz_dashboard przekroczenia" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1789659520225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
