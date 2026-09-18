@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Poprawka w sekcji import from w views.py">
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Zamiana etykiety xlabel na pusty tekst, żeby nie było podpisu pod wykresem">
       <change beforePath="$PROJECT_DIR$/charts.py" beforeDir="false" afterPath="$PROJECT_DIR$/charts.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -82,39 +82,7 @@
       <workItem from="1788801787493" duration="9373000" />
       <workItem from="1789060704905" duration="1221000" />
       <workItem from="1789485317387" duration="9331000" />
-      <workItem from="1789671908927" duration="8785000" />
-    </task>
-    <task id="LOCAL-00021" summary="Zmiana czcionki na Cambria">
-      <option name="closed" value="true" />
-      <created>1789488626562</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1789488626562</updated>
-    </task>
-    <task id="LOCAL-00022" summary="Dodatkowe tooltipy w tabeli Pacjenci z przekroczoną dawką">
-      <option name="closed" value="true" />
-      <created>1789488876160</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1789488876160</updated>
-    </task>
-    <task id="LOCAL-00023" summary="Zmiana nazwy na main, żeby porozbijać projekt na mniejsze pliki, z których każdy pełni inną rolę, aby uporządkować kod">
-      <option name="closed" value="true" />
-      <created>1789673034069</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1789673034069</updated>
-    </task>
-    <task id="LOCAL-00024" summary="Dodanie pliku constants, aby umieścić w nim stałe konfiguracyjne aplikacji: mapowania, progi, etykiety i teksty opisowe.">
-      <option name="closed" value="true" />
-      <created>1789673182825</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1789673182825</updated>
+      <workItem from="1789671908927" duration="9604000" />
     </task>
     <task id="LOCAL-00025" summary="Usunięcie:&#10;- linii dane = pd.read_csv(&quot;ct_patients_data.csv&quot;)-&gt; dopisanie zamiast tego from constants import EXAM_REGION, PROG_WYSOKIEGO_DLP_FAZY, RODZAJE_WIDOKOW, SCIEZKA_DANYCH, KLASYFIKACJA_OPISY&#10;- całego słownika EXAM_REGION = {...} (linie 81–99) — ponieważ jest teraz w constants.py&#10;- linii PROG_WYSOKIEGO_DLP_FAZY = 1.20&#10;- listy rodzaje_wykresow = [...] &#10;- lokalnego słownika KLASYFIKACJA_OPISY = {...} zdefiniowany wewnątrz pokaz_wykres (linie 595–633) — znowu w pliku constants">
       <option name="closed" value="true" />
@@ -476,17 +444,45 @@
       <option name="project" value="LOCAL" />
       <updated>1789751499386</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="Usunięcie podwójnego podpisu wykresu (był na górze i na dole, został tylko na górze)">
+      <option name="closed" value="true" />
+      <created>1789751719937</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1789751719937</updated>
+    </task>
+    <task id="LOCAL-00071" summary="Poporawka w import from, dodałam ROZMIAR_TYTULU_DASHBOARDU">
+      <option name="closed" value="true" />
+      <created>1789751803386</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1789751803386</updated>
+    </task>
+    <task id="LOCAL-00072" summary="Zmiana w imporcie, dodałam from aggregations import policz_aktywne_czynniki">
+      <option name="closed" value="true" />
+      <created>1789751866186</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1789751866186</updated>
+    </task>
+    <task id="LOCAL-00073" summary="Zamiana etykiety xlabel na pusty tekst, żeby nie było podpisu pod wykresem">
+      <option name="closed" value="true" />
+      <created>1789752005020</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1789752005020</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Zmiana x.set_title(tytul) na _ustaw_tytul_panelu(ax, tytul) i dodaj kolory: kolory = kolory or _kolory_cyklicznie(len(counts)), a w counts.plot(kind=&quot;bar&quot;, ax=ax) dopisz color=kolory." />
-    <MESSAGE value="Dodanie w constants widoków liczebnosci" />
-    <MESSAGE value="Dodanie charts budowanie wykresu kołowego" />
-    <MESSAGE value="rozszerz pokaz_liczebnosc_wg_kolumny o parametry typ_wykresu i kolory (gałąź if typ_wykresu == &quot;kolowy&quot;: ... else: ...)" />
     <MESSAGE value="Zamiana gałęzi if/elif dla &quot;wg rodzaju badania&quot; i &quot;wg płci&quot; na jedną, sterowaną słownikiem WIDOKI_LICZEBNOSCI" />
     <MESSAGE value="Dopisanie w constants.py granic wieku i etykiet grup wiekowych potrzebnych do wykresu" />
     <MESSAGE value="Dopisanie w data_processing.py dopisz import GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH i funkcji do kategorii wiekowych" />
@@ -508,12 +504,16 @@
     <MESSAGE value="Dokończenie funkcji zbuduj_panel_podsumowania" />
     <MESSAGE value="Dodanie brakującej linijki w funkcji budującej wykres liczebności" />
     <MESSAGE value="Poprawka w sekcji import from w views.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Poprawka w sekcji import from w views.py" />
+    <MESSAGE value="Usunięcie podwójnego podpisu wykresu (był na górze i na dole, został tylko na górze)" />
+    <MESSAGE value="Poporawka w import from, dodałam ROZMIAR_TYTULU_DASHBOARDU" />
+    <MESSAGE value="Zmiana w imporcie, dodałam from aggregations import policz_aktywne_czynniki" />
+    <MESSAGE value="Zamiana etykiety xlabel na pusty tekst, żeby nie było podpisu pod wykresem" />
+    <option name="LAST_COMMIT_MESSAGE" value="Zamiana etykiety xlabel na pusty tekst, żeby nie było podpisu pod wykresem" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1789659520225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ProjektI$constants.coverage" NAME="constants Coverage Results" MODIFIED="1789675974157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ProjektI$views.coverage" NAME="views Coverage Results" MODIFIED="1789679001734" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ProjektI$main.coverage" NAME="main Coverage Results" MODIFIED="1789751563693" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ProjektI$main.coverage" NAME="main Coverage Results" MODIFIED="1789751893784" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

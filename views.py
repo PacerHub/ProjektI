@@ -35,6 +35,63 @@ def pokaz_dashboard_przekroczenia(parent, dane):
     fig = zbuduj_dashboard_przekroczenia(pacjenci)
     return _osadz_wykres(parent, fig)
 
+def _kolumny_tabeli_przyczyn():
+    """Definicja kolumn tabeli: nazwy, nagłówki, szerokości, wyrównanie."""
+    kolumny = ("patient_id", "okolica", "bmi", "kategoria_faz", "procent", "klasyfikacja", *KLUCZE_CZYNNIKOW)
+
+    naglowki = {
+        "patient_id": "Pacjent",
+        "okolica": "Okolica anatomiczna",
+        "bmi": "BMI (kategoria)",
+        "kategoria_faz": "Liczba faz",
+        "procent": "% przekroczenia",
+        "klasyfikacja": "Klasyfikacja przyczyny",
+        "pediatryczny": "<16 lat",
+        "onkologiczny": "Onko",
+        "wielofazowy": "Wielofazowe",
+        "wysoki_dlp_fazy": "Wysokie DLP",
+        "nadwaga_otylosc": "Nadwaga/\notyłość",
+    }
+
+    szerokosci = {
+        "patient_id": 65,
+        "okolica": 130,
+        "bmi": 150,
+        "kategoria_faz": 80,
+        "procent": 100,
+        "klasyfikacja": 200,
+        **{klucz: 85 for klucz in KLUCZE_CZYNNIKOW},
+    }
+
+    kotwice = {"okolica": "w", "klasyfikacja": "w"}
+
+    return kolumny, naglowki, szerokosci, kotwice
+
+
+def _wiersz_tabeli_przyczyn(patient_id, wynik):
+    """Buduje krotkę wartości do wstawienia w jeden wiersz tabeli przyczyn."""
+    return (
+        patient_id,
+        wynik["okolica"],
+        f"{wynik['bmi']} ({wynik['kategoria_bmi']})",
+        wynik["kategoria_faz"],
+        f"{wynik['procent_przekroczenia']:+.3f}%",
+        wynik["klasyfikacja"],
+        *("✓" if wynik["factors"][klucz] else "" for klucz in KLUCZE_CZYNNIKOW),
+    )
+
+
+def _dodaj_tooltip_klasyfikacji(tabela):
+    """Podpina tooltip z opisem klasyfikacji przyczyny do kolumny 'klasyfikacja'."""
+    return Tooltip(
+        tabela,
+        kolumna_docelowa="#6",
+        pobierz_tekst=lambda wiersz_id: KLASYFIKACJA_OPISY.get(
+            tabela.set(wiersz_id, "klasyfikacja"),
+            "Brak dodatkowego opisu dla tej klasyfikacji.",
+        ),
+    )
+
 def pokaz_analize_przyczyn(parent, dane):
     """Widok 'Analiza przyczyn przekroczeń' – panel podsumowania + tabela z checkboxami."""
     pacjenci = filtruj_przekroczenia(dane)
