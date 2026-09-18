@@ -4,11 +4,11 @@ import pandas as pd
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
-from constants import KLASYFIKACJA_OPISY
-from data_processing import filtruj_przekroczenia, analizuj_pacjenta
-from aggregations import policz_wg_kolumny
-from charts import zbuduj_wykres_liczebnosci
-from widgets import zbuduj_tabele, Tooltip
+from constants import KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW, KLASYFIKACJA_OPISY
+from data_processing import filtruj_przekroczenia, zbuduj_liste_wynikow
+from aggregations import policz_wg_kolumny, policz_wg_grupy_wiekowej
+from charts import zbuduj_dashboard_przekroczenia, zbuduj_wykres_liczebnosci, zbuduj_wykres_kolowy_liczebnosci
+from widgets import zbuduj_tabele, zbuduj_panel_podsumowania, Tooltip
 
 
 def _osadz_wykres(parent, fig):

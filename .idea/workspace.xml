@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Poprawka na import from constants import GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH zamiast samego import granice itd.">
-      <change beforePath="$PROJECT_DIR$/widgets.py" beforeDir="false" afterPath="$PROJECT_DIR$/widgets.py" afterDir="false" />
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Dokończenie funkcji zbuduj_panel_podsumowania">
+      <change beforePath="$PROJECT_DIR$/charts.py" beforeDir="false" afterPath="$PROJECT_DIR$/charts.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,23 +82,7 @@
       <workItem from="1788801787493" duration="9373000" />
       <workItem from="1789060704905" duration="1221000" />
       <workItem from="1789485317387" duration="9331000" />
-      <workItem from="1789671908927" duration="6956000" />
-    </task>
-    <task id="LOCAL-00017" summary="Dodanie BMI do analizowanych przyczyn przekroczeń">
-      <option name="closed" value="true" />
-      <created>1789064623760</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1789064623760</updated>
-    </task>
-    <task id="LOCAL-00018" summary="Poprawka dokładności wyliczania przekroczeń dawki do 3 miejsc po przecinku">
-      <option name="closed" value="true" />
-      <created>1789065378899</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1789065378899</updated>
+      <workItem from="1789671908927" duration="8352000" />
     </task>
     <task id="LOCAL-00019" summary="Dodane tooltipy do kolumny 7 w analizie przyczyn przekroczeń">
       <option name="closed" value="true" />
@@ -476,15 +460,29 @@
       <option name="project" value="LOCAL" />
       <updated>1789679153433</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="Brak dwukropka na końcu ostatniej funkcji- poprawka">
+      <option name="closed" value="true" />
+      <created>1789679226972</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1789679226972</updated>
+    </task>
+    <task id="LOCAL-00067" summary="Dokończenie funkcji zbuduj_panel_podsumowania">
+      <option name="closed" value="true" />
+      <created>1789679300930</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1789679300930</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Przeniesienie całej funkcji pokaz_wykres do views.py" />
-    <MESSAGE value="Wyczyszczenie pliku main.py z funkcji pokaz_wykres, bo jest w  views.py" />
     <MESSAGE value="Dodanie palety kolorów do constants.py i jednolitej czcionki do tytułów wykresów (jeden rozmiar i grubość)" />
     <MESSAGE value="Dodanie do charts.py importu palety kolorów i stylu czcionek wraz z funkcjami" />
     <MESSAGE value="Zmiana x.set_title(tytul) na _ustaw_tytul_panelu(ax, tytul) i dodaj kolory: kolory = kolory or _kolory_cyklicznie(len(counts)), a w counts.plot(kind=&quot;bar&quot;, ax=ax) dopisz color=kolory." />
@@ -508,12 +506,14 @@
     <MESSAGE value="Dodanie zbuduj liste wyników w data processing" />
     <MESSAGE value="Odświeżenie main po przeróbkach wszystkich pozostałych plików" />
     <MESSAGE value="Poprawka na import from constants import GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH zamiast samego import granice itd." />
-    <option name="LAST_COMMIT_MESSAGE" value="Poprawka na import from constants import GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH zamiast samego import granice itd." />
+    <MESSAGE value="Brak dwukropka na końcu ostatniej funkcji- poprawka" />
+    <MESSAGE value="Dokończenie funkcji zbuduj_panel_podsumowania" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dokończenie funkcji zbuduj_panel_podsumowania" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1789659520225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ProjektI$constants.coverage" NAME="constants Coverage Results" MODIFIED="1789675974157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ProjektI$views.coverage" NAME="views Coverage Results" MODIFIED="1789679001734" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ProjektI$main.coverage" NAME="main Coverage Results" MODIFIED="1789679161054" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ProjektI$main.coverage" NAME="main Coverage Results" MODIFIED="1789679306149" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
