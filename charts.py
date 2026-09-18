@@ -83,7 +83,6 @@ def zbuduj_wykres_liczebnosci(counts, tytul, kolory=None):
     kolory = kolory or _kolory_cyklicznie(len(counts))
     counts.plot(kind="bar", ax=ax, color = kolory)
     _ustaw_tytul_panelu(ax, tytul)
-    ax.set_xlabel(tytul)
     ax.set_ylabel("Liczba pacjentów")
     ax.set_yticks(range(0, counts.max() + 1))
 
