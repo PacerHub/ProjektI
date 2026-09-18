@@ -78,7 +78,8 @@ def zbuduj_dashboard_przekroczenia(pacjenci):
 
 
 def zbuduj_wykres_liczebnosci(counts, tytul, kolory=None):
-    """Buduje pojedynczy wykres słupkowy liczebności z gotowej serii `counts`."""
+    fig, ax = plt.subplots(figsize=(10, 6))
+
     kolory = kolory or _kolory_cyklicznie(len(counts))
     counts.plot(kind="bar", ax=ax, color = kolory)
     _ustaw_tytul_panelu(ax, tytul)
