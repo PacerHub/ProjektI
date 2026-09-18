@@ -2,7 +2,7 @@
 
 import tkinter as tk
 from tkinter import ttk
-
+from aggregations import policz_aktywne_czynniki
 
 class Tooltip:
     """Dymek podpowiedzi pokazywany po dłuższym najechaniu na wybraną kolumnę Treeview."""
