@@ -33,3 +33,22 @@ def policz_klasyfikacje(wyniki):
     """
     klasyfikacje = [w["klasyfikacja"] for w in wyniki if not w.get("podejrzany")]
     return pd.Series(klasyfikacje).value_counts()
+def wygeneruj_wnioski_pareto(counts):
+    """Generuje krótki opis tekstowy najważniejszych obserwacji z rozkładu Pareto."""
+    suma = counts.sum()
+    if suma == 0:
+        return "Brak przekroczeń dawki w bieżących danych."
+
+    najczestsza = counts.index[0]
+    udzial_najczestszej = counts.iloc[0] / suma * 100
+
+    skumulowany = counts.cumsum() / suma * 100
+    liczba_kategorii_do_80 = int((skumulowany < 80).sum()) + 1
+    liczba_kategorii_do_80 = min(liczba_kategorii_do_80, len(counts))
+
+    return (
+        f"Najczęstsza przyczyna: '{najczestsza}' — {counts.iloc[0]} z {suma} przypadków "
+        f"({udzial_najczestszej:.0f}%). "
+        f"{liczba_kategorii_do_80} z {len(counts)} kategorii odpowiada łącznie za "
+        f"{skumulowany.iloc[liczba_kategorii_do_80 - 1]:.0f}% wszystkich przekroczeń."
+    )
