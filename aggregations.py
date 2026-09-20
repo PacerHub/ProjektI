@@ -1,4 +1,5 @@
 """Agregacje: zamiana surowych danych na liczby gotowe do wyświetlenia."""
+import pandas as pd
 from constants import ETYKIETY_GRUP_WIEKOWYCH
 from data_processing import kategoria_wiekowa
 
@@ -22,3 +23,13 @@ def policz_kategorie_onkologiczne(kolumna_onko):
 
 def policz_aktywne_czynniki(wyniki, klucz_czynnika):
     return sum(1 for wynik in wyniki if wynik["factors"][klucz_czynnika])
+
+def policz_klasyfikacje(wyniki):
+    """Zlicza wystąpienia każdej klasyfikacji przyczyny przekroczenia, malejąco.
+
+    Pomija wiersze oznaczone jako podejrzane (`waliduj_dane`) - dla nich
+    klasyfikacja to tekst ostrzegawczy, nie prawdziwa przyczyna, więc
+    nie ma sensu wliczać ich do statystyki.
+    """
+    klasyfikacje = [w["klasyfikacja"] for w in wyniki if not w.get("podejrzany")]
+    return pd.Series(klasyfikacje).value_counts()
