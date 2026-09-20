@@ -100,3 +100,33 @@ def zbuduj_wykres_kolowy_liczebnosci(counts, tytul, kolory=None):
     ax.axis("equal")
     plt.tight_layout()
     return fig
+
+def zbuduj_wykres_pareto(counts, tytul="Pareto przyczyn przekroczeń"):
+    """Słupki liczebności klasyfikacji + linia skumulowanego procentu (zasada Pareto)."""
+    skumulowany_procent = counts.cumsum() / counts.sum() * 100
+
+    fig, ax1 = plt.subplots(figsize=(11, 6.5))
+    kolory = _kolory_cyklicznie(len(counts))
+
+    pozycje = range(len(counts))
+    ax1.bar(pozycje, counts.values, color=kolory)
+    ax1.set_xticks(pozycje)
+    ax1.set_xticklabels(counts.index, rotation=30, ha="right")
+    ax1.set_ylabel("Liczba pacjentów")
+    ax1.set_ylim(0, counts.max() * 1.2)
+
+    for x, y in zip(pozycje, counts.values):
+        ax1.text(x, y, str(y), ha="center", va="bottom", fontsize=9)
+
+    ax2 = ax1.twinx()
+    ax2.plot(pozycje, skumulowany_procent.values, color="#333333", marker="o", linewidth=1.5)
+    ax2.set_ylabel("Skumulowany %")
+    ax2.set_ylim(0, 110)
+
+    # linia pomocnicza na 80% - klasyczny próg zasady Pareto (80/20)
+    ax2.axhline(80, color="#B56576", linestyle="--", linewidth=1)
+    ax2.text(len(counts) - 1, 83, "80%", color="#B56576", ha="right", fontsize=9)
+
+    _ustaw_tytul_panelu(ax1, tytul)
+    plt.tight_layout()
+    return fig
