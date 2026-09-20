@@ -14,7 +14,9 @@ from views import (
     pokaz_liczbe_pacjentow_wg_wieku,
     pokaz_dashboard_przekroczenia,
     pokaz_analize_przyczyn,
+    pokaz_pareto_przyczyn,
 )
+
 
 
 def main():
@@ -27,9 +29,9 @@ def zbuduj_okno():
     """Tworzy i konfiguruje główne okno aplikacji."""
     okno = tk.Tk()
     okno.title("Analiza dawek TK")
-    okno.geometry("1200x800")
-    okno.minsize(1200, 800)
-    okno.maxsize(1200, 800)
+    okno.geometry("1400x800")
+    okno.minsize(1400, 800)
+    okno.maxsize(1400, 800)
     okno.option_add("*Font", "Cambria 10")
     return okno
 
@@ -56,13 +58,15 @@ def wybierz_widok(wybrany, dane, kontener):
             ustawienia["sortuj_wg_indeksu"],
             ustawienia["typ_wykresu"],
             ustawienia["kolory"],
-        )
+                    )
     elif wybrany == "Liczba pacjentów wg wieku":
         pokaz_liczbe_pacjentow_wg_wieku(kontener, dane)
     elif wybrany == "Pacjenci z przekroczoną dawką":
         pokaz_dashboard_przekroczenia(kontener, dane)
     elif wybrany == "Analiza przyczyn przekroczeń":
         pokaz_analize_przyczyn(kontener, dane)
+    elif wybrany == "Pareto przyczyn przekroczeń":
+        pokaz_pareto_przyczyn(kontener, dane)
 
 
 def dodaj_panel_przyciskow(okno, dane, kontener):
