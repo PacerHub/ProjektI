@@ -2,61 +2,59 @@
 
 import pandas as pd
 from constants import GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH, EXAM_REGION, PROG_WYSOKIEGO_DLP_FAZY
+from constants import (
+    EXAM_REGION, PROG_WYSOKIEGO_DLP_FAZY, GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH,
+    ZAKRES_WIEKU, ZAKRES_BMI, ZAKRES_LICZBY_FAZ, KLUCZE_CZYNNIKOW,
+)
 
+
+def oznacz_podejrzane_dane(dane):
+    """Oznacza wiersze z brakami lub wartościami spoza sensownego zakresu, BEZ usuwania ich."""
+    dane = dane.copy()
+    dane["podejrzany_wiersz"] = False
+    dane["powod_podejrzenia"] = ""
+
+    kolumny_wymagane = ["wiek", "bmi", "liczba_faz",
+                         "dlp_referencyjny_na_faze_mGy_cm", "dlp_zmierzony_na_faze_mGy_cm"]
+
+    for idx, wiersz in dane.iterrows():
+        powody = []
+
+        for kolumna in kolumny_wymagane:
+            if pd.isna(wiersz[kolumna]):
+                powody.append(f"brak wartości w '{kolumna}'")
+
+        if pd.notna(wiersz["wiek"]) and not (ZAKRES_WIEKU[0] <= wiersz["wiek"] <= ZAKRES_WIEKU[1]):
+            powody.append(f"wiek poza zakresem {ZAKRES_WIEKU}")
+
+        if pd.notna(wiersz["bmi"]) and not (ZAKRES_BMI[0] <= wiersz["bmi"] <= ZAKRES_BMI[1]):
+            powody.append(f"BMI poza zakresem {ZAKRES_BMI}")
+
+        if pd.notna(wiersz["liczba_faz"]) and not (ZAKRES_LICZBY_FAZ[0] <= wiersz["liczba_faz"] <= ZAKRES_LICZBY_FAZ[1]):
+            powody.append(f"liczba faz poza zakresem {ZAKRES_LICZBY_FAZ}")
+
+        if pd.notna(wiersz["dlp_referencyjny_na_faze_mGy_cm"]) and wiersz["dlp_referencyjny_na_faze_mGy_cm"] <= 0:
+            powody.append("DPR <= 0")
+
+        if pd.notna(wiersz["dlp_zmierzony_na_faze_mGy_cm"]) and wiersz["dlp_zmierzony_na_faze_mGy_cm"] < 0:
+            powody.append("DLP ujemne")
+
+        if powody:
+            dane.at[idx, "podejrzany_wiersz"] = True
+            dane.at[idx, "powod_podejrzenia"] = "; ".join(powody)
+
+    return dane
+
+
+def filtruj_bezpieczne(dane):
+    """Zwraca tylko wiersze BEZ oznaczenia 'podejrzany' - do wykresów zbiorczych/agregacji."""
+    if "podejrzany_wiersz" not in dane.columns:
+        return dane
+    return dane[~dane["podejrzany_wiersz"]]
 
 def wczytaj_dane(sciezka):
     """Wczytuje plik CSV z danymi pacjentów do DataFrame."""
     return pd.read_csv(sciezka)
-
-def waliduj_dane(dane):
-    """Sprawdza dane pod kątem braków i wartości spoza sensownego zakresu.
-
-    Nie rzuca wyjątku - zwraca (dane_oczyszczone, raport), żeby aplikacja
-    mogła dalej działać, a Ty mogłeś zobaczyć, co zostało pominięte i dlaczego.
-    """
-    dane = dane.copy()
-    problemy = []
-
-    kolumny_wymagane = [
-        "wiek", "bmi", "liczba_faz",
-        "dlp_referencyjny_na_faze_mGy_cm", "dlp_zmierzony_na_faze_mGy_cm",
-    ]
-
-    # --- braki w kolumnach, które muszą mieć wartość ---
-    for kolumna in kolumny_wymagane:
-        brakujace = dane[dane[kolumna].isna()]
-        if len(brakujace) > 0:
-            problemy.append(f"{len(brakujace)} wierszy z brakującą wartością w '{kolumna}'")
-
-    # --- wartości spoza sensownego zakresu ---
-    def poza_zakresem(kolumna, zakres):
-        dolny, gorny = zakres
-        maska = (dane[kolumna] < dolny) | (dane[kolumna] > gorny)
-        if maska.sum() > 0:
-            problemy.append(
-                f"{maska.sum()} wierszy z '{kolumna}' poza zakresem {zakres} "
-                f"(np. patient_id: {dane.loc[maska, 'patient_id'].tolist()[:5]})"
-            )
-        return maska
-
-    maska_odrzuconych = (
-        dane[kolumny_wymagane].isna().any(axis=1)
-        | poza_zakresem("wiek", ZAKRES_WIEKU)
-        | poza_zakresem("bmi", ZAKRES_BMI)
-        | poza_zakresem("liczba_faz", ZAKRES_LICZBY_FAZ)
-        | (dane["dlp_referencyjny_na_faze_mGy_cm"] <= 0)
-        | (dane["dlp_zmierzony_na_faze_mGy_cm"] < 0)
-    )
-
-    dane_oczyszczone = dane[~maska_odrzuconych].copy()
-
-    if maska_odrzuconych.any():
-        problemy.append(
-            f"ŁĄCZNIE odrzucono {maska_odrzuconych.sum()} z {len(dane)} wierszy "
-            f"(patient_id: {dane.loc[maska_odrzuconych, 'patient_id'].tolist()})"
-        )
-
-    return dane_oczyszczone, problemy
 
 
 def oznacz_przekroczenia(dane):
@@ -156,6 +154,20 @@ def klasyfikuj_przyczyne(factors):
 
 
 def analizuj_pacjenta(wiersz):
+    """Łączy powyższe pojedyncze transformacje w pełny wynik analizy dla jednego wiersza danych."""
+    if wiersz.get("podejrzany_wiersz", False):
+        return {
+            "okolica": "—",
+            "kategoria_faz": "—",
+            "bmi": None,
+            "kategoria_bmi": "—",
+            "procent_przekroczenia": None,
+            "klasyfikacja": f"⚠ dane do weryfikacji ({wiersz.get('powod_podejrzenia', 'nieznany powód')})",
+            "aktywne_czynniki": "brak (dane niepełne/błędne)",
+            "factors": {klucz: False for klucz in KLUCZE_CZYNNIKOW},
+            "podejrzany": True,
+        }
+
     wiek = wiersz["wiek"]
     bmi = float(wiersz["bmi"])
     liczba_faz = int(wiersz["liczba_faz"])
@@ -178,6 +190,7 @@ def analizuj_pacjenta(wiersz):
         "klasyfikacja": klasyfikacja,
         "aktywne_czynniki": ", ".join(aktywne_czynniki) if aktywne_czynniki else "brak",
         "factors": factors,
+        "podejrzany": False,
     }
 def kategoria_wiekowa(wiek):
     for gorna_granica, etykieta in zip(GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH):
