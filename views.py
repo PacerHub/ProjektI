@@ -1,6 +1,7 @@
 """Widoki aplikacji: jedna funkcja `pokaz_*` = jeden ekran wybierany przyciskiem."""
 
 import pandas as pd
+import tkinter as tk
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
