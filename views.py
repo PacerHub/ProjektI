@@ -109,15 +109,25 @@ def pokaz_analize_przyczyn(parent, dane):
 
     zbuduj_panel_podsumowania(parent, wyniki, KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW)
 
+    tk.Label(
+        parent,
+        text=wygeneruj_wnioski_analizy(wyniki),
+        font=("Cambria", 10),
+        wraplength=1100,
+        justify="center",
+        pady=8,
+    ).pack(fill="x")
+
     kolumny, naglowki, szerokosci, kotwice = _kolumny_tabeli_przyczyn()
     tabela = zbuduj_tabele(parent, kolumny, naglowki, szerokosci, kotwice)
-    tabela.tag_configure("podejrzany", background="#fff3cd")  # pastelowy żółty
+    tabela.tag_configure("podejrzany", background="#fff3cd")
 
     for (_, wiersz), wynik in zip(pacjenci.iterrows(), wyniki):
         tagi = ("podejrzany",) if wynik.get("podejrzany") else ()
         tabela.insert("", "end", values=_wiersz_tabeli_przyczyn(wiersz["patient_id"], wynik), tags=tagi)
 
     _dodaj_tooltip_klasyfikacji(tabela)
+
     return tabela
 
 def pokaz_liczbe_pacjentow_wg_wieku(parent, dane):
@@ -142,29 +152,3 @@ def pokaz_pareto_przyczyn(parent, dane):
     return _osadz_wykres(parent, fig)
 
 
-def pokaz_analize_przyczyn(parent, dane):
-    pacjenci = filtruj_przekroczenia(dane)
-    wyniki = zbuduj_liste_wynikow(pacjenci)
-
-    zbuduj_panel_podsumowania(parent, wyniki, KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW)
-
-    kolumny, naglowki, szerokosci, kotwice = _kolumny_tabeli_przyczyn()
-    tabela = zbuduj_tabele(parent, kolumny, naglowki, szerokosci, kotwice)
-    tabela.tag_configure("podejrzany", background="#fff3cd")
-
-    for (_, wiersz), wynik in zip(pacjenci.iterrows(), wyniki):
-        tagi = ("podejrzany",) if wynik.get("podejrzany") else ()
-        tabela.insert("", "end", values=_wiersz_tabeli_przyczyn(wiersz["patient_id"], wynik), tags=tagi)
-
-    _dodaj_tooltip_klasyfikacji(tabela)
-
-    tk.Label(
-        parent,
-        text=wygeneruj_wnioski_analizy(wyniki),
-        font=("Cambria", 10),
-        wraplength=1100,
-        justify="center",
-        pady=8,
-    ).pack(side="bottom", fill="x")
-
-    return tabela
