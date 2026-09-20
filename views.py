@@ -4,11 +4,13 @@ import pandas as pd
 import tkinter as tk
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-
+from aggregations import (
+    policz_wg_kolumny, policz_wg_grupy_wiekowej, policz_klasyfikacje,
+    wygeneruj_wnioski_pareto, wygeneruj_wnioski_analizy,
+)
 from constants import KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW, KLASYFIKACJA_OPISY
 from widgets import zbuduj_tabele, zbuduj_panel_podsumowania, Tooltip
 from data_processing import filtruj_przekroczenia, zbuduj_liste_wynikow, filtruj_bezpieczne
-from aggregations import policz_wg_kolumny, policz_wg_grupy_wiekowej, policz_klasyfikacje, wygeneruj_wnioski_pareto
 from charts import (
     zbuduj_dashboard_przekroczenia, zbuduj_wykres_liczebnosci,
     zbuduj_wykres_kolowy_liczebnosci, zbuduj_wykres_pareto,
@@ -138,3 +140,31 @@ def pokaz_pareto_przyczyn(parent, dane):
         pady=8,
     ).pack(side="bottom", fill="x")
     return _osadz_wykres(parent, fig)
+
+
+def pokaz_analize_przyczyn(parent, dane):
+    pacjenci = filtruj_przekroczenia(dane)
+    wyniki = zbuduj_liste_wynikow(pacjenci)
+
+    zbuduj_panel_podsumowania(parent, wyniki, KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW)
+
+    kolumny, naglowki, szerokosci, kotwice = _kolumny_tabeli_przyczyn()
+    tabela = zbuduj_tabele(parent, kolumny, naglowki, szerokosci, kotwice)
+    tabela.tag_configure("podejrzany", background="#fff3cd")
+
+    for (_, wiersz), wynik in zip(pacjenci.iterrows(), wyniki):
+        tagi = ("podejrzany",) if wynik.get("podejrzany") else ()
+        tabela.insert("", "end", values=_wiersz_tabeli_przyczyn(wiersz["patient_id"], wynik), tags=tagi)
+
+    _dodaj_tooltip_klasyfikacji(tabela)
+
+    tk.Label(
+        parent,
+        text=wygeneruj_wnioski_analizy(wyniki),
+        font=("Cambria", 10),
+        wraplength=1100,
+        justify="center",
+        pady=8,
+    ).pack(side="bottom", fill="x")
+
+    return tabela
