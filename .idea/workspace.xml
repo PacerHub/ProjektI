@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Dodanie do data_processing.py funkcji walidacji danych">
-      <change beforePath="$PROJECT_DIR$/data_processing.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_processing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Dodanie w main oznaczenia przekroczenia danych i oznaczenia podejrzanych danych">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/constants.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,31 +83,7 @@
       <workItem from="1788801787493" duration="9373000" />
       <workItem from="1789060704905" duration="1221000" />
       <workItem from="1789485317387" duration="9331000" />
-      <workItem from="1789671908927" duration="11375000" />
-    </task>
-    <task id="LOCAL-00029" summary="Usunięcie w main.py trzech gałęzi elif, które liczyły dane[&quot;...&quot;].value_counts()... i zamiana tego na wywołanie aggregations">
-      <option name="closed" value="true" />
-      <created>1789674314017</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1789674314017</updated>
-    </task>
-    <task id="LOCAL-00030" summary="Utworzenie pliku, w którym będą wykresy">
-      <option name="closed" value="true" />
-      <created>1789674352591</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1789674352591</updated>
-    </task>
-    <task id="LOCAL-00031" summary="Utworzenie pliku charts, w którym będą wykresy">
-      <option name="closed" value="true" />
-      <created>1789674378364</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1789674378364</updated>
+      <workItem from="1789671908927" duration="12599000" />
     </task>
     <task id="LOCAL-00032" summary="Utworzenie wykresu słupkowego w pliku charts">
       <option name="closed" value="true" />
@@ -477,16 +453,37 @@
       <option name="project" value="LOCAL" />
       <updated>1789922798965</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <task id="LOCAL-00078" summary="W data_processing.py zmiana funkcji walidacji danych, żeby nie były one usuwane, ale wyświetlane do weryfikacji">
+      <option name="closed" value="true" />
+      <created>1789923578261</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1789923578261</updated>
+    </task>
+    <task id="LOCAL-00079" summary="Dodanie w views filtracji danych (odróżnienie ,,podejrzanych&quot;) wyników">
+      <option name="closed" value="true" />
+      <created>1789923805515</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1789923805515</updated>
+    </task>
+    <task id="LOCAL-00080" summary="Dodanie w main oznaczenia przekroczenia danych i oznaczenia podejrzanych danych">
+      <option name="closed" value="true" />
+      <created>1789923954835</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1789923954835</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Dodanie funkcji do zliczania pacjentów wg wieku" />
-    <MESSAGE value="Utworzenie dashboardu 2x2 z wykresami zamiast tabeli z danymi w aggregations" />
-    <MESSAGE value="Dodanie w charts  czterech funkcji rysujących pojedyncze panele oraz funkcji składającej dashboard: narysuj_liczbe_faz, narysuj_protokol_onkologiczny, narysuj_rodzaj_badania, narysuj_wiek, zbuduj_dashboard_przekroczenia" />
     <MESSAGE value="W views zamiana pokaz_tabele_przekroczenia na pokaz_dashboard przekroczenia" />
     <MESSAGE value="W main.py zamiana pokaz_tabele_przekroczenia na pokaz_dashboard przekroczenia" />
     <MESSAGE value="W constants.py dodanie kluczy czynników i etykiet czynników" />
@@ -509,12 +506,15 @@
     <MESSAGE value="dodanie funkcji kolumny_tabeli_przyczyn, wiersz_tabeli_przyczyn, tooltip_klasyfikacji w views" />
     <MESSAGE value="Dodanie do constants.py granic wartości - do wykrywania błędnych/podejrzanych rekordów" />
     <MESSAGE value="Dodanie do data_processing.py funkcji walidacji danych" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dodanie do data_processing.py funkcji walidacji danych" />
+    <MESSAGE value="W data_processing.py zmiana funkcji walidacji danych, żeby nie były one usuwane, ale wyświetlane do weryfikacji" />
+    <MESSAGE value="Dodanie w views filtracji danych (odróżnienie ,,podejrzanych&quot;) wyników" />
+    <MESSAGE value="Dodanie w main oznaczenia przekroczenia danych i oznaczenia podejrzanych danych" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dodanie w main oznaczenia przekroczenia danych i oznaczenia podejrzanych danych" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1789659520225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ProjektI$constants.coverage" NAME="constants Coverage Results" MODIFIED="1789675974157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ProjektI$views.coverage" NAME="views Coverage Results" MODIFIED="1789679001734" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ProjektI$main.coverage" NAME="main Coverage Results" MODIFIED="1789752678874" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ProjektI$main.coverage" NAME="main Coverage Results" MODIFIED="1789924859157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

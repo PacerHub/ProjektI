@@ -33,8 +33,8 @@ RODZAJE_WIDOKOW = [
     "Liczba pacjentów wg płci",
     "Pacjenci z przekroczoną dawką",
     "Analiza przyczyn przekroczeń",
+    "Pareto przyczyn przekroczeń",
 ]
-
 # Etykiety klasyfikacji przyczyny -> opis pokazywany w tooltipie
 KLASYFIKACJA_OPISY = {
     "pacjent <16 lat": (
