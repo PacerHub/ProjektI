@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="dodanie funkcji kolumny_tabeli_przyczyn, wiersz_tabeli_przyczyn, tooltip_klasyfikacji w views">
-      <change beforePath="$PROJECT_DIR$/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/constants.py" afterDir="false" />
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Dodanie do data_processing.py funkcji walidacji danych">
+      <change beforePath="$PROJECT_DIR$/data_processing.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_processing.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,23 +83,7 @@
       <workItem from="1788801787493" duration="9373000" />
       <workItem from="1789060704905" duration="1221000" />
       <workItem from="1789485317387" duration="9331000" />
-      <workItem from="1789671908927" duration="10509000" />
-    </task>
-    <task id="LOCAL-00027" summary="W main.py usunięte funkcje:&#10;kategoria_liczby_faz, kategoria_bmi, klasyfikuj_przyczyne, analizuj_pacjenta&#10; - linie wczytania/oznaczenia danych na górze pliku">
-      <option name="closed" value="true" />
-      <created>1789674067736</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1789674067736</updated>
-    </task>
-    <task id="LOCAL-00028" summary="Dodanie pliku aggregations, który zbiera do jednej funkcji trzy prawie identyczne bloki  (rodzaj_badania_tk, wiek, plec), które liczą value_counts()">
-      <option name="closed" value="true" />
-      <created>1789674194227</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1789674194227</updated>
+      <workItem from="1789671908927" duration="11375000" />
     </task>
     <task id="LOCAL-00029" summary="Usunięcie w main.py trzech gałęzi elif, które liczyły dane[&quot;...&quot;].value_counts()... i zamiana tego na wywołanie aggregations">
       <option name="closed" value="true" />
@@ -476,15 +461,29 @@
       <option name="project" value="LOCAL" />
       <updated>1789752663589</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary="Dodanie do constants.py granic wartości - do wykrywania błędnych/podejrzanych rekordów">
+      <option name="closed" value="true" />
+      <created>1789922711083</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1789922711083</updated>
+    </task>
+    <task id="LOCAL-00077" summary="Dodanie do data_processing.py funkcji walidacji danych">
+      <option name="closed" value="true" />
+      <created>1789922798965</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1789922798965</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Dopisanie w data_processing.py dopisz import GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH i funkcji do kategorii wiekowych" />
-    <MESSAGE value="Dopisanie w aggregations.py dopisz import ETYKIETY_GRUP_WIEKOWYCH i funkcji do liczenia wg grupy wiekowej" />
     <MESSAGE value="Dodanie funkcji do zliczania pacjentów wg wieku" />
     <MESSAGE value="Utworzenie dashboardu 2x2 z wykresami zamiast tabeli z danymi w aggregations" />
     <MESSAGE value="Dodanie w charts  czterech funkcji rysujących pojedyncze panele oraz funkcji składającej dashboard: narysuj_liczbe_faz, narysuj_protokol_onkologiczny, narysuj_rodzaj_badania, narysuj_wiek, zbuduj_dashboard_przekroczenia" />
@@ -508,7 +507,9 @@
     <MESSAGE value="Zamiana etykiety xlabel na pusty tekst, żeby nie było podpisu pod wykresem" />
     <MESSAGE value="dodanie importu policz_kategorie_onkologiczne" />
     <MESSAGE value="dodanie funkcji kolumny_tabeli_przyczyn, wiersz_tabeli_przyczyn, tooltip_klasyfikacji w views" />
-    <option name="LAST_COMMIT_MESSAGE" value="dodanie funkcji kolumny_tabeli_przyczyn, wiersz_tabeli_przyczyn, tooltip_klasyfikacji w views" />
+    <MESSAGE value="Dodanie do constants.py granic wartości - do wykrywania błędnych/podejrzanych rekordów" />
+    <MESSAGE value="Dodanie do data_processing.py funkcji walidacji danych" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dodanie do data_processing.py funkcji walidacji danych" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1789659520225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

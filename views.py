@@ -5,11 +5,10 @@ import pandas as pd
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 from constants import KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW, KLASYFIKACJA_OPISY
-from data_processing import filtruj_przekroczenia, zbuduj_liste_wynikow
 from aggregations import policz_wg_kolumny, policz_wg_grupy_wiekowej
 from charts import zbuduj_dashboard_przekroczenia, zbuduj_wykres_liczebnosci, zbuduj_wykres_kolowy_liczebnosci
 from widgets import zbuduj_tabele, zbuduj_panel_podsumowania, Tooltip
-
+from data_processing import filtruj_przekroczenia, zbuduj_liste_wynikow, filtruj_bezpieczne
 
 def _osadz_wykres(parent, fig):
     canvas = FigureCanvasTkAgg(fig, master=parent)
@@ -19,8 +18,7 @@ def _osadz_wykres(parent, fig):
 
 
 def pokaz_liczebnosc_wg_kolumny(parent, dane, kolumna, tytul, sortuj_wg_indeksu=False, typ_wykresu="slupkowy", kolory=None):
-    """Widok wspólny dla przycisków 'Liczba pacjentów wg ...' (słupkowy albo kołowy)."""
-    counts = policz_wg_kolumny(dane, kolumna, sortuj_wg_indeksu)
+    counts = policz_wg_kolumny(filtruj_bezpieczne(dane), kolumna, sortuj_wg_indeksu)
 
     if typ_wykresu == "kolowy":
         fig = zbuduj_wykres_kolowy_liczebnosci(counts, tytul, kolory)
@@ -31,7 +29,7 @@ def pokaz_liczebnosc_wg_kolumny(parent, dane, kolumna, tytul, sortuj_wg_indeksu=
 
 
 def pokaz_dashboard_przekroczenia(parent, dane):
-    pacjenci = filtruj_przekroczenia(dane)
+    pacjenci = filtruj_przekroczenia(filtruj_bezpieczne(dane))
     fig = zbuduj_dashboard_przekroczenia(pacjenci)
     return _osadz_wykres(parent, fig)
 
@@ -70,12 +68,19 @@ def _kolumny_tabeli_przyczyn():
 
 def _wiersz_tabeli_przyczyn(patient_id, wynik):
     """Buduje krotkę wartości do wstawienia w jeden wiersz tabeli przyczyn."""
+    etykieta_pacjenta = f"⚠ {patient_id}" if wynik.get("podejrzany") else patient_id
+    bmi_tekst = (
+        f"{wynik['bmi']} ({wynik['kategoria_bmi']})" if wynik["bmi"] is not None else wynik["kategoria_bmi"]
+    )
+    procent_tekst = (
+        f"{wynik['procent_przekroczenia']:+.3f}%" if wynik["procent_przekroczenia"] is not None else "—"
+    )
     return (
-        patient_id,
+        etykieta_pacjenta,
         wynik["okolica"],
-        f"{wynik['bmi']} ({wynik['kategoria_bmi']})",
+        bmi_tekst,
         wynik["kategoria_faz"],
-        f"{wynik['procent_przekroczenia']:+.3f}%",
+        procent_tekst,
         wynik["klasyfikacja"],
         *("✓" if wynik["factors"][klucz] else "" for klucz in KLUCZE_CZYNNIKOW),
     )
@@ -93,7 +98,6 @@ def _dodaj_tooltip_klasyfikacji(tabela):
     )
 
 def pokaz_analize_przyczyn(parent, dane):
-    """Widok 'Analiza przyczyn przekroczeń' – panel podsumowania + tabela z checkboxami."""
     pacjenci = filtruj_przekroczenia(dane)
     wyniki = zbuduj_liste_wynikow(pacjenci)
 
@@ -101,15 +105,16 @@ def pokaz_analize_przyczyn(parent, dane):
 
     kolumny, naglowki, szerokosci, kotwice = _kolumny_tabeli_przyczyn()
     tabela = zbuduj_tabele(parent, kolumny, naglowki, szerokosci, kotwice)
+    tabela.tag_configure("podejrzany", background="#fff3cd")  # pastelowy żółty
 
     for (_, wiersz), wynik in zip(pacjenci.iterrows(), wyniki):
-        tabela.insert("", "end", values=_wiersz_tabeli_przyczyn(wiersz["patient_id"], wynik))
+        tagi = ("podejrzany",) if wynik.get("podejrzany") else ()
+        tabela.insert("", "end", values=_wiersz_tabeli_przyczyn(wiersz["patient_id"], wynik), tags=tagi)
 
     _dodaj_tooltip_klasyfikacji(tabela)
-
     return tabela
 
 def pokaz_liczbe_pacjentow_wg_wieku(parent, dane):
-    counts = policz_wg_grupy_wiekowej(dane)
+    counts = policz_wg_grupy_wiekowej(filtruj_bezpieczne(dane))
     fig = zbuduj_wykres_liczebnosci(counts, "Liczba pacjentów wg wieku")
     return _osadz_wykres(parent, fig)
