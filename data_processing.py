@@ -8,6 +8,56 @@ def wczytaj_dane(sciezka):
     """Wczytuje plik CSV z danymi pacjentów do DataFrame."""
     return pd.read_csv(sciezka)
 
+def waliduj_dane(dane):
+    """Sprawdza dane pod kątem braków i wartości spoza sensownego zakresu.
+
+    Nie rzuca wyjątku - zwraca (dane_oczyszczone, raport), żeby aplikacja
+    mogła dalej działać, a Ty mogłeś zobaczyć, co zostało pominięte i dlaczego.
+    """
+    dane = dane.copy()
+    problemy = []
+
+    kolumny_wymagane = [
+        "wiek", "bmi", "liczba_faz",
+        "dlp_referencyjny_na_faze_mGy_cm", "dlp_zmierzony_na_faze_mGy_cm",
+    ]
+
+    # --- braki w kolumnach, które muszą mieć wartość ---
+    for kolumna in kolumny_wymagane:
+        brakujace = dane[dane[kolumna].isna()]
+        if len(brakujace) > 0:
+            problemy.append(f"{len(brakujace)} wierszy z brakującą wartością w '{kolumna}'")
+
+    # --- wartości spoza sensownego zakresu ---
+    def poza_zakresem(kolumna, zakres):
+        dolny, gorny = zakres
+        maska = (dane[kolumna] < dolny) | (dane[kolumna] > gorny)
+        if maska.sum() > 0:
+            problemy.append(
+                f"{maska.sum()} wierszy z '{kolumna}' poza zakresem {zakres} "
+                f"(np. patient_id: {dane.loc[maska, 'patient_id'].tolist()[:5]})"
+            )
+        return maska
+
+    maska_odrzuconych = (
+        dane[kolumny_wymagane].isna().any(axis=1)
+        | poza_zakresem("wiek", ZAKRES_WIEKU)
+        | poza_zakresem("bmi", ZAKRES_BMI)
+        | poza_zakresem("liczba_faz", ZAKRES_LICZBY_FAZ)
+        | (dane["dlp_referencyjny_na_faze_mGy_cm"] <= 0)
+        | (dane["dlp_zmierzony_na_faze_mGy_cm"] < 0)
+    )
+
+    dane_oczyszczone = dane[~maska_odrzuconych].copy()
+
+    if maska_odrzuconych.any():
+        problemy.append(
+            f"ŁĄCZNIE odrzucono {maska_odrzuconych.sum()} z {len(dane)} wierszy "
+            f"(patient_id: {dane.loc[maska_odrzuconych, 'patient_id'].tolist()})"
+        )
+
+    return dane_oczyszczone, problemy
+
 
 def oznacz_przekroczenia(dane):
     """Dodaje kolumny opisujące przekroczenie DLP: flagę bool i wartość liczbową."""

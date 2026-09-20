@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Zamiana etykiety xlabel na pusty tekst, żeby nie było podpisu pod wykresem">
-      <change beforePath="$PROJECT_DIR$/charts.py" beforeDir="false" afterPath="$PROJECT_DIR$/charts.py" afterDir="false" />
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="dodanie funkcji kolumny_tabeli_przyczyn, wiersz_tabeli_przyczyn, tooltip_klasyfikacji w views">
+      <change beforePath="$PROJECT_DIR$/constants.py" beforeDir="false" afterPath="$PROJECT_DIR$/constants.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,23 +82,7 @@
       <workItem from="1788801787493" duration="9373000" />
       <workItem from="1789060704905" duration="1221000" />
       <workItem from="1789485317387" duration="9331000" />
-      <workItem from="1789671908927" duration="9604000" />
-    </task>
-    <task id="LOCAL-00025" summary="Usunięcie:&#10;- linii dane = pd.read_csv(&quot;ct_patients_data.csv&quot;)-&gt; dopisanie zamiast tego from constants import EXAM_REGION, PROG_WYSOKIEGO_DLP_FAZY, RODZAJE_WIDOKOW, SCIEZKA_DANYCH, KLASYFIKACJA_OPISY&#10;- całego słownika EXAM_REGION = {...} (linie 81–99) — ponieważ jest teraz w constants.py&#10;- linii PROG_WYSOKIEGO_DLP_FAZY = 1.20&#10;- listy rodzaje_wykresow = [...] &#10;- lokalnego słownika KLASYFIKACJA_OPISY = {...} zdefiniowany wewnątrz pokaz_wykres (linie 595–633) — znowu w pliku constants">
-      <option name="closed" value="true" />
-      <created>1789673656961</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1789673656961</updated>
-    </task>
-    <task id="LOCAL-00026" summary="Dodanie pliku data_processing.py">
-      <option name="closed" value="true" />
-      <created>1789673779992</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1789673779992</updated>
+      <workItem from="1789671908927" duration="10509000" />
     </task>
     <task id="LOCAL-00027" summary="W main.py usunięte funkcje:&#10;kategoria_liczby_faz, kategoria_bmi, klasyfikuj_przyczyne, analizuj_pacjenta&#10; - linie wczytania/oznaczenia danych na górze pliku">
       <option name="closed" value="true" />
@@ -476,15 +460,29 @@
       <option name="project" value="LOCAL" />
       <updated>1789752005020</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="dodanie importu policz_kategorie_onkologiczne">
+      <option name="closed" value="true" />
+      <created>1789752535386</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1789752535386</updated>
+    </task>
+    <task id="LOCAL-00075" summary="dodanie funkcji kolumny_tabeli_przyczyn, wiersz_tabeli_przyczyn, tooltip_klasyfikacji w views">
+      <option name="closed" value="true" />
+      <created>1789752663589</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1789752663589</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Zamiana gałęzi if/elif dla &quot;wg rodzaju badania&quot; i &quot;wg płci&quot; na jedną, sterowaną słownikiem WIDOKI_LICZEBNOSCI" />
-    <MESSAGE value="Dopisanie w constants.py granic wieku i etykiet grup wiekowych potrzebnych do wykresu" />
     <MESSAGE value="Dopisanie w data_processing.py dopisz import GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH i funkcji do kategorii wiekowych" />
     <MESSAGE value="Dopisanie w aggregations.py dopisz import ETYKIETY_GRUP_WIEKOWYCH i funkcji do liczenia wg grupy wiekowej" />
     <MESSAGE value="Dodanie funkcji do zliczania pacjentów wg wieku" />
@@ -508,12 +506,14 @@
     <MESSAGE value="Poporawka w import from, dodałam ROZMIAR_TYTULU_DASHBOARDU" />
     <MESSAGE value="Zmiana w imporcie, dodałam from aggregations import policz_aktywne_czynniki" />
     <MESSAGE value="Zamiana etykiety xlabel na pusty tekst, żeby nie było podpisu pod wykresem" />
-    <option name="LAST_COMMIT_MESSAGE" value="Zamiana etykiety xlabel na pusty tekst, żeby nie było podpisu pod wykresem" />
+    <MESSAGE value="dodanie importu policz_kategorie_onkologiczne" />
+    <MESSAGE value="dodanie funkcji kolumny_tabeli_przyczyn, wiersz_tabeli_przyczyn, tooltip_klasyfikacji w views" />
+    <option name="LAST_COMMIT_MESSAGE" value="dodanie funkcji kolumny_tabeli_przyczyn, wiersz_tabeli_przyczyn, tooltip_klasyfikacji w views" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1789659520225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ProjektI$constants.coverage" NAME="constants Coverage Results" MODIFIED="1789675974157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ProjektI$views.coverage" NAME="views Coverage Results" MODIFIED="1789679001734" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ProjektI$main.coverage" NAME="main Coverage Results" MODIFIED="1789751893784" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ProjektI$main.coverage" NAME="main Coverage Results" MODIFIED="1789752678874" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
