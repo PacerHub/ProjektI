@@ -112,7 +112,7 @@ def pokaz_analize_przyczyn(parent, dane):
     tk.Label(
         parent,
         text=wygeneruj_wnioski_analizy(wyniki),
-        font=("Cambria", 10),
+        font=("Book Antiqua", 13),
         wraplength=1100,
         justify="center",
         pady=8,

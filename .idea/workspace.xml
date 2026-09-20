@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="w views.py dodanie importu tkintera">
-      <change beforePath="$PROJECT_DIR$/aggregations.py" beforeDir="false" afterPath="$PROJECT_DIR$/aggregations.py" afterDir="false" />
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Poprawka w views.py, żeby wnioski z tabeli analizy przyczyn były widoczne wyżej">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,31 +83,7 @@
       <workItem from="1788801787493" duration="9373000" />
       <workItem from="1789060704905" duration="1221000" />
       <workItem from="1789485317387" duration="9331000" />
-      <workItem from="1789671908927" duration="13756000" />
-    </task>
-    <task id="LOCAL-00041" summary="Dodanie palety kolorów do constants.py i jednolitej czcionki do tytułów wykresów (jeden rozmiar i grubość)">
-      <option name="closed" value="true" />
-      <created>1789675510699</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1789675510699</updated>
-    </task>
-    <task id="LOCAL-00042" summary="Dodanie do charts.py importu palety kolorów i stylu czcionek wraz z funkcjami">
-      <option name="closed" value="true" />
-      <created>1789675707864</created>
-      <option name="number" value="00042" />
-      <option name="presentableId" value="LOCAL-00042" />
-      <option name="project" value="LOCAL" />
-      <updated>1789675707864</updated>
-    </task>
-    <task id="LOCAL-00043" summary="Zmiana x.set_title(tytul) na _ustaw_tytul_panelu(ax, tytul) i dodaj kolory: kolory = kolory or _kolory_cyklicznie(len(counts)), a w counts.plot(kind=&quot;bar&quot;, ax=ax) dopisz color=kolory.">
-      <option name="closed" value="true" />
-      <created>1789675941681</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1789675941681</updated>
+      <workItem from="1789671908927" duration="14563000" />
     </task>
     <task id="LOCAL-00044" summary="Dodanie w constants widoków liczebnosci">
       <option name="closed" value="true" />
@@ -476,16 +453,37 @@
       <option name="project" value="LOCAL" />
       <updated>1789925873323</updated>
     </task>
-    <option name="localTasksCounter" value="90" />
+    <task id="LOCAL-00090" summary="W aggregations.py dodanie funkcji dodającej wnioski z tabeli z analizą przekroczeń oraz importu KLUCZE_CZYNNIKOW i ETYKIET_CZYNNIKOW">
+      <option name="closed" value="true" />
+      <created>1789926216204</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1789926216204</updated>
+    </task>
+    <task id="LOCAL-00091" summary="Dodanie importu wygenerowanych wniosków z analizy przekroczeń oraz funkcji pokazującej analizę przyczyn przekroczeń z tabeli">
+      <option name="closed" value="true" />
+      <created>1789926332621</created>
+      <option name="number" value="00091" />
+      <option name="presentableId" value="LOCAL-00091" />
+      <option name="project" value="LOCAL" />
+      <updated>1789926332621</updated>
+    </task>
+    <task id="LOCAL-00092" summary="Poprawka w views.py, żeby wnioski z tabeli analizy przyczyn były widoczne wyżej">
+      <option name="closed" value="true" />
+      <created>1789926644834</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1789926644834</updated>
+    </task>
+    <option name="localTasksCounter" value="93" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Poprawka na import from constants import GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH zamiast samego import granice itd." />
-    <MESSAGE value="Brak dwukropka na końcu ostatniej funkcji- poprawka" />
-    <MESSAGE value="Dokończenie funkcji zbuduj_panel_podsumowania" />
     <MESSAGE value="Dodanie brakującej linijki w funkcji budującej wykres liczebności" />
     <MESSAGE value="Poprawka w sekcji import from w views.py" />
     <MESSAGE value="Usunięcie podwójnego podpisu wykresu (był na górze i na dole, został tylko na górze)" />
@@ -508,14 +506,17 @@
     <MESSAGE value="Nowa funkcja w aggregations.py, dodawanie wniosków do wykresu Pareto" />
     <MESSAGE value="w views.py tk.label z wygenerowanymi wnioskami do pareto przekroczeń" />
     <MESSAGE value="w views.py dodanie importu tkintera" />
-    <option name="LAST_COMMIT_MESSAGE" value="w views.py dodanie importu tkintera" />
+    <MESSAGE value="W aggregations.py dodanie funkcji dodającej wnioski z tabeli z analizą przekroczeń oraz importu KLUCZE_CZYNNIKOW i ETYKIET_CZYNNIKOW" />
+    <MESSAGE value="Dodanie importu wygenerowanych wniosków z analizy przekroczeń oraz funkcji pokazującej analizę przyczyn przekroczeń z tabeli" />
+    <MESSAGE value="Poprawka w views.py, żeby wnioski z tabeli analizy przyczyn były widoczne wyżej" />
+    <option name="LAST_COMMIT_MESSAGE" value="Poprawka w views.py, żeby wnioski z tabeli analizy przyczyn były widoczne wyżej" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/views.py</url>
-          <line>8</line>
+          <line>11</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
@@ -524,7 +525,7 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1789659520225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ProjektI$constants.coverage" NAME="constants Coverage Results" MODIFIED="1789675974157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ProjektI$views.coverage" NAME="views Coverage Results" MODIFIED="1789679001734" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ProjektI$main.coverage" NAME="main Coverage Results" MODIFIED="1789926090003" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ProjektI$views.coverage" NAME="views Coverage Results" MODIFIED="1789926808182" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ProjektI$main.coverage" NAME="main Coverage Results" MODIFIED="1789926939858" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
