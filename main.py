@@ -8,13 +8,19 @@ kliknięć przycisków.
 import tkinter as tk
 
 from constants import RODZAJE_WIDOKOW, WIDOKI_LICZEBNOSCI, SCIEZKA_DANYCH
-from data_processing import wczytaj_dane, oznacz_przekroczenia
+from data_processing import wczytaj_dane, oznacz_przekroczenia, oznacz_podejrzane_dane
 from views import (
     pokaz_liczebnosc_wg_kolumny,
     pokaz_liczbe_pacjentow_wg_wieku,
     pokaz_dashboard_przekroczenia,
     pokaz_analize_przyczyn,
 )
+
+
+def main():
+    dane = wczytaj_dane(SCIEZKA_DANYCH)
+    dane = oznacz_podejrzane_dane(dane)
+    dane = oznacz_przekroczenia(dane)
 
 
 def zbuduj_okno():
@@ -37,7 +43,6 @@ def wyczysc_kontener(kontener):
     """Usuwa wszystkie widgety z kontenera przed narysowaniem nowego widoku."""
     for widget in kontener.winfo_children():
         widget.destroy()
-
 
 def wybierz_widok(wybrany, dane, kontener):
     """Deleguje rysowanie do właściwej funkcji widoku na podstawie nazwy przycisku."""
