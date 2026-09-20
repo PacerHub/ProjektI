@@ -7,7 +7,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from constants import KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW, KLASYFIKACJA_OPISY
 from widgets import zbuduj_tabele, zbuduj_panel_podsumowania, Tooltip
 from data_processing import filtruj_przekroczenia, zbuduj_liste_wynikow, filtruj_bezpieczne
-from aggregations import policz_wg_kolumny, policz_wg_grupy_wiekowej, policz_klasyfikacje
+from aggregations import policz_wg_kolumny, policz_wg_grupy_wiekowej, policz_klasyfikacje, wygeneruj_wnioski_pareto
 from charts import (
     zbuduj_dashboard_przekroczenia, zbuduj_wykres_liczebnosci,
     zbuduj_wykres_kolowy_liczebnosci, zbuduj_wykres_pareto,
@@ -128,4 +128,12 @@ def pokaz_pareto_przyczyn(parent, dane):
     wyniki = zbuduj_liste_wynikow(pacjenci)
     counts = policz_klasyfikacje(wyniki)
     fig = zbuduj_wykres_pareto(counts)
+    tk.Label(
+        parent,
+        text=wygeneruj_wnioski_pareto(counts),
+        font=("Cambria", 10),
+        wraplength=1100,
+        justify="center",
+        pady=8,
+    ).pack(side="bottom", fill="x")
     return _osadz_wykres(parent, fig)
