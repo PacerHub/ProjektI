@@ -1,6 +1,6 @@
 """Agregacje: zamiana surowych danych na liczby gotowe do wyświetlenia."""
 import pandas as pd
-from constants import ETYKIETY_GRUP_WIEKOWYCH
+from constants import ETYKIETY_GRUP_WIEKOWYCH, KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW
 from data_processing import kategoria_wiekowa
 
 
@@ -51,4 +51,32 @@ def wygeneruj_wnioski_pareto(counts):
         f"({udzial_najczestszej:.0f}%). "
         f"{liczba_kategorii_do_80} z {len(counts)} kategorii odpowiada łącznie za "
         f"{skumulowany.iloc[liczba_kategorii_do_80 - 1]:.0f}% wszystkich przekroczeń."
+    )
+def wygeneruj_wnioski_analizy(wyniki):
+    """Generuje krótki opis najważniejszych obserwacji z tabeli analizy przyczyn."""
+    wyniki_wazne = [w for w in wyniki if not w.get("podejrzany")]
+
+    if not wyniki_wazne:
+        return "Brak pacjentów z przekroczoną dawką w bieżących danych."
+
+    n = len(wyniki_wazne)
+
+    czynniki_counts = {
+        klucz: sum(1 for w in wyniki_wazne if w["factors"][klucz]) for klucz in KLUCZE_CZYNNIKOW
+    }
+    najczestszy_klucz = max(czynniki_counts, key=czynniki_counts.get)
+    udzial_czynnika = czynniki_counts[najczestszy_klucz] / n * 100
+
+    okolice = pd.Series([w["okolica"] for w in wyniki_wazne]).value_counts()
+    najczestsza_okolica = okolice.index[0]
+    udzial_okolicy = okolice.iloc[0] / n * 100
+
+    sredni_procent = sum(w["procent_przekroczenia"] for w in wyniki_wazne) / n
+
+    etykieta_czynnika = ETYKIETY_CZYNNIKOW[najczestszy_klucz].replace("\n", " ")
+
+    return (
+        f"Najczęstszy czynnik: '{etykieta_czynnika}' — {czynniki_counts[najczestszy_klucz]} z {n} pacjentów "
+        f"({udzial_czynnika:.0f}%). Najwięcej przekroczeń dotyczy okolicy '{najczestsza_okolica}' "
+        f"({udzial_okolicy:.0f}% przypadków). Średnie przekroczenie dawki: {sredni_procent:.1f}%."
     )
