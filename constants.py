@@ -111,3 +111,8 @@ ETYKIETY_CZYNNIKOW = {
     "wysoki_dlp_fazy": "Wysokie DLP\nfazy",
     "nadwaga_otylosc": "Nadwaga / otyłość",
 }
+
+# Granice wartości - używane do wykrywania błędnych/podejrzanych rekordów
+ZAKRES_WIEKU = (0, 110)
+ZAKRES_BMI = (10, 70)
+ZAKRES_LICZBY_FAZ = (1, 6)
