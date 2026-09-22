@@ -148,7 +148,7 @@ def pokaz_pareto_przyczyn(parent, dane):
         wraplength=1100,
         justify="center",
         pady=8,
-    ).pack(side="bottom", fill="x")
+    ).pack(side="bottom", fill="x", pady=(0, 30))
     return _osadz_wykres(parent, fig)
 
 

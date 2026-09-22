@@ -1,5 +1,5 @@
 #Tutaj składane są okna z gotowych klocków (`przetwarzanie_danych`, `widoki`) i obsługa
-kliknięć przycisków.
+#kliknięć przycisków.
 
 import tkinter as tk
 
@@ -26,6 +26,14 @@ def zbuduj_okno():
     okno = tk.Tk()
     okno.title("Analiza dawek TK")
     okno.geometry("1400x800")
+    szer_ekranu = okno.winfo_screenwidth()
+    wys_ekranu = okno.winfo_screenheight()
+
+    szer = min(1400, szer_ekranu)        # preferowana szerokość, ale nie większa niż ekran
+    wys = min(900, wys_ekranu - 80)      # ~80 px zapasu na pasek zadań i belkę tytułową
+    x = (szer_ekranu - szer) // 2        # wyśrodkowanie w poziomie
+
+    okno.geometry(f"{szer}x{wys}+{x}+0")
     okno.minsize(1400, 800)
     okno.maxsize(1400, 800)
     okno.option_add("*Font", "Cambria 10")
@@ -34,7 +42,7 @@ def zbuduj_okno():
 
 def dodaj_naglowek(okno):
 #Dodanie tytułowego napisu na górze okna
-    tk.Label(okno, text="Analiza danych pacjentów TK", font=("Cambria", 18)).pack(pady=30)
+    tk.Label(okno, text="Analiza danych pacjentów TK", font=("Cambria", 18)).pack(pady=5)
 
 
 def wyczysc_kontener(kontener):
