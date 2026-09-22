@@ -87,6 +87,9 @@ PALETA_KOLOROW = [
     "#E56B6F",
     "#EAAC8B",
 ]
+
+CZCIONKA = "Book Antiqua"
+
 WIDOKI_LICZEBNOSCI = {
     "Liczba pacjentów wg rodzaju badania": {
         "kolumna": "rodzaj_badania_tk", "sortuj_wg_indeksu": False, "typ_wykresu": "slupkowy", "kolory": None

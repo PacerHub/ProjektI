@@ -1,6 +1,9 @@
 """Komponenty interfejsu wielokrotnego użytku."""
 
 import tkinter as tk
+import tkinter.font as tkfont
+import matplotlib.pyplot as plt
+from stale import CZCIONKA
 from tkinter import ttk
 from agregacje import policz_aktywne_czynniki
 
@@ -62,7 +65,7 @@ def zbuduj_tabele(parent, kolumny, naglowki, szerokosci, kotwice=None):
 
     styl = ttk.Style()
     styl.theme_use("clam")
-    styl.configure("Treeview.Heading", padding=(5, 10), font=("Cambria", 9, "bold"))
+    styl.configure("Treeview.Heading", padding=(5, 10), font=(CZCIONKA, 12))
     styl.configure("Treeview", font=("Cambria", 10), rowheight=25)
 
     ramka = tk.Frame(parent)
@@ -101,15 +104,22 @@ def zbuduj_panel_podsumowania(parent, wyniki, klucze_czynnikow, etykiety_czynnik
         tk.Label(
             karta,
             text=f"{liczba_aktywnych}/{liczba_wszystkich}",
-            font=("Cambria", 15, "bold"),
+            font=(CZCIONKA, 12)
         ).pack()
 
         tk.Label(
             karta,
             text=etykiety_czynnikow[klucz].replace("\n", " "),
-            font=("Cambria", 9),
+            font=(CZCIONKA, 12)
             wraplength=140,
             justify="center",
         ).pack()
+def ustaw_czcionke_aplikacji(root, rozmiar=11):
+    # Wszystkie wbudowane czcionki Tk – przyciski, etykiety, tabele, nagłówki, menu, pola tekstowe
+    for nazwa in ("TkDefaultFont", "TkTextFont", "TkHeadingFont", "TkMenuFont",
+                  "TkCaptionFont", "TkSmallCaptionFont", "TkIconFont", "TkTooltipFont"):
+        tkfont.nametofont(nazwa, root=root).configure(family=CZCIONKA, size=rozmiar)
 
+    # Wykresy matplotlib korzystają z własnych ustawień
+    plt.rcParams["font.family"] = CZCIONKA
     return panel

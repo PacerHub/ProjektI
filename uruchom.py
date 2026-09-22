@@ -3,6 +3,7 @@
 
 import tkinter as tk
 
+
 from stałe import RODZAJE_WIDOKOW, WIDOKI_LICZEBNOSCI, SCIEZKA_DANYCH
 from przetwarzanie_danych import wczytaj_dane, oznacz_przekroczenia, oznacz_podejrzane_dane
 from widoki import (
@@ -12,7 +13,7 @@ from widoki import (
     pokaz_analize_przyczyn,
     pokaz_pareto_przyczyn,
 )
-
+from komponenty import ustaw_czcionke_aplikacji
 
 
 def main():
@@ -24,6 +25,7 @@ def main():
 def zbuduj_okno():
 #Tworzenie i konfiguracja głównego okna aplikacji
     okno = tk.Tk()
+    ustaw_czcionke_aplikacji(okno)
     okno.title("Analiza dawek TK")
     okno.geometry("1400x800")
     szer_ekranu = okno.winfo_screenwidth()
@@ -36,13 +38,13 @@ def zbuduj_okno():
     okno.geometry(f"{szer}x{wys}+{x}+0")
     okno.minsize(1400, 800)
     okno.maxsize(1400, 800)
-    okno.option_add("*Font", "Cambria 10")
+    okno.option_add("*Font", "Book Antiqua")
     return okno
 
 
 def dodaj_naglowek(okno):
 #Dodanie tytułowego napisu na górze okna
-    tk.Label(okno, text="Analiza danych pacjentów TK", font=("Cambria", 18)).pack(pady=5)
+    tk.Label(okno, text="Analiza danych pacjentów TK", font=("Book Antiqua", 18)).pack(pady=5)
 
 
 def wyczysc_kontener(kontener):

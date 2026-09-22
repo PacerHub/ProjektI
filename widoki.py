@@ -144,7 +144,7 @@ def pokaz_pareto_przyczyn(parent, dane):
     tk.Label(
         parent,
         text=wygeneruj_wnioski_pareto(counts),
-        font=("Cambria", 10),
+        font=(CZCIONKA, 12)
         wraplength=1100,
         justify="center",
         pady=8,
