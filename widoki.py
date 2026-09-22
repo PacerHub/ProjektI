@@ -8,7 +8,7 @@ from agregacje import (
     policz_wg_kolumny, policz_wg_grupy_wiekowej, policz_klasyfikacje,
     wygeneruj_wnioski_pareto, wygeneruj_wnioski_analizy,
 )
-from stałe import KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW, KLASYFIKACJA_OPISY
+from stale import KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW, KLASYFIKACJA_OPISY, CZCIONKA
 from komponenty import zbuduj_tabele, zbuduj_panel_podsumowania, Tooltip
 from przetwarzanie_danych import filtruj_przekroczenia, zbuduj_liste_wynikow, filtruj_bezpieczne
 from wykresy import (
@@ -112,7 +112,7 @@ def pokaz_analize_przyczyn(parent, dane):
     tk.Label(
         parent,
         text=wygeneruj_wnioski_analizy(wyniki),
-        font=("Book Antiqua", 13),
+        font=(CZCIONKA, 12),
         wraplength=1100,
         justify="center",
         pady=8,
@@ -144,7 +144,7 @@ def pokaz_pareto_przyczyn(parent, dane):
     tk.Label(
         parent,
         text=wygeneruj_wnioski_pareto(counts),
-        font=(CZCIONKA, 12)
+        font=(CZCIONKA, 12),
         wraplength=1100,
         justify="center",
         pady=8,

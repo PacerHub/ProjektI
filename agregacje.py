@@ -1,6 +1,6 @@
 #Agregacje: zamiana surowych danych na liczby gotowe do wyświetlenia.
 import pandas as pd
-from stałe import ETYKIETY_GRUP_WIEKOWYCH, KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW
+from stale import ETYKIETY_GRUP_WIEKOWYCH, KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW
 from przetwarzanie_danych import kategoria_wiekowa
 
 

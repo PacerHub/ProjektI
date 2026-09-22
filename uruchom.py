@@ -4,7 +4,7 @@
 import tkinter as tk
 
 
-from stałe import RODZAJE_WIDOKOW, WIDOKI_LICZEBNOSCI, SCIEZKA_DANYCH
+from stale import RODZAJE_WIDOKOW, WIDOKI_LICZEBNOSCI, SCIEZKA_DANYCH, CZCIONKA
 from przetwarzanie_danych import wczytaj_dane, oznacz_przekroczenia, oznacz_podejrzane_dane
 from widoki import (
     pokaz_liczebnosc_wg_kolumny,
@@ -15,7 +15,6 @@ from widoki import (
 )
 from komponenty import ustaw_czcionke_aplikacji
 
-
 def main():
     dane = wczytaj_dane(SCIEZKA_DANYCH)
     dane = oznacz_podejrzane_dane(dane)
@@ -25,7 +24,8 @@ def main():
 def zbuduj_okno():
 #Tworzenie i konfiguracja głównego okna aplikacji
     okno = tk.Tk()
-    ustaw_czcionke_aplikacji(okno)
+    ustaw_czcionke_aplikacji(okno, rozmiar=11, rozmiar_przyciskow=10,
+                             rozmiar_tabeli=10)
     okno.title("Analiza dawek TK")
     okno.geometry("1400x800")
     szer_ekranu = okno.winfo_screenwidth()
@@ -38,13 +38,13 @@ def zbuduj_okno():
     okno.geometry(f"{szer}x{wys}+{x}+0")
     okno.minsize(1400, 800)
     okno.maxsize(1400, 800)
-    okno.option_add("*Font", "Book Antiqua")
+
     return okno
 
 
 def dodaj_naglowek(okno):
 #Dodanie tytułowego napisu na górze okna
-    tk.Label(okno, text="Analiza danych pacjentów TK", font=("Book Antiqua", 18)).pack(pady=5)
+    tk.Label(okno, text="Analiza danych pacjentów TK", font=(CZCIONKA, 15)).pack(pady=5)
 
 
 def wyczysc_kontener(kontener):

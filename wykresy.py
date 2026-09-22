@@ -1,7 +1,7 @@
 #Budowa wykresów matplotlib.
 
 import matplotlib.pyplot as plt
-from stałe import PALETA_KOLOROW, ROZMIAR_TYTULU_WYKRESU, GRUBOSC_TYTULU_WYKRESU, ROZMIAR_TYTULU_DASHBOARDU
+from stale import PALETA_KOLOROW, ROZMIAR_TYTULU_WYKRESU, GRUBOSC_TYTULU_WYKRESU, ROZMIAR_TYTULU_DASHBOARDU
 from agregacje import policz_kategorie_onkologiczne
 
 def _kolory_cyklicznie(n):

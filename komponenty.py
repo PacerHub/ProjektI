@@ -7,6 +7,7 @@ from stale import CZCIONKA
 from tkinter import ttk
 from agregacje import policz_aktywne_czynniki
 
+
 class Tooltip:
 #Dymek podpowiedzi pokazywany po dłuższym najechaniu na wybraną kolumnę Treeview.
 
@@ -66,7 +67,7 @@ def zbuduj_tabele(parent, kolumny, naglowki, szerokosci, kotwice=None):
     styl = ttk.Style()
     styl.theme_use("clam")
     styl.configure("Treeview.Heading", padding=(5, 10), font=(CZCIONKA, 12))
-    styl.configure("Treeview", font=("Cambria", 10), rowheight=25)
+    styl.configure("Treeview", font=(CZCIONKA, 12), rowheight=25)
 
     ramka = tk.Frame(parent)
     ramka.pack(fill="both", expand=True)
@@ -110,11 +111,13 @@ def zbuduj_panel_podsumowania(parent, wyniki, klucze_czynnikow, etykiety_czynnik
         tk.Label(
             karta,
             text=etykiety_czynnikow[klucz].replace("\n", " "),
-            font=(CZCIONKA, 12)
+            font=(CZCIONKA, 12),
             wraplength=140,
             justify="center",
         ).pack()
-def ustaw_czcionke_aplikacji(root, rozmiar=11):
+    return panel
+
+def ustaw_czcionke_aplikacji(root, rozmiar=10, rozmiar_przyciskow=9, rozmiar_tabeli=10):
     # Wszystkie wbudowane czcionki Tk – przyciski, etykiety, tabele, nagłówki, menu, pola tekstowe
     for nazwa in ("TkDefaultFont", "TkTextFont", "TkHeadingFont", "TkMenuFont",
                   "TkCaptionFont", "TkSmallCaptionFont", "TkIconFont", "TkTooltipFont"):
@@ -122,4 +125,14 @@ def ustaw_czcionke_aplikacji(root, rozmiar=11):
 
     # Wykresy matplotlib korzystają z własnych ustawień
     plt.rcParams["font.family"] = CZCIONKA
-    return panel
+    plt.rcParams["font.size"] = 11
+
+    # Mniejsza czcionka na przyciskach
+    style = ttk.Style(root)
+    style.configure("TButton", font=(CZCIONKA, rozmiar_przyciskow))  # ttk.Button
+    root.option_add("*Button.font", f"{{{CZCIONKA}}} {rozmiar_przyciskow}")  # tk.Button
+
+    # Mniejsza czcionka w tabelach
+    style.configure("Treeview", font=(CZCIONKA, rozmiar_tabeli),
+                    rowheight=int(rozmiar_tabeli * 2.4))
+    style.configure("Treeview.Heading", font=(CZCIONKA, rozmiar_tabeli, "bold"))

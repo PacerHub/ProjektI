@@ -4,12 +4,15 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Poprawka widoczności wniosków w wykresie Pareto i zmniejszenie belki z tytułowym nagłówkiem aplikacji">
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Zmiana czcionek">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/agregacje.py" beforeDir="false" afterPath="$PROJECT_DIR$/agregacje.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komponenty.py" beforeDir="false" afterPath="$PROJECT_DIR$/komponenty.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stałe.py" beforeDir="false" afterPath="$PROJECT_DIR$/stałe.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/przetwarzanie_danych.py" beforeDir="false" afterPath="$PROJECT_DIR$/przetwarzanie_danych.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stałe.py" beforeDir="false" afterPath="$PROJECT_DIR$/stale.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/uruchom.py" beforeDir="false" afterPath="$PROJECT_DIR$/uruchom.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/widoki.py" beforeDir="false" afterPath="$PROJECT_DIR$/widoki.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wykresy.py" beforeDir="false" afterPath="$PROJECT_DIR$/wykresy.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +58,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Python.Projekt-05-09-26.executor": "Run",
     "Python.constants.executor": "Run",
+    "Python.komponenty.executor": "Run",
     "Python.main.executor": "Run",
     "Python.uruchom.executor": "Run",
     "Python.views.executor": "Run",
@@ -89,23 +93,7 @@
       <workItem from="1789060704905" duration="1221000" />
       <workItem from="1789485317387" duration="9331000" />
       <workItem from="1789671908927" duration="14605000" />
-      <workItem from="1790105240644" duration="2625000" />
-    </task>
-    <task id="LOCAL-00048" summary="rozszerz pokaz_liczebnosc_wg_kolumny o parametry typ_wykresu i kolory (gałąź if typ_wykresu == &quot;kolowy&quot;: ... else: ...)">
-      <option name="closed" value="true" />
-      <created>1789676598801</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1789676598801</updated>
-    </task>
-    <task id="LOCAL-00049" summary="Zamiana gałęzi if/elif dla &quot;wg rodzaju badania&quot; i &quot;wg płci&quot; na jedną, sterowaną słownikiem WIDOKI_LICZEBNOSCI">
-      <option name="closed" value="true" />
-      <created>1789677024497</created>
-      <option name="number" value="00049" />
-      <option name="presentableId" value="LOCAL-00049" />
-      <option name="project" value="LOCAL" />
-      <updated>1789677024497</updated>
+      <workItem from="1790105240644" duration="4296000" />
     </task>
     <task id="LOCAL-00050" summary="Dopisanie w constants.py granic wieku i etykiet grup wiekowych potrzebnych do wykresu">
       <option name="closed" value="true" />
@@ -483,14 +471,29 @@
       <option name="project" value="LOCAL" />
       <updated>1790107269843</updated>
     </task>
-    <option name="localTasksCounter" value="97" />
+    <task id="LOCAL-00097" summary="Poprawka widoczności wniosków w wykresie Pareto i zmniejszenie belki z tytułowym nagłówkiem aplikacji">
+      <option name="closed" value="true" />
+      <created>1790107877014</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1790107877014</updated>
+    </task>
+    <task id="LOCAL-00098" summary="Zmiana czcionek">
+      <option name="closed" value="true" />
+      <created>1790107900689</created>
+      <option name="number" value="00098" />
+      <option name="presentableId" value="LOCAL-00098" />
+      <option name="project" value="LOCAL" />
+      <updated>1790107900689</updated>
+    </task>
+    <option name="localTasksCounter" value="99" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Zmiana w imporcie, dodałam from aggregations import policz_aktywne_czynniki" />
     <MESSAGE value="Zamiana etykiety xlabel na pusty tekst, żeby nie było podpisu pod wykresem" />
     <MESSAGE value="dodanie importu policz_kategorie_onkologiczne" />
     <MESSAGE value="dodanie funkcji kolumny_tabeli_przyczyn, wiersz_tabeli_przyczyn, tooltip_klasyfikacji w views" />
@@ -515,7 +518,8 @@
     <MESSAGE value="Zmiana nazw plików na polskojęzyczne i modyfikacja komentarzy w uruchom" />
     <MESSAGE value="Modyfikacja komentarzy i wyjaśnień w plikach" />
     <MESSAGE value="Poprawka widoczności wniosków w wykresie Pareto i zmniejszenie belki z tytułowym nagłówkiem aplikacji" />
-    <option name="LAST_COMMIT_MESSAGE" value="Poprawka widoczności wniosków w wykresie Pareto i zmniejszenie belki z tytułowym nagłówkiem aplikacji" />
+    <MESSAGE value="Zmiana czcionek" />
+    <option name="LAST_COMMIT_MESSAGE" value="Zmiana czcionek" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -535,9 +539,10 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1789659520225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ProjektI$komponenty.coverage" NAME="komponenty Coverage Results" MODIFIED="1790108182020" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ProjektI$constants.coverage" NAME="constants Coverage Results" MODIFIED="1789675974157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ProjektI$widoki.coverage" NAME="widoki Coverage Results" MODIFIED="1790107209464" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ProjektI$uruchom.coverage" NAME="uruchom Coverage Results" MODIFIED="1790107441846" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ProjektI$widoki.coverage" NAME="widoki Coverage Results" MODIFIED="1790108016254" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ProjektI$uruchom.coverage" NAME="uruchom Coverage Results" MODIFIED="1790109534508" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ProjektI$views.coverage" NAME="views Coverage Results" MODIFIED="1789926808182" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ProjektI$main.coverage" NAME="main Coverage Results" MODIFIED="1789926939858" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
