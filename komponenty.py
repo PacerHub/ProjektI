@@ -5,7 +5,7 @@ from tkinter import ttk
 from agregacje import policz_aktywne_czynniki
 
 class Tooltip:
-    """Dymek podpowiedzi pokazywany po dłuższym najechaniu na wybraną kolumnę Treeview."""
+#Dymek podpowiedzi pokazywany po dłuższym najechaniu na wybraną kolumnę Treeview.
 
     def __init__(self, tabela, kolumna_docelowa, pobierz_tekst, opoznienie_ms=400):
         self.tabela = tabela
@@ -57,7 +57,7 @@ class Tooltip:
 
 
 def zbuduj_tabele(parent, kolumny, naglowki, szerokosci, kotwice=None):
-    """Tworzy Treeview ze scrollbarami (pionowym i poziomym) i zwraca gotowy widget."""
+#Tworzenie Treeview ze scrollbarami (pionowym i poziomym) i zwracanie gotowego widgetu
     kotwice = kotwice or {}
 
     styl = ttk.Style()
@@ -86,7 +86,7 @@ def zbuduj_tabele(parent, kolumny, naglowki, szerokosci, kotwice=None):
     return tabela
 
 def zbuduj_panel_podsumowania(parent, wyniki, klucze_czynnikow, etykiety_czynnikow):
-    """Tworzy poziomy pasek 'kart', po jednej na czynnik, z liczbą aktywnych pacjentów."""
+#Tworzenie poziomego paska 'kart', po jednej na czynnik, z liczbą aktywnych pacjentów
     panel = tk.Frame(parent)
     panel.pack(fill="x", padx=10, pady=(5, 10))
 

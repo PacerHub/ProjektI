@@ -1,4 +1,4 @@
-"""Wczytywanie danych oraz transformacje analityczne na poziomie pojedynczego pacjenta."""
+#Wczytywanie danych oraz transformacje analityczne na poziomie pojedynczego pacjenta.
 
 import pandas as pd
 from stałe import GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH, EXAM_REGION, PROG_WYSOKIEGO_DLP_FAZY
@@ -9,7 +9,7 @@ from stałe import (
 
 
 def oznacz_podejrzane_dane(dane):
-    """Oznacza wiersze z brakami lub wartościami spoza sensownego zakresu, BEZ usuwania ich."""
+#Oznaczanie wierszy z brakami lub wartościami spoza sensownego zakresu, BEZ usuwania ich.
     dane = dane.copy()
     dane["podejrzany_wiersz"] = False
     dane["powod_podejrzenia"] = ""
@@ -47,18 +47,18 @@ def oznacz_podejrzane_dane(dane):
 
 
 def filtruj_bezpieczne(dane):
-    """Zwraca tylko wiersze BEZ oznaczenia 'podejrzany' - do wykresów zbiorczych/agregacji."""
+#Zwraca tylko wiersze BEZ oznaczenia 'podejrzany' - do wykresów zbiorczych/agregacji
     if "podejrzany_wiersz" not in dane.columns:
         return dane
     return dane[~dane["podejrzany_wiersz"]]
 
 def wczytaj_dane(sciezka):
-    """Wczytuje plik CSV z danymi pacjentów do DataFrame."""
+#Wczytuje plik CSV z danymi pacjentów do DataFrame.
     return pd.read_csv(sciezka)
 
 
 def oznacz_przekroczenia(dane):
-    """Dodaje kolumny opisujące przekroczenie DLP: flagę bool i wartość liczbową."""
+#Dodaje kolumny opisujące przekroczenie DLP: flagę bool i wartość liczbową.
     dane = dane.copy()
     dane["przekroczenie_dlp"] = (
         dane["dlp_zmierzony_na_faze_mGy_cm"] > dane["dlp_referencyjny_na_faze_mGy_cm"]
@@ -70,7 +70,7 @@ def oznacz_przekroczenia(dane):
 
 
 def filtruj_przekroczenia(dane):
-    """Zwraca tylko wiersze pacjentów, u których doszło do przekroczenia DLP."""
+#Zwraca tylko wiersze pacjentów, u których doszło do przekroczenia DLP.
     return dane[dane["przekroczenie_dlp"] == True]
 
 
@@ -154,7 +154,7 @@ def klasyfikuj_przyczyne(factors):
 
 
 def analizuj_pacjenta(wiersz):
-    """Łączy powyższe pojedyncze transformacje w pełny wynik analizy dla jednego wiersza danych."""
+#Łączy powyższe pojedyncze transformacje w pełny wynik analizy dla jednego wiersza danych
     if wiersz.get("podejrzany_wiersz", False):
         return {
             "okolica": "—",
@@ -199,5 +199,5 @@ def kategoria_wiekowa(wiek):
     return ETYKIETY_GRUP_WIEKOWYCH[-1]
 
 def zbuduj_liste_wynikow(pacjenci):
-    """Uruchamia analizę dla każdego wiersza DataFrame i zwraca listę wyników."""
+#Uruchamia analizę dla każdego wiersza DataFrame i zwraca listę wyników.
     return [analizuj_pacjenta(wiersz) for _, wiersz in pacjenci.iterrows()]

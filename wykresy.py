@@ -1,4 +1,4 @@
-"""Budowa wykresów matplotlib."""
+#Budowa wykresów matplotlib.
 
 import matplotlib.pyplot as plt
 from stałe import PALETA_KOLOROW, ROZMIAR_TYTULU_WYKRESU, GRUBOSC_TYTULU_WYKRESU, ROZMIAR_TYTULU_DASHBOARDU
@@ -16,7 +16,7 @@ def _ustaw_tytul_panelu(ax, tekst):
 # ==========================================
 
 def narysuj_liczbe_faz(ax, pacjenci):
-    """Rysuje słupkowy rozkład liczby faz badania."""
+#Rysuje słupkowy rozkład liczby faz badania.
     counts = pacjenci["liczba_faz"].value_counts().sort_index()
     etykiety = counts.index.astype(str)
 
@@ -26,7 +26,7 @@ def narysuj_liczbe_faz(ax, pacjenci):
     ax.set_ylabel("Liczba pacjentów")
 
 def narysuj_protokol_onkologiczny(ax, pacjenci):
-    """Rysuje kołowy rozkład protokołu onkologicznego (tak/nie/nie dotyczy)."""
+#Rysuje kołowy rozkład protokołu onkologicznego (tak/nie/nie dotyczy).
     counts = policz_kategorie_onkologiczne(pacjenci["protokol_onkologiczny_jamy_brzusznej"])
 
     ax.pie(
@@ -40,7 +40,7 @@ def narysuj_protokol_onkologiczny(ax, pacjenci):
 
 
 def narysuj_rodzaj_badania(ax, pacjenci):
-    """Rysuje poziomy słupkowy rozkład rodzajów badania."""
+#Rysuje poziomy słupkowy rozkład rodzajów badania.
     counts = pacjenci["rodzaj_badania_tk"].value_counts().sort_values()
 
     ax.barh(counts.index, counts.values, color=_kolory_cyklicznie(len(counts)))
@@ -50,7 +50,7 @@ def narysuj_rodzaj_badania(ax, pacjenci):
 
 
 def narysuj_wiek(ax, pacjenci):
-    """Rysuje histogram wieku pacjentów."""
+#Rysuje histogram wieku pacjentów.
     ax.hist(pacjenci["wiek"], bins=10, color=PALETA_KOLOROW[0], edgecolor="white")
     _ustaw_tytul_panelu(ax, "Wiek pacjentów")
     ax.set_xlabel("Wiek")
@@ -58,7 +58,7 @@ def narysuj_wiek(ax, pacjenci):
 
 
 def zbuduj_dashboard_przekroczenia(pacjenci):
-    """Składa figurę 2x2 z czterema panelami dla pacjentów z przekroczoną dawką."""
+#Składa figurę 2x2 z czterema panelami dla pacjentów z przekroczoną dawką.
     fig, ((ax_fazy, ax_onko), (ax_badanie, ax_wiek)) = plt.subplots(2, 2, figsize=(11.5, 6.2))
     fig.suptitle(
         "Dashboard – pacjenci z przekroczoną dawką",
@@ -102,7 +102,7 @@ def zbuduj_wykres_kolowy_liczebnosci(counts, tytul, kolory=None):
     return fig
 
 def zbuduj_wykres_pareto(counts, tytul="Pareto przyczyn przekroczeń"):
-    """Słupki liczebności klasyfikacji + linia skumulowanego procentu (zasada Pareto)."""
+#Słupki liczebności klasyfikacji + linia skumulowanego procentu (zasada Pareto)."""
     skumulowany_procent = counts.cumsum() / counts.sum() * 100
 
     fig, ax1 = plt.subplots(figsize=(11, 6.5))

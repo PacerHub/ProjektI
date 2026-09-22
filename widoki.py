@@ -1,4 +1,4 @@
-"""Widoki aplikacji: jedna funkcja `pokaz_*` = jeden ekran wybierany przyciskiem."""
+#Widoki aplikacji: jedna funkcja `pokaz_*` = jeden ekran wybierany przyciskiem.
 
 import pandas as pd
 import tkinter as tk
@@ -40,7 +40,7 @@ def pokaz_dashboard_przekroczenia(parent, dane):
     return _osadz_wykres(parent, fig)
 
 def _kolumny_tabeli_przyczyn():
-    """Definicja kolumn tabeli: nazwy, nagłówki, szerokości, wyrównanie."""
+#Definiuje kolumny tabeli: nazwy, nagłówki, szerokości, wyrównanie.
     kolumny = ("patient_id", "okolica", "bmi", "kategoria_faz", "procent", "klasyfikacja", *KLUCZE_CZYNNIKOW)
 
     naglowki = {
@@ -73,7 +73,7 @@ def _kolumny_tabeli_przyczyn():
 
 
 def _wiersz_tabeli_przyczyn(patient_id, wynik):
-    """Buduje krotkę wartości do wstawienia w jeden wiersz tabeli przyczyn."""
+#Buduje krotkę wartości do wstawienia w jeden wiersz tabeli przyczyn.
     etykieta_pacjenta = f"⚠ {patient_id}" if wynik.get("podejrzany") else patient_id
     bmi_tekst = (
         f"{wynik['bmi']} ({wynik['kategoria_bmi']})" if wynik["bmi"] is not None else wynik["kategoria_bmi"]
@@ -93,7 +93,7 @@ def _wiersz_tabeli_przyczyn(patient_id, wynik):
 
 
 def _dodaj_tooltip_klasyfikacji(tabela):
-    """Podpina tooltip z opisem klasyfikacji przyczyny do kolumny 'klasyfikacja'."""
+#Podpina tooltip z opisem klasyfikacji przyczyny do kolumny 'klasyfikacja'.
     return Tooltip(
         tabela,
         kolumna_docelowa="#6",
@@ -136,7 +136,7 @@ def pokaz_liczbe_pacjentow_wg_wieku(parent, dane):
     return _osadz_wykres(parent, fig)
 
 def pokaz_pareto_przyczyn(parent, dane):
-    """Widok 'Pareto przyczyn przekroczeń' - które przyczyny odpowiadają za większość przypadków."""
+#Widok 'Pareto przyczyn przekroczeń' - które przyczyny odpowiadają za większość przypadków.
     pacjenci = filtruj_przekroczenia(filtruj_bezpieczne(dane))
     wyniki = zbuduj_liste_wynikow(pacjenci)
     counts = policz_klasyfikacje(wyniki)

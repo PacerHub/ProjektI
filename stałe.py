@@ -1,4 +1,4 @@
-"""Stałe konfiguracyjne aplikacji: mapowania, progi, etykiety i teksty opisowe."""
+#Stałe konfiguracyjne aplikacji: mapowania, progi, etykiety i teksty opisowe.
 
 SCIEZKA_DANYCH = "ct_patients_data.csv"
 

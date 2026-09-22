@@ -1,4 +1,4 @@
-"""Agregacje: zamiana surowych danych na liczby gotowe do wyświetlenia."""
+#Agregacje: zamiana surowych danych na liczby gotowe do wyświetlenia.
 import pandas as pd
 from stałe import ETYKIETY_GRUP_WIEKOWYCH, KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW
 from przetwarzanie_danych import kategoria_wiekowa
@@ -25,16 +25,15 @@ def policz_aktywne_czynniki(wyniki, klucz_czynnika):
     return sum(1 for wynik in wyniki if wynik["factors"][klucz_czynnika])
 
 def policz_klasyfikacje(wyniki):
-    """Zlicza wystąpienia każdej klasyfikacji przyczyny przekroczenia, malejąco.
+#Funkcja ta zlicza wystąpienia każdej klasyfikacji przyczyny przekroczenia, malejąco.
 
-    Pomija wiersze oznaczone jako podejrzane (`waliduj_dane`) - dla nich
-    klasyfikacja to tekst ostrzegawczy, nie prawdziwa przyczyna, więc
-    nie ma sensu wliczać ich do statystyki.
-    """
+# Pomija wiersze oznaczone jako podejrzane (`waliduj_dane`) - dla nich
+# klasyfikacja to tekst ostrzegawczy, nie prawdziwa przyczyna, więc
+# nie ma sensu wliczać ich do statystyki.
     klasyfikacje = [w["klasyfikacja"] for w in wyniki if not w.get("podejrzany")]
     return pd.Series(klasyfikacje).value_counts()
 def wygeneruj_wnioski_pareto(counts):
-    """Generuje krótki opis tekstowy najważniejszych obserwacji z rozkładu Pareto."""
+#Generowanie krótkiego opisu tekstowego najważniejszych obserwacji z rozkładu Pareto.
     suma = counts.sum()
     if suma == 0:
         return "Brak przekroczeń dawki w bieżących danych."
@@ -53,7 +52,7 @@ def wygeneruj_wnioski_pareto(counts):
         f"{skumulowany.iloc[liczba_kategorii_do_80 - 1]:.0f}% wszystkich przekroczeń."
     )
 def wygeneruj_wnioski_analizy(wyniki):
-    """Generuje krótki opis najważniejszych obserwacji z tabeli analizy przyczyn."""
+#Generowanie krótkiego opisu najważniejszych obserwacji z tabeli analizy przyczyn.
     wyniki_wazne = [w for w in wyniki if not w.get("podejrzany")]
 
     if not wyniki_wazne:
