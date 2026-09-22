@@ -1,8 +1,8 @@
 """Budowa wykresów matplotlib."""
 
 import matplotlib.pyplot as plt
-from constants import PALETA_KOLOROW, ROZMIAR_TYTULU_WYKRESU, GRUBOSC_TYTULU_WYKRESU, ROZMIAR_TYTULU_DASHBOARDU
-from aggregations import policz_kategorie_onkologiczne
+from stałe import PALETA_KOLOROW, ROZMIAR_TYTULU_WYKRESU, GRUBOSC_TYTULU_WYKRESU, ROZMIAR_TYTULU_DASHBOARDU
+from agregacje import policz_kategorie_onkologiczne
 
 def _kolory_cyklicznie(n):
     return [PALETA_KOLOROW[i % len(PALETA_KOLOROW)] for i in range(n)]

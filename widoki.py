@@ -4,14 +4,14 @@ import pandas as pd
 import tkinter as tk
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from aggregations import (
+from agregacje import (
     policz_wg_kolumny, policz_wg_grupy_wiekowej, policz_klasyfikacje,
     wygeneruj_wnioski_pareto, wygeneruj_wnioski_analizy,
 )
-from constants import KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW, KLASYFIKACJA_OPISY
-from widgets import zbuduj_tabele, zbuduj_panel_podsumowania, Tooltip
-from data_processing import filtruj_przekroczenia, zbuduj_liste_wynikow, filtruj_bezpieczne
-from charts import (
+from stałe import KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW, KLASYFIKACJA_OPISY
+from komponenty import zbuduj_tabele, zbuduj_panel_podsumowania, Tooltip
+from przetwarzanie_danych import filtruj_przekroczenia, zbuduj_liste_wynikow, filtruj_bezpieczne
+from wykresy import (
     zbuduj_dashboard_przekroczenia, zbuduj_wykres_liczebnosci,
     zbuduj_wykres_kolowy_liczebnosci, zbuduj_wykres_pareto,
 )

@@ -1,8 +1,8 @@
 """Wczytywanie danych oraz transformacje analityczne na poziomie pojedynczego pacjenta."""
 
 import pandas as pd
-from constants import GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH, EXAM_REGION, PROG_WYSOKIEGO_DLP_FAZY
-from constants import (
+from stałe import GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH, EXAM_REGION, PROG_WYSOKIEGO_DLP_FAZY
+from stałe import (
     EXAM_REGION, PROG_WYSOKIEGO_DLP_FAZY, GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH,
     ZAKRES_WIEKU, ZAKRES_BMI, ZAKRES_LICZBY_FAZ, KLUCZE_CZYNNIKOW,
 )
