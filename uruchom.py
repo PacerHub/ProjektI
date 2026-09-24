@@ -4,7 +4,7 @@
 import tkinter as tk
 
 
-from stale import RODZAJE_WIDOKOW, WIDOKI_LICZEBNOSCI, SCIEZKA_DANYCH, CZCIONKA
+from stale import RODZAJE_WIDOKOW, WIDOKI_LICZEBNOSCI, SCIEZKA_DANYCH, CZCIONKA, KOLOR_NAGLOWKA, KOLOR_TEKSTU_NAGLOWKA
 from przetwarzanie_danych import wczytaj_dane, oznacz_przekroczenia, oznacz_podejrzane_dane
 from widoki import (
     pokaz_liczebnosc_wg_kolumny,
@@ -43,8 +43,12 @@ def zbuduj_okno():
 
 
 def dodaj_naglowek(okno):
-#Dodanie tytułowego napisu na górze okna
-    tk.Label(okno, text="Analiza danych pacjentów TK", font=(CZCIONKA, 15)).pack(pady=5)
+    # Dodanie tytułowego napisu na górze okna
+    belka = tk.Frame(okno, bg=KOLOR_NAGLOWKA)
+    belka.pack(fill="x")
+    tk.Label(belka, text="Analiza danych pacjentów TK",
+             font=(CZCIONKA, 15),
+             bg=KOLOR_NAGLOWKA, fg=KOLOR_TEKSTU_NAGLOWKA).pack(pady=5)
 
 
 def wyczysc_kontener(kontener):

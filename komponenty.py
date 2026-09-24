@@ -3,7 +3,7 @@
 import tkinter as tk
 import tkinter.font as tkfont
 import matplotlib.pyplot as plt
-from stale import CZCIONKA
+from stale import CZCIONKA,KOLOR_NAGLOWKOW_TABELI, KOLOR_NAGLOWKOW_TABELI_HOVER, KOLOR_TEKSTU_NAGLOWKOW_TABELI
 from tkinter import ttk
 from agregacje import policz_aktywne_czynniki
 
@@ -66,8 +66,8 @@ def zbuduj_tabele(parent, kolumny, naglowki, szerokosci, kotwice=None):
 
     styl = ttk.Style()
     styl.theme_use("clam")
-    styl.configure("Treeview.Heading", padding=(5, 10), font=(CZCIONKA, 12))
-    styl.configure("Treeview", font=(CZCIONKA, 12), rowheight=25)
+    styl.configure("Treeview.Heading", padding=(5, 10), font=(CZCIONKA, 10))
+    styl.configure("Treeview", font=(CZCIONKA, 9), rowheight=25)
 
     ramka = tk.Frame(parent)
     ramka.pack(fill="both", expand=True)
@@ -105,13 +105,13 @@ def zbuduj_panel_podsumowania(parent, wyniki, klucze_czynnikow, etykiety_czynnik
         tk.Label(
             karta,
             text=f"{liczba_aktywnych}/{liczba_wszystkich}",
-            font=(CZCIONKA, 12)
+            font=(CZCIONKA, 11)
         ).pack()
 
         tk.Label(
             karta,
             text=etykiety_czynnikow[klucz].replace("\n", " "),
-            font=(CZCIONKA, 12),
+            font=(CZCIONKA, 11),
             wraplength=140,
             justify="center",
         ).pack()
@@ -129,10 +129,16 @@ def ustaw_czcionke_aplikacji(root, rozmiar=10, rozmiar_przyciskow=9, rozmiar_tab
 
     # Mniejsza czcionka na przyciskach
     style = ttk.Style(root)
+    style.theme_use("clam")
     style.configure("TButton", font=(CZCIONKA, rozmiar_przyciskow))  # ttk.Button
     root.option_add("*Button.font", f"{{{CZCIONKA}}} {rozmiar_przyciskow}")  # tk.Button
 
     # Mniejsza czcionka w tabelach
     style.configure("Treeview", font=(CZCIONKA, rozmiar_tabeli),
                     rowheight=int(rozmiar_tabeli * 2.4))
-    style.configure("Treeview.Heading", font=(CZCIONKA, rozmiar_tabeli, "bold"))
+
+    style.configure("Treeview.Heading", font=(CZCIONKA, rozmiar_tabeli),
+                    background=KOLOR_NAGLOWKOW_TABELI,
+                    foreground=KOLOR_TEKSTU_NAGLOWKOW_TABELI)
+    style.map("Treeview.Heading",
+              background=[("active", KOLOR_NAGLOWKOW_TABELI_HOVER)])

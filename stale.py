@@ -119,3 +119,9 @@ ETYKIETY_CZYNNIKOW = {
 ZAKRES_WIEKU = (0, 110)
 ZAKRES_BMI = (10, 70)
 ZAKRES_LICZBY_FAZ = (1, 6)
+
+KOLOR_NAGLOWKA = "#1f4e79"          # ciemnoniebieski – belka z tytułem aplikacji
+KOLOR_TEKSTU_NAGLOWKA = "white"
+KOLOR_NAGLOWKOW_TABELI = "#2e75b6"  # niebieski – tytuły kolumn tabeli
+KOLOR_NAGLOWKOW_TABELI_HOVER = "#255f94"
+KOLOR_TEKSTU_NAGLOWKOW_TABELI = "white"
