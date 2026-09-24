@@ -4,7 +4,7 @@
 import tkinter as tk
 
 
-from stale import RODZAJE_WIDOKOW, WIDOKI_LICZEBNOSCI, SCIEZKA_DANYCH, CZCIONKA, KOLOR_NAGLOWKA, KOLOR_TEKSTU_NAGLOWKA
+from stale import RODZAJE_WIDOKOW, WIDOKI_LICZEBNOSCI, SCIEZKA_DANYCH, CZCIONKA, KOLOR_NAGLOWKA, KOLOR_TEKSTU_NAGLOWKA, WIDOKI_LICZBA_PACJENTOW
 from przetwarzanie_danych import wczytaj_dane, oznacz_przekroczenia, oznacz_podejrzane_dane
 from widoki import (
     pokaz_liczebnosc_wg_kolumny,
@@ -13,7 +13,7 @@ from widoki import (
     pokaz_analize_przyczyn,
     pokaz_pareto_przyczyn,
 )
-from komponenty import ustaw_czcionke_aplikacji
+from komponenty import ustaw_czcionke_aplikacji, zbuduj_przycisk_rozwijany
 
 def main():
     dane = wczytaj_dane(SCIEZKA_DANYCH)
@@ -78,28 +78,40 @@ def wybierz_widok(wybrany, dane, kontener):
     elif wybrany == "Pareto przyczyn przekroczeń":
         pokaz_pareto_przyczyn(kontener, dane)
 
-
 def dodaj_panel_przyciskow(okno, dane, kontener):
-#Tworzenie paska przycisków przełączających widoki i zwracanie funkcji obsługującej kliknięcia
+    # Tworzenie paska przycisków przełączających widoki i zwracanie funkcji obsługującej kliknięcia
     panel = tk.Frame(okno)
     panel.pack(pady=10)
 
     przyciski = {}
+    w_menu = {nazwa: etykieta for etykieta, nazwa in WIDOKI_LICZBA_PACJENTOW}
 
     def obsluz_klikniecie(wybrany):
         for tekst, przycisk in przyciski.items():
             przycisk.config(relief="sunken" if tekst == wybrany else "raised")
 
+        # Przycisk rozwijany: wciśnięty i z opisem wyboru, gdy wybrano widok z jego listy
+        if wybrany in w_menu:
+            przycisk_menu.config(relief="sunken",
+                                 text=f"Liczba pacjentów wg {w_menu[wybrany]} ▾")
+        else:
+            przycisk_menu.config(relief="raised", text="Liczba pacjentów wg ▾")
+
         wyczysc_kontener(kontener)
         wybierz_widok(wybrany, dane, kontener)
 
+    przycisk_menu = zbuduj_przycisk_rozwijany(panel, "Liczba pacjentów wg",
+                                              WIDOKI_LICZBA_PACJENTOW, obsluz_klikniecie)
+    przycisk_menu.pack(side="left", padx=5)
+
     for tekst in RODZAJE_WIDOKOW:
+        if tekst in w_menu:
+            continue  # te widoki są w rozwijanej liście
         przycisk = tk.Button(panel, text=tekst, command=lambda t=tekst: obsluz_klikniecie(t))
         przycisk.pack(side="left", padx=5)
         przyciski[tekst] = przycisk
 
     return obsluz_klikniecie
-
 
 def main():
 #Uruchamia aplikację: wczytuje dane, buduje okno i startuje pętlę zdarzeń

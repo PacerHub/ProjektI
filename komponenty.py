@@ -132,6 +132,7 @@ def ustaw_czcionke_aplikacji(root, rozmiar=10, rozmiar_przyciskow=9, rozmiar_tab
     style.theme_use("clam")
     style.configure("TButton", font=(CZCIONKA, rozmiar_przyciskow))  # ttk.Button
     root.option_add("*Button.font", f"{{{CZCIONKA}}} {rozmiar_przyciskow}")  # tk.Button
+    root.option_add("*Menubutton.font", f"{{{CZCIONKA}}} {rozmiar_przyciskow}") #przycisk do listy
 
     # Mniejsza czcionka w tabelach
     style.configure("Treeview", font=(CZCIONKA, rozmiar_tabeli),
@@ -142,3 +143,14 @@ def ustaw_czcionke_aplikacji(root, rozmiar=10, rozmiar_przyciskow=9, rozmiar_tab
                     foreground=KOLOR_TEKSTU_NAGLOWKOW_TABELI)
     style.map("Treeview.Heading",
               background=[("active", KOLOR_NAGLOWKOW_TABELI_HOVER)])
+
+def zbuduj_przycisk_rozwijany(rodzic, tekst, opcje, po_wyborze):
+    """Przycisk, który po kliknięciu rozwija listę widoków."""
+    przycisk = tk.Menubutton(rodzic, text=f"{tekst} ▾", relief="raised",
+                             borderwidth=2, padx=8, pady=4, direction="below")
+    menu = tk.Menu(przycisk, tearoff=False)
+    for etykieta, nazwa_widoku in opcje:
+        menu.add_command(label=etykieta,
+                         command=lambda n=nazwa_widoku: po_wyborze(n))
+    przycisk["menu"] = menu
+    return przycisk

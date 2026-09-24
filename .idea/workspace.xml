@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Ujednolicenie typu czcionki w całym projekcie">
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Zmniejszenie czcionki w tabeli, zmiana koloru tła i czcionki w polu nagłówkowym oraz w górnej belce tabeli">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komponenty.py" beforeDir="false" afterPath="$PROJECT_DIR$/komponenty.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stale.py" beforeDir="false" afterPath="$PROJECT_DIR$/stale.py" afterDir="false" />
@@ -91,15 +91,7 @@
       <workItem from="1789485317387" duration="9331000" />
       <workItem from="1789671908927" duration="14605000" />
       <workItem from="1790105240644" duration="4569000" />
-      <workItem from="1790265233880" duration="1486000" />
-    </task>
-    <task id="LOCAL-00051" summary="Dopisanie w data_processing.py dopisz import GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH i funkcji do kategorii wiekowych">
-      <option name="closed" value="true" />
-      <created>1789677268799</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1789677268799</updated>
+      <workItem from="1790265233880" duration="2158000" />
     </task>
     <task id="LOCAL-00052" summary="Dopisanie w aggregations.py dopisz import ETYKIETY_GRUP_WIEKOWYCH i funkcji do liczenia wg grupy wiekowej">
       <option name="closed" value="true" />
@@ -485,14 +477,21 @@
       <option name="project" value="LOCAL" />
       <updated>1790109671446</updated>
     </task>
-    <option name="localTasksCounter" value="100" />
+    <task id="LOCAL-00100" summary="Zmniejszenie czcionki w tabeli, zmiana koloru tła i czcionki w polu nagłówkowym oraz w górnej belce tabeli">
+      <option name="closed" value="true" />
+      <created>1790266878594</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1790266878595</updated>
+    </task>
+    <option name="localTasksCounter" value="101" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="dodanie importu policz_kategorie_onkologiczne" />
     <MESSAGE value="dodanie funkcji kolumny_tabeli_przyczyn, wiersz_tabeli_przyczyn, tooltip_klasyfikacji w views" />
     <MESSAGE value="Dodanie do constants.py granic wartości - do wykrywania błędnych/podejrzanych rekordów" />
     <MESSAGE value="Dodanie do data_processing.py funkcji walidacji danych" />
@@ -517,7 +516,8 @@
     <MESSAGE value="Poprawka widoczności wniosków w wykresie Pareto i zmniejszenie belki z tytułowym nagłówkiem aplikacji" />
     <MESSAGE value="Zmiana czcionek" />
     <MESSAGE value="Ujednolicenie typu czcionki w całym projekcie" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ujednolicenie typu czcionki w całym projekcie" />
+    <MESSAGE value="Zmniejszenie czcionki w tabeli, zmiana koloru tła i czcionki w polu nagłówkowym oraz w górnej belce tabeli" />
+    <option name="LAST_COMMIT_MESSAGE" value="Zmniejszenie czcionki w tabeli, zmiana koloru tła i czcionki w polu nagłówkowym oraz w górnej belce tabeli" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -540,7 +540,7 @@
     <SUITE FILE_PATH="coverage/ProjektI$komponenty.coverage" NAME="komponenty Coverage Results" MODIFIED="1790266559289" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ProjektI$constants.coverage" NAME="constants Coverage Results" MODIFIED="1789675974157" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ProjektI$widoki.coverage" NAME="widoki Coverage Results" MODIFIED="1790108016254" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ProjektI$uruchom.coverage" NAME="uruchom Coverage Results" MODIFIED="1790266721262" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ProjektI$uruchom.coverage" NAME="uruchom Coverage Results" MODIFIED="1790267364544" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ProjektI$stale.coverage" NAME="stale Coverage Results" MODIFIED="1790265260273" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ProjektI$views.coverage" NAME="views Coverage Results" MODIFIED="1789926808182" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ProjektI$main.coverage" NAME="main Coverage Results" MODIFIED="1789926939858" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

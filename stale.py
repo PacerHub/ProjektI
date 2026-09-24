@@ -125,3 +125,10 @@ KOLOR_TEKSTU_NAGLOWKA = "white"
 KOLOR_NAGLOWKOW_TABELI = "#2e75b6"  # niebieski – tytuły kolumn tabeli
 KOLOR_NAGLOWKOW_TABELI_HOVER = "#255f94"
 KOLOR_TEKSTU_NAGLOWKOW_TABELI = "white"
+
+WIDOKI_LICZBA_PACJENTOW = [
+    # (tekst w menu, pełna nazwa widoku z RODZAJE_WIDOKOW)
+    ("rodzaju badania", "Liczba pacjentów wg rodzaju badania"),
+    ("wieku", "Liczba pacjentów wg wieku"),
+    ("płci", "Liczba pacjentów wg płci"),
+]
