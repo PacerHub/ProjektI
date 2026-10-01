@@ -9,12 +9,15 @@ from agregacje import (
     wygeneruj_wnioski_pareto, wygeneruj_wnioski_analizy,
 )
 from stale import KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW, KLASYFIKACJA_OPISY, CZCIONKA
-from komponenty import zbuduj_tabele, zbuduj_panel_podsumowania, Tooltip
-from przetwarzanie_danych import filtruj_przekroczenia, zbuduj_liste_wynikow, filtruj_bezpieczne
+from komponenty import zbuduj_tabele, zbuduj_panel_podsumowania, Tooltip, zbuduj_filtr_plci, zbuduj_filtr_kategorii_bmi
+from przetwarzanie_danych import filtruj_przekroczenia, zbuduj_liste_wynikow, filtruj_bezpieczne, kategoria_bmi
 from wykresy import (
     zbuduj_dashboard_przekroczenia, zbuduj_wykres_liczebnosci,
     zbuduj_wykres_kolowy_liczebnosci, zbuduj_wykres_pareto,
 )
+
+import tkinter as tk
+
 
 def _osadz_wykres(parent, fig):
     canvas = FigureCanvasTkAgg(fig, master=parent)
@@ -34,10 +37,6 @@ def pokaz_liczebnosc_wg_kolumny(parent, dane, kolumna, tytul, sortuj_wg_indeksu=
     return _osadz_wykres(parent, fig)
 
 
-def pokaz_dashboard_przekroczenia(parent, dane):
-    pacjenci = filtruj_przekroczenia(filtruj_bezpieczne(dane))
-    fig = zbuduj_dashboard_przekroczenia(pacjenci)
-    return _osadz_wykres(parent, fig)
 
 def _kolumny_tabeli_przyczyn():
 #Definiuje kolumny tabeli: nazwy, nagłówki, szerokości, wyrównanie.
@@ -151,4 +150,49 @@ def pokaz_pareto_przyczyn(parent, dane):
     ).pack(side="bottom", fill="x", pady=(0, 30))
     return _osadz_wykres(parent, fig)
 
+def _filtruj_wg_plci(pacjenci, wybor):
+    """Zwraca podzbiór pacjentów wg wyboru filtra: 'wszyscy' | 'kobiety' | 'mezczyzni'."""
+    if wybor == "kobiety":
+        return pacjenci[pacjenci["plec"] == "K"]
+    if wybor == "mezczyzni":
+        return pacjenci[pacjenci["plec"] == "M"]
+    return pacjenci
 
+
+def _filtruj_wg_kategorii_bmi(pacjenci, wybor):
+    """Zwraca podzbiór pacjentów wg wybranej kategorii BMI (lub wszystkich przy 'wszyscy')."""
+    if wybor == "wszyscy" or len(pacjenci) == 0:
+        return pacjenci
+    kategorie = pacjenci.apply(lambda w: kategoria_bmi(w["wiek"], w["bmi"]), axis=1)
+    return pacjenci[kategorie == wybor]
+
+
+def pokaz_dashboard_przekroczenia(parent, dane):
+    wybrana_plec = tk.StringVar(value="wszyscy")
+    wybrana_kategoria_bmi = tk.StringVar(value="wszyscy")
+    obszar_wykresu = tk.Frame(parent)
+
+    def odswiez(*_):
+        for widget in obszar_wykresu.winfo_children():
+            widget.destroy()
+
+        pacjenci = filtruj_przekroczenia(filtruj_bezpieczne(dane))
+        pacjenci = _filtruj_wg_plci(pacjenci, wybrana_plec.get())
+        pacjenci = _filtruj_wg_kategorii_bmi(pacjenci, wybrana_kategoria_bmi.get())
+
+        if len(pacjenci) == 0:
+            tk.Label(
+                obszar_wykresu, text="Brak pacjentów z przekroczoną dawką dla wybranych filtrów.",
+                font=(CZCIONKA, 12),
+            ).pack(pady=40)
+            return
+
+        fig = zbuduj_dashboard_przekroczenia(pacjenci)
+        _osadz_wykres(obszar_wykresu, fig)
+
+    zbuduj_filtr_plci(parent, wybrana_plec, odswiez)
+    zbuduj_filtr_kategorii_bmi(parent, wybrana_kategoria_bmi, odswiez)
+    obszar_wykresu.pack(fill="both", expand=True)
+
+    odswiez()
+    return obszar_wykresu

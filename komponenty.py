@@ -3,7 +3,7 @@
 import tkinter as tk
 import tkinter.font as tkfont
 import matplotlib.pyplot as plt
-from stale import CZCIONKA,KOLOR_NAGLOWKOW_TABELI, KOLOR_NAGLOWKOW_TABELI_HOVER, KOLOR_TEKSTU_NAGLOWKOW_TABELI
+from stale import CZCIONKA,KOLOR_NAGLOWKOW_TABELI, KOLOR_NAGLOWKOW_TABELI_HOVER, KOLOR_TEKSTU_NAGLOWKOW_TABELI, KATEGORIE_BMI
 from tkinter import ttk
 from agregacje import policz_aktywne_czynniki
 
@@ -154,3 +154,38 @@ def zbuduj_przycisk_rozwijany(rodzic, tekst, opcje, po_wyborze):
                          command=lambda n=nazwa_widoku: po_wyborze(n))
     przycisk["menu"] = menu
     return przycisk
+def zbuduj_filtr_plci(parent, zmienna, on_change):
+    """Pasek radiobuttonów do filtrowania danych wg płci: wszyscy / kobiety / mężczyźni."""
+    panel = tk.Frame(parent)
+    panel.pack(fill="x", pady=(0, 10))
+
+    tk.Label(panel, text="Płeć:", font=(CZCIONKA, 10, "bold")).pack(side="left", padx=(10, 5))
+
+    opcje = [("Wszyscy", "wszyscy"), ("Kobiety", "kobiety"), ("Mężczyźni", "mezczyzni")]
+    for tekst, wartosc in opcje:
+        tk.Radiobutton(
+            panel, text=tekst, variable=zmienna, value=wartosc,
+            command=on_change, font=(CZCIONKA, 10),
+        ).pack(side="left", padx=5)
+
+    return panel
+
+def zbuduj_filtr_kategorii_bmi(parent, zmienna, on_change):
+    """Pasek radiobuttonów do filtrowania danych wg kategorii BMI."""
+    panel = tk.Frame(parent)
+    panel.pack(fill="x", pady=(0, 10))
+
+    tk.Label(panel, text="Kategoria BMI:", font=(CZCIONKA, 10, "bold")).pack(side="left", padx=(10, 5))
+
+    tk.Radiobutton(
+        panel, text="Wszyscy", variable=zmienna, value="wszyscy",
+        command=on_change, font=(CZCIONKA, 10),
+    ).pack(side="left", padx=5)
+
+    for kategoria in KATEGORIE_BMI:
+        tk.Radiobutton(
+            panel, text=kategoria, variable=zmienna, value=kategoria,
+            command=on_change, font=(CZCIONKA, 10),
+        ).pack(side="left", padx=5)
+
+    return panel

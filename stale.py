@@ -132,3 +132,5 @@ WIDOKI_LICZBA_PACJENTOW = [
     ("wieku", "Liczba pacjentów wg wieku"),
     ("płci", "Liczba pacjentów wg płci"),
 ]
+
+KATEGORIE_BMI = ["niedowaga", "waga prawidłowa", "nadwaga", "otyłość I stopnia", "otyłość II stopnia"]

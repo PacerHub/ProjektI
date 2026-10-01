@@ -1,5 +1,5 @@
 #Budowa wykresów matplotlib.
-
+from matplotlib.ticker import MaxNLocator
 import matplotlib.pyplot as plt
 from stale import PALETA_KOLOROW, ROZMIAR_TYTULU_WYKRESU, GRUBOSC_TYTULU_WYKRESU, ROZMIAR_TYTULU_DASHBOARDU
 from agregacje import policz_kategorie_onkologiczne
@@ -46,6 +46,7 @@ def narysuj_rodzaj_badania(ax, pacjenci):
     ax.barh(counts.index, counts.values, color=_kolory_cyklicznie(len(counts)))
     _ustaw_tytul_panelu(ax, "Rodzaj badania")
     ax.set_xlabel("Liczba pacjentów")
+    ax.xaxis.set_major_locator(MaxNLocator(integer=True))
     ax.tick_params(axis="y", labelsize=7)
 
 
@@ -54,7 +55,10 @@ def narysuj_wiek(ax, pacjenci):
     ax.hist(pacjenci["wiek"], bins=10, color=PALETA_KOLOROW[0], edgecolor="white")
     _ustaw_tytul_panelu(ax, "Wiek pacjentów")
     ax.set_xlabel("Wiek")
+    ax.xaxis.set_major_locator(MaxNLocator(integer=True))
     ax.set_ylabel("Liczba pacjentów")
+    ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+
 
 
 def zbuduj_dashboard_przekroczenia(pacjenci):

@@ -119,7 +119,9 @@ def kategoria_bmi(wiek, bmi):
         return "waga prawidłowa"
     if bmi < 30:
         return "nadwaga"
-    return "otyłość"
+    if bmi < 35:
+        return "otyłość I stopnia"
+    return "otyłość II stopnia"
 
 
 def ustal_okolice_anatomiczna(rodzaj_badania):
