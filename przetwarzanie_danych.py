@@ -1,7 +1,6 @@
 #Wczytywanie danych oraz transformacje analityczne na poziomie pojedynczego pacjenta.
 
 import pandas as pd
-from stale import GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH, EXAM_REGION, PROG_WYSOKIEGO_DLP_FAZY
 from stale import (
     EXAM_REGION, PROG_WYSOKIEGO_DLP_FAZY, GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH,
     ZAKRES_WIEKU, ZAKRES_BMI, ZAKRES_LICZBY_FAZ, KLUCZE_CZYNNIKOW,
@@ -71,7 +70,7 @@ def oznacz_przekroczenia(dane):
 
 def filtruj_przekroczenia(dane):
 #Zwraca tylko wiersze pacjentów, u których doszło do przekroczenia DLP.
-    return dane[dane["przekroczenie_dlp"] == True]
+    return dane[dane["przekroczenie_dlp"]]
 
 
 def czy_pediatryczny(wiek):

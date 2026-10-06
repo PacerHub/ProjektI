@@ -15,12 +15,6 @@ from widoki import (
 )
 from komponenty import ustaw_czcionke_aplikacji, zbuduj_przycisk_rozwijany
 
-def main():
-    dane = wczytaj_dane(SCIEZKA_DANYCH)
-    dane = oznacz_podejrzane_dane(dane)
-    dane = oznacz_przekroczenia(dane)
-
-
 def zbuduj_okno():
 #Tworzenie i konfiguracja głównego okna aplikacji
     okno = tk.Tk()
@@ -116,6 +110,8 @@ def dodaj_panel_przyciskow(okno, dane, kontener):
 def main():
 #Uruchamia aplikację: wczytuje dane, buduje okno i startuje pętlę zdarzeń
     dane = oznacz_przekroczenia(wczytaj_dane(SCIEZKA_DANYCH))
+    dane = oznacz_podejrzane_dane(dane)
+    dane = oznacz_przekroczenia(dane)
 
     okno = zbuduj_okno()
     dodaj_naglowek(okno)
