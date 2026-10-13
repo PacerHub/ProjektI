@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Dodanie wcięć do komentarzy w funkcjach wygeneruj_wnioski_analizy, wygeneruj_wnioski_pereto, policz_klasyfikacje">
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Poprawki w filtrowaniu, przeniesienie funkcji filtrujących do przetwarzanie_danych.py, poprawka z zwrocie otyłość i i ii stopnia na otyłość I i II stopnia">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komponenty.py" beforeDir="false" afterPath="$PROJECT_DIR$/komponenty.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/przetwarzanie_danych.py" beforeDir="false" afterPath="$PROJECT_DIR$/przetwarzanie_danych.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/widoki.py" beforeDir="false" afterPath="$PROJECT_DIR$/widoki.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wykresy.py" beforeDir="false" afterPath="$PROJECT_DIR$/wykresy.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/agregacje.py" beforeDir="false" afterPath="$PROJECT_DIR$/agregacje.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,14 +96,6 @@
       <workItem from="1790780490315" duration="5722000" />
       <workItem from="1791136745207" duration="808000" />
       <workItem from="1791214082108" duration="9000" />
-    </task>
-    <task id="LOCAL-00056" summary="W views zamiana pokaz_tabele_przekroczenia na pokaz_dashboard przekroczenia">
-      <option name="closed" value="true" />
-      <created>1789677959042</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1789677959042</updated>
     </task>
     <task id="LOCAL-00057" summary="W main.py zamiana pokaz_tabele_przekroczenia na pokaz_dashboard przekroczenia">
       <option name="closed" value="true" />
@@ -492,7 +481,15 @@
       <option name="project" value="LOCAL" />
       <updated>1791299951275</updated>
     </task>
-    <option name="localTasksCounter" value="105" />
+    <task id="LOCAL-00105" summary="Poprawki w filtrowaniu, przeniesienie funkcji filtrujących do przetwarzanie_danych.py, poprawka z zwrocie otyłość i i ii stopnia na otyłość I i II stopnia">
+      <option name="closed" value="true" />
+      <created>1791910228269</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1791910228269</updated>
+    </task>
+    <option name="localTasksCounter" value="106" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -510,7 +507,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Dodanie w views filtracji danych (odróżnienie ,,podejrzanych&quot;) wyników" />
     <MESSAGE value="Dodanie w main oznaczenia przekroczenia danych i oznaczenia podejrzanych danych" />
     <MESSAGE value="Dodanie do rodzajów widoków w constants.py &quot;Pareto przyczyn przekroczeń&quot;" />
     <MESSAGE value="W aggregations.py dodanie funkcji do klasyfikacji przyczyny przekroczenia" />
@@ -535,7 +531,8 @@
     <MESSAGE value="Dodanie filtrowania w dashboardzie" />
     <MESSAGE value="Usunięcie pierwszej (pustej) definicji main(), która nie przeprowadzała walidacji danych. Usunięcie podwójnego importu z przetwarzanie_danych." />
     <MESSAGE value="Dodanie wcięć do komentarzy w funkcjach wygeneruj_wnioski_analizy, wygeneruj_wnioski_pereto, policz_klasyfikacje" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dodanie wcięć do komentarzy w funkcjach wygeneruj_wnioski_analizy, wygeneruj_wnioski_pereto, policz_klasyfikacje" />
+    <MESSAGE value="Poprawki w filtrowaniu, przeniesienie funkcji filtrujących do przetwarzanie_danych.py, poprawka z zwrocie otyłość i i ii stopnia na otyłość I i II stopnia" />
+    <option name="LAST_COMMIT_MESSAGE" value="Poprawki w filtrowaniu, przeniesienie funkcji filtrujących do przetwarzanie_danych.py, poprawka z zwrocie otyłość i i ii stopnia na otyłość I i II stopnia" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -544,6 +541,11 @@
           <url>file://$PROJECT_DIR$/widoki.py</url>
           <line>9</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/agregacje.py</url>
+          <line>35</line>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

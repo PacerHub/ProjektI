@@ -140,7 +140,7 @@ def pokaz_pareto_przyczyn(parent, dane):
     fig = zbuduj_wykres_pareto(counts)
     tk.Label(
         parent,
-        text=wygeneruj_wnioski_pareto(counts),
+        text=wygeneruj_wnioski_pareto(counts, wyniki),
         font=(CZCIONKA, 12),
         wraplength=1100,
         justify="center",

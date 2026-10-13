@@ -32,7 +32,8 @@ def policz_klasyfikacje(wyniki):
     # nie ma sensu wliczać ich do statystyki.
     klasyfikacje = [w["klasyfikacja"] for w in wyniki if not w.get("podejrzany")]
     return pd.Series(klasyfikacje).value_counts()
-def wygeneruj_wnioski_pareto(counts):
+
+def wygeneruj_wnioski_pareto(counts, wyniki=None):
     #Generowanie krótkiego opisu tekstowego najważniejszych obserwacji z rozkładu Pareto.
     suma = counts.sum()
     if suma == 0:
@@ -41,16 +42,44 @@ def wygeneruj_wnioski_pareto(counts):
     najczestsza = counts.index[0]
     udzial_najczestszej = counts.iloc[0] / suma * 100
 
+    opis_przyczyny = f"'{najczestsza}'"
+    if najczestsza == "połączenie kilku czynników" and wyniki:
+        przypadki = [
+            w for w in wyniki
+            if not w.get("podejrzany") and w["klasyfikacja"] == "połączenie kilku czynników"
+        ]
+        liczby = {
+            klucz: sum(1 for w in przypadki if w["factors"][klucz])
+            for klucz in KLUCZE_CZYNNIKOW
+        }
+        wystepujace = sorted(
+            ((klucz, n) for klucz, n in liczby.items() if n > 0),
+            key=lambda para: para[1], reverse=True,
+        )
+        if wystepujace:
+            lista = ", ".join(
+                f"{etykieta_czynnika(klucz)} – {n} z {len(przypadki)}"
+                for klucz, n in wystepujace
+            )
+            opis_przyczyny += f" (w tym: {lista})"
+
     skumulowany = counts.cumsum() / suma * 100
     liczba_kategorii_do_80 = int((skumulowany < 80).sum()) + 1
     liczba_kategorii_do_80 = min(liczba_kategorii_do_80, len(counts))
 
     return (
-        f"Najczęstsza przyczyna: '{najczestsza}' — {counts.iloc[0]} z {suma} przypadków "
+        f"Najczęstsza przyczyna: {opis_przyczyny} — {counts.iloc[0]} z {suma} przypadków "
         f"({udzial_najczestszej:.0f}%). "
         f"{liczba_kategorii_do_80} z {len(counts)} kategorii odpowiada łącznie za "
         f"{skumulowany.iloc[liczba_kategorii_do_80 - 1]:.0f}% wszystkich przekroczeń."
     )
+
+
+def etykieta_czynnika(klucz):
+    #Etykieta czynnika w jednej linii, z małej litery (skrót DLP zostaje bez zmian).
+    etykieta = ETYKIETY_CZYNNIKOW[klucz].replace("\n", " ")
+    return etykieta[0].lower() + etykieta[1:]
+
 def wygeneruj_wnioski_analizy(wyniki):
     #Generowanie krótkiego opisu najważniejszych obserwacji z tabeli analizy przyczyn.
     wyniki_wazne = [w for w in wyniki if not w.get("podejrzany")]
