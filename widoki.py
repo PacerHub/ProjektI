@@ -1,16 +1,14 @@
 #Widoki aplikacji: jedna funkcja `pokaz_*` = jeden ekran wybierany przyciskiem.
 
-import pandas as pd
-import tkinter as tk
-
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+import matplotlib.pyplot as plt
 from agregacje import (
     policz_wg_kolumny, policz_wg_grupy_wiekowej, policz_klasyfikacje,
     wygeneruj_wnioski_pareto, wygeneruj_wnioski_analizy,
 )
 from stale import KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW, KLASYFIKACJA_OPISY, CZCIONKA
 from komponenty import zbuduj_tabele, zbuduj_panel_podsumowania, Tooltip, zbuduj_filtr_plci, zbuduj_filtr_kategorii_bmi
-from przetwarzanie_danych import filtruj_przekroczenia, zbuduj_liste_wynikow, filtruj_bezpieczne, kategoria_bmi
+from przetwarzanie_danych import filtruj_przekroczenia, zbuduj_liste_wynikow, filtruj_bezpieczne, filtruj_pacjentow_dashboardu
 from wykresy import (
     zbuduj_dashboard_przekroczenia, zbuduj_wykres_liczebnosci,
     zbuduj_wykres_kolowy_liczebnosci, zbuduj_wykres_pareto,
@@ -150,22 +148,6 @@ def pokaz_pareto_przyczyn(parent, dane):
     ).pack(side="bottom", fill="x", pady=(0, 30))
     return _osadz_wykres(parent, fig)
 
-def _filtruj_wg_plci(pacjenci, wybor):
-    """Zwraca podzbiór pacjentów wg wyboru filtra: 'wszyscy' | 'kobiety' | 'mezczyzni'."""
-    if wybor == "kobiety":
-        return pacjenci[pacjenci["plec"] == "K"]
-    if wybor == "mezczyzni":
-        return pacjenci[pacjenci["plec"] == "M"]
-    return pacjenci
-
-
-def _filtruj_wg_kategorii_bmi(pacjenci, wybor):
-    """Zwraca podzbiór pacjentów wg wybranej kategorii BMI (lub wszystkich przy 'wszyscy')."""
-    if wybor == "wszyscy" or len(pacjenci) == 0:
-        return pacjenci
-    kategorie = pacjenci.apply(lambda w: kategoria_bmi(w["wiek"], w["bmi"]), axis=1)
-    return pacjenci[kategorie == wybor]
-
 
 def pokaz_dashboard_przekroczenia(parent, dane):
     wybrana_plec = tk.StringVar(value="wszyscy")
@@ -176,9 +158,9 @@ def pokaz_dashboard_przekroczenia(parent, dane):
         for widget in obszar_wykresu.winfo_children():
             widget.destroy()
 
-        pacjenci = filtruj_przekroczenia(filtruj_bezpieczne(dane))
-        pacjenci = _filtruj_wg_plci(pacjenci, wybrana_plec.get())
-        pacjenci = _filtruj_wg_kategorii_bmi(pacjenci, wybrana_kategoria_bmi.get())
+        pacjenci = filtruj_pacjentow_dashboardu(
+            dane, plec=wybrana_plec.get(), bmi=wybrana_kategoria_bmi.get()
+        )
 
         if len(pacjenci) == 0:
             tk.Label(
@@ -189,9 +171,13 @@ def pokaz_dashboard_przekroczenia(parent, dane):
 
         fig = zbuduj_dashboard_przekroczenia(pacjenci)
         _osadz_wykres(obszar_wykresu, fig)
+        plt.close(fig)
 
-    zbuduj_filtr_plci(parent, wybrana_plec, odswiez)
-    zbuduj_filtr_kategorii_bmi(parent, wybrana_kategoria_bmi, odswiez)
+    wybrana_plec.trace_add("write", odswiez)
+    wybrana_kategoria_bmi.trace_add("write", odswiez)
+
+    zbuduj_filtr_plci(parent, wybrana_plec)
+    zbuduj_filtr_kategorii_bmi(parent, wybrana_kategoria_bmi)
     obszar_wykresu.pack(fill="both", expand=True)
 
     odswiez()
