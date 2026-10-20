@@ -47,7 +47,7 @@ def pokaz_liczebnosc_wg_kolumny(parent, dane, kolumna, tytul, sortuj_wg_indeksu=
 def pokaz_liczbe_pacjentow_wg_wieku(parent, dane):
     counts = policz_wg_grupy_wiekowej(filtruj_bezpieczne(dane))
     fig = zbuduj_wykres_liczebnosci(counts, "Liczba pacjentów wg wieku")
-    return _osadz_wykres(parent, fig)
+    return osadz_wykres(parent, fig)
 
 def pokaz_pareto_przyczyn(parent, dane):
     #Widok 'Pareto przyczyn przekroczeń' - które przyczyny odpowiadają za większość przypadków.
@@ -58,7 +58,7 @@ def pokaz_pareto_przyczyn(parent, dane):
     # Panel pakowany PRZED wykresem z side="bottom", żeby wykres go nie wypchnął poza okno
     zbuduj_panel_wnioskow(parent, wygeneruj_wnioski_pareto(counts, wyniki),
                           side="bottom", pady=(5, 20))
-    return _osadz_wykres(parent, fig)
+    return osadz_wykres(parent, fig)
 
 def pokaz_dashboard_przekroczenia(parent, dane):
     wybrana_plec = tk.StringVar(value="wszyscy")
@@ -81,7 +81,7 @@ def pokaz_dashboard_przekroczenia(parent, dane):
             return
 
         fig = zbuduj_dashboard_przekroczenia(pacjenci)
-        _osadz_wykres(obszar_wykresu, fig)
+        osadz_wykres(obszar_wykresu, fig)
 
     wybrana_plec.trace_add("write", odswiez)
     wybrana_kategoria_bmi.trace_add("write", odswiez)
