@@ -24,8 +24,8 @@ def _osadz_wykres(parent, fig):
     canvas = FigureCanvasTkAgg(fig, master=parent)
     canvas.draw()
     canvas.get_tk_widget().pack(fill="both", expand=True)
+    plt.close(fig)  # zwalnia figurę z pamięci pyplot; wykres zostaje w oknie
     return canvas
-
 
 def pokaz_liczebnosc_wg_kolumny(parent, dane, kolumna, tytul, sortuj_wg_indeksu=False, typ_wykresu="slupkowy", kolory=None):
     counts = policz_wg_kolumny(filtruj_bezpieczne(dane), kolumna, sortuj_wg_indeksu)
@@ -161,7 +161,7 @@ def pokaz_dashboard_przekroczenia(parent, dane):
 
         fig = zbuduj_dashboard_przekroczenia(pacjenci)
         _osadz_wykres(obszar_wykresu, fig)
-        plt.close(fig)
+
 
     wybrana_plec.trace_add("write", odswiez)
     wybrana_kategoria_bmi.trace_add("write", odswiez)
