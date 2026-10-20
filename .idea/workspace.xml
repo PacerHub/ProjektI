@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Zmiana importu ze stale.py w komponenty.py oraz dodanie na końcu pliku funkcji zbuduj_panel_filtrow">
-      <change beforePath="$PROJECT_DIR$/widoki.py" beforeDir="false" afterPath="$PROJECT_DIR$/widoki.py" afterDir="false" />
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Uzupelnienie importów z agregacje, stale, komponenty, przetwarzanie danych. Dodanie funkcji wiersz_tabeli_filtra, pokaz_filtr_przyczyn, wyczysc,odswiez.">
+      <change beforePath="$PROJECT_DIR$/uruchom.py" beforeDir="false" afterPath="$PROJECT_DIR$/uruchom.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,22 +95,6 @@
       <workItem from="1790780490315" duration="5722000" />
       <workItem from="1791136745207" duration="808000" />
       <workItem from="1791214082108" duration="9000" />
-    </task>
-    <task id="LOCAL-00073" summary="Zamiana etykiety xlabel na pusty tekst, żeby nie było podpisu pod wykresem">
-      <option name="closed" value="true" />
-      <created>1789752005020</created>
-      <option name="number" value="00073" />
-      <option name="presentableId" value="LOCAL-00073" />
-      <option name="project" value="LOCAL" />
-      <updated>1789752005020</updated>
-    </task>
-    <task id="LOCAL-00074" summary="dodanie importu policz_kategorie_onkologiczne">
-      <option name="closed" value="true" />
-      <created>1789752535386</created>
-      <option name="number" value="00074" />
-      <option name="presentableId" value="LOCAL-00074" />
-      <option name="project" value="LOCAL" />
-      <updated>1789752535386</updated>
     </task>
     <task id="LOCAL-00075" summary="dodanie funkcji kolumny_tabeli_przyczyn, wiersz_tabeli_przyczyn, tooltip_klasyfikacji w views">
       <option name="closed" value="true" />
@@ -488,7 +472,23 @@
       <option name="project" value="LOCAL" />
       <updated>1792520167938</updated>
     </task>
-    <option name="localTasksCounter" value="122" />
+    <task id="LOCAL-00122" summary="Uzupelnienie importów z agregacje, stale, komponenty, przetwarzanie danych. Dodanie funkcji wiersz_tabeli_filtra, pokaz_filtr_przyczyn, wyczysc,o dswiez.">
+      <option name="closed" value="true" />
+      <created>1792520398756</created>
+      <option name="number" value="00122" />
+      <option name="presentableId" value="LOCAL-00122" />
+      <option name="project" value="LOCAL" />
+      <updated>1792520398756</updated>
+    </task>
+    <task id="LOCAL-00123" summary="Uzupelnienie importów z agregacje, stale, komponenty, przetwarzanie danych. Dodanie funkcji wiersz_tabeli_filtra, pokaz_filtr_przyczyn, wyczysc,odswiez.">
+      <option name="closed" value="true" />
+      <created>1792520453597</created>
+      <option name="number" value="00123" />
+      <option name="presentableId" value="LOCAL-00123" />
+      <option name="project" value="LOCAL" />
+      <updated>1792520453597</updated>
+    </task>
+    <option name="localTasksCounter" value="124" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -506,8 +506,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Poprawka widoczności wniosków w wykresie Pareto i zmniejszenie belki z tytułowym nagłówkiem aplikacji" />
-    <MESSAGE value="Zmiana czcionek" />
     <MESSAGE value="Ujednolicenie typu czcionki w całym projekcie" />
     <MESSAGE value="Zmniejszenie czcionki w tabeli, zmiana koloru tła i czcionki w polu nagłówkowym oraz w górnej belce tabeli" />
     <MESSAGE value="Stworzenie jednego przycisku z rozwijaną listą : Liczba pacjentów wg" />
@@ -531,7 +529,9 @@
     <MESSAGE value="DOdanie funkcji zbuduj_rekordy_przekroczeń" />
     <MESSAGE value="Zmiana importu ze stale.py oraz dopisanie na końcu pliku funkcji filtruj_przyczyny" />
     <MESSAGE value="Zmiana importu ze stale.py w komponenty.py oraz dodanie na końcu pliku funkcji zbuduj_panel_filtrow" />
-    <option name="LAST_COMMIT_MESSAGE" value="Zmiana importu ze stale.py w komponenty.py oraz dodanie na końcu pliku funkcji zbuduj_panel_filtrow" />
+    <MESSAGE value="Uzupelnienie importów z agregacje, stale, komponenty, przetwarzanie danych. Dodanie funkcji wiersz_tabeli_filtra, pokaz_filtr_przyczyn, wyczysc,o dswiez." />
+    <MESSAGE value="Uzupelnienie importów z agregacje, stale, komponenty, przetwarzanie danych. Dodanie funkcji wiersz_tabeli_filtra, pokaz_filtr_przyczyn, wyczysc,odswiez." />
+    <option name="LAST_COMMIT_MESSAGE" value="Uzupelnienie importów z agregacje, stale, komponenty, przetwarzanie danych. Dodanie funkcji wiersz_tabeli_filtra, pokaz_filtr_przyczyn, wyczysc,odswiez." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
