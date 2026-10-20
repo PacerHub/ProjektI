@@ -51,8 +51,12 @@ def narysuj_rodzaj_badania(ax, pacjenci):
 
 
 def narysuj_wiek(ax, pacjenci):
-    #Rysuje histogram wieku pacjentów.
-    ax.hist(pacjenci["wiek"], bins=10, color=PALETA_KOLOROW[0], edgecolor="white")
+    #Rysuje histogram wieku pacjentów z binami wyrównanymi do pełnych lat.
+    wiek_min = int(pacjenci["wiek"].min())
+    wiek_max = int(pacjenci["wiek"].max())
+
+    ax.hist(pacjenci["wiek"], bins=range(wiek_min - 1, wiek_max + 2),
+            color=PALETA_KOLOROW[0], edgecolor="white")
     _ustaw_tytul_panelu(ax, "Wiek pacjentów")
     ax.set_xlabel("Wiek")
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
