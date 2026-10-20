@@ -67,12 +67,7 @@ def zbuduj_tabele(parent, kolumny, naglowki, szerokosci, kotwice=None):
 #Tworzenie Treeview ze scrollbarami (pionowym i poziomym) i zwracanie gotowego widgetu
     kotwice = kotwice or {}
 
-    styl = ttk.Style()
-    styl.theme_use("clam")
-    styl.configure("Treeview.Heading", padding=(5, 10), font=(CZCIONKA, 10))
-    styl.configure("Treeview", font=(CZCIONKA, 9), rowheight=25)
-
-    ramka = tk.Frame(parent)
+       ramka = tk.Frame(parent)
     ramka.pack(fill="both", expand=True)
 
     tabela = ttk.Treeview(ramka, columns=kolumny, show="headings")
@@ -142,6 +137,7 @@ def ustaw_czcionke_aplikacji(root, rozmiar=10, rozmiar_przyciskow=9, rozmiar_tab
                     rowheight=int(rozmiar_tabeli * 2.4))
 
     style.configure("Treeview.Heading", font=(CZCIONKA, rozmiar_tabeli),
+                    padding=(5, 10),
                     background=KOLOR_NAGLOWKOW_TABELI,
                     foreground=KOLOR_TEKSTU_NAGLOWKOW_TABELI)
     style.map("Treeview.Heading",

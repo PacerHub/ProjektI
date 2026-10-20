@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Nowa funkcja zbuduj_panel_wnioskow w komponenty.py (tło, pasek akcentu, tytuł 'Wnioski', zawijanie tekstu do szerokości okna). Kolory panelu w stale.py. Zastępuje zwykłe tk.Label w obu widokach." />
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Usunięcie zdublowanych funkcji filtrów płci i BMI- pierwsze wersje (z on_change) były nadpisywane przez późniejsze definicje i nigdzie nieużywane">
+      <change beforePath="$PROJECT_DIR$/komponenty.py" beforeDir="false" afterPath="$PROJECT_DIR$/komponenty.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -93,22 +95,6 @@
       <workItem from="1790780490315" duration="5722000" />
       <workItem from="1791136745207" duration="808000" />
       <workItem from="1791214082108" duration="9000" />
-    </task>
-    <task id="LOCAL-00061" summary="Dopisek funkcji zbuduj panel podsumowania w widgets.py">
-      <option name="closed" value="true" />
-      <created>1789678532785</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
-      <option name="project" value="LOCAL" />
-      <updated>1789678532785</updated>
-    </task>
-    <task id="LOCAL-00062" summary="Przebudowa pokaz_analize_przyczyn">
-      <option name="closed" value="true" />
-      <created>1789678789396</created>
-      <option name="number" value="00062" />
-      <option name="presentableId" value="LOCAL-00062" />
-      <option name="project" value="LOCAL" />
-      <updated>1789678789396</updated>
     </task>
     <task id="LOCAL-00063" summary="Dodanie zbuduj liste wyników w data processing">
       <option name="closed" value="true" />
@@ -486,7 +472,23 @@
       <option name="project" value="LOCAL" />
       <updated>1792517486863</updated>
     </task>
-    <option name="localTasksCounter" value="110" />
+    <task id="LOCAL-00110" summary="Wyrównanie binów histogramu wieku do pełnych lat&quot; -m &quot;bins=range(min-1, max+2) zamiast bins=10, żeby oś miała sensowny zakres także przy jednym pacjencie po filtrowaniu.">
+      <option name="closed" value="true" />
+      <created>1792517663110</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1792517663110</updated>
+    </task>
+    <task id="LOCAL-00111" summary="Usunięcie zdublowanych funkcji filtrów płci i BMI- pierwsze wersje (z on_change) były nadpisywane przez późniejsze definicje i nigdzie nieużywane">
+      <option name="closed" value="true" />
+      <created>1792517820145</created>
+      <option name="number" value="00111" />
+      <option name="presentableId" value="LOCAL-00111" />
+      <option name="project" value="LOCAL" />
+      <updated>1792517820145</updated>
+    </task>
+    <option name="localTasksCounter" value="112" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -504,8 +506,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Dodanie w charts.py funkcji do rysowania wykresu Pareto przedstawiającego najczęstsze przyczyny przekroczeń" />
-    <MESSAGE value="Dodanie w views.py funkcji pokazującej wykres Pareto przyczyn przekroczeń" />
     <MESSAGE value="Zwiększenie wymiarów okna, dodanie wyświetlania wykresu Pareto przyczyn przekroczeń dawek" />
     <MESSAGE value="Nowa funkcja w aggregations.py, dodawanie wniosków do wykresu Pareto" />
     <MESSAGE value="w views.py tk.label z wygenerowanymi wnioskami do pareto przekroczeń" />
@@ -529,7 +529,9 @@
     <MESSAGE value="Dodanie kolorów w panelu wniosków" />
     <MESSAGE value="Edycja importu w komponenty.py ze stale + dodanie funkcji budującej panel wniosków" />
     <MESSAGE value="Nowa funkcja zbuduj_panel_wnioskow w komponenty.py (tło, pasek akcentu, tytuł 'Wnioski', zawijanie tekstu do szerokości okna). Kolory panelu w stale.py. Zastępuje zwykłe tk.Label w obu widokach." />
-    <option name="LAST_COMMIT_MESSAGE" value="Nowa funkcja zbuduj_panel_wnioskow w komponenty.py (tło, pasek akcentu, tytuł 'Wnioski', zawijanie tekstu do szerokości okna). Kolory panelu w stale.py. Zastępuje zwykłe tk.Label w obu widokach." />
+    <MESSAGE value="Wyrównanie binów histogramu wieku do pełnych lat&quot; -m &quot;bins=range(min-1, max+2) zamiast bins=10, żeby oś miała sensowny zakres także przy jednym pacjencie po filtrowaniu." />
+    <MESSAGE value="Usunięcie zdublowanych funkcji filtrów płci i BMI- pierwsze wersje (z on_change) były nadpisywane przez późniejsze definicje i nigdzie nieużywane" />
+    <option name="LAST_COMMIT_MESSAGE" value="Usunięcie zdublowanych funkcji filtrów płci i BMI- pierwsze wersje (z on_change) były nadpisywane przez późniejsze definicje i nigdzie nieużywane" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
