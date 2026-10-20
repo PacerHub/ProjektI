@@ -122,7 +122,7 @@ def pokaz_analize_przyczyn(parent, dane):
 
     for (_, wiersz), wynik in zip(pacjenci.iterrows(), wyniki):
         tagi = ("podejrzany",) if wynik.get("podejrzany") else ()
-        tabela.insert("", "end", values=_wiersz_tabeli_przyczyn(wiersz["patient_id"], wynik), tags=tagi)
+        tabela.insert("", "end", values=wiersz_tabeli_przyczyn(wiersz["patient_id"], wynik), tags=tagi)
 
     _dodaj_tooltip_klasyfikacji(tabela)
     tabela.tooltip = TooltipTabeli(tabela, pomin_kolumny={"#6"})
@@ -250,7 +250,7 @@ def pokaz_filtr_przyczyn(parent, dane):
         tabela.delete(*tabela.get_children())
         for rekord in wybrane:
             tagi = ("podejrzany",) if rekord["podejrzany"] else ()
-            tabela.insert("", "end", values=_wiersz_tabeli_filtra(rekord), tags=tagi)
+            tabela.insert("", "end", values=wiersz_tabeli_filtra(rekord), tags=tagi)
 
         pokazane = sum(1 for r in wybrane if not r["podejrzany"])
         podejrzane = len(wybrane) - pokazane
