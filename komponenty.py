@@ -3,7 +3,10 @@
 import tkinter as tk
 import tkinter.font as tkfont
 import matplotlib.pyplot as plt
-from stale import CZCIONKA,KOLOR_NAGLOWKOW_TABELI, KOLOR_NAGLOWKOW_TABELI_HOVER, KOLOR_TEKSTU_NAGLOWKOW_TABELI, KATEGORIE_BMI
+from stale import (
+    CZCIONKA, KOLOR_NAGLOWKOW_TABELI, KOLOR_NAGLOWKOW_TABELI_HOVER, KOLOR_TEKSTU_NAGLOWKOW_TABELI,
+    KATEGORIE_BMI, KOLOR_TLA_WNIOSKOW, KOLOR_AKCENTU_WNIOSKOW, KOLOR_TEKSTU_WNIOSKOW,
+)
 from tkinter import ttk
 from agregacje import policz_aktywne_czynniki
 
@@ -154,6 +157,37 @@ def zbuduj_przycisk_rozwijany(rodzic, tekst, opcje, po_wyborze):
                          command=lambda n=nazwa_widoku: po_wyborze(n))
     przycisk["menu"] = menu
     return przycisk
+
+def zbuduj_panel_wnioskow(parent, tekst, side="top", pady=(5, 10)):
+    """Wyróżniony panel z automatycznie wygenerowanymi wnioskami.
+
+    Ramka z jasnym tłem, kolorowym paskiem po lewej, tytułem 'Wnioski'
+    i tekstem, który zawija się do aktualnej szerokości okna.
+    """
+    panel = tk.Frame(parent, bg=KOLOR_TLA_WNIOSKOW,
+                     highlightbackground=KOLOR_AKCENTU_WNIOSKOW, highlightthickness=1)
+    panel.pack(side=side, fill="x", padx=20, pady=pady)
+
+    # Pionowy pasek akcentu po lewej stronie
+    tk.Frame(panel, bg=KOLOR_AKCENTU_WNIOSKOW, width=6).pack(side="left", fill="y")
+
+    tresc = tk.Frame(panel, bg=KOLOR_TLA_WNIOSKOW)
+    tresc.pack(side="left", fill="both", expand=True, padx=12, pady=8)
+
+    tk.Label(tresc, text="Wnioski", font=(CZCIONKA, 12, "bold"),
+             bg=KOLOR_TLA_WNIOSKOW, fg=KOLOR_AKCENTU_WNIOSKOW,
+             anchor="w").pack(fill="x")
+
+    etykieta = tk.Label(tresc, text=tekst, font=(CZCIONKA, 11),
+                        bg=KOLOR_TLA_WNIOSKOW, fg=KOLOR_TEKSTU_WNIOSKOW,
+                        justify="left", anchor="w")
+    etykieta.pack(fill="x", pady=(2, 0))
+
+    # Zawijanie tekstu do bieżącej szerokości panelu (także po zmianie rozmiaru okna)
+    tresc.bind("<Configure>", lambda e: etykieta.config(wraplength=max(e.width - 10, 200)))
+
+    return panel
+
 def zbuduj_filtr_plci(parent, zmienna, on_change):
     """Pasek radiobuttonów do filtrowania danych wg płci: wszyscy / kobiety / mężczyźni."""
     panel = tk.Frame(parent)
