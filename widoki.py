@@ -27,7 +27,7 @@ from wykresy import (
 import tkinter as tk
 
 
-def _osadz_wykres(parent, fig):
+def osadz_wykres(parent, fig):
     canvas = FigureCanvasTkAgg(fig, master=parent)
     canvas.draw()
     canvas.get_tk_widget().pack(fill="both", expand=True)
@@ -42,42 +42,56 @@ def pokaz_liczebnosc_wg_kolumny(parent, dane, kolumna, tytul, sortuj_wg_indeksu=
     else:
         fig = zbuduj_wykres_liczebnosci(counts, tytul, kolory)
 
+    return osadz_wykres(parent, fig)
+
+def pokaz_liczbe_pacjentow_wg_wieku(parent, dane):
+    counts = policz_wg_grupy_wiekowej(filtruj_bezpieczne(dane))
+    fig = zbuduj_wykres_liczebnosci(counts, "Liczba pacjentów wg wieku")
     return _osadz_wykres(parent, fig)
 
+def pokaz_pareto_przyczyn(parent, dane):
+    #Widok 'Pareto przyczyn przekroczeń' - które przyczyny odpowiadają za większość przypadków.
+    pacjenci = filtruj_przekroczenia(filtruj_bezpieczne(dane))
+    wyniki = zbuduj_liste_wynikow(pacjenci)
+    counts = policz_klasyfikacje(wyniki)
+    fig = zbuduj_wykres_pareto(counts)
+    # Panel pakowany PRZED wykresem z side="bottom", żeby wykres go nie wypchnął poza okno
+    zbuduj_panel_wnioskow(parent, wygeneruj_wnioski_pareto(counts, wyniki),
+                          side="bottom", pady=(5, 20))
+    return _osadz_wykres(parent, fig)
 
+def pokaz_dashboard_przekroczenia(parent, dane):
+    wybrana_plec = tk.StringVar(value="wszyscy")
+    wybrana_kategoria_bmi = tk.StringVar(value="wszyscy")
+    obszar_wykresu = tk.Frame(parent)
 
-def kolumny_tabeli_przyczyn():
-#Definiuje kolumny tabeli: nazwy, nagłówki, szerokości, wyrównanie.
-    kolumny = ("patient_id", "okolica", "bmi", "kategoria_faz", "procent", "klasyfikacja", *KLUCZE_CZYNNIKOW)
+    def odswiez(*_):
+        for widget in obszar_wykresu.winfo_children():
+            widget.destroy()
 
-    naglowki = {
-        "patient_id": "Pacjent",
-        "okolica": "Okolica anatomiczna",
-        "bmi": "BMI (kategoria)",
-        "kategoria_faz": "Liczba faz",
-        "procent": "% przekroczenia",
-        "klasyfikacja": "Klasyfikacja przyczyny",
-        "pediatryczny": "<16 lat",
-        "onkologiczny": "Onko",
-        "wielofazowy": "Wielofazowe",
-        "wysoki_dlp_fazy": "Wysokie DLP",
-        "nadwaga_otylosc": "Nadwaga/\notyłość",
-    }
+        pacjenci = filtruj_pacjentow_dashboardu(
+            dane, plec=wybrana_plec.get(), bmi=wybrana_kategoria_bmi.get()
+        )
 
-    szerokosci = {
-        "patient_id": 65,
-        "okolica": 130,
-        "bmi": 150,
-        "kategoria_faz": 80,
-        "procent": 100,
-        "klasyfikacja": 200,
-        **{klucz: 85 for klucz in KLUCZE_CZYNNIKOW},
-    }
+        if len(pacjenci) == 0:
+            tk.Label(
+                obszar_wykresu, text="Brak pacjentów z przekroczoną dawką dla wybranych filtrów.",
+                font=(CZCIONKA, 12),
+            ).pack(pady=40)
+            return
 
-    kotwice = {"okolica": "w", "klasyfikacja": "w"}
+        fig = zbuduj_dashboard_przekroczenia(pacjenci)
+        _osadz_wykres(obszar_wykresu, fig)
 
-    return kolumny, naglowki, szerokosci, kotwice
+    wybrana_plec.trace_add("write", odswiez)
+    wybrana_kategoria_bmi.trace_add("write", odswiez)
 
+    zbuduj_filtr_plci(parent, wybrana_plec)
+    zbuduj_filtr_kategorii_bmi(parent, wybrana_kategoria_bmi)
+    obszar_wykresu.pack(fill="both", expand=True)
+
+    odswiez()
+    return obszar_wykresu
 
 def wiersz_tabeli_przyczyn(patient_id, wynik):
 #Buduje krotkę wartości do wstawienia w jeden wiersz tabeli przyczyn.
