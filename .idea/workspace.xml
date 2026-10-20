@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Dodanie do listy RODZAJE_WIDOKOW nowego widoku - filtr przyczyn przekroczeń i dopisku na końcu pliku dotyczącego tego filtra." />
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Zmiana importu ze stale.py w komponenty.py oraz dodanie na końcu pliku funkcji zbuduj_panel_filtrow">
+      <change beforePath="$PROJECT_DIR$/widoki.py" beforeDir="false" afterPath="$PROJECT_DIR$/widoki.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -93,30 +95,6 @@
       <workItem from="1790780490315" duration="5722000" />
       <workItem from="1791136745207" duration="808000" />
       <workItem from="1791214082108" duration="9000" />
-    </task>
-    <task id="LOCAL-00070" summary="Usunięcie podwójnego podpisu wykresu (był na górze i na dole, został tylko na górze)">
-      <option name="closed" value="true" />
-      <created>1789751719937</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1789751719937</updated>
-    </task>
-    <task id="LOCAL-00071" summary="Poporawka w import from, dodałam ROZMIAR_TYTULU_DASHBOARDU">
-      <option name="closed" value="true" />
-      <created>1789751803386</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1789751803386</updated>
-    </task>
-    <task id="LOCAL-00072" summary="Zmiana w imporcie, dodałam from aggregations import policz_aktywne_czynniki">
-      <option name="closed" value="true" />
-      <created>1789751866186</created>
-      <option name="number" value="00072" />
-      <option name="presentableId" value="LOCAL-00072" />
-      <option name="project" value="LOCAL" />
-      <updated>1789751866186</updated>
     </task>
     <task id="LOCAL-00073" summary="Zamiana etykiety xlabel na pusty tekst, żeby nie było podpisu pod wykresem">
       <option name="closed" value="true" />
@@ -486,7 +464,31 @@
       <option name="project" value="LOCAL" />
       <updated>1792519909974</updated>
     </task>
-    <option name="localTasksCounter" value="119" />
+    <task id="LOCAL-00119" summary="DOdanie funkcji zbuduj_rekordy_przekroczeń">
+      <option name="closed" value="true" />
+      <created>1792519953367</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1792519953367</updated>
+    </task>
+    <task id="LOCAL-00120" summary="Zmiana importu ze stale.py oraz dopisanie na końcu pliku funkcji filtruj_przyczyny">
+      <option name="closed" value="true" />
+      <created>1792520025019</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1792520025019</updated>
+    </task>
+    <task id="LOCAL-00121" summary="Zmiana importu ze stale.py w komponenty.py oraz dodanie na końcu pliku funkcji zbuduj_panel_filtrow">
+      <option name="closed" value="true" />
+      <created>1792520167938</created>
+      <option name="number" value="00121" />
+      <option name="presentableId" value="LOCAL-00121" />
+      <option name="project" value="LOCAL" />
+      <updated>1792520167938</updated>
+    </task>
+    <option name="localTasksCounter" value="122" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -504,9 +506,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Zmiana wielkości czcionki, którą opisane są wnioski" />
-    <MESSAGE value="Zmiana nazw plików na polskojęzyczne i modyfikacja komentarzy w uruchom" />
-    <MESSAGE value="Modyfikacja komentarzy i wyjaśnień w plikach" />
     <MESSAGE value="Poprawka widoczności wniosków w wykresie Pareto i zmniejszenie belki z tytułowym nagłówkiem aplikacji" />
     <MESSAGE value="Zmiana czcionek" />
     <MESSAGE value="Ujednolicenie typu czcionki w całym projekcie" />
@@ -529,14 +528,17 @@
     <MESSAGE value="Dodanie tooltipów z pełną treścią uciętych komórek i nagłówków tabeli. Nowa klasa TooltipTabeli mierzy szerokość tekstu czcionką ze stylu Treeview i pokazuje dymek tylko dla uciętych komórek/nagłówków. Kolumna klasyfikacji pominięta – jej tooltip pokazuje teraz pełną nazwę i opis. Bindy(podpięcia funkcji) obu tooltipów z add='+', żeby się nie nadpisywały." />
     <MESSAGE value="Wyśrodkowanie okna w obszarze roboczym ekranu i włączenie obsługi DPI- obszar_roboczy() pobiera przez SystemParametersInfoW obszar ekranu bez paska zadań. SetProcessDpiAwareness(1) usuwa rozmycie przy skalowaniu Windows 125%/150%. Okno ma rozmiar startowy dopasowany do ekranu i można je powiększać (usunięty maxsize)." />
     <MESSAGE value="Dodanie do listy RODZAJE_WIDOKOW nowego widoku - filtr przyczyn przekroczeń i dopisku na końcu pliku dotyczącego tego filtra." />
-    <option name="LAST_COMMIT_MESSAGE" value="Dodanie do listy RODZAJE_WIDOKOW nowego widoku - filtr przyczyn przekroczeń i dopisku na końcu pliku dotyczącego tego filtra." />
+    <MESSAGE value="DOdanie funkcji zbuduj_rekordy_przekroczeń" />
+    <MESSAGE value="Zmiana importu ze stale.py oraz dopisanie na końcu pliku funkcji filtruj_przyczyny" />
+    <MESSAGE value="Zmiana importu ze stale.py w komponenty.py oraz dodanie na końcu pliku funkcji zbuduj_panel_filtrow" />
+    <option name="LAST_COMMIT_MESSAGE" value="Zmiana importu ze stale.py w komponenty.py oraz dodanie na końcu pliku funkcji zbuduj_panel_filtrow" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/agregacje.py</url>
-          <line>35</line>
+          <line>38</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

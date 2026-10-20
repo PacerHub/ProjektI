@@ -2,16 +2,23 @@
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
+import pandas as pd
 from agregacje import (
     policz_wg_kolumny, policz_wg_grupy_wiekowej, policz_klasyfikacje,
-    wygeneruj_wnioski_pareto, wygeneruj_wnioski_analizy,
+    wygeneruj_wnioski_pareto, wygeneruj_wnioski_analizy, filtruj_przyczyny,
 )
-from stale import KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW, KLASYFIKACJA_OPISY, CZCIONKA
+from stale import (
+    KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW, KLASYFIKACJA_OPISY, CZCIONKA,
+    ETYKIETY_GRUP_WIEKOWYCH, KLUCZ_BRAK_CZYNNIKA, WARTOSC_WSZYSTKIE, KOLUMNY_TABELI_FILTRA,
+)
 from komponenty import (
     zbuduj_tabele, zbuduj_panel_podsumowania, Tooltip, TooltipTabeli, zbuduj_filtr_plci,
-    zbuduj_filtr_kategorii_bmi, zbuduj_panel_wnioskow,
+    zbuduj_filtr_kategorii_bmi, zbuduj_panel_wnioskow, zbuduj_panel_filtrow,
 )
-from przetwarzanie_danych import filtruj_przekroczenia, zbuduj_liste_wynikow, filtruj_bezpieczne, filtruj_pacjentow_dashboardu
+from przetwarzanie_danych import (
+    filtruj_przekroczenia, zbuduj_liste_wynikow, filtruj_bezpieczne,
+    filtruj_pacjentow_dashboardu, zbuduj_rekordy_przyczyn,
+)
 from wykresy import (
     zbuduj_dashboard_przekroczenia, zbuduj_wykres_liczebnosci,
     zbuduj_wykres_kolowy_liczebnosci, zbuduj_wykres_pareto,
@@ -72,7 +79,7 @@ def _kolumny_tabeli_przyczyn():
     return kolumny, naglowki, szerokosci, kotwice
 
 
-def _wiersz_tabeli_przyczyn(patient_id, wynik):
+def wiersz_tabeli_przyczyn(patient_id, wynik):
 #Buduje krotkę wartości do wstawienia w jeden wiersz tabeli przyczyn.
     etykieta_pacjenta = f"⚠ {patient_id}" if wynik.get("podejrzany") else patient_id
     bmi_tekst = (
@@ -170,3 +177,92 @@ def pokaz_dashboard_przekroczenia(parent, dane):
 
     odswiez()
     return obszar_wykresu
+def wiersz_tabeli_filtra(rekord):
+    #Krotka wartości jednego wiersza tabeli filtra, w kolejności KOLUMNY_TABELI_FILTRA.
+    pacjent = f"⚠ {rekord['patient_id']}" if rekord["podejrzany"] else rekord["patient_id"]
+    wiek = str(int(rekord["wiek"])) if pd.notna(rekord["wiek"]) else "—"
+    procent = (
+        f"{rekord['procent_przekroczenia']:+.1f}%"
+        if rekord["procent_przekroczenia"] is not None else "—"
+    )
+    return (
+        pacjent, wiek, rekord["plec"], rekord["okolica"], rekord["rodzaj_badania"],
+        procent, rekord["klasyfikacja"], rekord["aktywne_czynniki"],
+    )
+
+
+def pokaz_filtr_przyczyn(parent, dane):
+    #Widok 'Filtr przyczyn przekroczeń' – tabela pacjentów zawężana filtrami.
+    # Przekroczenia + wiersze podejrzane (te mogą nie mieć DLP, więc nie są "przekroczeniem")
+    pacjenci = dane[dane["przekroczenie_dlp"] | dane["podejrzany_wiersz"]]
+    rekordy = zbuduj_rekordy_przyczyn(pacjenci)
+    liczba_waznych = sum(1 for r in rekordy if not r["podejrzany"])
+    okolice = sorted({r["okolica"] for r in rekordy if not r["podejrzany"]})
+
+    zmienne = {
+        "czynniki": {
+            klucz: tk.BooleanVar(value=True)
+            for klucz in [*KLUCZE_CZYNNIKOW, KLUCZ_BRAK_CZYNNIKA]
+        },
+        "okolica": tk.StringVar(value=WARTOSC_WSZYSTKIE),
+        "grupa_wiekowa": tk.StringVar(value=WARTOSC_WSZYSTKIE),
+        "min_procent": tk.StringVar(value="0"),
+        "podejrzane": tk.BooleanVar(value=True),
+    }
+
+    def wyczysc():
+        for zmienna in zmienne["czynniki"].values():
+            zmienna.set(True)
+        zmienne["okolica"].set(WARTOSC_WSZYSTKIE)
+        zmienne["grupa_wiekowa"].set(WARTOSC_WSZYSTKIE)
+        zmienne["min_procent"].set("0")
+        zmienne["podejrzane"].set(True)
+
+    zbuduj_panel_filtrow(parent, zmienne, okolice, ETYKIETY_GRUP_WIEKOWYCH, wyczysc)
+
+    licznik = tk.Label(parent, anchor="w", font=(CZCIONKA, 11, "bold"))
+    licznik.pack(fill="x", padx=20, pady=(8, 4))
+
+    kolumny = tuple(k for k, _, _, _ in KOLUMNY_TABELI_FILTRA)
+    naglowki = {k: n for k, n, _, _ in KOLUMNY_TABELI_FILTRA}
+    szerokosci = {k: s for k, _, s, _ in KOLUMNY_TABELI_FILTRA}
+    kotwice = {k: a for k, _, _, a in KOLUMNY_TABELI_FILTRA}
+
+    tabela = zbuduj_tabele(parent, kolumny, naglowki, szerokosci, kotwice)
+    tabela.tag_configure("podejrzany", background="#fff3cd")
+    tabela.tooltip = TooltipTabeli(tabela)
+
+    def odswiez(*_):
+        try:
+            min_procent = float(zmienne["min_procent"].get().replace(",", "."))
+        except ValueError:
+            min_procent = 0  # np. puste pole w trakcie wpisywania
+
+        wybrane = filtruj_przyczyny(
+            rekordy,
+            czynniki={k for k, z in zmienne["czynniki"].items() if z.get()},
+            okolica=zmienne["okolica"].get(),
+            grupa_wiekowa=zmienne["grupa_wiekowa"].get(),
+            min_procent=min_procent,
+            pokaz_podejrzane=zmienne["podejrzane"].get(),
+        )
+
+        tabela.delete(*tabela.get_children())
+        for rekord in wybrane:
+            tagi = ("podejrzany",) if rekord["podejrzany"] else ()
+            tabela.insert("", "end", values=_wiersz_tabeli_filtra(rekord), tags=tagi)
+
+        pokazane = sum(1 for r in wybrane if not r["podejrzany"])
+        podejrzane = len(wybrane) - pokazane
+        tekst = f"Wyniki: {pokazane} z {liczba_waznych} pacjentów z przekroczeniem"
+        if podejrzane:
+            tekst += f"  (+ {podejrzane} ⚠ do weryfikacji)"
+        licznik.config(text=tekst)
+
+    # Każda zmiana dowolnego filtra odświeża tabelę
+    for zmienna in [*zmienne["czynniki"].values(), zmienne["okolica"], zmienne["grupa_wiekowa"],
+                    zmienne["min_procent"], zmienne["podejrzane"]]:
+        zmienna.trace_add("write", odswiez)
+
+    odswiez()
+    return tabela
