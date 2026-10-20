@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Zmiana we wnioskach wykresu Pareto, by wymienione były  czynniki składowe  przy połączeniu kilku czynników&quot;">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Edycja importu w komponenty.py ze stale + dodanie funkcji budującej panel wniosków">
+      <change beforePath="$PROJECT_DIR$/widoki.py" beforeDir="false" afterPath="$PROJECT_DIR$/widoki.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,22 +95,6 @@
       <workItem from="1790780490315" duration="5722000" />
       <workItem from="1791136745207" duration="808000" />
       <workItem from="1791214082108" duration="9000" />
-    </task>
-    <task id="LOCAL-00058" summary="W constants.py dodanie kluczy czynników i etykiet czynników">
-      <option name="closed" value="true" />
-      <created>1789678178741</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
-      <option name="project" value="LOCAL" />
-      <updated>1789678178741</updated>
-    </task>
-    <task id="LOCAL-00059" summary="W data_processing.py.py dodanie do zwracanego słownika klucza &quot;factors&quot;: factors (żeby dało się później sprawdzić, które czynniki są aktywne, kolumna po kolumnie).">
-      <option name="closed" value="true" />
-      <created>1789678330657</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1789678330658</updated>
     </task>
     <task id="LOCAL-00060" summary="Dodanie w aggregations funkcji do liczenia aktywnych czynników">
       <option name="closed" value="true" />
@@ -488,7 +472,23 @@
       <option name="project" value="LOCAL" />
       <updated>1791910926036</updated>
     </task>
-    <option name="localTasksCounter" value="107" />
+    <task id="LOCAL-00107" summary="Dodanie kolorów w panelu wniosków">
+      <option name="closed" value="true" />
+      <created>1792517060409</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1792517060409</updated>
+    </task>
+    <task id="LOCAL-00108" summary="Edycja importu w komponenty.py ze stale + dodanie funkcji budującej panel wniosków">
+      <option name="closed" value="true" />
+      <created>1792517169878</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1792517169878</updated>
+    </task>
+    <option name="localTasksCounter" value="109" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -506,8 +506,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Dodanie do rodzajów widoków w constants.py &quot;Pareto przyczyn przekroczeń&quot;" />
-    <MESSAGE value="W aggregations.py dodanie funkcji do klasyfikacji przyczyny przekroczenia" />
     <MESSAGE value="W aggregations.py dodanie liczenia funkcji do klasyfikacji przyczyny przekroczenia" />
     <MESSAGE value="Dodanie w charts.py funkcji do rysowania wykresu Pareto przedstawiającego najczęstsze przyczyny przekroczeń" />
     <MESSAGE value="Dodanie w views.py funkcji pokazującej wykres Pareto przyczyn przekroczeń" />
@@ -531,7 +529,9 @@
     <MESSAGE value="Dodanie wcięć do komentarzy w funkcjach wygeneruj_wnioski_analizy, wygeneruj_wnioski_pereto, policz_klasyfikacje" />
     <MESSAGE value="Poprawki w filtrowaniu, przeniesienie funkcji filtrujących do przetwarzanie_danych.py, poprawka z zwrocie otyłość i i ii stopnia na otyłość I i II stopnia" />
     <MESSAGE value="Zmiana we wnioskach wykresu Pareto, by wymienione były  czynniki składowe  przy połączeniu kilku czynników&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Zmiana we wnioskach wykresu Pareto, by wymienione były  czynniki składowe  przy połączeniu kilku czynników&quot;" />
+    <MESSAGE value="Dodanie kolorów w panelu wniosków" />
+    <MESSAGE value="Edycja importu w komponenty.py ze stale + dodanie funkcji budującej panel wniosków" />
+    <option name="LAST_COMMIT_MESSAGE" value="Edycja importu w komponenty.py ze stale + dodanie funkcji budującej panel wniosków" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

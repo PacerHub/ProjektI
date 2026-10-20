@@ -7,7 +7,10 @@ from agregacje import (
     wygeneruj_wnioski_pareto, wygeneruj_wnioski_analizy,
 )
 from stale import KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW, KLASYFIKACJA_OPISY, CZCIONKA
-from komponenty import zbuduj_tabele, zbuduj_panel_podsumowania, Tooltip, zbuduj_filtr_plci, zbuduj_filtr_kategorii_bmi
+from komponenty import (
+    zbuduj_tabele, zbuduj_panel_podsumowania, Tooltip, zbuduj_filtr_plci,
+    zbuduj_filtr_kategorii_bmi, zbuduj_panel_wnioskow,
+)
 from przetwarzanie_danych import filtruj_przekroczenia, zbuduj_liste_wynikow, filtruj_bezpieczne, filtruj_pacjentow_dashboardu
 from wykresy import (
     zbuduj_dashboard_przekroczenia, zbuduj_wykres_liczebnosci,
@@ -106,14 +109,7 @@ def pokaz_analize_przyczyn(parent, dane):
 
     zbuduj_panel_podsumowania(parent, wyniki, KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW)
 
-    tk.Label(
-        parent,
-        text=wygeneruj_wnioski_analizy(wyniki),
-        font=(CZCIONKA, 12),
-        wraplength=1100,
-        justify="center",
-        pady=8,
-    ).pack(fill="x")
+    zbuduj_panel_wnioskow(parent, wygeneruj_wnioski_analizy(wyniki))
 
     kolumny, naglowki, szerokosci, kotwice = _kolumny_tabeli_przyczyn()
     tabela = zbuduj_tabele(parent, kolumny, naglowki, szerokosci, kotwice)
@@ -138,14 +134,8 @@ def pokaz_pareto_przyczyn(parent, dane):
     wyniki = zbuduj_liste_wynikow(pacjenci)
     counts = policz_klasyfikacje(wyniki)
     fig = zbuduj_wykres_pareto(counts)
-    tk.Label(
-        parent,
-        text=wygeneruj_wnioski_pareto(counts, wyniki),
-        font=(CZCIONKA, 12),
-        wraplength=1100,
-        justify="center",
-        pady=8,
-    ).pack(side="bottom", fill="x", pady=(0, 30))
+    zbuduj_panel_wnioskow(parent, wygeneruj_wnioski_pareto(counts, wyniki),
+                      side="bottom", pady=(5, 20))
     return _osadz_wykres(parent, fig)
 
 
