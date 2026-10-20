@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Usunięcie zdublowanych funkcji filtrów płci i BMI- pierwsze wersje (z on_change) były nadpisywane przez późniejsze definicje i nigdzie nieużywane">
-      <change beforePath="$PROJECT_DIR$/komponenty.py" beforeDir="false" afterPath="$PROJECT_DIR$/komponenty.py" afterDir="false" />
-    </list>
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Usuń podwójne wywołanie oznacz_przekroczenia w main" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -95,30 +93,6 @@
       <workItem from="1790780490315" duration="5722000" />
       <workItem from="1791136745207" duration="808000" />
       <workItem from="1791214082108" duration="9000" />
-    </task>
-    <task id="LOCAL-00063" summary="Dodanie zbuduj liste wyników w data processing">
-      <option name="closed" value="true" />
-      <created>1789678868597</created>
-      <option name="number" value="00063" />
-      <option name="presentableId" value="LOCAL-00063" />
-      <option name="project" value="LOCAL" />
-      <updated>1789678868597</updated>
-    </task>
-    <task id="LOCAL-00064" summary="Odświeżenie main po przeróbkach wszystkich pozostałych plików">
-      <option name="closed" value="true" />
-      <created>1789678955723</created>
-      <option name="number" value="00064" />
-      <option name="presentableId" value="LOCAL-00064" />
-      <option name="project" value="LOCAL" />
-      <updated>1789678955723</updated>
-    </task>
-    <task id="LOCAL-00065" summary="Poprawka na import from constants import GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH zamiast samego import granice itd.">
-      <option name="closed" value="true" />
-      <created>1789679153433</created>
-      <option name="number" value="00065" />
-      <option name="presentableId" value="LOCAL-00065" />
-      <option name="project" value="LOCAL" />
-      <updated>1789679153433</updated>
     </task>
     <task id="LOCAL-00066" summary="Brak dwukropka na końcu ostatniej funkcji- poprawka">
       <option name="closed" value="true" />
@@ -488,7 +462,31 @@
       <option name="project" value="LOCAL" />
       <updated>1792517820145</updated>
     </task>
-    <option name="localTasksCounter" value="112" />
+    <task id="LOCAL-00112" summary="Zlikwidowane nadpisywanie stylu tabel w zbuduj_tabele&quot; - czcionki, wysokość wierszy i odstęp nagłówków ustawia wyłącznie ustaw_czcionke_aplikacji, więc parametr rozmiar_tabeli zaczyna działać.">
+      <option name="closed" value="true" />
+      <created>1792518038462</created>
+      <option name="number" value="00112" />
+      <option name="presentableId" value="LOCAL-00112" />
+      <option name="project" value="LOCAL" />
+      <updated>1792518038463</updated>
+    </task>
+    <task id="LOCAL-00113" summary="Zamykanie figury matplotlib po osadzeniu w oknie&quot; - plt.close(fig) w _osadz_wykres zapobiega gromadzeniu się figur przy przełączaniu widoków (ostrzeżenie 'More than 20 figures').">
+      <option name="closed" value="true" />
+      <created>1792518128096</created>
+      <option name="number" value="00113" />
+      <option name="presentableId" value="LOCAL-00113" />
+      <option name="project" value="LOCAL" />
+      <updated>1792518128096</updated>
+    </task>
+    <task id="LOCAL-00114" summary="Usuń podwójne wywołanie oznacz_przekroczenia w main">
+      <option name="closed" value="true" />
+      <created>1792518188668</created>
+      <option name="number" value="00114" />
+      <option name="presentableId" value="LOCAL-00114" />
+      <option name="project" value="LOCAL" />
+      <updated>1792518188668</updated>
+    </task>
+    <option name="localTasksCounter" value="115" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -506,9 +504,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Zwiększenie wymiarów okna, dodanie wyświetlania wykresu Pareto przyczyn przekroczeń dawek" />
-    <MESSAGE value="Nowa funkcja w aggregations.py, dodawanie wniosków do wykresu Pareto" />
-    <MESSAGE value="w views.py tk.label z wygenerowanymi wnioskami do pareto przekroczeń" />
     <MESSAGE value="w views.py dodanie importu tkintera" />
     <MESSAGE value="W aggregations.py dodanie funkcji dodającej wnioski z tabeli z analizą przekroczeń oraz importu KLUCZE_CZYNNIKOW i ETYKIET_CZYNNIKOW" />
     <MESSAGE value="Dodanie importu wygenerowanych wniosków z analizy przekroczeń oraz funkcji pokazującej analizę przyczyn przekroczeń z tabeli" />
@@ -531,7 +526,10 @@
     <MESSAGE value="Nowa funkcja zbuduj_panel_wnioskow w komponenty.py (tło, pasek akcentu, tytuł 'Wnioski', zawijanie tekstu do szerokości okna). Kolory panelu w stale.py. Zastępuje zwykłe tk.Label w obu widokach." />
     <MESSAGE value="Wyrównanie binów histogramu wieku do pełnych lat&quot; -m &quot;bins=range(min-1, max+2) zamiast bins=10, żeby oś miała sensowny zakres także przy jednym pacjencie po filtrowaniu." />
     <MESSAGE value="Usunięcie zdublowanych funkcji filtrów płci i BMI- pierwsze wersje (z on_change) były nadpisywane przez późniejsze definicje i nigdzie nieużywane" />
-    <option name="LAST_COMMIT_MESSAGE" value="Usunięcie zdublowanych funkcji filtrów płci i BMI- pierwsze wersje (z on_change) były nadpisywane przez późniejsze definicje i nigdzie nieużywane" />
+    <MESSAGE value="Zlikwidowane nadpisywanie stylu tabel w zbuduj_tabele&quot; - czcionki, wysokość wierszy i odstęp nagłówków ustawia wyłącznie ustaw_czcionke_aplikacji, więc parametr rozmiar_tabeli zaczyna działać." />
+    <MESSAGE value="Zamykanie figury matplotlib po osadzeniu w oknie&quot; - plt.close(fig) w _osadz_wykres zapobiega gromadzeniu się figur przy przełączaniu widoków (ostrzeżenie 'More than 20 figures')." />
+    <MESSAGE value="Usuń podwójne wywołanie oznacz_przekroczenia w main" />
+    <option name="LAST_COMMIT_MESSAGE" value="Usuń podwójne wywołanie oznacz_przekroczenia w main" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

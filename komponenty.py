@@ -64,10 +64,10 @@ class Tooltip:
 
 
 def zbuduj_tabele(parent, kolumny, naglowki, szerokosci, kotwice=None):
-#Tworzenie Treeview ze scrollbarami (pionowym i poziomym) i zwracanie gotowego widgetu
+    # Tworzenie Treeview ze scrollbarami (pionowym i poziomym) i zwracanie gotowego widgetu
     kotwice = kotwice or {}
 
-       ramka = tk.Frame(parent)
+    ramka = tk.Frame(parent)
     ramka.pack(fill="both", expand=True)
 
     tabela = ttk.Treeview(ramka, columns=kolumny, show="headings")
