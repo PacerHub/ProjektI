@@ -1,6 +1,9 @@
 #Agregacje: zamiana surowych danych na liczby gotowe do wyświetlenia.
 import pandas as pd
-from stale import ETYKIETY_GRUP_WIEKOWYCH, KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW
+from stale import (
+    ETYKIETY_GRUP_WIEKOWYCH, KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW,
+    KLUCZ_BRAK_CZYNNIKA, WARTOSC_WSZYSTKIE,
+)
 from przetwarzanie_danych import kategoria_wiekowa
 
 
@@ -108,3 +111,39 @@ def wygeneruj_wnioski_analizy(wyniki):
         f"({udzial_czynnika:.0f}%). Najwięcej przekroczeń dotyczy okolicy '{najczestsza_okolica}' "
         f"({udzial_okolicy:.0f}% przypadków). Średnie przekroczenie dawki: {sredni_procent:.1f}%."
     )
+def filtruj_przyczyny(rekordy, czynniki, okolica=WARTOSC_WSZYSTKIE,
+                      grupa_wiekowa=WARTOSC_WSZYSTKIE, min_procent=0, pokaz_podejrzane=True):
+    """Zwraca rekordy pasujące do filtrów, posortowane malejąco po % przekroczenia.
+
+    czynniki – zbiór zaznaczonych kluczy; pacjent przechodzi, jeśli ma KTÓRYKOLWIEK z nich
+    (pacjent bez żadnego czynnika przechodzi, gdy zaznaczono KLUCZ_BRAK_CZYNNIKA).
+    Wiersze podejrzane nie mają wiarygodnych danych, więc pozostałe filtry ich nie dotyczą –
+    decyduje tylko pokaz_podejrzane. Trafiają na koniec listy.
+    """
+    wybrane = []
+    for rekord in rekordy:
+        if rekord["podejrzany"]:
+            if pokaz_podejrzane:
+                wybrane.append(rekord)
+            continue
+
+        aktywne = [klucz for klucz in KLUCZE_CZYNNIKOW if rekord["factors"][klucz]]
+        if aktywne:
+            pasuje_przyczyna = any(klucz in czynniki for klucz in aktywne)
+        else:
+            pasuje_przyczyna = KLUCZ_BRAK_CZYNNIKA in czynniki
+        if not pasuje_przyczyna:
+            continue
+
+        if okolica != WARTOSC_WSZYSTKIE and rekord["okolica"] != okolica:
+            continue
+        if grupa_wiekowa != WARTOSC_WSZYSTKIE and rekord["grupa_wiekowa"] != grupa_wiekowa:
+            continue
+        if rekord["procent_przekroczenia"] < min_procent:
+            continue
+
+        wybrane.append(rekord)
+
+    # False < True, więc najpierw zwykłe wiersze (malejąco po %), na końcu podejrzane
+    wybrane.sort(key=lambda r: (r["podejrzany"], -(r["procent_przekroczenia"] or 0)))
+    return wybrane
