@@ -2,6 +2,8 @@
 #kliknięć przycisków.
 
 import tkinter as tk
+import sys
+import ctypes
 
 
 from stale import RODZAJE_WIDOKOW, WIDOKI_LICZEBNOSCI, SCIEZKA_DANYCH, CZCIONKA, KOLOR_NAGLOWKA, KOLOR_TEKSTU_NAGLOWKA, WIDOKI_LICZBA_PACJENTOW
@@ -15,23 +17,49 @@ from widoki import (
 )
 from komponenty import ustaw_czcionke_aplikacji, zbuduj_przycisk_rozwijany
 
+def wlacz_dpi_awareness():
+    #Windows: ostre czcionki i wykresy przy skalowaniu ekranu 125%/150%. Musi być PRZED tk.Tk().
+    if sys.platform != "win32":
+        return
+    try:
+        ctypes.windll.shcore.SetProcessDpiAwareness(1)
+    except (AttributeError, OSError):
+        try:
+            ctypes.windll.user32.SetProcessDPIAware()  # starsze Windowsy
+        except (AttributeError, OSError):
+            pass
+
+
+def obszar_roboczy(okno):
+    #Zwraca (x, y, szerokość, wysokość) obszaru ekranu BEZ paska zadań.
+    if sys.platform == "win32":
+        from ctypes import wintypes
+        prostokat = wintypes.RECT()
+        SPI_GETWORKAREA = 0x0030
+        if ctypes.windll.user32.SystemParametersInfoW(SPI_GETWORKAREA, 0, ctypes.byref(prostokat), 0):
+            return (prostokat.left, prostokat.top,
+                    prostokat.right - prostokat.left, prostokat.bottom - prostokat.top)
+    # Inne systemy albo niepowodzenie – cały ekran
+    return 0, 0, okno.winfo_screenwidth(), okno.winfo_screenheight()
+
 def zbuduj_okno():
-#Tworzenie i konfiguracja głównego okna aplikacji
+    #Tworzenie i konfiguracja głównego okna aplikacji
+    wlacz_dpi_awareness()  # musi być wywołane przed tk.Tk()
+
     okno = tk.Tk()
     ustaw_czcionke_aplikacji(okno, rozmiar=11, rozmiar_przyciskow=10,
                              rozmiar_tabeli=10)
     okno.title("Analiza dawek TK")
-    okno.geometry("1400x800")
-    szer_ekranu = okno.winfo_screenwidth()
-    wys_ekranu = okno.winfo_screenheight()
 
-    szer = min(1400, szer_ekranu)        # preferowana szerokość, ale nie większa niż ekran
-    wys = min(900, wys_ekranu - 80)      # ~80 px zapasu na pasek zadań i belkę tytułową
-    x = (szer_ekranu - szer) // 2        # wyśrodkowanie w poziomie
+    x0, y0, szer_ob, wys_ob = obszar_roboczy(okno)
 
-    okno.geometry(f"{szer}x{wys}+{x}+0")
-    okno.minsize(1400, 800)
-    okno.maxsize(1400, 800)
+    szer = min(1400, szer_ob - 20)   # preferowana szerokość, ale nie większa niż obszar roboczy
+    wys = min(850, wys_ob - 60)      # ~60 px zapasu na belkę tytułową i ramkę okna
+    x = x0 + (szer_ob - szer) // 2                  # wyśrodkowanie w poziomie
+    y = y0 + max((wys_ob - wys - 40) // 2, 0)       # i w pionie (40 px na belkę tytułową)
+
+    okno.geometry(f"{szer}x{wys}+{x}+{y}")
+    okno.minsize(min(1100, szer), min(700, wys))
 
     return okno
 
