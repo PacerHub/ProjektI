@@ -8,7 +8,7 @@ from agregacje import (
 )
 from stale import KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW, KLASYFIKACJA_OPISY, CZCIONKA
 from komponenty import (
-    zbuduj_tabele, zbuduj_panel_podsumowania, Tooltip, zbuduj_filtr_plci,
+    zbuduj_tabele, zbuduj_panel_podsumowania, Tooltip, TooltipTabeli, zbuduj_filtr_plci,
     zbuduj_filtr_kategorii_bmi, zbuduj_panel_wnioskow,
 )
 from przetwarzanie_danych import filtruj_przekroczenia, zbuduj_liste_wynikow, filtruj_bezpieczne, filtruj_pacjentow_dashboardu
@@ -93,15 +93,13 @@ def _wiersz_tabeli_przyczyn(patient_id, wynik):
 
 
 def _dodaj_tooltip_klasyfikacji(tabela):
-#Podpina tooltip z opisem klasyfikacji przyczyny do kolumny 'klasyfikacja'.
-    return Tooltip(
-        tabela,
-        kolumna_docelowa="#6",
-        pobierz_tekst=lambda wiersz_id: KLASYFIKACJA_OPISY.get(
-            tabela.set(wiersz_id, "klasyfikacja"),
-            "Brak dodatkowego opisu dla tej klasyfikacji.",
-        ),
-    )
+    #Podpina tooltip z pełną nazwą i opisem klasyfikacji przyczyny do kolumny 'klasyfikacja'.
+    def tekst_dymka(wiersz_id):
+        klasyfikacja = tabela.set(wiersz_id, "klasyfikacja")
+        opis = KLASYFIKACJA_OPISY.get(klasyfikacja, "Brak dodatkowego opisu dla tej klasyfikacji.")
+        return f"{klasyfikacja}\n\n{opis}"
+
+    return Tooltip(tabela, kolumna_docelowa="#6", pobierz_tekst=tekst_dymka)
 
 def pokaz_analize_przyczyn(parent, dane):
     pacjenci = filtruj_przekroczenia(dane)
@@ -120,7 +118,7 @@ def pokaz_analize_przyczyn(parent, dane):
         tabela.insert("", "end", values=_wiersz_tabeli_przyczyn(wiersz["patient_id"], wynik), tags=tagi)
 
     _dodaj_tooltip_klasyfikacji(tabela)
-
+    tabela.tooltip = TooltipTabeli(tabela, pomin_kolumny={"#6"})
     return tabela
 
 def pokaz_liczbe_pacjentow_wg_wieku(parent, dane):

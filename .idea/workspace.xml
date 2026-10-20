@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Usuń podwójne wywołanie oznacz_przekroczenia w main" />
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Poprawka wcięcia w zbuduj_tabele po usunięciu stylów" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -93,14 +93,6 @@
       <workItem from="1790780490315" duration="5722000" />
       <workItem from="1791136745207" duration="808000" />
       <workItem from="1791214082108" duration="9000" />
-    </task>
-    <task id="LOCAL-00066" summary="Brak dwukropka na końcu ostatniej funkcji- poprawka">
-      <option name="closed" value="true" />
-      <created>1789679226972</created>
-      <option name="number" value="00066" />
-      <option name="presentableId" value="LOCAL-00066" />
-      <option name="project" value="LOCAL" />
-      <updated>1789679226972</updated>
     </task>
     <task id="LOCAL-00067" summary="Dokończenie funkcji zbuduj_panel_podsumowania">
       <option name="closed" value="true" />
@@ -486,7 +478,15 @@
       <option name="project" value="LOCAL" />
       <updated>1792518188668</updated>
     </task>
-    <option name="localTasksCounter" value="115" />
+    <task id="LOCAL-00115" summary="Poprawka wcięcia w zbuduj_tabele po usunięciu stylów">
+      <option name="closed" value="true" />
+      <created>1792518335216</created>
+      <option name="number" value="00115" />
+      <option name="presentableId" value="LOCAL-00115" />
+      <option name="project" value="LOCAL" />
+      <updated>1792518335216</updated>
+    </task>
+    <option name="localTasksCounter" value="116" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -504,7 +504,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="w views.py dodanie importu tkintera" />
     <MESSAGE value="W aggregations.py dodanie funkcji dodającej wnioski z tabeli z analizą przekroczeń oraz importu KLUCZE_CZYNNIKOW i ETYKIET_CZYNNIKOW" />
     <MESSAGE value="Dodanie importu wygenerowanych wniosków z analizy przekroczeń oraz funkcji pokazującej analizę przyczyn przekroczeń z tabeli" />
     <MESSAGE value="Poprawka w views.py, żeby wnioski z tabeli analizy przyczyn były widoczne wyżej" />
@@ -529,7 +528,8 @@
     <MESSAGE value="Zlikwidowane nadpisywanie stylu tabel w zbuduj_tabele&quot; - czcionki, wysokość wierszy i odstęp nagłówków ustawia wyłącznie ustaw_czcionke_aplikacji, więc parametr rozmiar_tabeli zaczyna działać." />
     <MESSAGE value="Zamykanie figury matplotlib po osadzeniu w oknie&quot; - plt.close(fig) w _osadz_wykres zapobiega gromadzeniu się figur przy przełączaniu widoków (ostrzeżenie 'More than 20 figures')." />
     <MESSAGE value="Usuń podwójne wywołanie oznacz_przekroczenia w main" />
-    <option name="LAST_COMMIT_MESSAGE" value="Usuń podwójne wywołanie oznacz_przekroczenia w main" />
+    <MESSAGE value="Poprawka wcięcia w zbuduj_tabele po usunięciu stylów" />
+    <option name="LAST_COMMIT_MESSAGE" value="Poprawka wcięcia w zbuduj_tabele po usunięciu stylów" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

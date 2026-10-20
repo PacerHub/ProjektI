@@ -22,8 +22,8 @@ class Tooltip:
         self.okno = None
         self.zaplanowane_zadanie = None
 
-        tabela.bind("<Motion>", self._zaplanuj)
-        tabela.bind("<Leave>", self._ukryj)
+        tabela.bind("<Motion>", self._zaplanuj, add="+")
+        tabela.bind("<Leave>", self._ukryj, add="+")
 
     def _zaplanuj(self, event):
         self._anuluj_zadanie()
@@ -62,6 +62,103 @@ class Tooltip:
             self.tabela.after_cancel(self.zaplanowane_zadanie)
             self.zaplanowane_zadanie = None
 
+class TooltipTabeli:
+    """Dymek z pełną treścią komórki lub nagłówka Treeview – tylko gdy tekst jest ucięty."""
+
+    MARGINES_KOMORKI = 12   # px zapasu na wewnętrzny odstęp komórki
+    MARGINES_NAGLOWKA = 16  # nagłówek ma większy padding (5, 10)
+
+    def __init__(self, tabela, pomin_kolumny=(), opoznienie_ms=500):
+        self.tabela = tabela
+        self.pomin_kolumny = set(pomin_kolumny)   # np. {"#6"} – kolumny z własnym tooltipem
+        self.opoznienie_ms = opoznienie_ms
+        self.okno = None
+        self.zadanie = None
+        self.pozycja = None   # (region, wiersz, kolumna) pod kursorem
+
+        # add="+" – dokładamy obsługę, nie kasując bindów innych tooltipów
+        tabela.bind("<Motion>", self._ruch, add="+")
+        tabela.bind("<Leave>", self._ukryj, add="+")
+        tabela.bind("<ButtonPress>", self._ukryj, add="+")
+        tabela.bind("<MouseWheel>", self._ukryj, add="+")
+
+    def _nazwa_kolumny(self, kolumna_id):
+        # Zamienia '#3' na nazwę kolumny, np. 'bmi'
+        kolumny = self.tabela["displaycolumns"]
+        if kolumny in ("#all", ("#all",)):
+            kolumny = self.tabela["columns"]
+        return kolumny[int(kolumna_id[1:]) - 1]
+
+    def _ruch(self, event):
+        region = self.tabela.identify_region(event.x, event.y)
+        wiersz = self.tabela.identify_row(event.y)
+        kolumna = self.tabela.identify_column(event.x)
+
+        pozycja = (region, wiersz, kolumna)
+        if pozycja == self.pozycja:
+            return  # kursor wciąż nad tą samą komórką – nic nie zmieniamy
+        self.pozycja = pozycja
+        self._schowaj_okno()
+
+        if region not in ("cell", "heading") or not kolumna or kolumna in self.pomin_kolumny:
+            return
+        if region == "cell" and not wiersz:
+            return
+
+        x, y = event.x_root, event.y_root
+        self.zadanie = self.tabela.after(
+            self.opoznienie_ms, lambda: self._pokaz(region, wiersz, kolumna, x, y)
+        )
+
+    def _tekst_i_czy_uciety(self, region, wiersz, kolumna_id):
+        try:
+            nazwa = self._nazwa_kolumny(kolumna_id)
+        except (IndexError, ValueError):
+            return "", False
+
+        styl = ttk.Style(self.tabela)
+        if region == "heading":
+            tekst = self.tabela.heading(nazwa, "text")
+            opis_czcionki = styl.lookup("Treeview.Heading", "font")
+            margines = self.MARGINES_NAGLOWKA
+        else:
+            tekst = str(self.tabela.set(wiersz, nazwa))
+            opis_czcionki = styl.lookup("Treeview", "font")
+            margines = self.MARGINES_KOMORKI
+
+        if not tekst.strip():
+            return "", False
+
+        czcionka = tkfont.Font(font=opis_czcionki) if opis_czcionki else tkfont.nametofont("TkDefaultFont")
+        najdluzsza_linia = max(czcionka.measure(linia) for linia in tekst.split("\n"))
+        szerokosc = self.tabela.column(nazwa, "width")
+        return tekst, najdluzsza_linia + margines > szerokosc
+
+    def _pokaz(self, region, wiersz, kolumna, x_root, y_root):
+        self.zadanie = None
+        tekst, uciety = self._tekst_i_czy_uciety(region, wiersz, kolumna)
+        if not uciety:
+            return
+
+        self.okno = tk.Toplevel(self.tabela)
+        self.okno.wm_overrideredirect(True)
+        self.okno.geometry(f"+{x_root + 12}+{y_root + 12}")
+        tk.Label(
+            self.okno, text=tekst, justify="left", padx=8, pady=5,
+            bg="#ffffe0", relief="solid", borderwidth=1, wraplength=400,
+        ).pack()
+
+    def _schowaj_okno(self):
+        if self.zadanie is not None:
+            self.tabela.after_cancel(self.zadanie)
+            self.zadanie = None
+        if self.okno is not None:
+            self.okno.destroy()
+            self.okno = None
+
+    def _ukryj(self, event=None):
+        self._schowaj_okno()
+        self.pozycja = None   # po powrocie na tę samą komórkę dymek pokaże się znowu
 
 def zbuduj_tabele(parent, kolumny, naglowki, szerokosci, kotwice=None):
     # Tworzenie Treeview ze scrollbarami (pionowym i poziomym) i zwracanie gotowego widgetu
