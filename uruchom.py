@@ -109,8 +109,7 @@ def dodaj_panel_przyciskow(okno, dane, kontener):
 
 def main():
 #Uruchamia aplikację: wczytuje dane, buduje okno i startuje pętlę zdarzeń
-    dane = oznacz_przekroczenia(wczytaj_dane(SCIEZKA_DANYCH))
-    dane = oznacz_podejrzane_dane(dane)
+    dane = oznacz_podejrzane_dane(wczytaj_dane(SCIEZKA_DANYCH))
     dane = oznacz_przekroczenia(dane)
 
     okno = zbuduj_okno()
