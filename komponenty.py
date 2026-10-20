@@ -188,41 +188,7 @@ def zbuduj_panel_wnioskow(parent, tekst, side="top", pady=(5, 10)):
 
     return panel
 
-def zbuduj_filtr_plci(parent, zmienna, on_change):
-    """Pasek radiobuttonów do filtrowania danych wg płci: wszyscy / kobiety / mężczyźni."""
-    panel = tk.Frame(parent)
-    panel.pack(fill="x", pady=(0, 10))
 
-    tk.Label(panel, text="Płeć:", font=(CZCIONKA, 10, "bold")).pack(side="left", padx=(10, 5))
-
-    opcje = [("Wszyscy", "wszyscy"), ("Kobiety", "kobiety"), ("Mężczyźni", "mezczyzni")]
-    for tekst, wartosc in opcje:
-        tk.Radiobutton(
-            panel, text=tekst, variable=zmienna, value=wartosc,
-            command=on_change, font=(CZCIONKA, 10),
-        ).pack(side="left", padx=5)
-
-    return panel
-
-def zbuduj_filtr_kategorii_bmi(parent, zmienna, on_change):
-    """Pasek radiobuttonów do filtrowania danych wg kategorii BMI."""
-    panel = tk.Frame(parent)
-    panel.pack(fill="x", pady=(0, 10))
-
-    tk.Label(panel, text="Kategoria BMI:", font=(CZCIONKA, 10, "bold")).pack(side="left", padx=(10, 5))
-
-    tk.Radiobutton(
-        panel, text="Wszyscy", variable=zmienna, value="wszyscy",
-        command=on_change, font=(CZCIONKA, 10),
-    ).pack(side="left", padx=5)
-
-    for kategoria in KATEGORIE_BMI:
-        tk.Radiobutton(
-            panel, text=kategoria, variable=zmienna, value=kategoria,
-            command=on_change, font=(CZCIONKA, 10),
-        ).pack(side="left", padx=5)
-
-    return panel
 def zbuduj_filtr_plci(parent, zmienna):
     """Pasek radiobuttonów do filtrowania danych wg płci: wszyscy / kobiety / mężczyźni."""
     panel = tk.Frame(parent)
