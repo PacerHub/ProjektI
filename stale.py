@@ -125,6 +125,11 @@ KOLOR_TEKSTU_NAGLOWKA = "white"
 KOLOR_NAGLOWKOW_TABELI = "#2e75b6"  # niebieski – tytuły kolumn tabeli
 KOLOR_NAGLOWKOW_TABELI_HOVER = "#255f94"
 KOLOR_TEKSTU_NAGLOWKOW_TABELI = "white"
+# Panel wniosków (Pareto, analiza przyczyn)
+KOLOR_TLA_WNIOSKOW = "#eaf2fa"      # jasnoniebieskie tło panelu
+KOLOR_AKCENTU_WNIOSKOW = "#1f4e79"  # pasek z lewej strony i tytuł "Wnioski"
+KOLOR_TEKSTU_WNIOSKOW = "#1a1a1a"
+
 
 WIDOKI_LICZBA_PACJENTOW = [
     # (tekst w menu, pełna nazwa widoku z RODZAJE_WIDOKOW)
