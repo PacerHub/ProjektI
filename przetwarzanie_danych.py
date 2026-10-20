@@ -224,3 +224,18 @@ def filtruj_pacjentow_dashboardu(dane, plec="wszyscy", bmi="wszyscy"):
     pacjenci = filtruj_wg_plci(pacjenci, plec)
     pacjenci = filtruj_wg_kategorii_bmi(pacjenci, bmi)
     return pacjenci
+def zbuduj_rekordy_przyczyn(pacjenci):
+    """Wynik analizy każdego pacjenta + dane potrzebne w tabeli filtra (wiek, płeć, badanie, grupa wiekowa)."""
+    rekordy = []
+    for _, wiersz in pacjenci.iterrows():
+        wynik = analizuj_pacjenta(wiersz)
+        wiek = wiersz["wiek"]
+        rekordy.append({
+            **wynik,
+            "patient_id": wiersz["patient_id"],
+            "wiek": wiek,
+            "plec": wiersz["plec"],
+            "rodzaj_badania": wiersz["rodzaj_badania_tk"],
+            "grupa_wiekowa": kategoria_wiekowa(wiek) if pd.notna(wiek) else "—",
+        })
+    return rekordy
