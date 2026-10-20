@@ -14,8 +14,7 @@ from widoki import (
     pokaz_dashboard_przekroczenia,
     pokaz_analize_przyczyn,
     pokaz_pareto_przyczyn,
-    pokaz_filtr_przyczyn,
-)
+    )
 from komponenty import ustaw_czcionke_aplikacji, zbuduj_przycisk_rozwijany
 
 def wlacz_dpi_awareness():
@@ -100,8 +99,6 @@ def wybierz_widok(wybrany, dane, kontener):
         pokaz_analize_przyczyn(kontener, dane)
     elif wybrany == "Pareto przyczyn przekroczeń":
         pokaz_pareto_przyczyn(kontener, dane)
-    elif wybrany == "Filtr przyczyn przekroczeń":
-        pokaz_filtr_przyczyn(kontener, dane)
 
 def dodaj_panel_przyciskow(okno, dane, kontener):
     # Tworzenie paska przycisków przełączających widoki i zwracanie funkcji obsługującej kliknięcia

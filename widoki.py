@@ -9,7 +9,7 @@ from agregacje import (
 )
 from stale import (
     KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW, KLASYFIKACJA_OPISY, CZCIONKA,
-    ETYKIETY_GRUP_WIEKOWYCH, KLUCZ_BRAK_CZYNNIKA, WARTOSC_WSZYSTKIE, KOLUMNY_TABELI_FILTRA,
+    ETYKIETY_GRUP_WIEKOWYCH, KLUCZ_BRAK_CZYNNIKA, WARTOSC_WSZYSTKIE, KOLUMNY_TABELI_PRZYCZYN,
 )
 from komponenty import (
     zbuduj_tabele, zbuduj_panel_podsumowania, Tooltip, TooltipTabeli, zbuduj_filtr_plci,
@@ -46,7 +46,7 @@ def pokaz_liczebnosc_wg_kolumny(parent, dane, kolumna, tytul, sortuj_wg_indeksu=
 
 
 
-def _kolumny_tabeli_przyczyn():
+def kolumny_tabeli_przyczyn():
 #Definiuje kolumny tabeli: nazwy, nagłówki, szerokości, wyrównanie.
     kolumny = ("patient_id", "okolica", "bmi", "kategoria_faz", "procent", "klasyfikacja", *KLUCZE_CZYNNIKOW)
 
@@ -99,7 +99,7 @@ def wiersz_tabeli_przyczyn(patient_id, wynik):
     )
 
 
-def _dodaj_tooltip_klasyfikacji(tabela):
+def dodaj_tooltip_klasyfikacji(tabela):
     #Podpina tooltip z pełną nazwą i opisem klasyfikacji przyczyny do kolumny 'klasyfikacja'.
     def tekst_dymka(wiersz_id):
         klasyfikacja = tabela.set(wiersz_id, "klasyfikacja")
@@ -108,97 +108,49 @@ def _dodaj_tooltip_klasyfikacji(tabela):
 
     return Tooltip(tabela, kolumna_docelowa="#6", pobierz_tekst=tekst_dymka)
 
-def pokaz_analize_przyczyn(parent, dane):
-    pacjenci = filtruj_przekroczenia(dane)
-    wyniki = zbuduj_liste_wynikow(pacjenci)
-
-    zbuduj_panel_podsumowania(parent, wyniki, KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW)
-
-    zbuduj_panel_wnioskow(parent, wygeneruj_wnioski_analizy(wyniki))
-
-    kolumny, naglowki, szerokosci, kotwice = _kolumny_tabeli_przyczyn()
-    tabela = zbuduj_tabele(parent, kolumny, naglowki, szerokosci, kotwice)
-    tabela.tag_configure("podejrzany", background="#fff3cd")
-
-    for (_, wiersz), wynik in zip(pacjenci.iterrows(), wyniki):
-        tagi = ("podejrzany",) if wynik.get("podejrzany") else ()
-        tabela.insert("", "end", values=wiersz_tabeli_przyczyn(wiersz["patient_id"], wynik), tags=tagi)
-
-    _dodaj_tooltip_klasyfikacji(tabela)
-    tabela.tooltip = TooltipTabeli(tabela, pomin_kolumny={"#6"})
-    return tabela
-
-def pokaz_liczbe_pacjentow_wg_wieku(parent, dane):
-    counts = policz_wg_grupy_wiekowej(filtruj_bezpieczne(dane))
-    fig = zbuduj_wykres_liczebnosci(counts, "Liczba pacjentów wg wieku")
-    return _osadz_wykres(parent, fig)
-
-def pokaz_pareto_przyczyn(parent, dane):
-#Widok 'Pareto przyczyn przekroczeń' - które przyczyny odpowiadają za większość przypadków.
-    pacjenci = filtruj_przekroczenia(filtruj_bezpieczne(dane))
-    wyniki = zbuduj_liste_wynikow(pacjenci)
-    counts = policz_klasyfikacje(wyniki)
-    fig = zbuduj_wykres_pareto(counts)
-    zbuduj_panel_wnioskow(parent, wygeneruj_wnioski_pareto(counts, wyniki),
-                      side="bottom", pady=(5, 20))
-    return _osadz_wykres(parent, fig)
-
-
-def pokaz_dashboard_przekroczenia(parent, dane):
-    wybrana_plec = tk.StringVar(value="wszyscy")
-    wybrana_kategoria_bmi = tk.StringVar(value="wszyscy")
-    obszar_wykresu = tk.Frame(parent)
-
-    def odswiez(*_):
-        for widget in obszar_wykresu.winfo_children():
-            widget.destroy()
-
-        pacjenci = filtruj_pacjentow_dashboardu(
-            dane, plec=wybrana_plec.get(), bmi=wybrana_kategoria_bmi.get()
-        )
-
-        if len(pacjenci) == 0:
-            tk.Label(
-                obszar_wykresu, text="Brak pacjentów z przekroczoną dawką dla wybranych filtrów.",
-                font=(CZCIONKA, 12),
-            ).pack(pady=40)
-            return
-
-        fig = zbuduj_dashboard_przekroczenia(pacjenci)
-        _osadz_wykres(obszar_wykresu, fig)
-
-
-    wybrana_plec.trace_add("write", odswiez)
-    wybrana_kategoria_bmi.trace_add("write", odswiez)
-
-    zbuduj_filtr_plci(parent, wybrana_plec)
-    zbuduj_filtr_kategorii_bmi(parent, wybrana_kategoria_bmi)
-    obszar_wykresu.pack(fill="both", expand=True)
-
-    odswiez()
-    return obszar_wykresu
-def wiersz_tabeli_filtra(rekord):
-    #Krotka wartości jednego wiersza tabeli filtra, w kolejności KOLUMNY_TABELI_FILTRA.
+def wiersz_tabeli_przyczyn(rekord):
+    #Krotka wartości jednego wiersza – w kolejności KOLUMNY_TABELI_PRZYCZYN.
     pacjent = f"⚠ {rekord['patient_id']}" if rekord["podejrzany"] else rekord["patient_id"]
     wiek = str(int(rekord["wiek"])) if pd.notna(rekord["wiek"]) else "—"
+    plec = rekord["plec"] if pd.notna(rekord["plec"]) else "—"
+    bmi = (
+        f"{rekord['bmi']} ({rekord['kategoria_bmi']})"
+        if rekord["bmi"] is not None else rekord["kategoria_bmi"]
+    )
     procent = (
         f"{rekord['procent_przekroczenia']:+.1f}%"
         if rekord["procent_przekroczenia"] is not None else "—"
     )
     return (
-        pacjent, wiek, rekord["plec"], rekord["okolica"], rekord["rodzaj_badania"],
-        procent, rekord["klasyfikacja"], rekord["aktywne_czynniki"],
+        pacjent, wiek, plec, rekord["okolica"], bmi, rekord["kategoria_faz"], procent,
+        rekord["klasyfikacja"], rekord["aktywne_czynniki"],
+        *("✓" if rekord["factors"][klucz] else "" for klucz in KLUCZE_CZYNNIKOW),
     )
 
 
-def pokaz_filtr_przyczyn(parent, dane):
-    #Widok 'Filtr przyczyn przekroczeń' – tabela pacjentów zawężana filtrami.
+def dodaj_tooltip_klasyfikacji(tabela, kolumna_id):
+    #Tooltip z pełną nazwą i opisem klasyfikacji przyczyny w podanej kolumnie (np. '#8').
+    def tekst_dymka(wiersz_id):
+        klasyfikacja = tabela.set(wiersz_id, "klasyfikacja")
+        opis = KLASYFIKACJA_OPISY.get(klasyfikacja, "Brak dodatkowego opisu dla tej klasyfikacji.")
+        return f"{klasyfikacja}\n\n{opis}"
+
+    return Tooltip(tabela, kolumna_docelowa=kolumna_id, pobierz_tekst=tekst_dymka)
+
+
+def pokaz_analize_przyczyn(parent, dane):
+    #Widok 'Analiza przyczyn przekroczeń': karty, wnioski, filtry i tabela pacjentów.
     # Przekroczenia + wiersze podejrzane (te mogą nie mieć DLP, więc nie są "przekroczeniem")
     pacjenci = dane[dane["przekroczenie_dlp"] | dane["podejrzany_wiersz"]]
     rekordy = zbuduj_rekordy_przyczyn(pacjenci)
     liczba_waznych = sum(1 for r in rekordy if not r["podejrzany"])
     okolice = sorted({r["okolica"] for r in rekordy if not r["podejrzany"]})
 
+    # --- Karty czynników i wnioski (w commicie 2 zaczną reagować na filtry) ---
+    zbuduj_panel_podsumowania(parent, rekordy, KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW)
+    zbuduj_panel_wnioskow(parent, wygeneruj_wnioski_analizy(rekordy))
+
+    # --- Filtry ---
     zmienne = {
         "czynniki": {
             klucz: tk.BooleanVar(value=True)
@@ -223,14 +175,19 @@ def pokaz_filtr_przyczyn(parent, dane):
     licznik = tk.Label(parent, anchor="w", font=(CZCIONKA, 11, "bold"))
     licznik.pack(fill="x", padx=20, pady=(8, 4))
 
-    kolumny = tuple(k for k, _, _, _ in KOLUMNY_TABELI_FILTRA)
-    naglowki = {k: n for k, n, _, _ in KOLUMNY_TABELI_FILTRA}
-    szerokosci = {k: s for k, _, s, _ in KOLUMNY_TABELI_FILTRA}
-    kotwice = {k: a for k, _, _, a in KOLUMNY_TABELI_FILTRA}
+    # --- Tabela ---
+    kolumny = tuple(k for k, _, _, _ in KOLUMNY_TABELI_PRZYCZYN)
+    naglowki = {k: n for k, n, _, _ in KOLUMNY_TABELI_PRZYCZYN}
+    szerokosci = {k: s for k, _, s, _ in KOLUMNY_TABELI_PRZYCZYN}
+    kotwice = {k: a for k, _, _, a in KOLUMNY_TABELI_PRZYCZYN}
 
     tabela = zbuduj_tabele(parent, kolumny, naglowki, szerokosci, kotwice)
     tabela.tag_configure("podejrzany", background="#fff3cd")
-    tabela.tooltip = TooltipTabeli(tabela)
+
+    # Numer kolumny liczony z listy – nie trzeba go poprawiać po zmianie kolejności kolumn
+    kolumna_klasyfikacji = f"#{kolumny.index('klasyfikacja') + 1}"
+    dodaj_tooltip_klasyfikacji(tabela, kolumna_klasyfikacji)
+    tabela.tooltip = TooltipTabeli(tabela, pomin_kolumny={kolumna_klasyfikacji})
 
     def odswiez(*_):
         try:
@@ -250,7 +207,7 @@ def pokaz_filtr_przyczyn(parent, dane):
         tabela.delete(*tabela.get_children())
         for rekord in wybrane:
             tagi = ("podejrzany",) if rekord["podejrzany"] else ()
-            tabela.insert("", "end", values=wiersz_tabeli_filtra(rekord), tags=tagi)
+            tabela.insert("", "end", values=wiersz_tabeli_przyczyn(rekord), tags=tagi)
 
         pokazane = sum(1 for r in wybrane if not r["podejrzany"])
         podejrzane = len(wybrane) - pokazane

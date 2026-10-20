@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Uzupelnienie importów z agregacje, stale, komponenty, przetwarzanie danych. Dodanie funkcji wiersz_tabeli_filtra, pokaz_filtr_przyczyn, wyczysc,odswiez.">
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Dodanie pokaz_filtr_przyczyn do importu z widoki.py i w wybierz_widok dopisek elif dotyczący filtra przyczyn przekroczeń">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stale.py" beforeDir="false" afterPath="$PROJECT_DIR$/stale.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/uruchom.py" beforeDir="false" afterPath="$PROJECT_DIR$/uruchom.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/widoki.py" beforeDir="false" afterPath="$PROJECT_DIR$/widoki.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,14 +98,6 @@
       <workItem from="1790780490315" duration="5722000" />
       <workItem from="1791136745207" duration="808000" />
       <workItem from="1791214082108" duration="9000" />
-    </task>
-    <task id="LOCAL-00075" summary="dodanie funkcji kolumny_tabeli_przyczyn, wiersz_tabeli_przyczyn, tooltip_klasyfikacji w views">
-      <option name="closed" value="true" />
-      <created>1789752663589</created>
-      <option name="number" value="00075" />
-      <option name="presentableId" value="LOCAL-00075" />
-      <option name="project" value="LOCAL" />
-      <updated>1789752663589</updated>
     </task>
     <task id="LOCAL-00076" summary="Dodanie do constants.py granic wartości - do wykrywania błędnych/podejrzanych rekordów">
       <option name="closed" value="true" />
@@ -488,7 +483,15 @@
       <option name="project" value="LOCAL" />
       <updated>1792520453597</updated>
     </task>
-    <option name="localTasksCounter" value="124" />
+    <task id="LOCAL-00124" summary="Dodanie pokaz_filtr_przyczyn do importu z widoki.py i w wybierz_widok dopisek elif dotyczący filtra przyczyn przekroczeń">
+      <option name="closed" value="true" />
+      <created>1792520603234</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
+      <option name="project" value="LOCAL" />
+      <updated>1792520603234</updated>
+    </task>
+    <option name="localTasksCounter" value="125" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -506,7 +509,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Ujednolicenie typu czcionki w całym projekcie" />
     <MESSAGE value="Zmniejszenie czcionki w tabeli, zmiana koloru tła i czcionki w polu nagłówkowym oraz w górnej belce tabeli" />
     <MESSAGE value="Stworzenie jednego przycisku z rozwijaną listą : Liczba pacjentów wg" />
     <MESSAGE value="Dodanie filtrowania w dashboardzie" />
@@ -531,7 +533,8 @@
     <MESSAGE value="Zmiana importu ze stale.py w komponenty.py oraz dodanie na końcu pliku funkcji zbuduj_panel_filtrow" />
     <MESSAGE value="Uzupelnienie importów z agregacje, stale, komponenty, przetwarzanie danych. Dodanie funkcji wiersz_tabeli_filtra, pokaz_filtr_przyczyn, wyczysc,o dswiez." />
     <MESSAGE value="Uzupelnienie importów z agregacje, stale, komponenty, przetwarzanie danych. Dodanie funkcji wiersz_tabeli_filtra, pokaz_filtr_przyczyn, wyczysc,odswiez." />
-    <option name="LAST_COMMIT_MESSAGE" value="Uzupelnienie importów z agregacje, stale, komponenty, przetwarzanie danych. Dodanie funkcji wiersz_tabeli_filtra, pokaz_filtr_przyczyn, wyczysc,odswiez." />
+    <MESSAGE value="Dodanie pokaz_filtr_przyczyn do importu z widoki.py i w wybierz_widok dopisek elif dotyczący filtra przyczyn przekroczeń" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dodanie pokaz_filtr_przyczyn do importu z widoki.py i w wybierz_widok dopisek elif dotyczący filtra przyczyn przekroczeń" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

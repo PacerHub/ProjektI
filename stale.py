@@ -34,7 +34,6 @@ RODZAJE_WIDOKOW = [
     "Pacjenci z przekroczoną dawką",
     "Analiza przyczyn przekroczeń",
     "Pareto przyczyn przekroczeń",
-    "Filtr przyczyn przekroczeń",
 ]
 # Etykiety klasyfikacji przyczyny -> opis pokazywany w tooltipie
 KLASYFIKACJA_OPISY = {
@@ -145,14 +144,20 @@ WARTOSC_WSZYSTKIE = "wszystkie"           # pozycja "bez filtra" w listach rozwi
 KLUCZ_BRAK_CZYNNIKA = "brak"              # pacjenci bez żadnego znanego czynnika
 ETYKIETA_BRAKU_CZYNNIKA = "Brak znanego czynnika"
 
-KOLUMNY_TABELI_FILTRA = [
-    # (klucz, nagłówek, szerokość, wyrównanie)
+KOLUMNY_TABELI_PRZYCZYN = [
+    # (klucz, nagłówek, szerokość, wyrównanie) – kolejność = kolejność kolumn w tabeli
     ("pacjent", "Pacjent", 70, "center"),
-    ("wiek", "Wiek", 55, "center"),
-    ("plec", "Płeć", 50, "center"),
-    ("okolica", "Okolica anatomiczna", 140, "w"),
-    ("rodzaj_badania", "Rodzaj badania", 260, "w"),
-    ("procent", "% przekroczenia", 110, "center"),
-    ("klasyfikacja", "Klasyfikacja przyczyny", 220, "w"),
-    ("czynniki", "Aktywne czynniki", 280, "w"),
+    ("wiek", "Wiek", 50, "center"),
+    ("plec", "Płeć", 45, "center"),
+    ("okolica", "Okolica anatomiczna", 130, "w"),
+    ("bmi", "BMI (kategoria)", 150, "center"),
+    ("kategoria_faz", "Liczba faz", 80, "center"),
+    ("procent", "% przekroczenia", 105, "center"),
+    ("klasyfikacja", "Klasyfikacja przyczyny", 200, "w"),
+    ("czynniki", "Aktywne czynniki", 220, "w"),
+    ("pediatryczny", "<16 lat", 70, "center"),
+    ("onkologiczny", "Onko", 70, "center"),
+    ("wielofazowy", "Wielofazowe", 85, "center"),
+    ("wysoki_dlp_fazy", "Wysokie DLP", 85, "center"),
+    ("nadwaga_otylosc", "Nadwaga/\notyłość", 80, "center"),
 ]
