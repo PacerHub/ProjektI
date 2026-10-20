@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 from stale import (
     CZCIONKA, KOLOR_NAGLOWKOW_TABELI, KOLOR_NAGLOWKOW_TABELI_HOVER, KOLOR_TEKSTU_NAGLOWKOW_TABELI,
     KATEGORIE_BMI, KOLOR_TLA_WNIOSKOW, KOLOR_AKCENTU_WNIOSKOW, KOLOR_TEKSTU_WNIOSKOW,
+    KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW, KLUCZ_BRAK_CZYNNIKA, ETYKIETA_BRAKU_CZYNNIKA,
+    WARTOSC_WSZYSTKIE,
 )
 from tkinter import ttk
 from agregacje import policz_aktywne_czynniki
@@ -313,5 +315,56 @@ def zbuduj_filtr_kategorii_bmi(parent, zmienna):
         tk.Radiobutton(
             panel, text=kategoria, variable=zmienna, value=kategoria, font=(CZCIONKA, 10),
         ).pack(side="left", padx=5)
+
+    return panel
+def zbuduj_panel_filtrow(parent, zmienne, okolice, grupy_wiekowe, po_wyczyszczeniu):
+    """Panel filtrów widoku 'Filtr przyczyn przekroczeń'.
+
+    zmienne – słownik zmiennych Tk: 'czynniki' (słownik klucz -> BooleanVar), 'okolica',
+    'grupa_wiekowa', 'min_procent' (StringVar) i 'podejrzane' (BooleanVar).
+    Odświeżanie tabeli podpina widok przez trace_add – tutaj budujemy tylko kontrolki.
+    """
+    panel = tk.Frame(parent)
+    panel.pack(fill="x", padx=20, pady=(5, 5))
+
+    # --- Wiersz 1: pola wyboru przyczyn ---
+    ramka_przyczyn = tk.LabelFrame(
+        panel, text="Przyczyny – pokaż pacjentów z którąkolwiek zaznaczoną",
+        font=(CZCIONKA, 10, "bold"), padx=8, pady=4,
+    )
+    ramka_przyczyn.pack(fill="x")
+
+    etykiety = {klucz: ETYKIETY_CZYNNIKOW[klucz].replace("\n", " ") for klucz in KLUCZE_CZYNNIKOW}
+    etykiety[KLUCZ_BRAK_CZYNNIKA] = ETYKIETA_BRAKU_CZYNNIKA
+
+    for klucz, zmienna in zmienne["czynniki"].items():
+        tk.Checkbutton(ramka_przyczyn, text=etykiety[klucz], variable=zmienna).pack(side="left", padx=6)
+
+    # --- Wiersz 2: okolica, grupa wiekowa, min. %, podejrzane, wyczyść ---
+    wiersz = tk.Frame(panel)
+    wiersz.pack(fill="x", pady=(8, 0))
+
+    tk.Label(wiersz, text="Okolica:", font=(CZCIONKA, 10, "bold")).pack(side="left")
+    ttk.Combobox(
+        wiersz, textvariable=zmienne["okolica"], values=[WARTOSC_WSZYSTKIE, *okolice],
+        state="readonly", width=24,
+    ).pack(side="left", padx=(5, 20))
+
+    tk.Label(wiersz, text="Grupa wiekowa:", font=(CZCIONKA, 10, "bold")).pack(side="left")
+    ttk.Combobox(
+        wiersz, textvariable=zmienne["grupa_wiekowa"], values=[WARTOSC_WSZYSTKIE, *grupy_wiekowe],
+        state="readonly", width=14,
+    ).pack(side="left", padx=(5, 20))
+
+    tk.Label(wiersz, text="Min. % przekroczenia:", font=(CZCIONKA, 10, "bold")).pack(side="left")
+    tk.Spinbox(
+        wiersz, from_=0, to=200, increment=5, textvariable=zmienne["min_procent"], width=6,
+    ).pack(side="left", padx=(5, 20))
+
+    tk.Checkbutton(
+        wiersz, text="Pokaż wiersze do weryfikacji (⚠)", variable=zmienne["podejrzane"],
+    ).pack(side="left")
+
+    tk.Button(wiersz, text="Wyczyść filtry", command=po_wyczyszczeniu).pack(side="right")
 
     return panel
