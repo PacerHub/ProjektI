@@ -24,6 +24,7 @@ def narysuj_liczbe_faz(ax, pacjenci):
     _ustaw_tytul_panelu(ax, "Liczba faz badania")
     ax.set_xlabel("Liczba faz")
     ax.set_ylabel("Liczba pacjentów")
+    ax.yaxis.set_major_locator(MaxNLocator(integer=True))
 
 def narysuj_protokol_onkologiczny(ax, pacjenci):
     #Rysuje kołowy rozkład protokołu onkologicznego (tak/nie/nie dotyczy).

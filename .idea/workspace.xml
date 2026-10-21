@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Przywrócenie funkcji widoków usuniętych przy scalaniu analizy przyczyn">
-      <change beforePath="$PROJECT_DIR$/widoki.py" beforeDir="false" afterPath="$PROJECT_DIR$/widoki.py" afterDir="false" />
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Ujednolicenie nazwy funkcji pomocniczych (bez podkreślnika).">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wykresy.py" beforeDir="false" afterPath="$PROJECT_DIR$/wykresy.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,14 +96,6 @@
       <workItem from="1790780490315" duration="5722000" />
       <workItem from="1791136745207" duration="808000" />
       <workItem from="1791214082108" duration="9000" />
-    </task>
-    <task id="LOCAL-00078" summary="W data_processing.py zmiana funkcji walidacji danych, żeby nie były one usuwane, ale wyświetlane do weryfikacji">
-      <option name="closed" value="true" />
-      <created>1789923578261</created>
-      <option name="number" value="00078" />
-      <option name="presentableId" value="LOCAL-00078" />
-      <option name="project" value="LOCAL" />
-      <updated>1789923578261</updated>
     </task>
     <task id="LOCAL-00079" summary="Dodanie w views filtracji danych (odróżnienie ,,podejrzanych&quot;) wyników">
       <option name="closed" value="true" />
@@ -488,7 +481,15 @@
       <option name="project" value="LOCAL" />
       <updated>1792521794095</updated>
     </task>
-    <option name="localTasksCounter" value="127" />
+    <task id="LOCAL-00127" summary="Ujednolicenie nazwy funkcji pomocniczych (bez podkreślnika).">
+      <option name="closed" value="true" />
+      <created>1792522176848</created>
+      <option name="number" value="00127" />
+      <option name="presentableId" value="LOCAL-00127" />
+      <option name="project" value="LOCAL" />
+      <updated>1792522176849</updated>
+    </task>
+    <option name="localTasksCounter" value="128" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -506,7 +507,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Dodanie filtrowania w dashboardzie" />
     <MESSAGE value="Usunięcie pierwszej (pustej) definicji main(), która nie przeprowadzała walidacji danych. Usunięcie podwójnego importu z przetwarzanie_danych." />
     <MESSAGE value="Dodanie wcięć do komentarzy w funkcjach wygeneruj_wnioski_analizy, wygeneruj_wnioski_pereto, policz_klasyfikacje" />
     <MESSAGE value="Poprawki w filtrowaniu, przeniesienie funkcji filtrujących do przetwarzanie_danych.py, poprawka z zwrocie otyłość i i ii stopnia na otyłość I i II stopnia" />
@@ -531,7 +531,8 @@
     <MESSAGE value="Dodanie pokaz_filtr_przyczyn do importu z widoki.py i w wybierz_widok dopisek elif dotyczący filtra przyczyn przekroczeń" />
     <MESSAGE value="Przeróbka- połączenie widoków analizy i filtra przyczyn w jeden- analiza przyczyn przekroczeń ma teraz panel filtrów, licznik wyników i wspólną tabelę (wiek, płeć, BMI, liczba faz, klasyfikacja, aktywne czynniki, znaczniki ✓). Usunięty osobny widok 'Filtr przyczyn przekroczeń'. Numer kolumny klasyfikacji dla tooltipa liczony z KOLUMNY_TABELI_PRZYCZYN." />
     <MESSAGE value="Przywrócenie funkcji widoków usuniętych przy scalaniu analizy przyczyn" />
-    <option name="LAST_COMMIT_MESSAGE" value="Przywrócenie funkcji widoków usuniętych przy scalaniu analizy przyczyn" />
+    <MESSAGE value="Ujednolicenie nazwy funkcji pomocniczych (bez podkreślnika)." />
+    <option name="LAST_COMMIT_MESSAGE" value="Ujednolicenie nazwy funkcji pomocniczych (bez podkreślnika)." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
