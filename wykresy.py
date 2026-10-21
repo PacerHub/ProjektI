@@ -2,7 +2,7 @@
 from matplotlib.ticker import MaxNLocator
 import matplotlib.pyplot as plt
 from stale import PALETA_KOLOROW, ROZMIAR_TYTULU_WYKRESU, GRUBOSC_TYTULU_WYKRESU, ROZMIAR_TYTULU_DASHBOARDU
-from agregacje import policz_kategorie_onkologiczne
+from agregacje import policz_kategorie_onkologiczne, policz_wg_grupy_wiekowej
 
 def _kolory_cyklicznie(n):
     return [PALETA_KOLOROW[i % len(PALETA_KOLOROW)] for i in range(n)]
@@ -52,17 +52,15 @@ def narysuj_rodzaj_badania(ax, pacjenci):
 
 
 def narysuj_wiek(ax, pacjenci):
-    #Rysuje histogram wieku pacjentów z binami wyrównanymi do pełnych lat.
-    wiek_min = int(pacjenci["wiek"].min())
-    wiek_max = int(pacjenci["wiek"].max())
+    #Rysuje liczbę pacjentów w grupach wiekowych (te same grupy co w widoku wieku).
+    counts = policz_wg_grupy_wiekowej(pacjenci)
 
-    ax.hist(pacjenci["wiek"], bins=range(wiek_min - 1, wiek_max + 2),
-            color=PALETA_KOLOROW[0], edgecolor="white")
+    ax.bar(counts.index, counts.values, color=PALETA_KOLOROW[0])
     _ustaw_tytul_panelu(ax, "Wiek pacjentów")
-    ax.set_xlabel("Wiek")
-    ax.xaxis.set_major_locator(MaxNLocator(integer=True))
+    ax.set_xlabel("Grupa wiekowa")
     ax.set_ylabel("Liczba pacjentów")
     ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+    plt.setp(ax.get_xticklabels(), rotation=30, ha="right", fontsize=8)
 
 
 
