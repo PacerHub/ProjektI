@@ -147,6 +147,7 @@ def filtruj_przyczyny(rekordy, czynniki, okolica=WARTOSC_WSZYSTKIE,
     # False < True, więc najpierw zwykłe wiersze (malejąco po %), na końcu podejrzane
     wybrane.sort(key=lambda r: (r["podejrzany"], -(r["procent_przekroczenia"] or 0)))
     return wybrane
+
 def wygeneruj_wnioski_brak_dpr(dane):
     """Opis badań bez DPR w przepisach albo None, gdy takich badań nie ma w danych."""
     poprawne = dane[~dane["podejrzany_wiersz"]]
@@ -154,16 +155,29 @@ def wygeneruj_wnioski_brak_dpr(dane):
     if bez_dpr.empty:
         return None
 
-    opisy = []
-    for badanie, grupa in bez_dpr.groupby("rodzaj_badania_tk"):
-        onko = int((grupa["protokol_onkologiczny_jamy_brzusznej"] == True).sum())
-        opisy.append(f"'{badanie}': {len(grupa)} (w tym w protokole onkologicznym: {onko})")
-
     udzial = len(bez_dpr) / len(poprawne) * 100
-    return (
-        f"{len(bez_dpr)} z {len(poprawne)} badań ({udzial:.0f}%) to badania wykonywane w praktyce, "
-        f"dla których przepisy nie określają diagnostycznego poziomu referencyjnego (DPR) – "
-        + "; ".join(opisy)
-        + ". Dla tych badań nie można ocenić przekroczenia dawki, dlatego nie są uwzględniane "
-        "w analizie przekroczeń."
-    )
+    poczatek = f"{len(bez_dpr)} z {len(poprawne)} badań ({udzial:.0f}%)"
+    grupy = list(bez_dpr.groupby("rodzaj_badania_tk"))
+
+    if len(grupy) == 1:
+        # Jeden rodzaj badania – liczba podana raz, bez powtarzania jej w nawiasie
+        badanie, grupa = grupy[0]
+        onko = int((grupa["protokol_onkologiczny_jamy_brzusznej"] == True).sum())
+        opis = (
+            f"{poczatek} to '{badanie}' (w tym {onko} w protokole onkologicznym) – badanie "
+            f"wykonywane w praktyce, dla którego przepisy nie określają diagnostycznego "
+            f"poziomu referencyjnego (DPR)."
+        )
+    else:
+        # Kilka rodzajów – lista z liczbą badań każdego rodzaju
+        lista = "; ".join(
+            f"'{badanie}': {len(grupa)} "
+            f"(w tym {int((grupa['protokol_onkologiczny_jamy_brzusznej'] == True).sum())} onkologicznych)"
+            for badanie, grupa in grupy
+        )
+        opis = (
+            f"{poczatek} to badania wykonywane w praktyce, dla których przepisy nie określają "
+            f"diagnostycznego poziomu referencyjnego (DPR): {lista}."
+        )
+
+    return opis + " Nie można dla nich ocenić przekroczenia dawki, dlatego nie są uwzględniane w analizie przekroczeń."

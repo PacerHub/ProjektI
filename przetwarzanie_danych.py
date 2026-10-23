@@ -7,27 +7,24 @@ from stale import (
 )
 
 def oznacz_podejrzane_dane(dane):
-#Oznaczanie wierszy z brakami lub wartościami spoza sensownego zakresu, BEZ usuwania ich.
+    #Oznaczanie wierszy z brakami lub wartościami spoza sensownego zakresu, BEZ usuwania ich.
     dane = dane.copy()
     dane["podejrzany_wiersz"] = False
     dane["powod_podejrzenia"] = ""
-
-
-# Badania, dla których przepisy nie określają DPR – brak DPR to NIE jest błąd danych
-dane["brak_dpr"] = dane["rodzaj_badania_tk"].isin(BADANIA_BEZ_DPR)
+    # Badania, dla których przepisy nie określają DPR – brak DPR to NIE jest błąd danych
+    dane["brak_dpr"] = dane["rodzaj_badania_tk"].isin(BADANIA_BEZ_DPR)
 
     kolumny_wymagane = ["wiek", "bmi", "liczba_faz",
-                         "dlp_referencyjny_na_faze_mGy_cm", "dlp_zmierzony_na_faze_mGy_cm"]
+                        "dlp_referencyjny_na_faze_mGy_cm", "dlp_zmierzony_na_faze_mGy_cm"]
 
     for idx, wiersz in dane.iterrows():
         powody = []
 
         for kolumna in kolumny_wymagane:
-            for kolumna in kolumny_wymagane:
-                if kolumna == "dlp_referencyjny_na_faze_mGy_cm" and wiersz["brak_dpr"]:
-                    continue  # brak DPR w przepisach, a nie brak danych
-                if pd.isna(wiersz[kolumna]):
-                    powody.append(f"brak wartości w '{kolumna}'")
+            if kolumna == "dlp_referencyjny_na_faze_mGy_cm" and wiersz["brak_dpr"]:
+                continue  # brak DPR w przepisach, a nie brak danych
+            if pd.isna(wiersz[kolumna]):
+                powody.append(f"brak wartości w '{kolumna}'")
 
         if pd.notna(wiersz["wiek"]) and not (ZAKRES_WIEKU[0] <= wiersz["wiek"] <= ZAKRES_WIEKU[1]):
             powody.append(f"wiek poza zakresem {ZAKRES_WIEKU}")
@@ -49,7 +46,6 @@ dane["brak_dpr"] = dane["rodzaj_badania_tk"].isin(BADANIA_BEZ_DPR)
             dane.at[idx, "powod_podejrzenia"] = "; ".join(powody)
 
     return dane
-
 
 def filtruj_bezpieczne(dane):
 #Zwraca tylko wiersze BEZ oznaczenia 'podejrzany' - do wykresów zbiorczych/agregacji
