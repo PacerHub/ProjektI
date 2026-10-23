@@ -110,23 +110,25 @@ def pokaz_dashboard_przekroczenia(parent, dane):
     odswiez()
     return obszar_wykresu
 
-def wiersz_tabeli_przyczyn(patient_id, wynik):
-#Buduje krotkę wartości do wstawienia w jeden wiersz tabeli przyczyn.
-    etykieta_pacjenta = f"⚠ {patient_id}" if wynik.get("podejrzany") else patient_id
-    bmi_tekst = (
-        f"{wynik['bmi']} ({wynik['kategoria_bmi']})" if wynik["bmi"] is not None else wynik["kategoria_bmi"]
+def wiersz_tabeli_przyczyn(rekord):
+    #Krotka wartości jednego wiersza – w kolejności KOLUMNY_TABELI_PRZYCZYN.
+    pacjent = f"⚠ {rekord['patient_id']}" if rekord["podejrzany"] else rekord["patient_id"]
+    wiek = str(int(rekord["wiek"])) if pd.notna(rekord["wiek"]) else "—"
+    plec = rekord["plec"] if pd.notna(rekord["plec"]) else "—"
+    bmi = (
+        f"{rekord['bmi']} ({rekord['kategoria_bmi']})"
+        if rekord["bmi"] is not None else rekord["kategoria_bmi"]
     )
-    procent_tekst = (
-        f"{wynik['procent_przekroczenia']:+.3f}%" if wynik["procent_przekroczenia"] is not None else "—"
+    dpr = f"{rekord['dpr']:.0f}" if pd.notna(rekord["dpr"]) else "—"
+    dlp = f"{rekord['dlp']:.1f}" if pd.notna(rekord["dlp"]) else "—"
+    procent = (
+        f"{rekord['procent_przekroczenia']:+.1f}%"
+        if rekord["procent_przekroczenia"] is not None else "—"
     )
     return (
-        etykieta_pacjenta,
-        wynik["okolica"],
-        bmi_tekst,
-        wynik["kategoria_faz"],
-        procent_tekst,
-        wynik["klasyfikacja"],
-        *("✓" if wynik["factors"][klucz] else "" for klucz in KLUCZE_CZYNNIKOW),
+        pacjent, wiek, plec, rekord["okolica"], bmi, rekord["kategoria_faz"], dpr, dlp, procent,
+        rekord["klasyfikacja"], rekord["aktywne_czynniki"],
+        *("✓" if rekord["factors"][klucz] else "" for klucz in KLUCZE_CZYNNIKOW),
     )
 
 def dodaj_tooltip_klasyfikacji(tabela, kolumna_id):

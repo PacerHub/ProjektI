@@ -240,5 +240,7 @@ def zbuduj_rekordy_przyczyn(pacjenci):
             "plec": wiersz["plec"],
             "rodzaj_badania": wiersz["rodzaj_badania_tk"],
             "grupa_wiekowa": kategoria_wiekowa(wiek) if pd.notna(wiek) else "—",
+            "dpr": wiersz["dlp_referencyjny_na_faze_mGy_cm"],
+            "dlp": wiersz["dlp_zmierzony_na_faze_mGy_cm"],
         })
     return rekordy

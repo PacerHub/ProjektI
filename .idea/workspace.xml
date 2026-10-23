@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="stale.py, widoki.py&#10;Dodanie opisu w tooltipie klasyfikacji dla wierszy do weryfikacji. Wiersze oznaczone ⚠ (tag 'podejrzany') pokazywały 'Brak dodatkowego opisu'. Teraz tooltip wyjaśnia, że dane są niepełne lub błędne i nie są uwzględniane w statystykach.">
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="widoki.py wykresy.py&#10;Zmiana, żeby niee ucinało etykiet osi wykresów nad panelem wniosków. Układ 'tight' przeliczany przy każdej zmianie rozmiaru wykresu w oknie (wcześniej plt.tight_layout() liczył miejsce tylko dla rozmiaru początkowego). Długie etykiety rodzajów badań i przyczyn zawijane do kilku linii">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/przetwarzanie_danych.py" beforeDir="false" afterPath="$PROJECT_DIR$/przetwarzanie_danych.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stale.py" beforeDir="false" afterPath="$PROJECT_DIR$/stale.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/widoki.py" beforeDir="false" afterPath="$PROJECT_DIR$/widoki.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -96,14 +99,6 @@
       <workItem from="1790780490315" duration="5722000" />
       <workItem from="1791136745207" duration="808000" />
       <workItem from="1791214082108" duration="9000" />
-    </task>
-    <task id="LOCAL-00087" summary="Nowa funkcja w aggregations.py, dodawanie wniosków do wykresu Pareto">
-      <option name="closed" value="true" />
-      <created>1789925640239</created>
-      <option name="number" value="00087" />
-      <option name="presentableId" value="LOCAL-00087" />
-      <option name="project" value="LOCAL" />
-      <updated>1789925640239</updated>
     </task>
     <task id="LOCAL-00088" summary="w views.py tk.label z wygenerowanymi wnioskami do pareto przekroczeń">
       <option name="closed" value="true" />
@@ -489,7 +484,15 @@
       <option name="project" value="LOCAL" />
       <updated>1792786284640</updated>
     </task>
-    <option name="localTasksCounter" value="136" />
+    <task id="LOCAL-00136" summary="widoki.py wykresy.py&#10;Zmiana, żeby niee ucinało etykiet osi wykresów nad panelem wniosków. Układ 'tight' przeliczany przy każdej zmianie rozmiaru wykresu w oknie (wcześniej plt.tight_layout() liczył miejsce tylko dla rozmiaru początkowego). Długie etykiety rodzajów badań i przyczyn zawijane do kilku linii">
+      <option name="closed" value="true" />
+      <created>1792786739004</created>
+      <option name="number" value="00136" />
+      <option name="presentableId" value="LOCAL-00136" />
+      <option name="project" value="LOCAL" />
+      <updated>1792786739004</updated>
+    </task>
+    <option name="localTasksCounter" value="137" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -500,14 +503,25 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="text">
+                    <value>
+                      <list>
+                        <option value="definic" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Usunięcie zdublowanych funkcji filtrów płci i BMI- pierwsze wersje (z on_change) były nadpisywane przez późniejsze definicje i nigdzie nieużywane" />
     <MESSAGE value="Zlikwidowane nadpisywanie stylu tabel w zbuduj_tabele&quot; - czcionki, wysokość wierszy i odstęp nagłówków ustawia wyłącznie ustaw_czcionke_aplikacji, więc parametr rozmiar_tabeli zaczyna działać." />
     <MESSAGE value="Zamykanie figury matplotlib po osadzeniu w oknie&quot; - plt.close(fig) w _osadz_wykres zapobiega gromadzeniu się figur przy przełączaniu widoków (ostrzeżenie 'More than 20 figures')." />
     <MESSAGE value="Usuń podwójne wywołanie oznacz_przekroczenia w main" />
@@ -532,7 +546,8 @@
     <MESSAGE value="Zmiany w agregacje.py, wykresy.py, widoki.py, uruchom.py/&#10;Pokazanie badań bez DPR w przepisach i źródła wartości referencyjnych w aplikacji. Wykres rodzajów badań wyróżnia na szaro badania z BADANIA_BEZ_DPR (legenda) i ma panel wniosków z ich liczbą i udziałem. Stopka okna ze źródłem DPR (rozporządzenie MZ, Prawo atomowe). Oś Y wykresów liczebności przez MaxNLocator." />
     <MESSAGE value="Poprawione błędne wcięcia w funkcji oznacz_podejrzane_dane oraz nieprawidłowe importy." />
     <MESSAGE value="stale.py, widoki.py&#10;Dodanie opisu w tooltipie klasyfikacji dla wierszy do weryfikacji. Wiersze oznaczone ⚠ (tag 'podejrzany') pokazywały 'Brak dodatkowego opisu'. Teraz tooltip wyjaśnia, że dane są niepełne lub błędne i nie są uwzględniane w statystykach." />
-    <option name="LAST_COMMIT_MESSAGE" value="stale.py, widoki.py&#10;Dodanie opisu w tooltipie klasyfikacji dla wierszy do weryfikacji. Wiersze oznaczone ⚠ (tag 'podejrzany') pokazywały 'Brak dodatkowego opisu'. Teraz tooltip wyjaśnia, że dane są niepełne lub błędne i nie są uwzględniane w statystykach." />
+    <MESSAGE value="widoki.py wykresy.py&#10;Zmiana, żeby niee ucinało etykiet osi wykresów nad panelem wniosków. Układ 'tight' przeliczany przy każdej zmianie rozmiaru wykresu w oknie (wcześniej plt.tight_layout() liczył miejsce tylko dla rozmiaru początkowego). Długie etykiety rodzajów badań i przyczyn zawijane do kilku linii" />
+    <option name="LAST_COMMIT_MESSAGE" value="widoki.py wykresy.py&#10;Zmiana, żeby niee ucinało etykiet osi wykresów nad panelem wniosków. Układ 'tight' przeliczany przy każdej zmianie rozmiaru wykresu w oknie (wcześniej plt.tight_layout() liczył miejsce tylko dla rozmiaru początkowego). Długie etykiety rodzajów badań i przyczyn zawijane do kilku linii" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1789659520225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

@@ -75,6 +75,12 @@ KLASYFIKACJA_OPISY = {
         "szum pomiarowy/losowy, błąd protokołu\n"
         "lub coś, co wymaga ręcznej weryfikacji."
     ),
+    "onkologiczny": (
+        "Protokół onkologiczny\n\n"
+        "Badanie jamy brzusznej wykonane w protokole\n"
+        "onkologicznym – zwykle wielofazowe skanowanie\n"
+        "(natywna / tętnicza / żylna)."
+    ),
 }
 # Opis w tooltipie dla wierszy oznaczonych ⚠ (niepełne lub błędne dane)
 OPIS_DANYCH_DO_WERYFIKACJI = (
@@ -165,11 +171,13 @@ KOLUMNY_TABELI_PRZYCZYN = [
     ("klasyfikacja", "Klasyfikacja przyczyny", 200, "w"),
     ("czynniki", "Aktywne czynniki", 220, "w"),
     ("pediatryczny", "<16 lat", 70, "center"),
-    ("onkologiczny", "Onko", 70, "center"),
+    ("onkologiczny", "Onkologiczny", 95, "center"),
     ("wielofazowy", "Wielofazowe", 85, "center"),
     ("wysoki_dlp_fazy", "Wysokie DLP", 85, "center"),
     ("nadwaga_otylosc", "Nadwaga/\notyłość", 80, "center"),
-]
+    ("dpr", "DPR na fazę\n[mGy·cm]", 95, "center"),
+    ("dlp", "DLP zmierzone\nna fazę [mGy·cm]", 120, "center"),
+    ]
 
 # Źródło diagnostycznych poziomów referencyjnych (DPR) – wartości referencyjne w pliku CSV
 ZRODLO_DPR = (
@@ -181,6 +189,34 @@ ZRODLO_DPR_KROTKO = (
     "Rozporządzenie MZ z 6.12.2022 r. w sprawie DPR (Dz.U. 2022 poz. 2626), "
     "wyd. na podst. art. 33g ust. 3 ustawy – Prawo atomowe"
 )
+# Tooltipy na nagłówkach kolumn tabeli analizy przyczyn (klucz kolumny -> tekst dymka)
+OPISY_NAGLOWKOW_PRZYCZYN = {
+    "dpr": (
+        "DPR – Diagnostyczny Poziom Referencyjny.\n"
+        "Punkt odniesienia dla typowego pacjenta,\n"
+        "nie sztywny limit prawny. Może być\n"
+        "przekroczony przy uzasadnieniu klinicznym.\n\n"
+        f"Źródło: {ZRODLO_DPR_KROTKO}."
+    ),
+    "dlp": (
+        "DLP – iloczyn dawka-długość.\n"
+        "Rzeczywista wartość zmierzona\n"
+        "u pacjenta dla pojedynczej fazy\n"
+        "badania — porównywana z DPR."
+    ),
+    "onkologiczny": "Protokół onkologiczny",
+    "procent": "% przekroczenia = (DLP zmierzone na fazę ÷ DPR na fazę − 1) × 100",
+    "kategoria_faz": (
+        "Liczba faz skanowania w badaniu.\n\n"
+        "DPR określony jest dla jednej fazy, dlatego\n"
+        "aplikacja porównuje z nim DLP jednej fazy,\n"
+        "a nie DLP łączne ze wszystkich faz."
+    ),
+    "wysoki_dlp_fazy": (
+        f"Wysokie DLP fazy – DLP zmierzone na fazę\n"
+        f"wynosi co najmniej {PROG_WYSOKIEGO_DLP_FAZY:.0%} DPR."
+    ),
+}
 
 # Badania wykonywane w praktyce, dla których rozporządzenie NIE określa DPR.
 # Brak DPR nie jest dla nich błędem danych – nie da się tylko ocenić przekroczenia.
