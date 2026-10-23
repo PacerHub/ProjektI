@@ -2,6 +2,7 @@
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
+from matplotlib.layout_engine import TightLayoutEngine
 import pandas as pd
 from agregacje import (
     policz_wg_kolumny, policz_wg_grupy_wiekowej, policz_klasyfikacje,
@@ -28,6 +29,12 @@ import tkinter as tk
 
 
 def osadz_wykres(parent, fig):
+    # Układ "tight" przeliczany przy każdym rysowaniu – także po zmianie rozmiaru wykresu
+    # w oknie. Jednorazowe plt.tight_layout() nie wystarcza, bo liczy miejsce na etykiety
+    # tylko dla pierwotnego rozmiaru figury.
+    if not isinstance(fig.get_layout_engine(), TightLayoutEngine):
+        fig.set_layout_engine("tight")
+
     canvas = FigureCanvasTkAgg(fig, master=parent)
     canvas.draw()
     canvas.get_tk_widget().pack(fill="both", expand=True)

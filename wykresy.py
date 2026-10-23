@@ -1,6 +1,7 @@
 #Budowa wykresów matplotlib.
 from matplotlib.ticker import MaxNLocator
 import matplotlib.pyplot as plt
+import textwrap
 from matplotlib.patches import Patch
 from stale import (
     PALETA_KOLOROW, ROZMIAR_TYTULU_WYKRESU, GRUBOSC_TYTULU_WYKRESU, ROZMIAR_TYTULU_DASHBOARDU,
@@ -11,6 +12,9 @@ from agregacje import policz_kategorie_onkologiczne, policz_wg_grupy_wiekowej
 def _kolory_cyklicznie(n):
     return [PALETA_KOLOROW[i % len(PALETA_KOLOROW)] for i in range(n)]
 
+def zawin_etykiety(etykiety, szerokosc=22):
+    #Długie nazwy (np. rodzaje badań) łamane na kilka krótszych linii.
+    return [textwrap.fill(str(etykieta), szerokosc) for etykieta in etykiety]
 
 def _ustaw_tytul_panelu(ax, tekst):
     ax.set_title(tekst, fontsize=ROZMIAR_TYTULU_WYKRESU, fontweight=GRUBOSC_TYTULU_WYKRESU)
@@ -82,7 +86,8 @@ def zbuduj_dashboard_przekroczenia(pacjenci):
     narysuj_rodzaj_badania(ax_badanie, pacjenci)
     narysuj_wiek(ax_wiek, pacjenci)
 
-    plt.tight_layout(rect=[0, 0, 1, 0.94])
+    # Stały układ "tight" z miejscem na tytuł u góry (rect) – przeliczany przy zmianie rozmiaru
+    fig.set_layout_engine("tight", rect=(0, 0, 1, 0.94))
     return fig
 # ==========================================
 # PROSTY WYKRES LICZEBNOŚCI (wg badania / wieku / płci)
@@ -104,7 +109,8 @@ def zbuduj_wykres_liczebnosci(counts, tytul, kolory=None, legenda=None):
         ax.legend(handles=[Patch(color=kolor, label=opis) for kolor, opis in legenda],
                   loc="upper right")
 
-    plt.setp(ax.get_xticklabels(), rotation=45, ha="right")
+    ax.set_xticklabels(zawin_etykiety(counts.index), rotation=45, ha="right",
+                       rotation_mode="anchor", fontsize=9)
     plt.tight_layout()
     return fig
 
@@ -136,7 +142,8 @@ def zbuduj_wykres_pareto(counts, tytul="Pareto przyczyn przekroczeń"):
     pozycje = range(len(counts))
     ax1.bar(pozycje, counts.values, color=kolory)
     ax1.set_xticks(pozycje)
-    ax1.set_xticklabels(counts.index, rotation=30, ha="right")
+    ax1.set_xticklabels(zawin_etykiety(counts.index), rotation=30, ha="right",
+                        rotation_mode="anchor")
     ax1.set_ylabel("Liczba pacjentów")
     ax1.set_ylim(0, counts.max() * 1.2)
 

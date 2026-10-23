@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Poprawione błędne wcięcia w funkcji oznacz_podejrzane_dane oraz nieprawidłowe importy." />
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="stale.py, widoki.py&#10;Dodanie opisu w tooltipie klasyfikacji dla wierszy do weryfikacji. Wiersze oznaczone ⚠ (tag 'podejrzany') pokazywały 'Brak dodatkowego opisu'. Teraz tooltip wyjaśnia, że dane są niepełne lub błędne i nie są uwzględniane w statystykach.">
+      <change beforePath="$PROJECT_DIR$/widoki.py" beforeDir="false" afterPath="$PROJECT_DIR$/widoki.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -94,14 +96,6 @@
       <workItem from="1790780490315" duration="5722000" />
       <workItem from="1791136745207" duration="808000" />
       <workItem from="1791214082108" duration="9000" />
-    </task>
-    <task id="LOCAL-00086" summary="Zwiększenie wymiarów okna, dodanie wyświetlania wykresu Pareto przyczyn przekroczeń dawek">
-      <option name="closed" value="true" />
-      <created>1789925439603</created>
-      <option name="number" value="00086" />
-      <option name="presentableId" value="LOCAL-00086" />
-      <option name="project" value="LOCAL" />
-      <updated>1789925439603</updated>
     </task>
     <task id="LOCAL-00087" summary="Nowa funkcja w aggregations.py, dodawanie wniosków do wykresu Pareto">
       <option name="closed" value="true" />
@@ -487,7 +481,15 @@
       <option name="project" value="LOCAL" />
       <updated>1792786123942</updated>
     </task>
-    <option name="localTasksCounter" value="135" />
+    <task id="LOCAL-00135" summary="stale.py, widoki.py&#10;Dodanie opisu w tooltipie klasyfikacji dla wierszy do weryfikacji. Wiersze oznaczone ⚠ (tag 'podejrzany') pokazywały 'Brak dodatkowego opisu'. Teraz tooltip wyjaśnia, że dane są niepełne lub błędne i nie są uwzględniane w statystykach.">
+      <option name="closed" value="true" />
+      <created>1792786284640</created>
+      <option name="number" value="00135" />
+      <option name="presentableId" value="LOCAL-00135" />
+      <option name="project" value="LOCAL" />
+      <updated>1792786284640</updated>
+    </task>
+    <option name="localTasksCounter" value="136" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -505,7 +507,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Wyrównanie binów histogramu wieku do pełnych lat&quot; -m &quot;bins=range(min-1, max+2) zamiast bins=10, żeby oś miała sensowny zakres także przy jednym pacjencie po filtrowaniu." />
     <MESSAGE value="Usunięcie zdublowanych funkcji filtrów płci i BMI- pierwsze wersje (z on_change) były nadpisywane przez późniejsze definicje i nigdzie nieużywane" />
     <MESSAGE value="Zlikwidowane nadpisywanie stylu tabel w zbuduj_tabele&quot; - czcionki, wysokość wierszy i odstęp nagłówków ustawia wyłącznie ustaw_czcionke_aplikacji, więc parametr rozmiar_tabeli zaczyna działać." />
     <MESSAGE value="Zamykanie figury matplotlib po osadzeniu w oknie&quot; - plt.close(fig) w _osadz_wykres zapobiega gromadzeniu się figur przy przełączaniu widoków (ostrzeżenie 'More than 20 figures')." />
@@ -530,7 +531,8 @@
     <MESSAGE value="Dodanie badań TK jamy brzusznej i miednicy, które w rzeczywistości bardzo często są wykonywane jednoczasowo, bez DPR i źródło wartości referencyjnych. 13 badań 'TK jamy brzusznej i miednicy' (11 onkologicznych) z pustymi wartościami referencyjnymi – rozporządzenie MZ z 6.12.2022 (Dz.U. 2022 poz. 2626, wyd. na podst. art. 33g ust. 3 Prawa atomowego) nie określa dla nich DPR. Walidacja nie traktuje braku DPR jako błędu dla badań z BADANIA_BEZ_DPR. Dodanie źródła DPR w stale.py." />
     <MESSAGE value="Zmiany w agregacje.py, wykresy.py, widoki.py, uruchom.py/&#10;Pokazanie badań bez DPR w przepisach i źródła wartości referencyjnych w aplikacji. Wykres rodzajów badań wyróżnia na szaro badania z BADANIA_BEZ_DPR (legenda) i ma panel wniosków z ich liczbą i udziałem. Stopka okna ze źródłem DPR (rozporządzenie MZ, Prawo atomowe). Oś Y wykresów liczebności przez MaxNLocator." />
     <MESSAGE value="Poprawione błędne wcięcia w funkcji oznacz_podejrzane_dane oraz nieprawidłowe importy." />
-    <option name="LAST_COMMIT_MESSAGE" value="Poprawione błędne wcięcia w funkcji oznacz_podejrzane_dane oraz nieprawidłowe importy." />
+    <MESSAGE value="stale.py, widoki.py&#10;Dodanie opisu w tooltipie klasyfikacji dla wierszy do weryfikacji. Wiersze oznaczone ⚠ (tag 'podejrzany') pokazywały 'Brak dodatkowego opisu'. Teraz tooltip wyjaśnia, że dane są niepełne lub błędne i nie są uwzględniane w statystykach." />
+    <option name="LAST_COMMIT_MESSAGE" value="stale.py, widoki.py&#10;Dodanie opisu w tooltipie klasyfikacji dla wierszy do weryfikacji. Wiersze oznaczone ⚠ (tag 'podejrzany') pokazywały 'Brak dodatkowego opisu'. Teraz tooltip wyjaśnia, że dane są niepełne lub błędne i nie są uwzględniane w statystykach." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1789659520225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
