@@ -3,7 +3,7 @@
 import pandas as pd
 from stale import (
     EXAM_REGION, PROG_WYSOKIEGO_DLP_FAZY, GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH,
-    ZAKRES_WIEKU, ZAKRES_BMI, ZAKRES_LICZBY_FAZ, KLUCZE_CZYNNIKOW,
+    ZAKRES_WIEKU, ZAKRES_BMI, ZAKRES_LICZBY_FAZ, KLUCZE_CZYNNIKOW, BADANIA_BEZ_DPR
 )
 
 def oznacz_podejrzane_dane(dane):
@@ -12,6 +12,10 @@ def oznacz_podejrzane_dane(dane):
     dane["podejrzany_wiersz"] = False
     dane["powod_podejrzenia"] = ""
 
+
+# Badania, dla których przepisy nie określają DPR – brak DPR to NIE jest błąd danych
+dane["brak_dpr"] = dane["rodzaj_badania_tk"].isin(BADANIA_BEZ_DPR)
+
     kolumny_wymagane = ["wiek", "bmi", "liczba_faz",
                          "dlp_referencyjny_na_faze_mGy_cm", "dlp_zmierzony_na_faze_mGy_cm"]
 
@@ -19,8 +23,11 @@ def oznacz_podejrzane_dane(dane):
         powody = []
 
         for kolumna in kolumny_wymagane:
-            if pd.isna(wiersz[kolumna]):
-                powody.append(f"brak wartości w '{kolumna}'")
+            for kolumna in kolumny_wymagane:
+                if kolumna == "dlp_referencyjny_na_faze_mGy_cm" and wiersz["brak_dpr"]:
+                    continue  # brak DPR w przepisach, a nie brak danych
+                if pd.isna(wiersz[kolumna]):
+                    powody.append(f"brak wartości w '{kolumna}'")
 
         if pd.notna(wiersz["wiek"]) and not (ZAKRES_WIEKU[0] <= wiersz["wiek"] <= ZAKRES_WIEKU[1]):
             powody.append(f"wiek poza zakresem {ZAKRES_WIEKU}")

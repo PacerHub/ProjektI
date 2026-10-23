@@ -21,6 +21,7 @@ EXAM_REGION = {
     "TK odcinka lędźwiowo-krzyżowego kręgosłupa": "kręgosłup",
     "TK szyi, tkanki miękkie": "szyja",
     "Angio-TK tętnic szyjnych": "szyja",
+    "TK jamy brzusznej i miednicy": "jama brzuszna / miednica",
 }
 
 # 20% powyżej wartości referencyjnej DLP na fazę uznajemy za "wysokie"
@@ -161,3 +162,19 @@ KOLUMNY_TABELI_PRZYCZYN = [
     ("wysoki_dlp_fazy", "Wysokie DLP", 85, "center"),
     ("nadwaga_otylosc", "Nadwaga/\notyłość", 80, "center"),
 ]
+
+# Źródło diagnostycznych poziomów referencyjnych (DPR) – wartości referencyjne w pliku CSV
+ZRODLO_DPR = (
+    "Rozporządzenie Ministra Zdrowia z dnia 6 grudnia 2022 r. w sprawie diagnostycznych "
+    "poziomów referencyjnych (Dz.U. 2022 poz. 2626), załącznik nr 1, tabela 3 – wydane "
+    "na podstawie art. 33g ust. 3 ustawy z dnia 29 listopada 2000 r. – Prawo atomowe"
+)
+ZRODLO_DPR_KROTKO = (
+    "Rozporządzenie MZ z 6.12.2022 r. w sprawie DPR (Dz.U. 2022 poz. 2626), "
+    "wyd. na podst. art. 33g ust. 3 ustawy – Prawo atomowe"
+)
+
+# Badania wykonywane w praktyce, dla których rozporządzenie NIE określa DPR.
+# Brak DPR nie jest dla nich błędem danych – nie da się tylko ocenić przekroczenia.
+BADANIA_BEZ_DPR = ["TK jamy brzusznej i miednicy"]
+KOLOR_BRAK_DPR = "#9e9e9e"  # szary – wyróżnienie tych badań na wykresie
