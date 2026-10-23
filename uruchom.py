@@ -17,7 +17,7 @@ from widoki import (
     )
 from komponenty import ustaw_czcionke_aplikacji, zbuduj_przycisk_rozwijany
 
-def wlacz_dpi_awareness():
+def wyostrz_wyswietlanie():
     #Windows: ostre czcionki i wykresy przy skalowaniu ekranu 125%/150%. Musi być PRZED tk.Tk().
     if sys.platform != "win32":
         return
@@ -44,7 +44,7 @@ def obszar_roboczy(okno):
 
 def zbuduj_okno():
     #Tworzenie i konfiguracja głównego okna aplikacji
-    wlacz_dpi_awareness()  # musi być wywołane przed tk.Tk()
+    wyostrz_wyswietlanie()  # musi być wywołane przed tk.Tk()
 
     okno = tk.Tk()
     ustaw_czcionke_aplikacji(okno, rozmiar=11, rozmiar_przyciskow=10,
