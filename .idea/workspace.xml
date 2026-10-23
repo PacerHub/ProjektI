@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="widoki.py wykresy.py&#10;Zmiana, żeby niee ucinało etykiet osi wykresów nad panelem wniosków. Układ 'tight' przeliczany przy każdej zmianie rozmiaru wykresu w oknie (wcześniej plt.tight_layout() liczył miejsce tylko dla rozmiaru początkowego). Długie etykiety rodzajów badań i przyczyn zawijane do kilku linii">
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Zmiany w stale.py, przetwarzanie_danych.py, komponenty.py, widoki.py Przywrócenie kolumn DPR i DLP na fazę z definicjami w tooltipach nagłówków, które zniknęły razem ze starą tabelą 'Pacjenci z przekroczoną dawką' przy zamianie jej na dashboard. Teraz są w tabeli analizy przyczyn; definicje w OPISY_NAGLOWKOW_PRZYCZYN (stale.py), DPR ze źródłem prawnym. Zmiana nagłówka kolumny 'Onko' na 'Onkologiczny' w tabeli analizy przyczyn. Dodanie tooltipu 'Protokół onkologiczny' na nagłówku kolumny Onkologiczny">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/przetwarzanie_danych.py" beforeDir="false" afterPath="$PROJECT_DIR$/przetwarzanie_danych.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stale.py" beforeDir="false" afterPath="$PROJECT_DIR$/stale.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/widoki.py" beforeDir="false" afterPath="$PROJECT_DIR$/widoki.py" afterDir="false" />
     </list>
@@ -99,14 +98,6 @@
       <workItem from="1790780490315" duration="5722000" />
       <workItem from="1791136745207" duration="808000" />
       <workItem from="1791214082108" duration="9000" />
-    </task>
-    <task id="LOCAL-00088" summary="w views.py tk.label z wygenerowanymi wnioskami do pareto przekroczeń">
-      <option name="closed" value="true" />
-      <created>1789925803543</created>
-      <option name="number" value="00088" />
-      <option name="presentableId" value="LOCAL-00088" />
-      <option name="project" value="LOCAL" />
-      <updated>1789925803543</updated>
     </task>
     <task id="LOCAL-00089" summary="w views.py dodanie importu tkintera">
       <option name="closed" value="true" />
@@ -492,7 +483,15 @@
       <option name="project" value="LOCAL" />
       <updated>1792786739004</updated>
     </task>
-    <option name="localTasksCounter" value="137" />
+    <task id="LOCAL-00137" summary="Zmiany w stale.py, przetwarzanie_danych.py, komponenty.py, widoki.py Przywrócenie kolumn DPR i DLP na fazę z definicjami w tooltipach nagłówków, które zniknęły razem ze starą tabelą 'Pacjenci z przekroczoną dawką' przy zamianie jej na dashboard. Teraz są w tabeli analizy przyczyn; definicje w OPISY_NAGLOWKOW_PRZYCZYN (stale.py), DPR ze źródłem prawnym. Zmiana nagłówka kolumny 'Onko' na 'Onkologiczny' w tabeli analizy przyczyn. Dodanie tooltipu 'Protokół onkologiczny' na nagłówku kolumny Onkologiczny">
+      <option name="closed" value="true" />
+      <created>1792790066041</created>
+      <option name="number" value="00137" />
+      <option name="presentableId" value="LOCAL-00137" />
+      <option name="project" value="LOCAL" />
+      <updated>1792790066041</updated>
+    </task>
+    <option name="localTasksCounter" value="138" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -522,7 +521,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Zlikwidowane nadpisywanie stylu tabel w zbuduj_tabele&quot; - czcionki, wysokość wierszy i odstęp nagłówków ustawia wyłącznie ustaw_czcionke_aplikacji, więc parametr rozmiar_tabeli zaczyna działać." />
     <MESSAGE value="Zamykanie figury matplotlib po osadzeniu w oknie&quot; - plt.close(fig) w _osadz_wykres zapobiega gromadzeniu się figur przy przełączaniu widoków (ostrzeżenie 'More than 20 figures')." />
     <MESSAGE value="Usuń podwójne wywołanie oznacz_przekroczenia w main" />
     <MESSAGE value="Poprawka wcięcia w zbuduj_tabele po usunięciu stylów" />
@@ -547,7 +545,8 @@
     <MESSAGE value="Poprawione błędne wcięcia w funkcji oznacz_podejrzane_dane oraz nieprawidłowe importy." />
     <MESSAGE value="stale.py, widoki.py&#10;Dodanie opisu w tooltipie klasyfikacji dla wierszy do weryfikacji. Wiersze oznaczone ⚠ (tag 'podejrzany') pokazywały 'Brak dodatkowego opisu'. Teraz tooltip wyjaśnia, że dane są niepełne lub błędne i nie są uwzględniane w statystykach." />
     <MESSAGE value="widoki.py wykresy.py&#10;Zmiana, żeby niee ucinało etykiet osi wykresów nad panelem wniosków. Układ 'tight' przeliczany przy każdej zmianie rozmiaru wykresu w oknie (wcześniej plt.tight_layout() liczył miejsce tylko dla rozmiaru początkowego). Długie etykiety rodzajów badań i przyczyn zawijane do kilku linii" />
-    <option name="LAST_COMMIT_MESSAGE" value="widoki.py wykresy.py&#10;Zmiana, żeby niee ucinało etykiet osi wykresów nad panelem wniosków. Układ 'tight' przeliczany przy każdej zmianie rozmiaru wykresu w oknie (wcześniej plt.tight_layout() liczył miejsce tylko dla rozmiaru początkowego). Długie etykiety rodzajów badań i przyczyn zawijane do kilku linii" />
+    <MESSAGE value="Zmiany w stale.py, przetwarzanie_danych.py, komponenty.py, widoki.py Przywrócenie kolumn DPR i DLP na fazę z definicjami w tooltipach nagłówków, które zniknęły razem ze starą tabelą 'Pacjenci z przekroczoną dawką' przy zamianie jej na dashboard. Teraz są w tabeli analizy przyczyn; definicje w OPISY_NAGLOWKOW_PRZYCZYN (stale.py), DPR ze źródłem prawnym. Zmiana nagłówka kolumny 'Onko' na 'Onkologiczny' w tabeli analizy przyczyn. Dodanie tooltipu 'Protokół onkologiczny' na nagłówku kolumny Onkologiczny" />
+    <option name="LAST_COMMIT_MESSAGE" value="Zmiany w stale.py, przetwarzanie_danych.py, komponenty.py, widoki.py Przywrócenie kolumn DPR i DLP na fazę z definicjami w tooltipach nagłówków, które zniknęły razem ze starą tabelą 'Pacjenci z przekroczoną dawką' przy zamianie jej na dashboard. Teraz są w tabeli analizy przyczyn; definicje w OPISY_NAGLOWKOW_PRZYCZYN (stale.py), DPR ze źródłem prawnym. Zmiana nagłówka kolumny 'Onko' na 'Onkologiczny' w tabeli analizy przyczyn. Dodanie tooltipu 'Protokół onkologiczny' na nagłówku kolumny Onkologiczny" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1789659520225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

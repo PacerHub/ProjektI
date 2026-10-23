@@ -152,12 +152,14 @@ def wiersz_tabeli_przyczyn(rekord):
         f"{rekord['bmi']} ({rekord['kategoria_bmi']})"
         if rekord["bmi"] is not None else rekord["kategoria_bmi"]
     )
+    dpr = f"{rekord['dpr']:.0f}" if pd.notna(rekord["dpr"]) else "—"
+    dlp = f"{rekord['dlp']:.1f}" if pd.notna(rekord["dlp"]) else "—"
     procent = (
         f"{rekord['procent_przekroczenia']:+.1f}%"
         if rekord["procent_przekroczenia"] is not None else "—"
     )
     return (
-        pacjent, wiek, plec, rekord["okolica"], bmi, rekord["kategoria_faz"], procent,
+        pacjent, wiek, plec, rekord["okolica"], bmi, rekord["kategoria_faz"], dpr, dlp, procent,
         rekord["klasyfikacja"], rekord["aktywne_czynniki"],
         *("✓" if rekord["factors"][klucz] else "" for klucz in KLUCZE_CZYNNIKOW),
     )

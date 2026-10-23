@@ -165,19 +165,19 @@ KOLUMNY_TABELI_PRZYCZYN = [
     ("wiek", "Wiek", 50, "center"),
     ("plec", "Płeć", 45, "center"),
     ("okolica", "Okolica anatomiczna", 130, "w"),
-    ("bmi", "BMI (kategoria)", 150, "center"),
+    ("bmi", "BMI (kategoria)", 135, "center"),
     ("kategoria_faz", "Liczba faz", 80, "center"),
+    ("dpr", "DPR na fazę\n[mGy·cm]", 95, "center"),
+    ("dlp", "DLP zmierzone\nna fazę [mGy·cm]", 120, "center"),
     ("procent", "% przekroczenia", 105, "center"),
     ("klasyfikacja", "Klasyfikacja przyczyny", 200, "w"),
-    ("czynniki", "Aktywne czynniki", 220, "w"),
+    ("czynniki", "Aktywne czynniki", 155, "w"),
     ("pediatryczny", "<16 lat", 70, "center"),
-    ("onkologiczny", "Onkologiczny", 95, "center"),
+    ("onkologiczny", "Protokół onkologiczny", 110, "center"),
     ("wielofazowy", "Wielofazowe", 85, "center"),
     ("wysoki_dlp_fazy", "Wysokie DLP", 85, "center"),
     ("nadwaga_otylosc", "Nadwaga/\notyłość", 80, "center"),
-    ("dpr", "DPR na fazę\n[mGy·cm]", 95, "center"),
-    ("dlp", "DLP zmierzone\nna fazę [mGy·cm]", 120, "center"),
-    ]
+        ]
 
 # Źródło diagnostycznych poziomów referencyjnych (DPR) – wartości referencyjne w pliku CSV
 ZRODLO_DPR = (
