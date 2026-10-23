@@ -1,7 +1,11 @@
 #Budowa wykresów matplotlib.
 from matplotlib.ticker import MaxNLocator
 import matplotlib.pyplot as plt
-from stale import PALETA_KOLOROW, ROZMIAR_TYTULU_WYKRESU, GRUBOSC_TYTULU_WYKRESU, ROZMIAR_TYTULU_DASHBOARDU
+from matplotlib.patches import Patch
+from stale import (
+    PALETA_KOLOROW, ROZMIAR_TYTULU_WYKRESU, GRUBOSC_TYTULU_WYKRESU, ROZMIAR_TYTULU_DASHBOARDU,
+    BADANIA_BEZ_DPR, KOLOR_BRAK_DPR,
+)
 from agregacje import policz_kategorie_onkologiczne, policz_wg_grupy_wiekowej
 
 def _kolory_cyklicznie(n):
@@ -85,19 +89,33 @@ def zbuduj_dashboard_przekroczenia(pacjenci):
 # ==========================================
 
 
-def zbuduj_wykres_liczebnosci(counts, tytul, kolory=None):
+def zbuduj_wykres_liczebnosci(counts, tytul, kolory=None, legenda=None):
+    #legenda – opcjonalna lista par (kolor, opis) pokazana w prawym górnym rogu.
     fig, ax = plt.subplots(figsize=(10, 6))
 
     kolory = kolory or _kolory_cyklicznie(len(counts))
-    counts.plot(kind="bar", ax=ax, color = kolory)
-    _ustaw_tytul_panelu(ax, tytul)
+    counts.plot(kind="bar", ax=ax, color=kolory)
+    ustaw_tytul_panelu(ax, tytul)
     ax.set_xlabel("")
     ax.set_ylabel("Liczba pacjentów")
-    ax.set_yticks(range(0, counts.max() + 1))
+    ax.yaxis.set_major_locator(MaxNLocator(integer=True))
+
+    if legenda:
+        ax.legend(handles=[Patch(color=kolor, label=opis) for kolor, opis in legenda],
+                  loc="upper right")
 
     plt.setp(ax.get_xticklabels(), rotation=45, ha="right")
     plt.tight_layout()
     return fig
+
+
+def kolory_rodzajow_badan(nazwy_badan):
+    #Badania z DPR – niebieskie, badania bez DPR w przepisach – szare; zwraca (kolory, legenda).
+    kolory = [KOLOR_BRAK_DPR if nazwa in BADANIA_BEZ_DPR else PALETA_KOLOROW[0]
+              for nazwa in nazwy_badan]
+    legenda = [(PALETA_KOLOROW[0], "badanie z DPR w przepisach"),
+               (KOLOR_BRAK_DPR, "brak DPR w przepisach")]
+    return kolory, legenda
 
 def zbuduj_wykres_kolowy_liczebnosci(counts, tytul, kolory=None):
     fig, ax = plt.subplots(figsize=(8, 6))

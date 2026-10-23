@@ -6,7 +6,7 @@ import sys
 import ctypes
 
 
-from stale import RODZAJE_WIDOKOW, WIDOKI_LICZEBNOSCI, SCIEZKA_DANYCH, CZCIONKA, KOLOR_NAGLOWKA, KOLOR_TEKSTU_NAGLOWKA, WIDOKI_LICZBA_PACJENTOW
+from stale import RODZAJE_WIDOKOW, WIDOKI_LICZEBNOSCI, SCIEZKA_DANYCH, CZCIONKA, KOLOR_NAGLOWKA, KOLOR_TEKSTU_NAGLOWKA, WIDOKI_LICZBA_PACJENTOW, ZRODLO_DPR_KROTKO
 from przetwarzanie_danych import wczytaj_dane, oznacz_przekroczenia, oznacz_podejrzane_dane
 from widoki import (
     pokaz_liczebnosc_wg_kolumny,
@@ -72,6 +72,10 @@ def dodaj_naglowek(okno):
              font=(CZCIONKA, 15),
              bg=KOLOR_NAGLOWKA, fg=KOLOR_TEKSTU_NAGLOWKA).pack(pady=5)
 
+def dodaj_stopke(okno):
+    # Źródło wartości referencyjnych widoczne na dole okna we wszystkich widokach
+    tk.Label(okno, text=f"Źródło DPR: {ZRODLO_DPR_KROTKO}",
+             font=(CZCIONKA, 9), fg="#555555", anchor="w").pack(side="bottom", fill="x", padx=10, pady=(0, 4))
 
 def wyczysc_kontener(kontener):
 #Usuwanie wszystkich widgetów z kontenera przed narysowaniem nowego widoku.
@@ -142,6 +146,7 @@ def main():
 
     okno = zbuduj_okno()
     dodaj_naglowek(okno)
+    dodaj_stopke(okno)
 
 
     kontener = tk.Frame(okno)

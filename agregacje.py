@@ -147,3 +147,23 @@ def filtruj_przyczyny(rekordy, czynniki, okolica=WARTOSC_WSZYSTKIE,
     # False < True, więc najpierw zwykłe wiersze (malejąco po %), na końcu podejrzane
     wybrane.sort(key=lambda r: (r["podejrzany"], -(r["procent_przekroczenia"] or 0)))
     return wybrane
+def wygeneruj_wnioski_brak_dpr(dane):
+    """Opis badań bez DPR w przepisach albo None, gdy takich badań nie ma w danych."""
+    poprawne = dane[~dane["podejrzany_wiersz"]]
+    bez_dpr = poprawne[poprawne["brak_dpr"]]
+    if bez_dpr.empty:
+        return None
+
+    opisy = []
+    for badanie, grupa in bez_dpr.groupby("rodzaj_badania_tk"):
+        onko = int((grupa["protokol_onkologiczny_jamy_brzusznej"] == True).sum())
+        opisy.append(f"'{badanie}': {len(grupa)} (w tym w protokole onkologicznym: {onko})")
+
+    udzial = len(bez_dpr) / len(poprawne) * 100
+    return (
+        f"{len(bez_dpr)} z {len(poprawne)} badań ({udzial:.0f}%) to badania wykonywane w praktyce, "
+        f"dla których przepisy nie określają diagnostycznego poziomu referencyjnego (DPR) – "
+        + "; ".join(opisy)
+        + ". Dla tych badań nie można ocenić przekroczenia dawki, dlatego nie są uwzględniane "
+        "w analizie przekroczeń."
+    )

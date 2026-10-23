@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from agregacje import (
     policz_wg_kolumny, policz_wg_grupy_wiekowej, policz_klasyfikacje,
-    wygeneruj_wnioski_pareto, wygeneruj_wnioski_analizy, filtruj_przyczyny,
+    wygeneruj_wnioski_pareto, wygeneruj_wnioski_analizy, filtruj_przyczyny, wygeneruj_wnioski_brak_dpr
 )
 from stale import (
     KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW, KLASYFIKACJA_OPISY, CZCIONKA,
@@ -21,7 +21,7 @@ from przetwarzanie_danych import (
 )
 from wykresy import (
     zbuduj_dashboard_przekroczenia, zbuduj_wykres_liczebnosci,
-    zbuduj_wykres_kolowy_liczebnosci, zbuduj_wykres_pareto,
+    zbuduj_wykres_kolowy_liczebnosci, zbuduj_wykres_pareto, kolory_rodzajow_badan
 )
 
 import tkinter as tk
@@ -34,13 +34,23 @@ def osadz_wykres(parent, fig):
     plt.close(fig)  # zwalnia figurę z pamięci pyplot; wykres zostaje w oknie
     return canvas
 
-def pokaz_liczebnosc_wg_kolumny(parent, dane, kolumna, tytul, sortuj_wg_indeksu=False, typ_wykresu="slupkowy", kolory=None):
+def pokaz_liczebnosc_wg_kolumny(parent, dane, kolumna, tytul, sortuj_wg_indeksu=False,
+                                typ_wykresu="slupkowy", kolory=None):
     counts = policz_wg_kolumny(filtruj_bezpieczne(dane), kolumna, sortuj_wg_indeksu)
+    legenda = None
+
+    # Rodzaj badania: wyróżnienie badań, dla których przepisy nie określają DPR
+    if kolumna == "rodzaj_badania_tk":
+        kolory, legenda = kolory_rodzajow_badan(counts.index)
+        wnioski = wygeneruj_wnioski_brak_dpr(dane)
+        if wnioski:
+            # Panel pakowany PRZED wykresem z side="bottom", żeby wykres go nie wypchnął
+            zbuduj_panel_wnioskow(parent, wnioski, side="bottom", pady=(5, 20))
 
     if typ_wykresu == "kolowy":
         fig = zbuduj_wykres_kolowy_liczebnosci(counts, tytul, kolory)
     else:
-        fig = zbuduj_wykres_liczebnosci(counts, tytul, kolory)
+        fig = zbuduj_wykres_liczebnosci(counts, tytul, kolory, legenda)
 
     return osadz_wykres(parent, fig)
 
