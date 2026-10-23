@@ -9,7 +9,7 @@ from agregacje import (
 )
 from stale import (
     KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW, KLASYFIKACJA_OPISY, CZCIONKA,
-    ETYKIETY_GRUP_WIEKOWYCH, KLUCZ_BRAK_CZYNNIKA, WARTOSC_WSZYSTKIE, KOLUMNY_TABELI_PRZYCZYN,
+    ETYKIETY_GRUP_WIEKOWYCH, KLUCZ_BRAK_CZYNNIKA, WARTOSC_WSZYSTKIE, KOLUMNY_TABELI_PRZYCZYN, OPIS_DANYCH_DO_WERYFIKACJI
 )
 from komponenty import (
     zbuduj_tabele, zbuduj_panel_podsumowania, Tooltip, TooltipTabeli, zbuduj_filtr_plci,
@@ -122,15 +122,17 @@ def wiersz_tabeli_przyczyn(patient_id, wynik):
         *("✓" if wynik["factors"][klucz] else "" for klucz in KLUCZE_CZYNNIKOW),
     )
 
-
-def dodaj_tooltip_klasyfikacji(tabela):
-    #Podpina tooltip z pełną nazwą i opisem klasyfikacji przyczyny do kolumny 'klasyfikacja'.
+def dodaj_tooltip_klasyfikacji(tabela, kolumna_id):
+    #Tooltip z pełną nazwą i opisem klasyfikacji przyczyny w podanej kolumnie (np. '#8').
     def tekst_dymka(wiersz_id):
         klasyfikacja = tabela.set(wiersz_id, "klasyfikacja")
-        opis = KLASYFIKACJA_OPISY.get(klasyfikacja, "Brak dodatkowego opisu dla tej klasyfikacji.")
+        if "podejrzany" in tabela.item(wiersz_id, "tags"):
+            opis = OPIS_DANYCH_DO_WERYFIKACJI      # wiersz ⚠ – błędne lub niepełne dane
+        else:
+            opis = KLASYFIKACJA_OPISY.get(klasyfikacja, "Brak dodatkowego opisu dla tej klasyfikacji.")
         return f"{klasyfikacja}\n\n{opis}"
 
-    return Tooltip(tabela, kolumna_docelowa="#6", pobierz_tekst=tekst_dymka)
+    return Tooltip(tabela, kolumna_docelowa=kolumna_id, pobierz_tekst=tekst_dymka)
 
 def wiersz_tabeli_przyczyn(rekord):
     #Krotka wartości jednego wiersza – w kolejności KOLUMNY_TABELI_PRZYCZYN.

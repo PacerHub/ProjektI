@@ -76,6 +76,14 @@ KLASYFIKACJA_OPISY = {
         "lub coś, co wymaga ręcznej weryfikacji."
     ),
 }
+# Opis w tooltipie dla wierszy oznaczonych ⚠ (niepełne lub błędne dane)
+OPIS_DANYCH_DO_WERYFIKACJI = (
+    "Dane tego badania są niepełne lub zawierają\n"
+    "wartości spoza sensownego zakresu (powód\n"
+    "podany powyżej). Badanie nie jest uwzględniane\n"
+    "w wykresach ani statystykach – należy\n"
+    "sprawdzić dane źródłowe i poprawić plik CSV."
+)
 
 ROZMIAR_TYTULU_WYKRESU = 13
 ROZMIAR_TYTULU_DASHBOARDU = 15
