@@ -7,7 +7,7 @@ from matplotlib.layout_engine import TightLayoutEngine
 import pandas as pd
 from agregacje import (
     policz_wg_kolumny, policz_wg_grupy_wiekowej, policz_klasyfikacje,
-    wygeneruj_wnioski_pareto, wygeneruj_wnioski_analizy, filtruj_przyczyny, wygeneruj_wnioski_brak_dpr
+    wygeneruj_wnioski_pareto, wygeneruj_wnioski_analizy, filtruj_przyczyny, wygeneruj_wnioski_brak_dpr, przygotuj_tabele_eksportu
 )
 from stale import (
     KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW, KLASYFIKACJA_OPISY, CZCIONKA,
