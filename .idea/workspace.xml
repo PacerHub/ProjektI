@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Usunęłam białe obramowanie wycinków wykresu kołowego">
-      <change beforePath="$PROJECT_DIR$/wykresy.py" beforeDir="false" afterPath="$PROJECT_DIR$/wykresy.py" afterDir="false" />
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Minimalnie zmniejszyłam jeszcze średnicę diagramu kołowego i poprawiłam, żeby przed nazwą funkcji nie było _">
+      <change beforePath="$PROJECT_DIR$/przetwarzanie_danych.py" beforeDir="false" afterPath="$PROJECT_DIR$/przetwarzanie_danych.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,14 +96,6 @@
       <workItem from="1790780490315" duration="5722000" />
       <workItem from="1791136745207" duration="808000" />
       <workItem from="1791214082108" duration="9000" />
-    </task>
-    <task id="LOCAL-00095" summary="Modyfikacja komentarzy i wyjaśnień w plikach">
-      <option name="closed" value="true" />
-      <created>1790106371531</created>
-      <option name="number" value="00095" />
-      <option name="presentableId" value="LOCAL-00095" />
-      <option name="project" value="LOCAL" />
-      <updated>1790106371531</updated>
     </task>
     <task id="LOCAL-00096" summary="Poprawka widoczności wniosków w wykresie Pareto i zmniejszenie belki z tytułowym nagłówkiem aplikacji">
       <option name="closed" value="true" />
@@ -489,7 +481,15 @@
       <option name="project" value="LOCAL" />
       <updated>1792829813958</updated>
     </task>
-    <option name="localTasksCounter" value="144" />
+    <task id="LOCAL-00144" summary="Minimalnie zmniejszyłam jeszcze średnicę diagramu kołowego i poprawiłam, żeby przed nazwą funkcji nie było _">
+      <option name="closed" value="true" />
+      <created>1792830212114</created>
+      <option name="number" value="00144" />
+      <option name="presentableId" value="LOCAL-00144" />
+      <option name="project" value="LOCAL" />
+      <updated>1792830212114</updated>
+    </task>
+    <option name="localTasksCounter" value="145" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -519,7 +519,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="DOdanie funkcji zbuduj_rekordy_przekroczeń" />
     <MESSAGE value="Zmiana importu ze stale.py oraz dopisanie na końcu pliku funkcji filtruj_przyczyny" />
     <MESSAGE value="Zmiana importu ze stale.py w komponenty.py oraz dodanie na końcu pliku funkcji zbuduj_panel_filtrow" />
     <MESSAGE value="Uzupelnienie importów z agregacje, stale, komponenty, przetwarzanie danych. Dodanie funkcji wiersz_tabeli_filtra, pokaz_filtr_przyczyn, wyczysc,o dswiez." />
@@ -544,7 +543,8 @@
     <MESSAGE value="W diagramie kołowym dotyczącym protokołu onkologicznego procenty były obcinane, było on mały i niezbyt czytelny, dlatego powiększyłam go w dashboardzie a nazwy kategorii zostały przeniesione do legendy z liczbą i udziałem %." />
     <MESSAGE value="Ponowne zwiększenie średnicy koła w diagramie, żeby był jeszcze bardziej czytelny" />
     <MESSAGE value="Usunęłam białe obramowanie wycinków wykresu kołowego" />
-    <option name="LAST_COMMIT_MESSAGE" value="Usunęłam białe obramowanie wycinków wykresu kołowego" />
+    <MESSAGE value="Minimalnie zmniejszyłam jeszcze średnicę diagramu kołowego i poprawiłam, żeby przed nazwą funkcji nie było _" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minimalnie zmniejszyłam jeszcze średnicę diagramu kołowego i poprawiłam, żeby przed nazwą funkcji nie było _" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1789659520225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

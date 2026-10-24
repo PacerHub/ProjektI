@@ -155,21 +155,49 @@ def klasyfikuj_przyczyne(factors):
         return label_map[aktywne[0]], [label_map[aktywne[0]]]
     return "połączenie kilku czynników", [label_map[a] for a in aktywne]
 
+def analizuj_podejrzany_wiersz(wiersz):
+    """Wynik dla wiersza do weryfikacji: pokazuje wszystkie dane, które da się wiarygodnie
+    wyliczyć, a '—' tylko tam, gdzie wartości brakuje lub jest błędna."""
+    wiek = wiersz["wiek"]
+    bmi = wiersz["bmi"]
+    liczba_faz = wiersz["liczba_faz"]
+    dpr = wiersz["dlp_referencyjny_na_faze_mGy_cm"]
+    dlp = wiersz["dlp_zmierzony_na_faze_mGy_cm"]
+
+    wiek_ok = pd.notna(wiek) and ZAKRES_WIEKU[0] <= wiek <= ZAKRES_WIEKU[1]
+    bmi_ok = pd.notna(bmi) and ZAKRES_BMI[0] <= bmi <= ZAKRES_BMI[1]
+
+    # Kategoria BMI zależy od wieku, więc liczymy ją tylko przy poprawnym wieku i BMI
+    if pd.isna(bmi):
+        kategoria = "—"
+    elif not bmi_ok:
+        kategoria = "poza zakresem"
+    elif wiek_ok:
+        kategoria = kategoria_bmi(wiek, bmi)
+    else:
+        kategoria = "—"
+
+    # % przekroczenia tylko przy sensownych wartościach (DPR = 0 -> dzielenie przez zero)
+    procent = None
+    if pd.notna(dpr) and pd.notna(dlp) and dpr > 0 and dlp >= 0:
+        procent = oblicz_procent_przekroczenia(oblicz_stosunek_dlp(dlp, dpr))
+
+    return {
+        "okolica": ustal_okolice_anatomiczna(wiersz["rodzaj_badania_tk"]),
+        "kategoria_faz": kategoria_liczby_faz(int(liczba_faz)) if pd.notna(liczba_faz) else "—",
+        "bmi": round(float(bmi), 1) if pd.notna(bmi) else None,
+        "kategoria_bmi": kategoria,
+        "procent_przekroczenia": procent,
+        "klasyfikacja": f"⚠ dane do weryfikacji ({wiersz.get('powod_podejrzenia', 'nieznany powód')})",
+        "aktywne_czynniki": "brak (dane niepełne/błędne)",
+        "factors": {klucz: False for klucz in KLUCZE_CZYNNIKOW},
+        "podejrzany": True,
+    }
 
 def analizuj_pacjenta(wiersz):
 #Łączy powyższe pojedyncze transformacje w pełny wynik analizy dla jednego wiersza danych
     if wiersz.get("podejrzany_wiersz", False):
-        return {
-            "okolica": "—",
-            "kategoria_faz": "—",
-            "bmi": None,
-            "kategoria_bmi": "—",
-            "procent_przekroczenia": None,
-            "klasyfikacja": f"⚠ dane do weryfikacji ({wiersz.get('powod_podejrzenia', 'nieznany powód')})",
-            "aktywne_czynniki": "brak (dane niepełne/błędne)",
-            "factors": {klucz: False for klucz in KLUCZE_CZYNNIKOW},
-            "podejrzany": True,
-        }
+        return analizuj_podejrzany_wiersz(wiersz)
 
     wiek = wiersz["wiek"]
     bmi = float(wiersz["bmi"])
