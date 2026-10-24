@@ -1,0 +1,9 @@
+# Biblioteki zewnętrzne aplikacji "Analiza dawek TK"
+# Instalacja: pip install -r requirements.txt
+#
+# Tkinter (mimo, że jest składowym elementem aplikacji) jest nieobecny na tej liście, 
+# gdyż jest częścią standardowej instalacji Pythona (python.org, Anaconda).
+
+
+pandas>=2.0
+matplotlib>=3.7

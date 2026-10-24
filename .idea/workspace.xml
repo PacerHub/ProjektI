@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Dodanie wszystkich 4 zrzutów ekranu do README.md">
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Edycja pliku README i dodanie SPECYFIKACJI">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -96,22 +96,6 @@
       <workItem from="1790780490315" duration="5722000" />
       <workItem from="1791136745207" duration="808000" />
       <workItem from="1791214082108" duration="9000" />
-    </task>
-    <task id="LOCAL-00103" summary="Usunięcie pierwszej (pustej) definicji main(), która nie przeprowadzała walidacji danych. Usunięcie podwójnego importu z przetwarzanie_danych.">
-      <option name="closed" value="true" />
-      <created>1791299809801</created>
-      <option name="number" value="00103" />
-      <option name="presentableId" value="LOCAL-00103" />
-      <option name="project" value="LOCAL" />
-      <updated>1791299809801</updated>
-    </task>
-    <task id="LOCAL-00104" summary="Dodanie wcięć do komentarzy w funkcjach wygeneruj_wnioski_analizy, wygeneruj_wnioski_pereto, policz_klasyfikacje">
-      <option name="closed" value="true" />
-      <created>1791299951275</created>
-      <option name="number" value="00104" />
-      <option name="presentableId" value="LOCAL-00104" />
-      <option name="project" value="LOCAL" />
-      <updated>1791299951275</updated>
     </task>
     <task id="LOCAL-00105" summary="Poprawki w filtrowaniu, przeniesienie funkcji filtrujących do przetwarzanie_danych.py, poprawka z zwrocie otyłość i i ii stopnia na otyłość I i II stopnia">
       <option name="closed" value="true" />
@@ -489,7 +473,23 @@
       <option name="project" value="LOCAL" />
       <updated>1792835270553</updated>
     </task>
-    <option name="localTasksCounter" value="152" />
+    <task id="LOCAL-00152" summary="Dodanie linku do repozytorium">
+      <option name="closed" value="true" />
+      <created>1792835615280</created>
+      <option name="number" value="00152" />
+      <option name="presentableId" value="LOCAL-00152" />
+      <option name="project" value="LOCAL" />
+      <updated>1792835615280</updated>
+    </task>
+    <task id="LOCAL-00153" summary="Edycja pliku README i dodanie SPECYFIKACJI">
+      <option name="closed" value="true" />
+      <created>1792835808772</created>
+      <option name="number" value="00153" />
+      <option name="presentableId" value="LOCAL-00153" />
+      <option name="project" value="LOCAL" />
+      <updated>1792835808772</updated>
+    </task>
+    <option name="localTasksCounter" value="154" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -519,8 +519,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Przywrócenie funkcji widoków usuniętych przy scalaniu analizy przyczyn" />
-    <MESSAGE value="Ujednolicenie nazwy funkcji pomocniczych (bez podkreślnika)." />
     <MESSAGE value="Poprawka w widoki.py, żeby skala na wykresie przy pojedynczej osobie z przekroczeniem dawki nie była co 0,2" />
     <MESSAGE value="Poprawione importy i funkcja tworzenia wykresun z grupami wiekowymi" />
     <MESSAGE value="Poprawka etykiet grup wiekowych w stale.py i zmiana nazwy funkcji w uruchom.py na wyostrz_wyswietlanie" />
@@ -544,7 +542,9 @@
     <MESSAGE value="Edycja pliku README" />
     <MESSAGE value="Dodanie zrzutów ekranu do README.md" />
     <MESSAGE value="Dodanie wszystkich 4 zrzutów ekranu do README.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dodanie wszystkich 4 zrzutów ekranu do README.md" />
+    <MESSAGE value="Dodanie linku do repozytorium" />
+    <MESSAGE value="Edycja pliku README i dodanie SPECYFIKACJI" />
+    <option name="LAST_COMMIT_MESSAGE" value="Edycja pliku README i dodanie SPECYFIKACJI" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1789659520225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
