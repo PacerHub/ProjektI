@@ -190,13 +190,9 @@ AI pomagało przełożyć te założenia na kod: walidację danych, filtrowanie,
 
 AI pomagało diagnozować błędy na podstawie komunikatów (`ImportError`, `IndentationError`, `AttributeError`, `ZeroDivisionError`) oraz wyjaśniało ich przyczyny, np. błędne wcięcia, brakujące importy, metody usunięte przy wklejaniu kodu, dzielenie przez zero przy DPR = 0. Problemy w działaniu aplikacji wykrywałam sama, testując każdą zmianę – m.in. skalę osi co 0,2 przy jednym pacjencie, nieczytelny histogram wieku, ucinane etykiety osi i tooltipy przy krawędzi ekranu, powtórzoną liczbę we wnioskach, puste kolumny w wierszach do weryfikacji.
 
-### 4. Dokumentacja
-
-AI przygotowało szkic README, specyfikacji i części opisów commitów, a także wyjaśniało użyte pojęcia programistyczne (m.in. `bind` w Tkinterze, `trace_add`, `MaxNLocator` i układ `tight` w matplotlib, klasy zamiast funkcji zagnieżdżonych). Treść dokumentacji sprawdzałam i poprawiałam.
-
 ### Mój udział
 
-Decydowałam o zakresie i kierunku projektu, pisałam specyfikację, wnosiłam wiedzę dziedzinową, wybierałam spośród proponowanych rozwiązań, wdrażałam i dostosowywałam kod w PyCharmie, testowałam każdą zmianę i zapisywałam w repozytorium dopiero działającą wersję. Część opisów commitów pochodzi z propozycji AI – historia commitów nie była później edytowana.
+Decydowałam o zakresie i kierunku projektu, pisałam specyfikację, wnosiłam wiedzę dziedzinową, wybierałam spośród proponowanych rozwiązań, wdrażałam i dostosowywałam kod w PyCharmie, krok po kroku, nie kopiowałam gotowych plików w całości, testowałam każdą zmianę i zapisywałam w repozytorium dopiero działającą wersję. 
 
 ---
 
