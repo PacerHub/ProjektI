@@ -9,14 +9,14 @@ from stale import (
 )
 from agregacje import policz_kategorie_onkologiczne, policz_wg_grupy_wiekowej
 
-def _kolory_cyklicznie(n):
+def kolory_cyklicznie(n):
     return [PALETA_KOLOROW[i % len(PALETA_KOLOROW)] for i in range(n)]
 
 def zawin_etykiety(etykiety, szerokosc=22):
     #Długie nazwy (np. rodzaje badań) łamane na kilka krótszych linii.
     return [textwrap.fill(str(etykieta), szerokosc) for etykieta in etykiety]
 
-def _ustaw_tytul_panelu(ax, tekst):
+def ustaw_tytul_panelu(ax, tekst):
     ax.set_title(tekst, fontsize=ROZMIAR_TYTULU_WYKRESU, fontweight=GRUBOSC_TYTULU_WYKRESU)
 
 # ==========================================
@@ -28,8 +28,8 @@ def narysuj_liczbe_faz(ax, pacjenci):
     counts = pacjenci["liczba_faz"].value_counts().sort_index()
     etykiety = counts.index.astype(str)
 
-    ax.bar(etykiety, counts.values, color=_kolory_cyklicznie(len(counts)))
-    _ustaw_tytul_panelu(ax, "Liczba faz badania")
+    ax.bar(etykiety, counts.values, color=kolory_cyklicznie(len(counts)))
+    ustaw_tytul_panelu(ax, "Liczba faz badania")
     ax.set_xlabel("Liczba faz")
     ax.set_ylabel("Liczba pacjentów")
     ax.yaxis.set_major_locator(MaxNLocator(integer=True))
@@ -41,10 +41,10 @@ def narysuj_protokol_onkologiczny(ax, pacjenci):
 
     kliny, _, _ = ax.pie(
         counts.values,
-        colors=_kolory_cyklicznie(len(counts)),
+        colors=kolory_cyklicznie(len(counts)),
         startangle=90,
         counterclock=False,                      # wycinki zgodnie z ruchem wskazówek zegara
-        radius=1.45,                             # większe koło
+        radius=1.4,                             # większe koło
         autopct=lambda p: f"{p:.0f}%" if p >= 8 else "",   # małe wycinki – procent tylko w legendzie
         pctdistance=0.72,
         textprops={"color": "white", "fontsize": 10, "fontweight": "bold"},
@@ -55,14 +55,14 @@ def narysuj_protokol_onkologiczny(ax, pacjenci):
         [f"{nazwa} – {n} ({p:.0f}%)" for nazwa, n, p in zip(counts.index, counts.values, procenty)],
         loc="center left", bbox_to_anchor=(1.0, 0.5), frameon=False, fontsize=10,
     )
-    _ustaw_tytul_panelu(ax, "Protokół onkologiczny")
+    ustaw_tytul_panelu(ax, "Protokół onkologiczny")
 
 def narysuj_rodzaj_badania(ax, pacjenci):
     #Rysuje poziomy słupkowy rozkład rodzajów badania.
     counts = pacjenci["rodzaj_badania_tk"].value_counts().sort_values()
 
-    ax.barh(counts.index, counts.values, color=_kolory_cyklicznie(len(counts)))
-    _ustaw_tytul_panelu(ax, "Rodzaj badania")
+    ax.barh(counts.index, counts.values, color=kolory_cyklicznie(len(counts)))
+    ustaw_tytul_panelu(ax, "Rodzaj badania")
     ax.set_xlabel("Liczba pacjentów")
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
     ax.tick_params(axis="y", labelsize=7)
@@ -73,7 +73,7 @@ def narysuj_wiek(ax, pacjenci):
     counts = policz_wg_grupy_wiekowej(pacjenci)
 
     ax.bar(counts.index, counts.values, color=PALETA_KOLOROW[0])
-    _ustaw_tytul_panelu(ax, "Wiek pacjentów")
+    ustaw_tytul_panelu(ax, "Wiek pacjentów")
     ax.set_xlabel("Grupa wiekowa")
     ax.set_ylabel("Liczba pacjentów")
     ax.yaxis.set_major_locator(MaxNLocator(integer=True))
@@ -107,9 +107,9 @@ def zbuduj_wykres_liczebnosci(counts, tytul, kolory=None, legenda=None):
     #legenda – opcjonalna lista par (kolor, opis) pokazana w prawym górnym rogu.
     fig, ax = plt.subplots(figsize=(10, 6))
 
-    kolory = kolory or _kolory_cyklicznie(len(counts))
+    kolory = kolory or kolory_cyklicznie(len(counts))
     counts.plot(kind="bar", ax=ax, color=kolory)
-    _ustaw_tytul_panelu(ax, tytul)
+    ustaw_tytul_panelu(ax, tytul)
     ax.set_xlabel("")
     ax.set_ylabel("Liczba pacjentów")
     ax.yaxis.set_major_locator(MaxNLocator(integer=True))
@@ -134,9 +134,9 @@ def kolory_rodzajow_badan(nazwy_badan):
 
 def zbuduj_wykres_kolowy_liczebnosci(counts, tytul, kolory=None):
     fig, ax = plt.subplots(figsize=(8, 6))
-    kolory = kolory or _kolory_cyklicznie(len(counts))
+    kolory = kolory or kolory_cyklicznie(len(counts))
     ax.pie(counts.values, labels=counts.index, autopct="%1.0f%%", colors=kolory, startangle=90)
-    _ustaw_tytul_panelu(ax, tytul)
+    ustaw_tytul_panelu(ax, tytul)
     ax.axis("equal")
     plt.tight_layout()
     return fig
@@ -146,7 +146,7 @@ def zbuduj_wykres_pareto(counts, tytul="Pareto przyczyn przekroczeń"):
     skumulowany_procent = counts.cumsum() / counts.sum() * 100
 
     fig, ax1 = plt.subplots(figsize=(11, 6.5))
-    kolory = _kolory_cyklicznie(len(counts))
+    kolory = kolory_cyklicznie(len(counts))
 
     pozycje = range(len(counts))
     ax1.bar(pozycje, counts.values, color=kolory)
@@ -168,6 +168,6 @@ def zbuduj_wykres_pareto(counts, tytul="Pareto przyczyn przekroczeń"):
     ax2.axhline(80, color="#B56576", linestyle="--", linewidth=1)
     ax2.text(len(counts) - 1, 83, "80%", color="#B56576", ha="right", fontsize=9)
 
-    _ustaw_tytul_panelu(ax1, tytul)
+    ustaw_tytul_panelu(ax1, tytul)
     plt.tight_layout()
     return fig
