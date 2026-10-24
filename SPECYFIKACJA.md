@@ -1,11 +1,12 @@
 # Specyfikacja aplikacji „Analiza dawek TK”
 
+> Ten dokument opisuje, jak aplikacja ma wyglądać i działać. Na jego podstawie interfejs graficzny (GUI) był generowany z pomocą AI – zob. sekcja „Wykorzystanie AI” w [README.md](README.md).
 
 ## 1. Cel aplikacji
 
 Aplikacja wspiera analizę dawek promieniowania w badaniach tomografii komputerowej. Dla każdego pacjenta porównuje zmierzoną wartość DLP na fazę z diagnostycznym poziomem referencyjnym (DPR), wykrywa przekroczenia, przypisuje im prawdopodobną przyczynę i prezentuje wyniki w formie wykresów, tabel oraz automatycznych wniosków tekstowych.
 
-**Użytkownik docelowy:** fizyk medyczny, inspektor ochrony radiologicznej, technik elektroradiologii lub student analizujący dane dozymetryczne z pracowni TK.
+**Użytkownik docelowy:** fizyk medyczny, inspektor ochrony radiologicznej, elektroradiolog lub student analizujący dane dozymetryczne z pracowni TK.
 
 ---
 
@@ -179,7 +180,7 @@ Układ od góry:
    - *Min. % przekroczenia* – pole liczbowe (0–200, krok 5). Puste lub błędne pole traktowane jest jak 0.
    - *Pokaż wiersze do weryfikacji (⚠)* – pole wyboru. Wiersze podejrzane nie podlegają pozostałym filtrom (nie mają wiarygodnych danych).
    - *Wyczyść filtry* – przywraca ustawienia domyślne.
-4. **Licznik wyników** – np. „Wyniki: 6 z 15 pacjentów z przekroczeniem (+ 2 ⚠ do weryfikacji)”.
+4. **Licznik wyników i eksport** – po lewej licznik, np. „Wyniki: 6 z 18 pacjentów z przekroczeniem (+ 8 ⚠ do weryfikacji)”, po prawej przycisk **„Eksportuj tabelę do CSV”** (punkt 4.5.1).
 5. **Tabela pacjentów** (Treeview z paskami przewijania) – posortowana malejąco po % przekroczenia, wiersze podejrzane na końcu z żółtym tłem i znakiem ⚠ przy numerze pacjenta.
 
 W wierszach podejrzanych wyświetlane są wszystkie dane, które da się wiarygodnie wyliczyć (okolica, liczba faz, BMI, DPR, DLP, % przekroczenia), a „—” tylko w miejscu brakującej lub błędnej wartości. Kategoria BMI jest podawana tylko przy poprawnym wieku i BMI („poza zakresem” przy BMI spoza 10–70), a % przekroczenia tylko przy DPR > 0 i DLP ≥ 0. Wiersze te nie dostają klasyfikacji przyczyny ani czynników ✓.
@@ -207,6 +208,15 @@ W wierszach podejrzanych wyświetlane są wszystkie dane, które da się wiarygo
 Dymki pojawiają się obok kursora; gdy nie mieszczą się przy prawej lub dolnej krawędzi ekranu, są wyświetlane na lewo od kursora lub nad nim.
 
 Każda zmiana filtra natychmiast odświeża tabelę i licznik (`trace_add` na zmiennych Tkintera).
+
+#### 4.5.1. Eksport tabeli do CSV
+
+Przycisk **„Eksportuj tabelę do CSV”** zapisuje wiersze **aktualnie widoczne w tabeli** (po zastosowaniu filtrów, razem z wierszami ⚠, jeśli są pokazane):
+
+- okno „Zapisz jako” z proponowaną nazwą `analiza_przyczyn_RRRR-MM-DD.csv`,
+- format dla polskiego Excela: separator `;`, przecinek dziesiętny, kodowanie UTF-8 z BOM (poprawne polskie znaki),
+- kolumny: Pacjent, Wiek, Płeć, Rodzaj badania, Okolica anatomiczna, BMI, Kategoria BMI, Liczba faz, DPR na fazę, DLP zmierzone na fazę, % przekroczenia (liczba), Klasyfikacja przyczyny, Aktywne czynniki, Do weryfikacji (tak/nie) oraz 5 kolumn czynników (tak / puste),
+- po zapisie komunikat z liczbą wierszy i ścieżką; gdy plik jest otwarty w innym programie – komunikat o błędzie zapisu; przy pustej tabeli – informacja, że nie ma czego eksportować.
 
 ### 4.6. Pareto przyczyn przekroczeń
 
@@ -270,7 +280,8 @@ Logika obliczeń jest oddzielona od interfejsu, dzięki czemu można ją testowa
 ## 7. Ograniczenia
 
 - Dane wczytywane są raz przy starcie; zmiana pliku CSV wymaga ponownego uruchomienia aplikacji.
-- Brak eksportu wyników (CSV/PNG) i sortowania tabeli kliknięciem w nagłówek.
+- Eksport do CSV obejmuje tabelę analizy przyczyn; wykresów i wniosków nie można zapisać do pliku.
+- Tabeli nie można sortować kliknięciem w nagłówek kolumny.
 - Przyczyny przekroczeń są wskazywane regułowo (punkt 3.3) – to wskazówka do analizy, a nie ocena kliniczna.
 - Dla badań spoza rozporządzenia (`BADANIA_BEZ_DPR`) nie da się ocenić przekroczenia dawki – aplikacja tylko pokazuje ich liczbę i udział.
 - Wyśrodkowanie w obszarze roboczym i obsługa skalowania ekranu działają tylko na Windows.
