@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Poprawka, żeby w wierszach tabeli dotyczących pacjentów do weryfikacji pokazywało pozostałe dane: okolica, liczba faz, BMI i % przekroczenia. Wiersze te nie są nadal uzwględniane w statystykach, ale zwracają uwagę, żeby się im przyjrzeć." />
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Dodanie do widoki.py importu z agregacje.py przygotuj_tabele_eksportu">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -94,22 +96,6 @@
       <workItem from="1790780490315" duration="5722000" />
       <workItem from="1791136745207" duration="808000" />
       <workItem from="1791214082108" duration="9000" />
-    </task>
-    <task id="LOCAL-00097" summary="Poprawka widoczności wniosków w wykresie Pareto i zmniejszenie belki z tytułowym nagłówkiem aplikacji">
-      <option name="closed" value="true" />
-      <created>1790107877014</created>
-      <option name="number" value="00097" />
-      <option name="presentableId" value="LOCAL-00097" />
-      <option name="project" value="LOCAL" />
-      <updated>1790107877014</updated>
-    </task>
-    <task id="LOCAL-00098" summary="Zmiana czcionek">
-      <option name="closed" value="true" />
-      <created>1790107900689</created>
-      <option name="number" value="00098" />
-      <option name="presentableId" value="LOCAL-00098" />
-      <option name="project" value="LOCAL" />
-      <updated>1790107900689</updated>
     </task>
     <task id="LOCAL-00099" summary="Ujednolicenie typu czcionki w całym projekcie">
       <option name="closed" value="true" />
@@ -487,7 +473,23 @@
       <option name="project" value="LOCAL" />
       <updated>1792830417184</updated>
     </task>
-    <option name="localTasksCounter" value="146" />
+    <task id="LOCAL-00146" summary="Dodałam eksport tabeli analizy przyczyn do CSV. Przycisk 'Eksportuj tabelę do CSV' zapisuje wiersze widoczne po filtrach. Format dla polskiego Excela, surowe liczby zamiast tekstów z tabeli, dodatkowe kolumny 'Rodzaj badania' i 'Do weryfikacji'. Obsługa anulowania, pustej tabeli i pliku otwartego w Excelu.">
+      <option name="closed" value="true" />
+      <created>1792833560775</created>
+      <option name="number" value="00146" />
+      <option name="presentableId" value="LOCAL-00146" />
+      <option name="project" value="LOCAL" />
+      <updated>1792833560775</updated>
+    </task>
+    <task id="LOCAL-00147" summary="Dodanie do widoki.py importu z agregacje.py przygotuj_tabele_eksportu">
+      <option name="closed" value="true" />
+      <created>1792833746462</created>
+      <option name="number" value="00147" />
+      <option name="presentableId" value="LOCAL-00147" />
+      <option name="project" value="LOCAL" />
+      <updated>1792833746462</updated>
+    </task>
+    <option name="localTasksCounter" value="148" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -517,8 +519,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Zmiana importu ze stale.py w komponenty.py oraz dodanie na końcu pliku funkcji zbuduj_panel_filtrow" />
-    <MESSAGE value="Uzupelnienie importów z agregacje, stale, komponenty, przetwarzanie danych. Dodanie funkcji wiersz_tabeli_filtra, pokaz_filtr_przyczyn, wyczysc,o dswiez." />
     <MESSAGE value="Uzupelnienie importów z agregacje, stale, komponenty, przetwarzanie danych. Dodanie funkcji wiersz_tabeli_filtra, pokaz_filtr_przyczyn, wyczysc,odswiez." />
     <MESSAGE value="Dodanie pokaz_filtr_przyczyn do importu z widoki.py i w wybierz_widok dopisek elif dotyczący filtra przyczyn przekroczeń" />
     <MESSAGE value="Przeróbka- połączenie widoków analizy i filtra przyczyn w jeden- analiza przyczyn przekroczeń ma teraz panel filtrów, licznik wyników i wspólną tabelę (wiek, płeć, BMI, liczba faz, klasyfikacja, aktywne czynniki, znaczniki ✓). Usunięty osobny widok 'Filtr przyczyn przekroczeń'. Numer kolumny klasyfikacji dla tooltipa liczony z KOLUMNY_TABELI_PRZYCZYN." />
@@ -542,7 +542,9 @@
     <MESSAGE value="Usunęłam białe obramowanie wycinków wykresu kołowego" />
     <MESSAGE value="Minimalnie zmniejszyłam jeszcze średnicę diagramu kołowego i poprawiłam, żeby przed nazwą funkcji nie było _" />
     <MESSAGE value="Poprawka, żeby w wierszach tabeli dotyczących pacjentów do weryfikacji pokazywało pozostałe dane: okolica, liczba faz, BMI i % przekroczenia. Wiersze te nie są nadal uzwględniane w statystykach, ale zwracają uwagę, żeby się im przyjrzeć." />
-    <option name="LAST_COMMIT_MESSAGE" value="Poprawka, żeby w wierszach tabeli dotyczących pacjentów do weryfikacji pokazywało pozostałe dane: okolica, liczba faz, BMI i % przekroczenia. Wiersze te nie są nadal uzwględniane w statystykach, ale zwracają uwagę, żeby się im przyjrzeć." />
+    <MESSAGE value="Dodałam eksport tabeli analizy przyczyn do CSV. Przycisk 'Eksportuj tabelę do CSV' zapisuje wiersze widoczne po filtrach. Format dla polskiego Excela, surowe liczby zamiast tekstów z tabeli, dodatkowe kolumny 'Rodzaj badania' i 'Do weryfikacji'. Obsługa anulowania, pustej tabeli i pliku otwartego w Excelu." />
+    <MESSAGE value="Dodanie do widoki.py importu z agregacje.py przygotuj_tabele_eksportu" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dodanie do widoki.py importu z agregacje.py przygotuj_tabele_eksportu" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1789659520225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

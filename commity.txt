@@ -1,0 +1,266 @@
+4985bea | 2026-09-05 | Tabela do przekroczonych dawek zrobiona, do zrobienia kursor, szerokość listy, szerokosc okna aplikacji.
+
+4fe9b4e | 2026-09-05 |  Nic
+
+e411b2e | 2026-09-05 |  2
+
+8e1de1a | 2026-09-05 | Wstawiona tabela po przekroczeniu dawki
+
+8fbf679 | 2026-09-05 | Działa dymek nad kursorem, tabela, wyliczanie przekroczenia dawki.
+
+1c0ea28 | 2026-09-07 | Poprawione podpisy pod kolumnami na wykresie I, zmienione obliczanie przekroczeń dla pojedynczej fazy, zamiast mnożenia wartości referencyjnych.
+
+5c8aea2 | 2026-09-07 | Zmiana listy na przyciski
+
+d1765ec | 2026-09-07 | Napis na górze, nad przyciskami, zmienione ,,dymki" pod kursorem
+
+b19e6d1 | 2026-09-07 | Poszerzenie belki w tabeli, podział tekstu na 2 linijki
+
+2843d7a | 2026-09-10 | Poprawiony podpis kursora przy kolumnach w ostatniej tabeli
+
+ff682bf | 2026-09-10 | Poprawiony podpis kursora przy kolumnach w ostatniej tabeli
+
+876223b | 2026-09-10 | Poprawiony podpis kolumny 9.
+
+225883c | 2026-09-10 | Poprawki ostatniej tabeli
+
+9fc455b | 2026-09-10 | Wstęp do analizy przyczyn przekroczeń dawek
+
+af5fb77 | 2026-09-10 | Dodanie BMI do analizowanych przyczyn przekroczeń
+
+34e4609 | 2026-09-10 | Poprawka dokładności wyliczania przekroczeń dawki do 3 miejsc po przecinku
+
+d3a57ef | 2026-09-15 | Dodane tooltipy do kolumny 7 w analizie przyczyn przekroczeń
+
+fdcc643 | 2026-09-15 | Dodane tooltipy do 6 i 7 kolumny w analizie przyczyn przekroczeń
+
+8b384d9 | 2026-09-15 | Zmiana czcionki na Cambria
+
+cab8d75 | 2026-09-15 | Dodatkowe tooltipy w tabeli Pacjenci z przekroczoną dawką
+
+77d2a1e | 2026-09-17 | Zmiana nazwy na main, żeby porozbijać projekt na mniejsze pliki, z których każdy pełni inną rolę, aby uporządkować kod
+
+ce59fff | 2026-09-17 | Dodanie pliku constants, aby umieścić w nim stałe konfiguracyjne aplikacji: mapowania, progi, etykiety i teksty opisowe.
+
+d5c03e6 | 2026-09-17 | Usunięcie: - linii dane = pd.read_csv("ct_patients_data.csv")-> dopisanie zamiast tego from constants import EXAM_REGION, PROG_WYSOKIEGO_DLP_FAZY, RODZAJE_WIDOKOW, SCIEZKA_DANYCH, KLASYFIKACJA_OPISY - całego słownika EXAM_REGION = {...} (linie 81–99) — ponieważ jest teraz w constants.py - linii PROG_WYSOKIEGO_DLP_FAZY = 1.20 - listy rodzaje_wykresow = [...] - lokalnego słownika KLASYFIKACJA_OPISY = {...} zdefiniowany wewnątrz pokaz_wykres (linie 595–633) — znowu w pliku constants
+
+bac3d65 | 2026-09-17 | Dodanie pliku data_processing.py
+
+f3e875a | 2026-09-17 | W main.py usunięte funkcje: kategoria_liczby_faz, kategoria_bmi, klasyfikuj_przyczyne, analizuj_pacjenta  - linie wczytania/oznaczenia danych na górze pliku
+
+3080c4c | 2026-09-17 | Dodanie pliku aggregations, który zbiera do jednej funkcji trzy prawie identyczne bloki  (rodzaj_badania_tk, wiek, plec), które liczą value_counts()
+
+f4642c0 | 2026-09-17 | Usunięcie w main.py trzech gałęzi elif, które liczyły dane["..."].value_counts()... i zamiana tego na wywołanie aggregations
+
+361930a | 2026-09-17 | Utworzenie pliku, w którym będą wykresy
+
+b4a3938 | 2026-09-17 | Utworzenie pliku charts, w którym będą wykresy
+
+57310b2 | 2026-09-17 | Utworzenie wykresu słupkowego w pliku charts
+
+353571d | 2026-09-17 | Merge remote-tracking branch 'origin/master'
+
+0f5e1b0 | 2026-09-17 | Skoro jest charts.py, to usuwam tworzenie wykresów z main.py
+
+9b0b07a | 2026-09-17 | Dodanie formułu pobierającej wykres z charts.py
+
+c4b8d7c | 2026-09-17 | Utworzenie pliku widgets, w którym będą tooltipy
+
+35eba65 | 2026-09-17 | Przeniesienie poleceń tooltipów do pliku widgets.py
+
+806f8c4 | 2026-09-17 | Usunięcie definicji tooltipów z main.py i budowanie ttk.Tressview oraz pasków przewijania (pionowy i poziomy)
+
+d38018b | 2026-09-17 | Dodanie pliku views.py, gdzie będą składane ,,widoki"
+
+abb1c21 | 2026-09-17 | Przeniesienie całej funkcji pokaz_wykres do views.py
+
+d12fdf6 | 2026-09-17 | Wyczyszczenie pliku main.py z funkcji pokaz_wykres, bo jest w  views.py
+
+21f1ebb | 2026-09-17 | Dodanie palety kolorów do constants.py i jednolitej czcionki do tytułów wykresów (jeden rozmiar i grubość)
+
+b169595 | 2026-09-17 | Dodanie do charts.py importu palety kolorów i stylu czcionek wraz z funkcjami
+
+c0a03de | 2026-09-17 | Zmiana x.set_title(tytul) na _ustaw_tytul_panelu(ax, tytul) i dodaj kolory: kolory = kolory or _kolory_cyklicznie(len(counts)), a w counts.plot(kind="bar", ax=ax) dopisz color=kolory.
+
+d1c37f7 | 2026-09-17 | Dodanie w constants widoków liczebnosci
+
+4770349 | 2026-09-17 | Dodanie charts budowanie wykresu kołowego
+
+89f5eec | 2026-09-17 | rozszerz pokaz_liczebnosc_wg_kolumny o parametry typ_wykresu i kolory (gałąź if typ_wykresu == "kolowy": ... else: ...)
+
+366bcad | 2026-09-17 | rozszerz pokaz_liczebnosc_wg_kolumny o parametry typ_wykresu i kolory (gałąź if typ_wykresu == "kolowy": ... else: ...)
+
+9823361 | 2026-09-17 | rozszerz pokaz_liczebnosc_wg_kolumny o parametry typ_wykresu i kolory (gałąź if typ_wykresu == "kolowy": ... else: ...)
+
+a1c78ca | 2026-09-17 | Zamiana gałęzi if/elif dla "wg rodzaju badania" i "wg płci" na jedną, sterowaną słownikiem WIDOKI_LICZEBNOSCI
+
+45a90ce | 2026-09-17 | Dopisanie w constants.py granic wieku i etykiet grup wiekowych potrzebnych do wykresu
+
+7d0c513 | 2026-09-17 | Dopisanie w data_processing.py dopisz import GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH i funkcji do kategorii wiekowych
+
+ff8d0d8 | 2026-09-17 | Dopisanie w aggregations.py dopisz import ETYKIETY_GRUP_WIEKOWYCH i funkcji do liczenia wg grupy wiekowej
+
+175e830 | 2026-09-17 | Dodanie funkcji do zliczania pacjentów wg wieku
+
+a9d1845 | 2026-09-17 | Utworzenie dashboardu 2x2 z wykresami zamiast tabeli z danymi w aggregations
+
+3c01e54 | 2026-09-17 | Dodanie w charts  czterech funkcji rysujących pojedyncze panele oraz funkcji składającej dashboard: narysuj_liczbe_faz, narysuj_protokol_onkologiczny, narysuj_rodzaj_badania, narysuj_wiek, zbuduj_dashboard_przekroczenia
+
+7a4f3e8 | 2026-09-17 | W views zamiana pokaz_tabele_przekroczenia na pokaz_dashboard przekroczenia
+
+b8a5adf | 2026-09-17 | W main.py zamiana pokaz_tabele_przekroczenia na pokaz_dashboard przekroczenia
+
+ccce363 | 2026-09-17 | W constants.py dodanie kluczy czynników i etykiet czynników
+
+89c0f8f | 2026-09-17 | W data_processing.py.py dodanie do zwracanego słownika klucza "factors": factors (żeby dało się później sprawdzić, które czynniki są aktywne, kolumna po kolumnie).
+
+e091ac1 | 2026-09-17 | Dodanie w aggregations funkcji do liczenia aktywnych czynników
+
+8dbcae0 | 2026-09-17 | Dopisek funkcji zbuduj panel podsumowania w widgets.py
+
+e84b6d9 | 2026-09-17 | Przebudowa pokaz_analize_przyczyn
+
+d515922 | 2026-09-17 | Dodanie zbuduj liste wyników w data processing
+
+3028083 | 2026-09-17 | Odświeżenie main po przeróbkach wszystkich pozostałych plików
+
+8110de4 | 2026-09-17 | Poprawka na import from constants import GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH zamiast samego import granice itd.
+
+2bafe53 | 2026-09-17 | Brak dwukropka na końcu ostatniej funkcji- poprawka
+
+0dd699e | 2026-09-17 | Dokończenie funkcji zbuduj_panel_podsumowania
+
+afe65db | 2026-09-18 | Dodanie brakującej linijki w funkcji budującej wykres liczebności
+
+840c623 | 2026-09-18 | Poprawka w sekcji import from w views.py
+
+dcd3d0d | 2026-09-18 | Usunięcie podwójnego podpisu wykresu (był na górze i na dole, został tylko na górze)
+
+a5b9653 | 2026-09-18 | Poporawka w import from, dodałam ROZMIAR_TYTULU_DASHBOARDU
+
+a5480e9 | 2026-09-18 | Zmiana w imporcie, dodałam from aggregations import policz_aktywne_czynniki
+
+8e93599 | 2026-09-18 | Zamiana etykiety xlabel na pusty tekst, żeby nie było podpisu pod wykresem
+
+8db3564 | 2026-09-18 | dodanie importu policz_kategorie_onkologiczne
+
+f84c016 | 2026-09-18 | dodanie funkcji kolumny_tabeli_przyczyn, wiersz_tabeli_przyczyn, tooltip_klasyfikacji w views
+
+f5eeadc | 2026-09-20 | Dodanie do constants.py granic wartości - do wykrywania błędnych/podejrzanych rekordów
+
+c9c2b03 | 2026-09-20 | Dodanie do data_processing.py funkcji walidacji danych
+
+7c7ac88 | 2026-09-20 | W data_processing.py zmiana funkcji walidacji danych, żeby nie były one usuwane, ale wyświetlane do weryfikacji
+
+bfbd9f8 | 2026-09-20 | Dodanie w views filtracji danych (odróżnienie ,,podejrzanych") wyników
+
+21884ad | 2026-09-20 | Dodanie w main oznaczenia przekroczenia danych i oznaczenia podejrzanych danych
+
+4b3a005 | 2026-09-20 | Dodanie do rodzajów widoków w constants.py "Pareto przyczyn przekroczeń"
+
+833b09e | 2026-09-20 | W aggregations.py dodanie liczenia funkcji do klasyfikacji przyczyny przekroczenia
+
+b95e774 | 2026-09-20 | Dodanie w charts.py funkcji do rysowania wykresu Pareto przedstawiającego najczęstsze przyczyny przekroczeń
+
+6535b26 | 2026-09-20 | Dodanie w views.py funkcji pokazującej wykres Pareto przyczyn przekroczeń
+
+58dc409 | 2026-09-20 | Zwiększenie wymiarów okna, dodanie wyświetlania wykresu Pareto przyczyn przekroczeń dawek
+
+4586446 | 2026-09-20 | Nowa funkcja w aggregations.py, dodawanie wniosków do wykresu Pareto
+
+31c0da4 | 2026-09-20 | w views.py tk.label z wygenerowanymi wnioskami do pareto przekroczeń
+
+5a81e11 | 2026-09-20 | w views.py dodanie importu tkintera
+
+66dcbfc | 2026-09-20 | W aggregations.py dodanie funkcji dodającej wnioski z tabeli z analizą przekroczeń oraz importu KLUCZE_CZYNNIKOW i ETYKIET_CZYNNIKOW
+
+d53c0ad | 2026-09-20 | Dodanie importu wygenerowanych wniosków z analizy przekroczeń oraz funkcji pokazującej analizę przyczyn przekroczeń z tabeli
+
+a19a198 | 2026-09-20 | Poprawka w views.py, żeby wnioski z tabeli analizy przyczyn były widoczne wyżej
+
+26c3f6f | 2026-09-20 | Zmiana wielkości czcionki, którą opisane są wnioski
+
+86e4ccf | 2026-09-22 | Zmiana nazw plików na polskojęzyczne i modyfikacja komentarzy w uruchom
+
+1975f3e | 2026-09-22 | Modyfikacja komentarzy i wyjaśnień w plikach
+
+5fdf82b | 2026-09-22 | Poprawka widoczności wniosków w wykresie Pareto i zmniejszenie belki z tytułowym nagłówkiem aplikacji
+
+7334cdf | 2026-09-22 | Zmiana czcionek
+
+1201fa9 | 2026-09-22 | Ujednolicenie typu czcionki w całym projekcie
+
+b410388 | 2026-09-24 | Zmniejszenie czcionki w tabeli, zmiana koloru tła i czcionki w polu nagłówkowym oraz w górnej belce tabeli
+
+357ed6b | 2026-09-24 | Stworzenie jednego przycisku z rozwijaną listą : Liczba pacjentów wg
+
+6b7ac78 | 2026-10-01 | Dodanie filtrowania w dashboardzie
+
+f9ca6e9 | 2026-10-06 | Usunięcie pierwszej (pustej) definicji main(), która nie przeprowadzała walidacji danych. Usunięcie podwójnego importu z przetwarzanie_danych.
+
+4b1c95f | 2026-10-06 | Dodanie wcięć do komentarzy w funkcjach wygeneruj_wnioski_analizy, wygeneruj_wnioski_pereto, policz_klasyfikacje
+
+2a68be2 | 2026-10-13 | Poprawki w filtrowaniu, przeniesienie funkcji filtrujących do przetwarzanie_danych.py, poprawka z zwrocie otyłość i i ii stopnia na otyłość I i II stopnia
+
+0640b3d | 2026-10-13 | Zmiana we wnioskach wykresu Pareto, by wymienione były  czynniki składowe  przy połączeniu kilku czynników"
+
+61dd937 | 2026-10-20 | Dodanie kolorów w panelu wniosków
+
+b2b75d0 | 2026-10-20 | Edycja importu w komponenty.py ze stale + dodanie funkcji budującej panel wniosków
+
+732793c | 2026-10-20 | Nowa funkcja zbuduj_panel_wnioskow w komponenty.py (tło, pasek akcentu, tytuł 'Wnioski', zawijanie tekstu do szerokości okna). Kolory panelu w stale.py. Zastępuje zwykłe tk.Label w obu widokach.
+
+5e8e498 | 2026-10-20 | Wyrównanie binów histogramu wieku do pełnych lat" -m "bins=range(min-1, max+2) zamiast bins=10, żeby oś miała sensowny zakres także przy jednym pacjencie po filtrowaniu.
+
+7a13edd | 2026-10-20 | Usunięcie zdublowanych funkcji filtrów płci i BMI- pierwsze wersje (z on_change) były nadpisywane przez późniejsze definicje i nigdzie nieużywane
+
+62e92de | 2026-10-20 | Zlikwidowane nadpisywanie stylu tabel w zbuduj_tabele" - czcionki, wysokość wierszy i odstęp nagłówków ustawia wyłącznie ustaw_czcionke_aplikacji, więc parametr rozmiar_tabeli zaczyna działać.
+
+4eddb09 | 2026-10-20 | Zamykanie figury matplotlib po osadzeniu w oknie" - plt.close(fig) w _osadz_wykres zapobiega gromadzeniu się figur przy przełączaniu widoków (ostrzeżenie 'More than 20 figures').
+
+3601c65 | 2026-10-20 | Usuń podwójne wywołanie oznacz_przekroczenia w main
+
+8018413 | 2026-10-20 | Poprawka wcięcia w zbuduj_tabele po usunięciu stylów
+
+877a5ae | 2026-10-20 | Dodanie tooltipów z pełną treścią uciętych komórek i nagłówków tabeli. Nowa klasa TooltipTabeli mierzy szerokość tekstu czcionką ze stylu Treeview i pokazuje dymek tylko dla uciętych komórek/nagłówków. Kolumna klasyfikacji pominięta – jej tooltip pokazuje teraz pełną nazwę i opis. Bindy(podpięcia funkcji) obu tooltipów z add='+', żeby się nie nadpisywały.
+
+e7efa12 | 2026-10-20 | Wyśrodkowanie okna w obszarze roboczym ekranu i włączenie obsługi DPI- obszar_roboczy() pobiera przez SystemParametersInfoW obszar ekranu bez paska zadań. SetProcessDpiAwareness(1) usuwa rozmycie przy skalowaniu Windows 125%/150%. Okno ma rozmiar startowy dopasowany do ekranu i można je powiększać (usunięty maxsize).
+
+ed0a74d | 2026-10-20 | Dodanie do listy RODZAJE_WIDOKOW nowego widoku - filtr przyczyn przekroczeń i dopisku na końcu pliku dotyczącego tego filtra.
+
+f2cabc8 | 2026-10-20 | DOdanie funkcji zbuduj_rekordy_przekroczeń
+
+f098d5a | 2026-10-20 | Zmiana importu ze stale.py oraz dopisanie na końcu pliku funkcji filtruj_przyczyny
+
+77261fe | 2026-10-20 | Zmiana importu ze stale.py w komponenty.py oraz dodanie na końcu pliku funkcji zbuduj_panel_filtrow
+
+1ab4fd4 | 2026-10-20 | Uzupelnienie importów z agregacje, stale, komponenty, przetwarzanie danych. Dodanie funkcji wiersz_tabeli_filtra, pokaz_filtr_przyczyn, wyczysc,o dswiez.
+
+7cdeeba | 2026-10-20 | Uzupelnienie importów z agregacje, stale, komponenty, przetwarzanie danych. Dodanie funkcji wiersz_tabeli_filtra, pokaz_filtr_przyczyn, wyczysc,odswiez.
+
+f7e34a3 | 2026-10-20 | Dodanie pokaz_filtr_przyczyn do importu z widoki.py i w wybierz_widok dopisek elif dotyczący filtra przyczyn przekroczeń
+
+9f129a0 | 2026-10-20 | Przeróbka- połączenie widoków analizy i filtra przyczyn w jeden- analiza przyczyn przekroczeń ma teraz panel filtrów, licznik wyników i wspólną tabelę (wiek, płeć, BMI, liczba faz, klasyfikacja, aktywne czynniki, znaczniki ✓). Usunięty osobny widok 'Filtr przyczyn przekroczeń'. Numer kolumny klasyfikacji dla tooltipa liczony z KOLUMNY_TABELI_PRZYCZYN.
+
+dafcd3a | 2026-10-20 | Przywrócenie funkcji widoków usuniętych przy scalaniu analizy przyczyn
+
+c9ab167 | 2026-10-20 | Ujednolicenie nazwy funkcji pomocniczych (bez podkreślnika).
+
+cb8329c | 2026-10-21 | Poprawka w widoki.py, żeby skala na wykresie przy pojedynczej osobie z przekroczeniem dawki nie była co 0,2
+
+634db5d | 2026-10-21 | Poprawione importy i funkcja tworzenia wykresun z grupami wiekowymi
+
+a9c3c6c | 2026-10-23 | Poprawka etykiet grup wiekowych w stale.py i zmiana nazwy funkcji w uruchom.py na wyostrz_wyswietlanie
+
+3d47c51 | 2026-10-23 | Edycja danych w tabeli- dodatkowych 50 pacjentów, w tym dane niepełne - ,,podejrzane".
+
+4695b1c | 2026-10-23 | Dodanie badań TK jamy brzusznej i miednicy, które w rzeczywistości bardzo często są wykonywane jednoczasowo, bez DPR i źródło wartości referencyjnych. 13 badań 'TK jamy brzusznej i miednicy' (11 onkologicznych) z pustymi wartościami referencyjnymi – rozporządzenie MZ z 6.12.2022 (Dz.U. 2022 poz. 2626, wyd. na podst. art. 33g ust. 3 Prawa atomowego) nie określa dla nich DPR. Walidacja nie traktuje braku DPR jako błędu dla badań z BADANIA_BEZ_DPR. Dodanie źródła DPR w stale.py.
+
+da6bbb2 | 2026-10-23 | Zmiany w agregacje.py, wykresy.py, widoki.py, uruchom.py/ Pokazanie badań bez DPR w przepisach i źródła wartości referencyjnych w aplikacji. Wykres rodzajów badań wyróżnia na szaro badania z BADANIA_BEZ_DPR (legenda) i ma panel wniosków z ich liczbą i udziałem. Stopka okna ze źródłem DPR (rozporządzenie MZ, Prawo atomowe). Oś Y wykresów liczebności przez MaxNLocator.
+
+bd63e8f | 2026-10-23 | Poprawione błędne wcięcia w funkcji oznacz_podejrzane_dane oraz nieprawidłowe importy.
+
+3331213 | 2026-10-23 | stale.py, widoki.py Dodanie opisu w tooltipie klasyfikacji dla wierszy do weryfikacji. Wiersze oznaczone ⚠ (tag 'podejrzany') pokazywały 'Brak dodatkowego opisu'. Teraz tooltip wyjaśnia, że dane są niepełne lub błędne i nie są uwzględniane w statystykach.
+
+6110bee | 2026-10-23 | widoki.py wykresy.py Zmiana, żeby niee ucinało etykiet osi wykresów nad panelem wniosków. Układ 'tight' przeliczany przy każdej zmianie rozmiaru wykresu w oknie (wcześniej plt.tight_layout() liczył miejsce tylko dla rozmiaru początkowego). Długie etykiety rodzajów badań i przyczyn zawijane do kilku linii
+
