@@ -47,7 +47,6 @@ def narysuj_protokol_onkologiczny(ax, pacjenci):
         radius=1.45,                             # większe koło
         autopct=lambda p: f"{p:.0f}%" if p >= 8 else "",   # małe wycinki – procent tylko w legendzie
         pctdistance=0.72,
-        wedgeprops={"edgecolor": "white", "linewidth": 1.5},
         textprops={"color": "white", "fontsize": 10, "fontweight": "bold"},
     )
 
