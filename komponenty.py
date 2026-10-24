@@ -12,6 +12,21 @@ from stale import (
 from tkinter import ttk
 from agregacje import policz_aktywne_czynniki
 
+def umiesc_dymek(okno, x_root, y_root, odstep=12):
+    """Ustawia dymek obok kursora tak, żeby nie wychodził poza ekran."""
+    okno.update_idletasks()                      # Tk liczy rozmiar dymka po spakowaniu etykiety
+    szer, wys = okno.winfo_reqwidth(), okno.winfo_reqheight()
+    ekran_szer, ekran_wys = okno.winfo_screenwidth(), okno.winfo_screenheight()
+
+    x = x_root + odstep
+    y = y_root + odstep
+    if x + szer > ekran_szer:                    # gdy tooltip nie mieści się z prawej -> na lewo od kursora
+        x = x_root - szer - odstep
+    if y + wys > ekran_wys:                      # tooltip nie mieści się na dole -> nad kursorem
+        y = y_root - wys - odstep
+
+    okno.geometry(f"+{max(x, 0)}+{max(y, 0)}")
+    okno.deiconify()                             # pokaż dopiero po ustawieniu pozycji
 
 class Tooltip:
 #Dymek podpowiedzi pokazywany po dłuższym najechaniu na wybraną kolumnę Treeview.
@@ -43,15 +58,17 @@ class Tooltip:
             lambda: self._pokaz(wiersz_id, event.x_root, event.y_root)
         )
 
+
     def _pokaz(self, wiersz_id, x_root, y_root):
         tekst = self.pobierz_tekst(wiersz_id)
         self.okno = tk.Toplevel(self.tabela)
+        self.okno.withdraw()  # ukryty, dopóki nie znamy pozycji
         self.okno.wm_overrideredirect(True)
-        self.okno.geometry(f"+{x_root + 10}+{y_root + 10}")
         tk.Label(
             self.okno, text=tekst, justify="left", padx=10, pady=8,
             relief="solid", wraplength=350, borderwidth=1,
-        ).pack()
+            ).pack()
+        umiesc_dymek(self.okno, x_root, y_root, odstep=10)
 
     def _ukryj(self, event=None):
         self._anuluj_zadanie()
@@ -65,14 +82,16 @@ class Tooltip:
             self.zaplanowane_zadanie = None
 
 class TooltipTabeli:
-    """Dymek z pełną treścią komórki lub nagłówka Treeview – tylko gdy tekst jest ucięty."""
+    """Dymek z pełną treścią komórki lub nagłówka Treeview – tylko gdy tekst jest ucięty.
+    Nagłówki z opisem w opisy_naglowkow pokazują ten opis zawsze."""
 
     MARGINES_KOMORKI = 12   # px zapasu na wewnętrzny odstęp komórki
     MARGINES_NAGLOWKA = 16  # nagłówek ma większy padding (5, 10)
 
-    def __init__(self, tabela, pomin_kolumny=(), opoznienie_ms=500):
+    def __init__(self, tabela, pomin_kolumny=(), opoznienie_ms=500, opisy_naglowkow=None):
         self.tabela = tabela
-        self.pomin_kolumny = set(pomin_kolumny)   # np. {"#6"} – kolumny z własnym tooltipem
+        self.pomin_kolumny = set(pomin_kolumny)       # np. {"#10"} – kolumny z własnym tooltipem
+        self.opisy_naglowkow = opisy_naglowkow or {}  # klucz kolumny -> opis pokazywany na nagłówku
         self.opoznienie_ms = opoznienie_ms
         self.okno = None
         self.zadanie = None
@@ -138,17 +157,31 @@ class TooltipTabeli:
 
     def _pokaz(self, region, wiersz, kolumna, x_root, y_root):
         self.zadanie = None
-        tekst, uciety = self._tekst_i_czy_uciety(region, wiersz, kolumna)
-        if not uciety:
-            return
+        opis = self._opis_naglowka(region, kolumna)
+        if opis:
+            tekst = opis                     # nagłówek z opisem – dymek zawsze
+        else:
+            tekst, uciety = self._tekst_i_czy_uciety(region, wiersz, kolumna)
+            if not uciety:
+                return                       # tekst mieści się – dymek niepotrzebny
 
         self.okno = tk.Toplevel(self.tabela)
+        self.okno.withdraw()                 # ukryty, dopóki nie znamy pozycji
         self.okno.wm_overrideredirect(True)
-        self.okno.geometry(f"+{x_root + 12}+{y_root + 12}")
         tk.Label(
             self.okno, text=tekst, justify="left", padx=8, pady=5,
             bg="#ffffe0", relief="solid", borderwidth=1, wraplength=400,
         ).pack()
+        umiesc_dymek(self.okno, x_root, y_root)
+
+    def _opis_naglowka(self, region, kolumna_id):
+        # Opis z opisy_naglowkow, jeśli kursor jest nad nagłówkiem kolumny, która go ma
+        if region != "heading":
+            return None
+        try:
+            return self.opisy_naglowkow.get(self._nazwa_kolumny(kolumna_id))
+        except (IndexError, ValueError):
+            return None
 
     def _schowaj_okno(self):
         if self.zadanie is not None:
