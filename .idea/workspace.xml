@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Poprawka nazwy kolumny z onkologiczny na protokół onkologiczny i zmiany szerokości kolumn w stale.py">
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Zmiana tooltipa, żeby nie był ucinany, gdy dotyczy ostatniej tabeli, poprawki wcięć, gdy funkcja nie działała.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/komponenty.py" beforeDir="false" afterPath="$PROJECT_DIR$/komponenty.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/agregacje.py" beforeDir="false" afterPath="$PROJECT_DIR$/agregacje.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/widoki.py" beforeDir="false" afterPath="$PROJECT_DIR$/widoki.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,14 +98,6 @@
       <workItem from="1790780490315" duration="5722000" />
       <workItem from="1791136745207" duration="808000" />
       <workItem from="1791214082108" duration="9000" />
-    </task>
-    <task id="LOCAL-00090" summary="W aggregations.py dodanie funkcji dodającej wnioski z tabeli z analizą przekroczeń oraz importu KLUCZE_CZYNNIKOW i ETYKIET_CZYNNIKOW">
-      <option name="closed" value="true" />
-      <created>1789926216204</created>
-      <option name="number" value="00090" />
-      <option name="presentableId" value="LOCAL-00090" />
-      <option name="project" value="LOCAL" />
-      <updated>1789926216204</updated>
     </task>
     <task id="LOCAL-00091" summary="Dodanie importu wygenerowanych wniosków z analizy przekroczeń oraz funkcji pokazującej analizę przyczyn przekroczeń z tabeli">
       <option name="closed" value="true" />
@@ -490,7 +483,15 @@
       <option name="project" value="LOCAL" />
       <updated>1792790976016</updated>
     </task>
-    <option name="localTasksCounter" value="139" />
+    <task id="LOCAL-00139" summary="Zmiana tooltipa, żeby nie był ucinany, gdy dotyczy ostatniej tabeli, poprawki wcięć, gdy funkcja nie działała.">
+      <option name="closed" value="true" />
+      <created>1792828798834</created>
+      <option name="number" value="00139" />
+      <option name="presentableId" value="LOCAL-00139" />
+      <option name="project" value="LOCAL" />
+      <updated>1792828798834</updated>
+    </task>
+    <option name="localTasksCounter" value="140" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -520,7 +521,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Usuń podwójne wywołanie oznacz_przekroczenia w main" />
     <MESSAGE value="Poprawka wcięcia w zbuduj_tabele po usunięciu stylów" />
     <MESSAGE value="Dodanie tooltipów z pełną treścią uciętych komórek i nagłówków tabeli. Nowa klasa TooltipTabeli mierzy szerokość tekstu czcionką ze stylu Treeview i pokazuje dymek tylko dla uciętych komórek/nagłówków. Kolumna klasyfikacji pominięta – jej tooltip pokazuje teraz pełną nazwę i opis. Bindy(podpięcia funkcji) obu tooltipów z add='+', żeby się nie nadpisywały." />
     <MESSAGE value="Wyśrodkowanie okna w obszarze roboczym ekranu i włączenie obsługi DPI- obszar_roboczy() pobiera przez SystemParametersInfoW obszar ekranu bez paska zadań. SetProcessDpiAwareness(1) usuwa rozmycie przy skalowaniu Windows 125%/150%. Okno ma rozmiar startowy dopasowany do ekranu i można je powiększać (usunięty maxsize)." />
@@ -545,7 +545,8 @@
     <MESSAGE value="widoki.py wykresy.py&#10;Zmiana, żeby niee ucinało etykiet osi wykresów nad panelem wniosków. Układ 'tight' przeliczany przy każdej zmianie rozmiaru wykresu w oknie (wcześniej plt.tight_layout() liczył miejsce tylko dla rozmiaru początkowego). Długie etykiety rodzajów badań i przyczyn zawijane do kilku linii" />
     <MESSAGE value="Zmiany w stale.py, przetwarzanie_danych.py, komponenty.py, widoki.py Przywrócenie kolumn DPR i DLP na fazę z definicjami w tooltipach nagłówków, które zniknęły razem ze starą tabelą 'Pacjenci z przekroczoną dawką' przy zamianie jej na dashboard. Teraz są w tabeli analizy przyczyn; definicje w OPISY_NAGLOWKOW_PRZYCZYN (stale.py), DPR ze źródłem prawnym. Zmiana nagłówka kolumny 'Onko' na 'Onkologiczny' w tabeli analizy przyczyn. Dodanie tooltipu 'Protokół onkologiczny' na nagłówku kolumny Onkologiczny" />
     <MESSAGE value="Poprawka nazwy kolumny z onkologiczny na protokół onkologiczny i zmiany szerokości kolumn w stale.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Poprawka nazwy kolumny z onkologiczny na protokół onkologiczny i zmiany szerokości kolumn w stale.py" />
+    <MESSAGE value="Zmiana tooltipa, żeby nie był ucinany, gdy dotyczy ostatniej tabeli, poprawki wcięć, gdy funkcja nie działała." />
+    <option name="LAST_COMMIT_MESSAGE" value="Zmiana tooltipa, żeby nie był ucinany, gdy dotyczy ostatniej tabeli, poprawki wcięć, gdy funkcja nie działała." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1789659520225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

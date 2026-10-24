@@ -150,13 +150,14 @@ def filtruj_przyczyny(rekordy, czynniki, okolica=WARTOSC_WSZYSTKIE,
 
 def wygeneruj_wnioski_brak_dpr(dane):
     """Opis badań bez DPR w przepisach albo None, gdy takich badań nie ma w danych."""
-    poprawne = dane[~dane["podejrzany_wiersz"]]
-    bez_dpr = poprawne[poprawne["brak_dpr"]]
+    # Udział liczony względem WSZYSTKICH wykonanych badań – także tych z błędnie
+    # wprowadzonymi danymi, bo badanie zostało fizycznie wykonane, a błąd dotyczy zapisu.
+    bez_dpr = dane[dane["brak_dpr"]]
     if bez_dpr.empty:
         return None
 
-    udzial = len(bez_dpr) / len(poprawne) * 100
-    poczatek = f"{len(bez_dpr)} z {len(poprawne)} badań ({udzial:.0f}%)"
+    udzial = len(bez_dpr) / len(dane) * 100
+    poczatek = f"{len(bez_dpr)} z {len(dane)} badań ({udzial:.0f}%)"
     grupy = list(bez_dpr.groupby("rodzaj_badania_tk"))
 
     if len(grupy) == 1:

@@ -10,8 +10,7 @@ from agregacje import (
 )
 from stale import (
     KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW, KLASYFIKACJA_OPISY, CZCIONKA,
-    ETYKIETY_GRUP_WIEKOWYCH, KLUCZ_BRAK_CZYNNIKA, WARTOSC_WSZYSTKIE, KOLUMNY_TABELI_PRZYCZYN, OPIS_DANYCH_DO_WERYFIKACJI
-)
+    ETYKIETY_GRUP_WIEKOWYCH, KLUCZ_BRAK_CZYNNIKA, WARTOSC_WSZYSTKIE, KOLUMNY_TABELI_PRZYCZYN, OPIS_DANYCH_DO_WERYFIKACJI, OPISY_NAGLOWKOW_PRZYCZYN)
 from komponenty import (
     zbuduj_tabele, zbuduj_panel_podsumowania, Tooltip, TooltipTabeli, zbuduj_filtr_plci,
     zbuduj_filtr_kategorii_bmi, zbuduj_panel_wnioskow, zbuduj_panel_filtrow,
@@ -175,88 +174,137 @@ def dodaj_tooltip_klasyfikacji(tabela, kolumna_id):
     return Tooltip(tabela, kolumna_docelowa=kolumna_id, pobierz_tekst=tekst_dymka)
 
 
-def pokaz_analize_przyczyn(parent, dane):
-    #Widok 'Analiza przyczyn przekroczeń': karty, wnioski, filtry i tabela pacjentów.
-    # Przekroczenia + wiersze podejrzane (te mogą nie mieć DLP, więc nie są "przekroczeniem")
-    pacjenci = dane[dane["przekroczenie_dlp"] | dane["podejrzany_wiersz"]]
-    rekordy = zbuduj_rekordy_przyczyn(pacjenci)
-    liczba_waznych = sum(1 for r in rekordy if not r["podejrzany"])
-    okolice = sorted({r["okolica"] for r in rekordy if not r["podejrzany"]})
+# ---------- Funkcje pomocnicze widoku analizy przyczyn (bez Tkintera) ----------
 
-    # --- Karty czynników i wnioski (w commicie 2 zaczną reagować na filtry) ---
-    zbuduj_panel_podsumowania(parent, rekordy, KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW)
-    zbuduj_panel_wnioskow(parent, wygeneruj_wnioski_analizy(rekordy))
+def rozpakuj_kolumny(definicje):
+    #Zamienia listę (klucz, nagłówek, szerokość, wyrównanie) na argumenty zbuduj_tabele.
+    kolumny = tuple(k for k, _, _, _ in definicje)
+    naglowki = {k: n for k, n, _, _ in definicje}
+    szerokosci = {k: s for k, _, s, _ in definicje}
+    kotwice = {k: a for k, _, _, a in definicje}
+    return kolumny, naglowki, szerokosci, kotwice
 
-    # --- Filtry ---
-    zmienne = {
-        "czynniki": {
-            klucz: tk.BooleanVar(value=True)
-            for klucz in [*KLUCZE_CZYNNIKOW, KLUCZ_BRAK_CZYNNIKA]
-        },
-        "okolica": tk.StringVar(value=WARTOSC_WSZYSTKIE),
-        "grupa_wiekowa": tk.StringVar(value=WARTOSC_WSZYSTKIE),
-        "min_procent": tk.StringVar(value="0"),
-        "podejrzane": tk.BooleanVar(value=True),
-    }
 
-    def wyczysc():
-        for zmienna in zmienne["czynniki"].values():
+def parsuj_procent(tekst):
+    #Tekst ze Spinboxa -> liczba; puste lub błędne pole traktujemy jak 0.
+    try:
+        return float(tekst.replace(",", "."))
+    except ValueError:
+        return 0.0
+
+
+def tekst_licznika(wybrane, liczba_waznych):
+    #Opis liczby wyników nad tabelą przyczyn.
+    pokazane = sum(1 for r in wybrane if not r["podejrzany"])
+    podejrzane = len(wybrane) - pokazane
+    tekst = f"Wyniki: {pokazane} z {liczba_waznych} pacjentów z przekroczeniem"
+    if podejrzane:
+        tekst += f"  (+ {podejrzane} ⚠ do weryfikacji)"
+    return tekst
+
+
+# ---------- Widok 'Analiza przyczyn przekroczeń' ----------
+
+class WidokAnalizyPrzyczyn:
+    """Widok 'Analiza przyczyn przekroczeń': karty, wnioski, filtry i tabela pacjentów."""
+
+    def __init__(self, parent, dane):
+        self.parent = parent
+
+        # Przekroczenia + wiersze podejrzane (te mogą nie mieć DLP, więc nie są "przekroczeniem")
+        pacjenci = dane[dane["przekroczenie_dlp"] | dane["podejrzany_wiersz"]]
+        self.rekordy = zbuduj_rekordy_przyczyn(pacjenci)
+        self.liczba_waznych = sum(1 for r in self.rekordy if not r["podejrzany"])
+        okolice = sorted({r["okolica"] for r in self.rekordy if not r["podejrzany"]})
+
+        # Karty czynników i wnioski
+        zbuduj_panel_podsumowania(parent, self.rekordy, KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW)
+        zbuduj_panel_wnioskow(parent, wygeneruj_wnioski_analizy(self.rekordy))
+
+        # Filtry
+        self.zmienne = self._utworz_zmienne()
+        zbuduj_panel_filtrow(parent, self.zmienne, okolice, ETYKIETY_GRUP_WIEKOWYCH, self.wyczysc)
+
+        # Licznik wyników
+        self.licznik = tk.Label(parent, anchor="w", font=(CZCIONKA, 11, "bold"))
+        self.licznik.pack(fill="x", padx=20, pady=(8, 4))
+
+        # Tabela
+        self.tabela = self._zbuduj_tabele()
+
+        # Każda zmiana dowolnego filtra odświeża tabelę
+        for zmienna in self._wszystkie_zmienne():
+            zmienna.trace_add("write", self.odswiez)
+
+        self.odswiez()
+
+    # ---------- stan filtrów ----------
+
+    @staticmethod
+    def _utworz_zmienne():
+        return {
+            "czynniki": {
+                klucz: tk.BooleanVar(value=True)
+                for klucz in [*KLUCZE_CZYNNIKOW, KLUCZ_BRAK_CZYNNIKA]
+            },
+            "okolica": tk.StringVar(value=WARTOSC_WSZYSTKIE),
+            "grupa_wiekowa": tk.StringVar(value=WARTOSC_WSZYSTKIE),
+            "min_procent": tk.StringVar(value="0"),
+            "podejrzane": tk.BooleanVar(value=True),
+        }
+
+    def _wszystkie_zmienne(self):
+        z = self.zmienne
+        return [*z["czynniki"].values(), z["okolica"], z["grupa_wiekowa"],
+                z["min_procent"], z["podejrzane"]]
+
+    def _aktualne_filtry(self):
+        #Odczytuje zmienne Tk i zwraca argumenty dla filtruj_przyczyny.
+        z = self.zmienne
+        return {
+            "czynniki": {k for k, zmienna in z["czynniki"].items() if zmienna.get()},
+            "okolica": z["okolica"].get(),
+            "grupa_wiekowa": z["grupa_wiekowa"].get(),
+            "min_procent": parsuj_procent(z["min_procent"].get()),
+            "pokaz_podejrzane": z["podejrzane"].get(),
+        }
+
+    def wyczysc(self):
+        for zmienna in self.zmienne["czynniki"].values():
             zmienna.set(True)
-        zmienne["okolica"].set(WARTOSC_WSZYSTKIE)
-        zmienne["grupa_wiekowa"].set(WARTOSC_WSZYSTKIE)
-        zmienne["min_procent"].set("0")
-        zmienne["podejrzane"].set(True)
+        self.zmienne["okolica"].set(WARTOSC_WSZYSTKIE)
+        self.zmienne["grupa_wiekowa"].set(WARTOSC_WSZYSTKIE)
+        self.zmienne["min_procent"].set("0")
+        self.zmienne["podejrzane"].set(True)
 
-    zbuduj_panel_filtrow(parent, zmienne, okolice, ETYKIETY_GRUP_WIEKOWYCH, wyczysc)
+    # ---------- tabela ----------
 
-    licznik = tk.Label(parent, anchor="w", font=(CZCIONKA, 11, "bold"))
-    licznik.pack(fill="x", padx=20, pady=(8, 4))
+    def _zbuduj_tabele(self):
+        kolumny, naglowki, szerokosci, kotwice = rozpakuj_kolumny(KOLUMNY_TABELI_PRZYCZYN)
+        tabela = zbuduj_tabele(self.parent, kolumny, naglowki, szerokosci, kotwice)
+        tabela.tag_configure("podejrzany", background="#fff3cd")
 
-    # --- Tabela ---
-    kolumny = tuple(k for k, _, _, _ in KOLUMNY_TABELI_PRZYCZYN)
-    naglowki = {k: n for k, n, _, _ in KOLUMNY_TABELI_PRZYCZYN}
-    szerokosci = {k: s for k, _, s, _ in KOLUMNY_TABELI_PRZYCZYN}
-    kotwice = {k: a for k, _, _, a in KOLUMNY_TABELI_PRZYCZYN}
+        # Numer kolumny liczony z listy – nie trzeba go poprawiać po zmianie kolejności kolumn
+        kolumna_klasyfikacji = f"#{kolumny.index('klasyfikacja') + 1}"
+        dodaj_tooltip_klasyfikacji(tabela, kolumna_klasyfikacji)
+        tabela.tooltip = TooltipTabeli(tabela, pomin_kolumny={kolumna_klasyfikacji},
+                                       opisy_naglowkow=OPISY_NAGLOWKOW_PRZYCZYN)
+        return tabela
 
-    tabela = zbuduj_tabele(parent, kolumny, naglowki, szerokosci, kotwice)
-    tabela.tag_configure("podejrzany", background="#fff3cd")
-
-    # Numer kolumny liczony z listy – nie trzeba go poprawiać po zmianie kolejności kolumn
-    kolumna_klasyfikacji = f"#{kolumny.index('klasyfikacja') + 1}"
-    dodaj_tooltip_klasyfikacji(tabela, kolumna_klasyfikacji)
-    tabela.tooltip = TooltipTabeli(tabela, pomin_kolumny={kolumna_klasyfikacji})
-
-    def odswiez(*_):
-        try:
-            min_procent = float(zmienne["min_procent"].get().replace(",", "."))
-        except ValueError:
-            min_procent = 0  # np. puste pole w trakcie wpisywania
-
-        wybrane = filtruj_przyczyny(
-            rekordy,
-            czynniki={k for k, z in zmienne["czynniki"].items() if z.get()},
-            okolica=zmienne["okolica"].get(),
-            grupa_wiekowa=zmienne["grupa_wiekowa"].get(),
-            min_procent=min_procent,
-            pokaz_podejrzane=zmienne["podejrzane"].get(),
-        )
-
-        tabela.delete(*tabela.get_children())
+    def _wypelnij_tabele(self, wybrane):
+        self.tabela.delete(*self.tabela.get_children())
         for rekord in wybrane:
             tagi = ("podejrzany",) if rekord["podejrzany"] else ()
-            tabela.insert("", "end", values=wiersz_tabeli_przyczyn(rekord), tags=tagi)
+            self.tabela.insert("", "end", values=wiersz_tabeli_przyczyn(rekord), tags=tagi)
 
-        pokazane = sum(1 for r in wybrane if not r["podejrzany"])
-        podejrzane = len(wybrane) - pokazane
-        tekst = f"Wyniki: {pokazane} z {liczba_waznych} pacjentów z przekroczeniem"
-        if podejrzane:
-            tekst += f"  (+ {podejrzane} ⚠ do weryfikacji)"
-        licznik.config(text=tekst)
+    # ---------- odświeżanie ----------
 
-    # Każda zmiana dowolnego filtra odświeża tabelę
-    for zmienna in [*zmienne["czynniki"].values(), zmienne["okolica"], zmienne["grupa_wiekowa"],
-                    zmienne["min_procent"], zmienne["podejrzane"]]:
-        zmienna.trace_add("write", odswiez)
+    def odswiez(self, *_):
+        # *_ – trace_add przekazuje 3 argumenty (nazwa zmiennej, indeks, tryb), których nie używamy
+        wybrane = filtruj_przyczyny(self.rekordy, **self._aktualne_filtry())
+        self._wypelnij_tabele(wybrane)
+        self.licznik.config(text=tekst_licznika(wybrane, self.liczba_waznych))
 
-    odswiez()
-    return tabela
+
+def pokaz_analize_przyczyn(parent, dane):
+    return WidokAnalizyPrzyczyn(parent, dane)
