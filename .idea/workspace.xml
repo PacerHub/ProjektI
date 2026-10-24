@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Dodanie zrzutów ekranu do README.md" />
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Dodanie wszystkich 4 zrzutów ekranu do README.md">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -94,14 +96,6 @@
       <workItem from="1790780490315" duration="5722000" />
       <workItem from="1791136745207" duration="808000" />
       <workItem from="1791214082108" duration="9000" />
-    </task>
-    <task id="LOCAL-00102" summary="Dodanie filtrowania w dashboardzie">
-      <option name="closed" value="true" />
-      <created>1790883901132</created>
-      <option name="number" value="00102" />
-      <option name="presentableId" value="LOCAL-00102" />
-      <option name="project" value="LOCAL" />
-      <updated>1790883901132</updated>
     </task>
     <task id="LOCAL-00103" summary="Usunięcie pierwszej (pustej) definicji main(), która nie przeprowadzała walidacji danych. Usunięcie podwójnego importu z przetwarzanie_danych.">
       <option name="closed" value="true" />
@@ -487,7 +481,15 @@
       <option name="project" value="LOCAL" />
       <updated>1792834969233</updated>
     </task>
-    <option name="localTasksCounter" value="151" />
+    <task id="LOCAL-00151" summary="Dodanie wszystkich 4 zrzutów ekranu do README.md">
+      <option name="closed" value="true" />
+      <created>1792835270553</created>
+      <option name="number" value="00151" />
+      <option name="presentableId" value="LOCAL-00151" />
+      <option name="project" value="LOCAL" />
+      <updated>1792835270553</updated>
+    </task>
+    <option name="localTasksCounter" value="152" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -517,7 +519,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Przeróbka- połączenie widoków analizy i filtra przyczyn w jeden- analiza przyczyn przekroczeń ma teraz panel filtrów, licznik wyników i wspólną tabelę (wiek, płeć, BMI, liczba faz, klasyfikacja, aktywne czynniki, znaczniki ✓). Usunięty osobny widok 'Filtr przyczyn przekroczeń'. Numer kolumny klasyfikacji dla tooltipa liczony z KOLUMNY_TABELI_PRZYCZYN." />
     <MESSAGE value="Przywrócenie funkcji widoków usuniętych przy scalaniu analizy przyczyn" />
     <MESSAGE value="Ujednolicenie nazwy funkcji pomocniczych (bez podkreślnika)." />
     <MESSAGE value="Poprawka w widoki.py, żeby skala na wykresie przy pojedynczej osobie z przekroczeniem dawki nie była co 0,2" />
@@ -542,7 +543,8 @@
     <MESSAGE value="Dodanie do widoki.py importu z agregacje.py przygotuj_tabele_eksportu" />
     <MESSAGE value="Edycja pliku README" />
     <MESSAGE value="Dodanie zrzutów ekranu do README.md" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dodanie zrzutów ekranu do README.md" />
+    <MESSAGE value="Dodanie wszystkich 4 zrzutów ekranu do README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="Dodanie wszystkich 4 zrzutów ekranu do README.md" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1789659520225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

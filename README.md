@@ -55,7 +55,8 @@ Jest to desktopowa aplikacja w Pythonie, opierająca się na Tkinter, matplotlib
 ## Instalacja
 
 ```bash
-git clone (https://github.com/PacerHub/ProjektI).git]
+git clone https://github.com/PacerHub/ProjektI).git
+cd ProjektI
 
 python -m venv .venv
 .venv\Scripts\activate          # Windows
