@@ -182,3 +182,33 @@ def wygeneruj_wnioski_brak_dpr(dane):
         )
 
     return opis + " Nie można dla nich ocenić przekroczenia dawki, dlatego nie są uwzględniane w analizie przekroczeń."
+
+def przygotuj_tabele_eksportu(rekordy):
+    """Tabela (DataFrame) do eksportu CSV – surowe liczby zamiast tekstów sformatowanych do wyświetlenia."""
+    wiersze = []
+    for r in rekordy:
+        wiersz = {
+            "Pacjent": r["patient_id"],
+            "Wiek": r["wiek"],
+            "Płeć": r["plec"],
+            "Rodzaj badania": r["rodzaj_badania"],
+            "Okolica anatomiczna": r["okolica"],
+            "BMI": r["bmi"],
+            "Kategoria BMI": r["kategoria_bmi"],
+            "Liczba faz": r["kategoria_faz"],
+            "DPR na fazę [mGy·cm]": r["dpr"],
+            "DLP zmierzone na fazę [mGy·cm]": r["dlp"],
+            "% przekroczenia": r["procent_przekroczenia"],
+            "Klasyfikacja przyczyny": r["klasyfikacja"],
+            "Aktywne czynniki": r["aktywne_czynniki"],
+            "Do weryfikacji": "tak" if r["podejrzany"] else "nie",
+        }
+        # Kolumny czynników: "tak" albo puste – łatwo filtrować w Excelu
+        for klucz in KLUCZE_CZYNNIKOW:
+            wiersz[ETYKIETY_CZYNNIKOW[klucz].replace("\n", " ")] = "tak" if r["factors"][klucz] else ""
+        wiersze.append(wiersz)
+
+    tabela = pd.DataFrame(wiersze)
+    tabela["Wiek"] = tabela["Wiek"].astype("Int64")   # 61 zamiast 61,0 (Int64 dopuszcza puste pola)
+    tabela["% przekroczenia"] = tabela["% przekroczenia"].astype(float).round(1)
+    return tabela

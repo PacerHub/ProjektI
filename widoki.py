@@ -1,5 +1,6 @@
 #Widoki aplikacji: jedna funkcja `pokaz_*` = jeden ekran wybierany przyciskiem.
-
+from datetime import date
+from tkinter import filedialog, messagebox
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 from matplotlib.layout_engine import TightLayoutEngine
@@ -25,6 +26,7 @@ from wykresy import (
 )
 
 import tkinter as tk
+
 
 
 def osadz_wykres(parent, fig):
@@ -225,9 +227,14 @@ class WidokAnalizyPrzyczyn:
         self.zmienne = self._utworz_zmienne()
         zbuduj_panel_filtrow(parent, self.zmienne, okolice, ETYKIETY_GRUP_WIEKOWYCH, self.wyczysc)
 
-        # Licznik wyników
-        self.licznik = tk.Label(parent, anchor="w", font=(CZCIONKA, 11, "bold"))
-        self.licznik.pack(fill="x", padx=20, pady=(8, 4))
+        # Pasek: licznik wyników (po lewej) + eksport (po prawej)
+        pasek = tk.Frame(parent)
+        pasek.pack(fill="x", padx=20, pady=(8, 4))
+        self.licznik = tk.Label(pasek, anchor="w", font=(CZCIONKA, 11, "bold"))
+        self.licznik.pack(side="left")
+        tk.Button(pasek, text="Eksportuj tabelę do CSV",
+                  command=self.eksportuj_csv).pack(side="right")
+        self.wybrane = []  # wiersze aktualnie widoczne w tabeli – uzupełnia odswiez()
 
         # Tabela
         self.tabela = self._zbuduj_tabele()
@@ -301,10 +308,41 @@ class WidokAnalizyPrzyczyn:
 
     def odswiez(self, *_):
         # *_ – trace_add przekazuje 3 argumenty (nazwa zmiennej, indeks, tryb), których nie używamy
-        wybrane = filtruj_przyczyny(self.rekordy, **self._aktualne_filtry())
-        self._wypelnij_tabele(wybrane)
-        self.licznik.config(text=tekst_licznika(wybrane, self.liczba_waznych))
+        self.wybrane = filtruj_przyczyny(self.rekordy, **self._aktualne_filtry())
+        self._wypelnij_tabele(self.wybrane)
+        self.licznik.config(text=tekst_licznika(self.wybrane, self.liczba_waznych))
+    def eksportuj_csv(self):
+        #Zapisuje wiersze widoczne w tabeli (po filtrach) do pliku CSV dla polskiego Excela.
+        if not self.wybrane:
+            messagebox.showinfo("Eksport", "Brak wierszy do eksportu – zmień ustawienia filtrów.",
+                                parent=self.parent)
+            return
 
+        sciezka = filedialog.asksaveasfilename(
+            parent=self.parent,
+            title="Zapisz tabelę jako CSV",
+            defaultextension=".csv",
+            filetypes=[("Plik CSV", "*.csv"), ("Wszystkie pliki", "*.*")],
+            initialfile=f"analiza_przyczyn_{date.today():%Y-%m-%d}.csv",
+        )
+        if not sciezka:
+            return  # użytkownik kliknął "Anuluj"
+
+        try:
+            przygotuj_tabele_eksportu(self.wybrane).to_csv(
+                sciezka, sep=";", decimal=",", index=False, encoding="utf-8-sig",
+            )
+        except PermissionError:
+            messagebox.showerror(
+                "Eksport",
+                "Nie można zapisać pliku – może jest otwarty w Excelu?\n"
+                "Zamknij go i spróbuj ponownie.",
+                parent=self.parent,
+            )
+            return
+
+        messagebox.showinfo("Eksport", f"Zapisano {len(self.wybrane)} wierszy do pliku:\n{sciezka}",
+                            parent=self.parent)
 
 def pokaz_analize_przyczyn(parent, dane):
     return WidokAnalizyPrzyczyn(parent, dane)
