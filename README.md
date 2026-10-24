@@ -55,8 +55,7 @@ Jest to desktopowa aplikacja w Pythonie, opierająca się na Tkinter, matplotlib
 ## Instalacja
 
 ```bash
-git clone https://github.com/<twoj-login>/<nazwa-repozytorium>.git
-cd <nazwa-repozytorium>
+git clone (https://github.com/PacerHub/ProjektI).git]
 
 python -m venv .venv
 .venv\Scripts\activate          # Windows
@@ -202,4 +201,4 @@ Decydowałam o zakresie i kierunku projektu, pisałam specyfikację, wnosiłam w
 
 ## Autorka
 
-<Imię i nazwisko> – projekt zaliczeniowy, <nazwa przedmiotu / kursu>, <uczelnia>, 2026
+Patrycja Ślesicka – Projekt Semestralny I, Analityka danych biologiczno-medycznych, 2026
