@@ -44,7 +44,7 @@ def narysuj_protokol_onkologiczny(ax, pacjenci):
         colors=_kolory_cyklicznie(len(counts)),
         startangle=90,
         counterclock=False,                      # wycinki zgodnie z ruchem wskazówek zegara
-        radius=1.25,                             # większe koło
+        radius=1.45,                             # większe koło
         autopct=lambda p: f"{p:.0f}%" if p >= 8 else "",   # małe wycinki – procent tylko w legendzie
         pctdistance=0.72,
         wedgeprops={"edgecolor": "white", "linewidth": 1.5},
