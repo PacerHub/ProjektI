@@ -35,18 +35,28 @@ def narysuj_liczbe_faz(ax, pacjenci):
     ax.yaxis.set_major_locator(MaxNLocator(integer=True))
 
 def narysuj_protokol_onkologiczny(ax, pacjenci):
-    #Rysuje kołowy rozkład protokołu onkologicznego (tak/nie/nie dotyczy).
+    #Kołowy rozkład protokołu onkologicznego (tak/nie/nie dotyczy); nazwy w legendzie z boku.
     counts = policz_kategorie_onkologiczne(pacjenci["protokol_onkologiczny_jamy_brzusznej"])
+    procenty = counts / counts.sum() * 100
 
-    ax.pie(
+    kliny, _, _ = ax.pie(
         counts.values,
-        labels=counts.index,
-        autopct="%1.0f%%",
         colors=_kolory_cyklicznie(len(counts)),
         startangle=90,
+        counterclock=False,                      # wycinki zgodnie z ruchem wskazówek zegara
+        radius=1.25,                             # większe koło
+        autopct=lambda p: f"{p:.0f}%" if p >= 8 else "",   # małe wycinki – procent tylko w legendzie
+        pctdistance=0.72,
+        wedgeprops={"edgecolor": "white", "linewidth": 1.5},
+        textprops={"color": "white", "fontsize": 10, "fontweight": "bold"},
+    )
+
+    ax.legend(
+        kliny,
+        [f"{nazwa} – {n} ({p:.0f}%)" for nazwa, n, p in zip(counts.index, counts.values, procenty)],
+        loc="center left", bbox_to_anchor=(1.0, 0.5), frameon=False, fontsize=10,
     )
     _ustaw_tytul_panelu(ax, "Protokół onkologiczny")
-
 
 def narysuj_rodzaj_badania(ax, pacjenci):
     #Rysuje poziomy słupkowy rozkład rodzajów badania.
