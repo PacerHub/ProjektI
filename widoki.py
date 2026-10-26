@@ -81,8 +81,8 @@ def pokaz_pareto_przyczyn(parent, dane):
     return osadz_wykres(parent, fig)
 
 def pokaz_dashboard_przekroczenia(parent, dane):
-    wybrana_plec = tk.StringVar(value="wszyscy")
-    wybrana_kategoria_bmi = tk.StringVar(value="wszyscy")
+    wybrana_plec = tk.StringVar(value=WARTOSC_WSZYSTKIE)
+    wybrana_kategoria_bmi = tk.StringVar(value=WARTOSC_WSZYSTKIE)
     obszar_wykresu = tk.Frame(parent)
 
     def odswiez(*_):

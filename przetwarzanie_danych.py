@@ -3,7 +3,7 @@
 import pandas as pd
 from stale import (
     EXAM_REGION, PROG_WYSOKIEGO_DLP_FAZY, GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH,
-    ZAKRES_WIEKU, ZAKRES_BMI, ZAKRES_LICZBY_FAZ, KLUCZE_CZYNNIKOW, BADANIA_BEZ_DPR, WIEK_PEDIATRYCZNY, PROGI_BMI, PROG_NADWAGI, ETYKIETA_BMI_PEDIATRYCZNY, KATEGORIE_BMI,ETYKIETY_KLASYFIKACJI, KLASYFIKACJA_BRAK_CZYNNIKA, KLASYFIKACJA_KILKA_CZYNNIKOW
+    ZAKRES_WIEKU, ZAKRES_BMI, ZAKRES_LICZBY_FAZ, KLUCZE_CZYNNIKOW, BADANIA_BEZ_DPR, WIEK_PEDIATRYCZNY, PROGI_BMI, PROG_NADWAGI, ETYKIETA_BMI_PEDIATRYCZNY, KATEGORIE_BMI,ETYKIETY_KLASYFIKACJI, KLASYFIKACJA_BRAK_CZYNNIKA, KLASYFIKACJA_KILKA_CZYNNIKOW, WARTOSC_WSZYSTKIE
 )
 
 def oznacz_podejrzane_dane(dane):
@@ -221,7 +221,7 @@ def zbuduj_liste_wynikow(pacjenci):
     return [analizuj_pacjenta(wiersz) for _, wiersz in pacjenci.iterrows()]
 
 def filtruj_wg_plci(pacjenci, wybor):
-    """Zwraca podzbiór pacjentów wg wyboru filtra: 'wszyscy' | 'kobiety' | 'mezczyzni'."""
+    """Zwraca podzbiór pacjentów wg wyboru filtra: 'wszystkie' | 'kobiety' | 'mezczyzni'."""
     if wybor == "kobiety":
         return pacjenci[pacjenci["plec"] == "K"]
     if wybor == "mezczyzni":
@@ -231,12 +231,12 @@ def filtruj_wg_plci(pacjenci, wybor):
 
 def filtruj_wg_kategorii_bmi(pacjenci, wybor):
     """Zwraca podzbiór pacjentów wg wybranej kategorii BMI (lub wszystkich przy 'wszyscy')."""
-    if wybor == "wszyscy" or len(pacjenci) == 0:
+    if wybor == WARTOSC_WSZYSTKIE or len(pacjenci) == 0:
         return pacjenci
     kategorie = pacjenci.apply(lambda w: kategoria_bmi(w["wiek"], w["bmi"]), axis=1)
     return pacjenci[kategorie == wybor]
 
-def filtruj_pacjentow_dashboardu(dane, plec="wszyscy", bmi="wszyscy"):
+def filtruj_pacjentow_dashboardu(dane, plec="wszyscy", bmi=WARTOSC_WSZYSTKIE):
     """Zwraca pacjentów z przekroczoną dawką po zastosowaniu wszystkich filtrów dashboardu."""
     pacjenci = filtruj_przekroczenia(filtruj_bezpieczne(dane))
     pacjenci = filtruj_wg_plci(pacjenci, plec)

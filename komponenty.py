@@ -324,7 +324,7 @@ def zbuduj_filtr_plci(parent, zmienna):
 
     tk.Label(panel, text="Płeć:", font=(CZCIONKA, 10, "bold")).pack(side="left", padx=(10, 5))
 
-    opcje = [("Wszyscy", "wszyscy"), ("Kobiety", "kobiety"), ("Mężczyźni", "mezczyzni")]
+    opcje = [("WSZYSCY", WARTOSC_WSZYSTKIE), ("KOBIETY", "kobiety"), ("MĘŻCZYŹNI", "mezczyzni")]
     for tekst, wartosc in opcje:
         tk.Radiobutton(
             panel, text=tekst, variable=zmienna, value=wartosc, font=(CZCIONKA, 10),
@@ -341,7 +341,7 @@ def zbuduj_filtr_kategorii_bmi(parent, zmienna):
     tk.Label(panel, text="Kategoria BMI:", font=(CZCIONKA, 10, "bold")).pack(side="left", padx=(10, 5))
 
     tk.Radiobutton(
-        panel, text="Wszyscy", variable=zmienna, value="wszyscy", font=(CZCIONKA, 10),
+        panel, text="wszyscy", variable=zmienna, value=WARTOSC_WSZYSTKIE, font=(CZCIONKA, 10),
     ).pack(side="left", padx=5)
 
     for kategoria in KATEGORIE_BMI:
