@@ -3,7 +3,7 @@
 import pandas as pd
 from stale import (
     EXAM_REGION, PROG_WYSOKIEGO_DLP_FAZY, GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH,
-    ZAKRES_WIEKU, ZAKRES_BMI, ZAKRES_LICZBY_FAZ, KLUCZE_CZYNNIKOW, BADANIA_BEZ_DPR, WIEK_PEDIATRYCZNY, PROGI_BMI, PROG_NADWAGI, ETYKIETA_BMI_PEDIATRYCZNY, KATEGORIE_BMI
+    ZAKRES_WIEKU, ZAKRES_BMI, ZAKRES_LICZBY_FAZ, KLUCZE_CZYNNIKOW, BADANIA_BEZ_DPR, WIEK_PEDIATRYCZNY, PROGI_BMI, PROG_NADWAGI, ETYKIETA_BMI_PEDIATRYCZNY, KATEGORIE_BMI,ETYKIETY_KLASYFIKACJI, KLASYFIKACJA_BRAK_CZYNNIKA, KLASYFIKACJA_KILKA_CZYNNIKOW
 )
 
 def oznacz_podejrzane_dane(dane):
@@ -135,19 +135,12 @@ def wyznacz_czynniki(wiek, bmi, liczba_faz, protokol_onko_raw, stosunek_dlp):
 
 
 def klasyfikuj_przyczyne(factors):
-    label_map = {
-        "pediatryczny": "pacjent <16 lat",
-        "onkologiczny": "protokół onkologiczny",
-        "wielofazowy": "wielofazowe badanie",
-        "wysoki_dlp_fazy": "wysokie DLP pojedynczej fazy",
-        "nadwaga_otylosc": "nadwaga/otyłość pacjenta",
-    }
-    aktywne = [nazwa for nazwa, jest_aktywny in factors.items() if jest_aktywny]
+    aktywne = [ETYKIETY_KLASYFIKACJI[nazwa] for nazwa, jest_aktywny in factors.items() if jest_aktywny]
     if len(aktywne) == 0:
-        return "przekroczenie wymagające indywidualnej analizy", []
+        return KLASYFIKACJA_BRAK_CZYNNIKA, []
     if len(aktywne) == 1:
-        return label_map[aktywne[0]], [label_map[aktywne[0]]]
-    return "połączenie kilku czynników", [label_map[a] for a in aktywne]
+        return aktywne[0], aktywne
+    return KLASYFIKACJA_KILKA_CZYNNIKOW, aktywne
 
 def analizuj_podejrzany_wiersz(wiersz):
     """Wynik dla wiersza do weryfikacji: pokazuje wszystkie dane, które da się wiarygodnie

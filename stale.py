@@ -44,6 +44,17 @@ RODZAJE_WIDOKOW = [
     "Pareto przyczyn przekroczeń",
 ]
 # Etykiety klasyfikacji przyczyny -> opis pokazywany w tooltipie
+# Nazwa klasyfikacji, gdy aktywny jest dokładnie jeden czynnik
+ETYKIETY_KLASYFIKACJI = {
+    "pediatryczny": "pacjent <16 lat",
+    "onkologiczny": "protokół onkologiczny",
+    "wielofazowy": "wielofazowe badanie",
+    "wysoki_dlp_fazy": "wysokie DLP pojedynczej fazy",
+    "nadwaga_otylosc": "nadwaga/otyłość pacjenta",
+}
+KLASYFIKACJA_BRAK_CZYNNIKA = "przekroczenie wymagające indywidualnej analizy"
+KLASYFIKACJA_KILKA_CZYNNIKOW = "połączenie kilku czynników"
+
 KLASYFIKACJA_OPISY = {
     "pacjent <16 lat": (
         "Główną przyczyną przekroczenia jest wiek\n"
@@ -82,13 +93,7 @@ KLASYFIKACJA_OPISY = {
         "szum pomiarowy/losowy, błąd protokołu\n"
         "lub coś, co wymaga ręcznej weryfikacji."
     ),
-    "onkologiczny": (
-        "Protokół onkologiczny\n\n"
-        "Badanie jamy brzusznej wykonane w protokole\n"
-        "onkologicznym – zwykle wielofazowe skanowanie\n"
-        "(natywna / tętnicza / żylna)."
-    ),
-}
+    }
 # Opis w tooltipie dla wierszy oznaczonych ⚠ (niepełne lub błędne dane)
 OPIS_DANYCH_DO_WERYFIKACJI = (
     "Dane tego badania są niepełne lub zawierają\n"

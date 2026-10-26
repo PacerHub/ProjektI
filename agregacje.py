@@ -2,7 +2,7 @@
 import pandas as pd
 from stale import (
     ETYKIETY_GRUP_WIEKOWYCH, KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW,
-    KLUCZ_BRAK_CZYNNIKA, WARTOSC_WSZYSTKIE,
+    KLUCZ_BRAK_CZYNNIKA, WARTOSC_WSZYSTKIE, KLASYFIKACJA_KILKA_CZYNNIKOW
 )
 from przetwarzanie_danych import kategoria_wiekowa
 
@@ -46,10 +46,10 @@ def wygeneruj_wnioski_pareto(counts, wyniki=None):
     udzial_najczestszej = counts.iloc[0] / suma * 100
 
     opis_przyczyny = f"'{najczestsza}'"
-    if najczestsza == "połączenie kilku czynników" and wyniki:
+    if najczestsza == KLASYFIKACJA_KILKA_CZYNNIKOW and wyniki:
         przypadki = [
             w for w in wyniki
-            if not w.get("podejrzany") and w["klasyfikacja"] == "połączenie kilku czynników"
+            if not w.get("podejrzany") and w["klasyfikacja"] == KLASYFIKACJA_KILKA_CZYNNIKOW
         ]
         liczby = {
             klucz: sum(1 for w in przypadki if w["factors"][klucz])
