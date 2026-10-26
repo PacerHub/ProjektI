@@ -1,30 +1,36 @@
-#Budowa wykresów matplotlib.
-from matplotlib.ticker import MaxNLocator
-import matplotlib.pyplot as plt
+# Budowa wykresów matplotlib.
 import textwrap
+
+import matplotlib.pyplot as plt
 from matplotlib.patches import Patch
+from matplotlib.ticker import MaxNLocator
+
+from agregacje import policz_kategorie_onkologiczne, policz_wg_grupy_wiekowej, policz_wg_kolumny
 from stale import (
     PALETA_KOLOROW, ROZMIAR_TYTULU_WYKRESU, GRUBOSC_TYTULU_WYKRESU, ROZMIAR_TYTULU_DASHBOARDU,
     BADANIA_BEZ_DPR, KOLOR_BRAK_DPR, KOLOR_LINII_PARETO, KOLOR_PROGU_PARETO
 )
-from agregacje import policz_kategorie_onkologiczne, policz_wg_grupy_wiekowej, policz_wg_kolumny
+
 
 def kolory_cyklicznie(n):
     return [PALETA_KOLOROW[i % len(PALETA_KOLOROW)] for i in range(n)]
 
+
 def zawin_etykiety(etykiety, szerokosc=22):
-    #Długie nazwy (np. rodzaje badań) łamane na kilka krótszych linii.
+    # Długie nazwy (np. rodzaje badań) łamane na kilka krótszych linii.
     return [textwrap.fill(str(etykieta), szerokosc) for etykieta in etykiety]
+
 
 def ustaw_tytul_panelu(ax, tekst):
     ax.set_title(tekst, fontsize=ROZMIAR_TYTULU_WYKRESU, fontweight=GRUBOSC_TYTULU_WYKRESU)
+
 
 # ==========================================
 # POJEDYNCZE PANELE DASHBOARDU "PACJENCI Z PRZEKROCZONĄ DAWKĄ"
 # ==========================================
 
 def narysuj_liczbe_faz(ax, pacjenci):
-    #Rysuje słupkowy rozkład liczby faz badania.
+    # Rysuje słupkowy rozkład liczby faz badania.
     counts = policz_wg_kolumny(pacjenci, "liczba_faz", sortuj_wg_indeksu=True)
     etykiety = counts.index.astype(str)
 
@@ -34,8 +40,9 @@ def narysuj_liczbe_faz(ax, pacjenci):
     ax.set_ylabel("Liczba pacjentów")
     ax.yaxis.set_major_locator(MaxNLocator(integer=True))
 
+
 def narysuj_protokol_onkologiczny(ax, pacjenci):
-    #Kołowy rozkład protokołu onkologicznego (tak/nie/nie dotyczy); nazwy w legendzie z boku.
+    # Kołowy rozkład protokołu onkologicznego (tak/nie/nie dotyczy); nazwy w legendzie z boku.
     counts = policz_kategorie_onkologiczne(pacjenci["protokol_onkologiczny_jamy_brzusznej"])
     procenty = counts / counts.sum() * 100
 
@@ -43,9 +50,9 @@ def narysuj_protokol_onkologiczny(ax, pacjenci):
         counts.values,
         colors=kolory_cyklicznie(len(counts)),
         startangle=90,
-        counterclock=False,                      # wycinki zgodnie z ruchem wskazówek zegara
-        radius=1.4,                             # większe koło
-        autopct=lambda p: f"{p:.0f}%" if p >= 8 else "",   # małe wycinki – procent tylko w legendzie
+        counterclock=False,  # wycinki zgodnie z ruchem wskazówek zegara
+        radius=1.4,  # większe koło
+        autopct=lambda p: f"{p:.0f}%" if p >= 8 else "",  # małe wycinki – procent tylko w legendzie
         pctdistance=0.72,
         textprops={"color": "white", "fontsize": 10, "fontweight": "bold"},
     )
@@ -57,8 +64,9 @@ def narysuj_protokol_onkologiczny(ax, pacjenci):
     )
     ustaw_tytul_panelu(ax, "Protokół onkologiczny")
 
+
 def narysuj_rodzaj_badania(ax, pacjenci):
-    #Rysuje poziomy słupkowy rozkład rodzajów badania.
+    # Rysuje poziomy słupkowy rozkład rodzajów badania.
     counts = policz_wg_kolumny(pacjenci, "rodzaj_badania_tk").sort_values()
 
     ax.barh(counts.index, counts.values, color=kolory_cyklicznie(len(counts)))
@@ -68,9 +76,8 @@ def narysuj_rodzaj_badania(ax, pacjenci):
     ax.tick_params(axis="y", labelsize=7)
 
 
-
 def narysuj_wiek(ax, pacjenci):
-    #Rysuje liczbę pacjentów w grupach wiekowych (te same grupy co w widoku wieku).
+    # Rysuje liczbę pacjentów w grupach wiekowych (te same grupy co w widoku wieku).
     counts = policz_wg_grupy_wiekowej(pacjenci)
 
     ax.bar(counts.index, counts.values, color=PALETA_KOLOROW[0])
@@ -81,9 +88,8 @@ def narysuj_wiek(ax, pacjenci):
     plt.setp(ax.get_xticklabels(), rotation=30, ha="right", fontsize=8)
 
 
-
 def zbuduj_dashboard_przekroczenia(pacjenci):
-    #Składa figurę 2x2 z czterema panelami dla pacjentów z przekroczoną dawką.
+    # Składa figurę 2x2 z czterema panelami dla pacjentów z przekroczoną dawką.
     fig, ((ax_fazy, ax_onko), (ax_badanie, ax_wiek)) = plt.subplots(2, 2, figsize=(11.5, 6.2))
     fig.suptitle(
         "Dashboard – pacjenci z przekroczoną dawką",
@@ -99,13 +105,15 @@ def zbuduj_dashboard_przekroczenia(pacjenci):
     # Stały układ "tight" z miejscem na tytuł u góry (rect) – przeliczany przy zmianie rozmiaru
     fig.set_layout_engine("tight", rect=(0, 0, 1, 0.94))
     return fig
+
+
 # ==========================================
 # PROSTY WYKRES LICZEBNOŚCI (wg badania / wieku / płci)
 # ==========================================
 
 
 def zbuduj_wykres_liczebnosci(counts, tytul, kolory=None, legenda=None):
-    #legenda – opcjonalna lista par (kolor, opis) pokazana w prawym górnym rogu.
+    # legenda – opcjonalna lista par (kolor, opis) pokazana w prawym górnym rogu.
     fig, ax = plt.subplots(figsize=(10, 6))
 
     kolory = kolory or kolory_cyklicznie(len(counts))
@@ -126,12 +134,13 @@ def zbuduj_wykres_liczebnosci(counts, tytul, kolory=None, legenda=None):
 
 
 def kolory_rodzajow_badan(nazwy_badan):
-    #Badania z DPR – niebieskie, badania bez DPR w przepisach – szare; zwraca (kolory, legenda).
+    # Badania z DPR – niebieskie, badania bez DPR w przepisach – szare; zwraca (kolory, legenda).
     kolory = [KOLOR_BRAK_DPR if nazwa in BADANIA_BEZ_DPR else PALETA_KOLOROW[0]
               for nazwa in nazwy_badan]
     legenda = [(PALETA_KOLOROW[0], "badanie z DPR w przepisach"),
                (KOLOR_BRAK_DPR, "brak DPR w przepisach")]
     return kolory, legenda
+
 
 def zbuduj_wykres_kolowy_liczebnosci(counts, tytul, kolory=None):
     fig, ax = plt.subplots(figsize=(8, 6))
@@ -142,8 +151,9 @@ def zbuduj_wykres_kolowy_liczebnosci(counts, tytul, kolory=None):
     plt.tight_layout()
     return fig
 
+
 def zbuduj_wykres_pareto(counts, tytul="Pareto przyczyn przekroczeń"):
-    #Słupki liczebności klasyfikacji + linia skumulowanego procentu (zasada Pareto)."""
+    # Słupki liczebności klasyfikacji + linia skumulowanego procentu (zasada Pareto)."""
     skumulowany_procent = counts.cumsum() / counts.sum() * 100
 
     fig, ax1 = plt.subplots(figsize=(11, 6.5))

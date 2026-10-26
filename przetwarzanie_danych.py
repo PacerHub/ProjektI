@@ -1,13 +1,22 @@
-#Wczytywanie danych oraz transformacje analityczne na poziomie pojedynczego pacjenta.
+# Wczytywanie danych oraz transformacje analityczne na poziomie pojedynczego pacjenta.
 
 import pandas as pd
+
 from stale import (
     EXAM_REGION, PROG_WYSOKIEGO_DLP_FAZY, GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH,
-    ZAKRES_WIEKU, ZAKRES_BMI, ZAKRES_LICZBY_FAZ, KLUCZE_CZYNNIKOW, BADANIA_BEZ_DPR, WIEK_PEDIATRYCZNY, PROGI_BMI, PROG_NADWAGI, ETYKIETA_BMI_PEDIATRYCZNY, KATEGORIE_BMI,ETYKIETY_KLASYFIKACJI, KLASYFIKACJA_BRAK_CZYNNIKA, KLASYFIKACJA_KILKA_CZYNNIKOW, WARTOSC_WSZYSTKIE, KLUCZ_BRAK_CZYNNIKA
+    ZAKRES_WIEKU, ZAKRES_BMI, ZAKRES_LICZBY_FAZ, KLUCZE_CZYNNIKOW, BADANIA_BEZ_DPR, WIEK_PEDIATRYCZNY, PROGI_BMI,
+    PROG_NADWAGI, ETYKIETA_BMI_PEDIATRYCZNY, KATEGORIE_BMI, ETYKIETY_KLASYFIKACJI, KLASYFIKACJA_BRAK_CZYNNIKA,
+    KLASYFIKACJA_KILKA_CZYNNIKOW, WARTOSC_WSZYSTKIE, KLUCZ_BRAK_CZYNNIKA
 )
 
+
+def wczytaj_dane(sciezka):
+    # Wczytuje plik CSV z danymi pacjentów do DataFrame.
+    return pd.read_csv(sciezka)
+
+
 def oznacz_podejrzane_dane(dane):
-    #Oznaczanie wierszy z brakami lub wartościami spoza sensownego zakresu, BEZ usuwania ich.
+    # Oznaczanie wierszy z brakami lub wartościami spoza sensownego zakresu, BEZ usuwania ich.
     dane = dane.copy()
     dane["podejrzany_wiersz"] = False
     dane["powod_podejrzenia"] = ""
@@ -32,7 +41,8 @@ def oznacz_podejrzane_dane(dane):
         if pd.notna(wiersz["bmi"]) and not (ZAKRES_BMI[0] <= wiersz["bmi"] <= ZAKRES_BMI[1]):
             powody.append(f"BMI poza zakresem {ZAKRES_BMI}")
 
-        if pd.notna(wiersz["liczba_faz"]) and not (ZAKRES_LICZBY_FAZ[0] <= wiersz["liczba_faz"] <= ZAKRES_LICZBY_FAZ[1]):
+        if pd.notna(wiersz["liczba_faz"]) and not (
+                ZAKRES_LICZBY_FAZ[0] <= wiersz["liczba_faz"] <= ZAKRES_LICZBY_FAZ[1]):
             powody.append(f"liczba faz poza zakresem {ZAKRES_LICZBY_FAZ}")
 
         if pd.notna(wiersz["dlp_referencyjny_na_faze_mGy_cm"]) and wiersz["dlp_referencyjny_na_faze_mGy_cm"] <= 0:
@@ -47,32 +57,17 @@ def oznacz_podejrzane_dane(dane):
 
     return dane
 
-def filtruj_bezpieczne(dane):
-#Zwraca tylko wiersze BEZ oznaczenia 'podejrzany' - do wykresów zbiorczych/agregacji
-    if "podejrzany_wiersz" not in dane.columns:
-        return dane
-    return dane[~dane["podejrzany_wiersz"]]
-
-def wczytaj_dane(sciezka):
-#Wczytuje plik CSV z danymi pacjentów do DataFrame.
-    return pd.read_csv(sciezka)
-
 
 def oznacz_przekroczenia(dane):
-#Dodaje kolumny opisujące przekroczenie DLP: flagę bool i wartość liczbową.
+    # Dodaje kolumny opisujące przekroczenie DLP: flagę bool i wartość liczbową.
     dane = dane.copy()
     dane["przekroczenie_dlp"] = (
-        dane["dlp_zmierzony_na_faze_mGy_cm"] > dane["dlp_referencyjny_na_faze_mGy_cm"]
+            dane["dlp_zmierzony_na_faze_mGy_cm"] > dane["dlp_referencyjny_na_faze_mGy_cm"]
     )
     dane["przekroczenie_o"] = (
-        dane["dlp_zmierzony_na_faze_mGy_cm"] - dane["dlp_referencyjny_na_faze_mGy_cm"]
+            dane["dlp_zmierzony_na_faze_mGy_cm"] - dane["dlp_referencyjny_na_faze_mGy_cm"]
     )
     return dane
-
-
-def filtruj_przekroczenia(dane):
-#Zwraca tylko wiersze pacjentów, u których doszło do przekroczenia DLP.
-    return dane[dane["przekroczenie_dlp"]]
 
 
 def czy_pediatryczny(wiek):
@@ -82,22 +77,9 @@ def czy_pediatryczny(wiek):
 def czy_onkologiczny(wartosc_protokolu):
     return bool(wartosc_protokolu is True or wartosc_protokolu == True)
 
-def kategoria_onkologiczna(wartosc_protokolu):
-    """'tak' / 'nie' / 'nie dotyczy' (puste pole = badanie nie dotyczy jamy brzusznej)."""
-    if pd.isna(wartosc_protokolu):
-        return "nie dotyczy"
-    return "tak" if czy_onkologiczny(wartosc_protokolu) else "nie"
 
 def czy_wielofazowy(liczba_faz):
     return int(liczba_faz) >= 2
-
-
-def oblicz_stosunek_dlp(dlp_zmierzony, dlp_referencyjny):
-    return float(dlp_zmierzony) / float(dlp_referencyjny)
-
-
-def oblicz_procent_przekroczenia(stosunek_dlp):
-    return round((stosunek_dlp - 1) * 100, 3)
 
 
 def czy_wysokie_dlp_fazy(stosunek_dlp, prog=PROG_WYSOKIEGO_DLP_FAZY):
@@ -106,6 +88,14 @@ def czy_wysokie_dlp_fazy(stosunek_dlp, prog=PROG_WYSOKIEGO_DLP_FAZY):
 
 def czy_nadwaga_lub_otylosc(jest_pediatryczny, bmi):
     return bool((not jest_pediatryczny) and bmi >= PROG_NADWAGI)
+
+
+def oblicz_stosunek_dlp(dlp_zmierzony, dlp_referencyjny):
+    return float(dlp_zmierzony) / float(dlp_referencyjny)
+
+
+def oblicz_procent_przekroczenia(stosunek_dlp):
+    return round((stosunek_dlp - 1) * 100, 3)
 
 
 def kategoria_liczby_faz(liczba_faz):
@@ -123,6 +113,21 @@ def kategoria_bmi(wiek, bmi):
         if bmi < prog:
             return kategoria
     return KATEGORIE_BMI[-1]
+
+
+def kategoria_wiekowa(wiek):
+    for gorna_granica, etykieta in zip(GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH):
+        if wiek <= gorna_granica:
+            return etykieta
+    return ETYKIETY_GRUP_WIEKOWYCH[-1]
+
+
+def kategoria_onkologiczna(wartosc_protokolu):
+    """'tak' / 'nie' / 'nie dotyczy' (puste pole = badanie nie dotyczy jamy brzusznej)."""
+    if pd.isna(wartosc_protokolu):
+        return "nie dotyczy"
+    return "tak" if czy_onkologiczny(wartosc_protokolu) else "nie"
+
 
 def ustal_okolice_anatomiczna(rodzaj_badania):
     return EXAM_REGION.get(rodzaj_badania, "nieznana")
@@ -146,6 +151,7 @@ def klasyfikuj_przyczyne(factors):
     if len(aktywne) == 1:
         return aktywne[0], aktywne
     return KLASYFIKACJA_KILKA_CZYNNIKOW, aktywne
+
 
 def analizuj_podejrzany_wiersz(wiersz):
     """Wynik dla wiersza do weryfikacji: pokazuje wszystkie dane, które da się wiarygodnie
@@ -186,8 +192,9 @@ def analizuj_podejrzany_wiersz(wiersz):
         "podejrzany": True,
     }
 
+
 def analizuj_pacjenta(wiersz):
-#Łączy powyższe pojedyncze transformacje w pełny wynik analizy dla jednego wiersza danych
+    # Łączy powyższe pojedyncze transformacje w pełny wynik analizy dla jednego wiersza danych
     if wiersz.get("podejrzany_wiersz", False):
         return analizuj_podejrzany_wiersz(wiersz)
 
@@ -215,34 +222,8 @@ def analizuj_pacjenta(wiersz):
         "factors": factors,
         "podejrzany": False,
     }
-def kategoria_wiekowa(wiek):
-    for gorna_granica, etykieta in zip(GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH):
-        if wiek <= gorna_granica:
-            return etykieta
-    return ETYKIETY_GRUP_WIEKOWYCH[-1]
-
-def filtruj_wg_plci(pacjenci, wybor):
-    """Zwraca podzbiór pacjentów wg wyboru filtra: 'wszystkie' | 'kobiety' | 'mezczyzni'."""
-    if wybor == "kobiety":
-        return pacjenci[pacjenci["plec"] == "K"]
-    if wybor == "mezczyzni":
-        return pacjenci[pacjenci["plec"] == "M"]
-    return pacjenci
 
 
-def filtruj_wg_kategorii_bmi(pacjenci, wybor):
-    """Zwraca podzbiór pacjentów wg wybranej kategorii BMI (lub wszystkich przy 'wszyscy')."""
-    if wybor == WARTOSC_WSZYSTKIE or len(pacjenci) == 0:
-        return pacjenci
-    kategorie = pacjenci.apply(lambda w: kategoria_bmi(w["wiek"], w["bmi"]), axis=1)
-    return pacjenci[kategorie == wybor]
-
-def filtruj_pacjentow_dashboardu(dane, plec="wszyscy", bmi=WARTOSC_WSZYSTKIE):
-    """Zwraca pacjentów z przekroczoną dawką po zastosowaniu wszystkich filtrów dashboardu."""
-    pacjenci = filtruj_przekroczenia(filtruj_bezpieczne(dane))
-    pacjenci = filtruj_wg_plci(pacjenci, plec)
-    pacjenci = filtruj_wg_kategorii_bmi(pacjenci, bmi)
-    return pacjenci
 def zbuduj_rekordy_przyczyn(pacjenci):
     """Wynik analizy każdego pacjenta + dane potrzebne w tabeli filtra (wiek, płeć, badanie, grupa wiekowa)."""
     rekordy = []
@@ -260,6 +241,44 @@ def zbuduj_rekordy_przyczyn(pacjenci):
             "dlp": wiersz["dlp_zmierzony_na_faze_mGy_cm"],
         })
     return rekordy
+
+
+def filtruj_bezpieczne(dane):
+    # Zwraca tylko wiersze BEZ oznaczenia 'podejrzany' - do wykresów zbiorczych/agregacji
+    if "podejrzany_wiersz" not in dane.columns:
+        return dane
+    return dane[~dane["podejrzany_wiersz"]]
+
+
+def filtruj_przekroczenia(dane):
+    # Zwraca tylko wiersze pacjentów, u których doszło do przekroczenia DLP.
+    return dane[dane["przekroczenie_dlp"]]
+
+
+def filtruj_wg_plci(pacjenci, wybor):
+    """Zwraca podzbiór pacjentów wg wyboru filtra: 'wszystkie' | 'kobiety' | 'mezczyzni'."""
+    if wybor == "kobiety":
+        return pacjenci[pacjenci["plec"] == "K"]
+    if wybor == "mezczyzni":
+        return pacjenci[pacjenci["plec"] == "M"]
+    return pacjenci
+
+
+def filtruj_wg_kategorii_bmi(pacjenci, wybor):
+    """Zwraca podzbiór pacjentów wg wybranej kategorii BMI (lub wszystkich przy 'wszyscy')."""
+    if wybor == WARTOSC_WSZYSTKIE or len(pacjenci) == 0:
+        return pacjenci
+    kategorie = pacjenci.apply(lambda w: kategoria_bmi(w["wiek"], w["bmi"]), axis=1)
+    return pacjenci[kategorie == wybor]
+
+
+def filtruj_pacjentow_dashboardu(dane, plec="wszyscy", bmi=WARTOSC_WSZYSTKIE):
+    """Zwraca pacjentów z przekroczoną dawką po zastosowaniu wszystkich filtrów dashboardu."""
+    pacjenci = filtruj_przekroczenia(filtruj_bezpieczne(dane))
+    pacjenci = filtruj_wg_plci(pacjenci, plec)
+    pacjenci = filtruj_wg_kategorii_bmi(pacjenci, bmi)
+    return pacjenci
+
 
 def filtruj_przyczyny(rekordy, czynniki, okolica=WARTOSC_WSZYSTKIE,
                       grupa_wiekowa=WARTOSC_WSZYSTKIE, min_procent=0, pokaz_podejrzane=True):
@@ -297,6 +316,7 @@ def filtruj_przyczyny(rekordy, czynniki, okolica=WARTOSC_WSZYSTKIE,
     # False < True, więc najpierw zwykłe wiersze (malejąco po %), na końcu podejrzane
     wybrane.sort(key=lambda r: (r["podejrzany"], -(r["procent_przekroczenia"] or 0)))
     return wybrane
+
 
 def filtruj_do_analizy_przyczyn(dane):
     """Pacjenci z przekroczeniem + wiersze do weryfikacji (te mogą nie mieć DLP, więc nie są 'przekroczeniem')."""

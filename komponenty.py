@@ -2,34 +2,38 @@
 
 import tkinter as tk
 import tkinter.font as tkfont
+from tkinter import ttk
+
 import matplotlib.pyplot as plt
+
+from agregacje import policz_aktywne_czynniki
 from stale import (
     CZCIONKA, KOLOR_NAGLOWKOW_TABELI, KOLOR_NAGLOWKOW_TABELI_HOVER, KOLOR_TEKSTU_NAGLOWKOW_TABELI,
     KATEGORIE_BMI, KOLOR_TLA_WNIOSKOW, KOLOR_AKCENTU_WNIOSKOW, KOLOR_TEKSTU_WNIOSKOW,
     KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW, KLUCZ_BRAK_CZYNNIKA, ETYKIETA_BRAKU_CZYNNIKA,
     WARTOSC_WSZYSTKIE, KOLOR_TLA_DYMKA
 )
-from tkinter import ttk
-from agregacje import policz_aktywne_czynniki
+
 
 def umiesc_dymek(okno, x_root, y_root, odstep=12):
     """Ustawia dymek obok kursora tak, żeby nie wychodził poza ekran."""
-    okno.update_idletasks()                      # Tk liczy rozmiar dymka po spakowaniu etykiety
+    okno.update_idletasks()  # Tk liczy rozmiar dymka po spakowaniu etykiety
     szer, wys = okno.winfo_reqwidth(), okno.winfo_reqheight()
     ekran_szer, ekran_wys = okno.winfo_screenwidth(), okno.winfo_screenheight()
 
     x = x_root + odstep
     y = y_root + odstep
-    if x + szer > ekran_szer:                    # gdy tooltip nie mieści się z prawej -> na lewo od kursora
+    if x + szer > ekran_szer:  # gdy tooltip nie mieści się z prawej -> na lewo od kursora
         x = x_root - szer - odstep
-    if y + wys > ekran_wys:                      # tooltip nie mieści się na dole -> nad kursorem
+    if y + wys > ekran_wys:  # tooltip nie mieści się na dole -> nad kursorem
         y = y_root - wys - odstep
 
     okno.geometry(f"+{max(x, 0)}+{max(y, 0)}")
-    okno.deiconify()                             # pokaż dopiero po ustawieniu pozycji
+    okno.deiconify()  # pokaż dopiero po ustawieniu pozycji
+
 
 class Tooltip:
-#Dymek podpowiedzi pokazywany po dłuższym najechaniu na wybraną kolumnę Treeview.
+    # Dymek podpowiedzi pokazywany po dłuższym najechaniu na wybraną kolumnę Treeview.
 
     def __init__(self, tabela, kolumna_docelowa, pobierz_tekst, opoznienie_ms=400):
         self.tabela = tabela
@@ -58,7 +62,6 @@ class Tooltip:
             lambda: self._pokaz(wiersz_id, event.x_root, event.y_root)
         )
 
-
     def _pokaz(self, wiersz_id, x_root, y_root):
         tekst = self.pobierz_tekst(wiersz_id)
         self.okno = tk.Toplevel(self.tabela)
@@ -67,7 +70,7 @@ class Tooltip:
         tk.Label(
             self.okno, text=tekst, justify="left", padx=10, pady=8,
             relief="solid", wraplength=350, borderwidth=1,
-            ).pack()
+        ).pack()
         umiesc_dymek(self.okno, x_root, y_root, odstep=10)
 
     def _ukryj(self, event=None):
@@ -81,21 +84,22 @@ class Tooltip:
             self.tabela.after_cancel(self.zaplanowane_zadanie)
             self.zaplanowane_zadanie = None
 
+
 class TooltipTabeli:
     """Dymek z pełną treścią komórki lub nagłówka Treeview – tylko gdy tekst jest ucięty.
     Nagłówki z opisem w opisy_naglowkow pokazują ten opis zawsze."""
 
-    MARGINES_KOMORKI = 12   # px zapasu na wewnętrzny odstęp komórki
+    MARGINES_KOMORKI = 12  # px zapasu na wewnętrzny odstęp komórki
     MARGINES_NAGLOWKA = 16  # nagłówek ma większy padding (5, 10)
 
     def __init__(self, tabela, pomin_kolumny=(), opoznienie_ms=500, opisy_naglowkow=None):
         self.tabela = tabela
-        self.pomin_kolumny = set(pomin_kolumny)       # np. {"#10"} – kolumny z własnym tooltipem
+        self.pomin_kolumny = set(pomin_kolumny)  # np. {"#10"} – kolumny z własnym tooltipem
         self.opisy_naglowkow = opisy_naglowkow or {}  # klucz kolumny -> opis pokazywany na nagłówku
         self.opoznienie_ms = opoznienie_ms
         self.okno = None
         self.zadanie = None
-        self.pozycja = None   # (region, wiersz, kolumna) pod kursorem
+        self.pozycja = None  # (region, wiersz, kolumna) pod kursorem
 
         # add="+" – dokładamy obsługę, nie kasując bindów innych tooltipów
         tabela.bind("<Motion>", self._ruch, add="+")
@@ -159,14 +163,14 @@ class TooltipTabeli:
         self.zadanie = None
         opis = self._opis_naglowka(region, kolumna)
         if opis:
-            tekst = opis                     # nagłówek z opisem – dymek zawsze
+            tekst = opis  # nagłówek z opisem – dymek zawsze
         else:
             tekst, uciety = self._tekst_i_czy_uciety(region, wiersz, kolumna)
             if not uciety:
-                return                       # tekst mieści się – dymek niepotrzebny
+                return  # tekst mieści się – dymek niepotrzebny
 
         self.okno = tk.Toplevel(self.tabela)
-        self.okno.withdraw()                 # ukryty, dopóki nie znamy pozycji
+        self.okno.withdraw()  # ukryty, dopóki nie znamy pozycji
         self.okno.wm_overrideredirect(True)
         tk.Label(
             self.okno, text=tekst, justify="left", padx=8, pady=5,
@@ -193,7 +197,8 @@ class TooltipTabeli:
 
     def _ukryj(self, event=None):
         self._schowaj_okno()
-        self.pozycja = None   # po powrocie na tę samą komórkę dymek pokaże się znowu
+        self.pozycja = None  # po powrocie na tę samą komórkę dymek pokaże się znowu
+
 
 def zbuduj_tabele(parent, kolumny, naglowki, szerokosci, kotwice=None):
     # Tworzenie Treeview ze scrollbarami (pionowym i poziomym) i zwracanie gotowego widgetu
@@ -219,8 +224,9 @@ def zbuduj_tabele(parent, kolumny, naglowki, szerokosci, kotwice=None):
 
     return tabela
 
+
 def zbuduj_panel_podsumowania(parent, wyniki, klucze_czynnikow, etykiety_czynnikow):
-#Tworzenie poziomego paska 'kart', po jednej na czynnik, z liczbą aktywnych pacjentów
+    # Tworzenie poziomego paska 'kart', po jednej na czynnik, z liczbą aktywnych pacjentów
     panel = tk.Frame(parent)
     panel.pack(fill="x", padx=10, pady=(5, 10))
 
@@ -247,6 +253,7 @@ def zbuduj_panel_podsumowania(parent, wyniki, klucze_czynnikow, etykiety_czynnik
         ).pack()
     return panel
 
+
 def ustaw_czcionke_aplikacji(root, rozmiar=10, rozmiar_przyciskow=9, rozmiar_tabeli=10):
     # Wszystkie wbudowane czcionki Tk – przyciski, etykiety, tabele, nagłówki, menu, pola tekstowe
     for nazwa in ("TkDefaultFont", "TkTextFont", "TkHeadingFont", "TkMenuFont",
@@ -262,7 +269,7 @@ def ustaw_czcionke_aplikacji(root, rozmiar=10, rozmiar_przyciskow=9, rozmiar_tab
     style.theme_use("clam")
     style.configure("TButton", font=(CZCIONKA, rozmiar_przyciskow))  # ttk.Button
     root.option_add("*Button.font", f"{{{CZCIONKA}}} {rozmiar_przyciskow}")  # tk.Button
-    root.option_add("*Menubutton.font", f"{{{CZCIONKA}}} {rozmiar_przyciskow}") #przycisk do listy
+    root.option_add("*Menubutton.font", f"{{{CZCIONKA}}} {rozmiar_przyciskow}")  # przycisk do listy
 
     # Mniejsza czcionka w tabelach
     style.configure("Treeview", font=(CZCIONKA, rozmiar_tabeli),
@@ -275,6 +282,7 @@ def ustaw_czcionke_aplikacji(root, rozmiar=10, rozmiar_przyciskow=9, rozmiar_tab
     style.map("Treeview.Heading",
               background=[("active", KOLOR_NAGLOWKOW_TABELI_HOVER)])
 
+
 def zbuduj_przycisk_rozwijany(rodzic, tekst, opcje, po_wyborze):
     """Przycisk, który po kliknięciu rozwija listę widoków."""
     przycisk = tk.Menubutton(rodzic, text=f"{tekst} ▾", relief="raised",
@@ -285,6 +293,7 @@ def zbuduj_przycisk_rozwijany(rodzic, tekst, opcje, po_wyborze):
                          command=lambda n=nazwa_widoku: po_wyborze(n))
     przycisk["menu"] = menu
     return przycisk
+
 
 def zbuduj_panel_wnioskow(parent, tekst, side="top", pady=(5, 10)):
     """Wyróżniony panel z automatycznie wygenerowanymi wnioskami.
@@ -350,8 +359,10 @@ def zbuduj_filtr_kategorii_bmi(parent, zmienna):
         ).pack(side="left", padx=5)
 
     return panel
+
+
 def zbuduj_panel_filtrow(parent, zmienne, okolice, grupy_wiekowe, po_wyczyszczeniu):
-    """Panel filtrów widoku 'Filtr przyczyn przekroczeń'.
+    """Panel filtrów widoku 'Analiza przyczyn przekroczeń'.
 
     zmienne – słownik zmiennych Tk: 'czynniki' (słownik klucz -> BooleanVar), 'okolica',
     'grupa_wiekowa', 'min_procent' (StringVar) i 'podejrzane' (BooleanVar).

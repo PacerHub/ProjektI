@@ -1,24 +1,25 @@
-#Tutaj składane są okna z gotowych klocków (`przetwarzanie_danych`, `widoki`) i obsługa
-#kliknięć przycisków.
+# Tutaj składane są okna z gotowych klocków (`przetwarzanie_danych`, `widoki`) i obsługa
+# kliknięć przycisków.
 
-import tkinter as tk
-import sys
 import ctypes
+import sys
+import tkinter as tk
 
-
-from stale import (RODZAJE_WIDOKOW, WIDOKI_LICZEBNOSCI, SCIEZKA_DANYCH, CZCIONKA, KOLOR_NAGLOWKA, KOLOR_TEKSTU_NAGLOWKA, WIDOKI_LICZBA_PACJENTOW, ZRODLO_DPR_KROTKO, KOLOR_TEKSTU_STOPKI)
+from komponenty import ustaw_czcionke_aplikacji, zbuduj_przycisk_rozwijany
 from przetwarzanie_danych import wczytaj_dane, oznacz_przekroczenia, oznacz_podejrzane_dane
+from stale import (RODZAJE_WIDOKOW, WIDOKI_LICZEBNOSCI, SCIEZKA_DANYCH, CZCIONKA, KOLOR_NAGLOWKA, KOLOR_TEKSTU_NAGLOWKA,
+                   WIDOKI_LICZBA_PACJENTOW, ZRODLO_DPR_KROTKO, KOLOR_TEKSTU_STOPKI)
 from widoki import (
     pokaz_liczebnosc_wg_kolumny,
     pokaz_liczbe_pacjentow_wg_wieku,
     pokaz_dashboard_przekroczenia,
     pokaz_analize_przyczyn,
     pokaz_pareto_przyczyn,
-    )
-from komponenty import ustaw_czcionke_aplikacji, zbuduj_przycisk_rozwijany
+)
+
 
 def wyostrz_wyswietlanie():
-    #Windows: ostre czcionki i wykresy przy skalowaniu ekranu 125%/150%. Musi być PRZED tk.Tk().
+    # Windows: ostre czcionki i wykresy przy skalowaniu ekranu 125%/150%. Musi być PRZED tk.Tk().
     if sys.platform != "win32":
         return
     try:
@@ -31,7 +32,7 @@ def wyostrz_wyswietlanie():
 
 
 def obszar_roboczy(okno):
-    #Zwraca (x, y, szerokość, wysokość) obszaru ekranu BEZ paska zadań.
+    # Zwraca (x, y, szerokość, wysokość) obszaru ekranu BEZ paska zadań.
     if sys.platform == "win32":
         from ctypes import wintypes
         prostokat = wintypes.RECT()
@@ -42,8 +43,9 @@ def obszar_roboczy(okno):
     # Inne systemy albo niepowodzenie – cały ekran
     return 0, 0, okno.winfo_screenwidth(), okno.winfo_screenheight()
 
+
 def zbuduj_okno():
-    #Tworzenie i konfiguracja głównego okna aplikacji
+    # Tworzenie i konfiguracja głównego okna aplikacji
     wyostrz_wyswietlanie()  # musi być wywołane przed tk.Tk()
 
     okno = tk.Tk()
@@ -53,10 +55,10 @@ def zbuduj_okno():
 
     x0, y0, szer_ob, wys_ob = obszar_roboczy(okno)
 
-    szer = min(1400, szer_ob - 20)   # preferowana szerokość, ale nie większa niż obszar roboczy
-    wys = min(850, wys_ob - 60)      # ~60 px zapasu na belkę tytułową i ramkę okna
-    x = x0 + (szer_ob - szer) // 2                  # wyśrodkowanie w poziomie
-    y = y0 + max((wys_ob - wys - 40) // 2, 0)       # i w pionie (40 px na belkę tytułową)
+    szer = min(1400, szer_ob - 20)  # preferowana szerokość, ale nie większa niż obszar roboczy
+    wys = min(850, wys_ob - 60)  # ~60 px zapasu na belkę tytułową i ramkę okna
+    x = x0 + (szer_ob - szer) // 2  # wyśrodkowanie w poziomie
+    y = y0 + max((wys_ob - wys - 40) // 2, 0)  # i w pionie (40 px na belkę tytułową)
 
     okno.geometry(f"{szer}x{wys}+{x}+{y}")
     okno.minsize(min(1100, szer), min(700, wys))
@@ -72,18 +74,21 @@ def dodaj_naglowek(okno):
              font=(CZCIONKA, 15),
              bg=KOLOR_NAGLOWKA, fg=KOLOR_TEKSTU_NAGLOWKA).pack(pady=5)
 
+
 def dodaj_stopke(okno):
     # Źródło wartości referencyjnych widoczne na dole okna we wszystkich widokach
     tk.Label(okno, text=f"Źródło DPR: {ZRODLO_DPR_KROTKO}",
              font=(CZCIONKA, 9), fg=KOLOR_TEKSTU_STOPKI, anchor="w").pack(side="bottom", fill="x", padx=10, pady=(0, 4))
 
+
 def wyczysc_kontener(kontener):
-#Usuwanie wszystkich widgetów z kontenera przed narysowaniem nowego widoku.
+    # Usuwanie wszystkich widgetów z kontenera przed narysowaniem nowego widoku.
     for widget in kontener.winfo_children():
         widget.destroy()
 
+
 def wybierz_widok(wybrany, dane, kontener):
-#Deleguje rysowanie do właściwej funkcji widoku na podstawie nazwy przycisku
+    # Deleguje rysowanie do właściwej funkcji widoku na podstawie nazwy przycisku
     if wybrany in WIDOKI_LICZEBNOSCI:
         ustawienia = WIDOKI_LICZEBNOSCI[wybrany]
         pokaz_liczebnosc_wg_kolumny(
@@ -94,7 +99,7 @@ def wybierz_widok(wybrany, dane, kontener):
             ustawienia["sortuj_wg_indeksu"],
             ustawienia["typ_wykresu"],
             ustawienia["kolory"],
-                    )
+        )
     elif wybrany == "Liczba pacjentów wg wieku":
         pokaz_liczbe_pacjentow_wg_wieku(kontener, dane)
     elif wybrany == "Pacjenci z przekroczoną dawką":
@@ -103,6 +108,7 @@ def wybierz_widok(wybrany, dane, kontener):
         pokaz_analize_przyczyn(kontener, dane)
     elif wybrany == "Pareto przyczyn przekroczeń":
         pokaz_pareto_przyczyn(kontener, dane)
+
 
 def dodaj_panel_przyciskow(okno, dane, kontener):
     # Tworzenie paska przycisków przełączających widoki i zwracanie funkcji obsługującej kliknięcia
@@ -139,8 +145,9 @@ def dodaj_panel_przyciskow(okno, dane, kontener):
 
     return obsluz_klikniecie
 
+
 def main():
-#Uruchamia aplikację: wczytuje dane, buduje okno i startuje pętlę zdarzeń
+    # Uruchamia aplikację: wczytuje dane, buduje okno i startuje pętlę zdarzeń
     dane = oznacz_podejrzane_dane(wczytaj_dane(SCIEZKA_DANYCH))
     dane = oznacz_przekroczenia(dane)
 
@@ -148,12 +155,11 @@ def main():
     dodaj_naglowek(okno)
     dodaj_stopke(okno)
 
-
     kontener = tk.Frame(okno)
 
     obsluz_klikniecie = dodaj_panel_przyciskow(okno, dane, kontener)
 
-# kontener ma za zadanie trzymać przydzielony rozmiar
+    # kontener ma za zadanie trzymać przydzielony rozmiar
     kontener.pack_propagate(False)
     kontener.pack(fill="both", expand=True)
 

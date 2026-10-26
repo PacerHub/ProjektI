@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Poprawki w agregacje.py: przeniesienie funkcji etykieta_czynnika nad wygeneruj_wnioski_pareto, która jej używa.&#10;W wygeneruj_wnioski_analizy zmienna lokalna etykieta_czynnika zasłaniała funkcję o tej samej nazwie, dlatego zmiana jej nazwy na nazwa_czynnika (linia z .replace(&quot;\n&quot;, &quot; &quot;) oraz {etykieta_czynnika} w f-stringu).">
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Poukładanie stałych w sekcje w poniższej kolejności:&#10;1. Dane i przepisy&#10;2. Progi i zakresy&#10;3. Kategorie, czynniki i klasyfikacje&#10;4. Wygląd: czcionki i kolory&#10;5. Widoki&#10;6. Filtry i tabela analizy przyczyn&#10;7. Teksty tooltipów">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/agregacje.py" beforeDir="false" afterPath="$PROJECT_DIR$/agregacje.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/komponenty.py" beforeDir="false" afterPath="$PROJECT_DIR$/komponenty.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/przetwarzanie_danych.py" beforeDir="false" afterPath="$PROJECT_DIR$/przetwarzanie_danych.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/stale.py" beforeDir="false" afterPath="$PROJECT_DIR$/stale.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uruchom.py" beforeDir="false" afterPath="$PROJECT_DIR$/uruchom.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/widoki.py" beforeDir="false" afterPath="$PROJECT_DIR$/widoki.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wykresy.py" beforeDir="false" afterPath="$PROJECT_DIR$/wykresy.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,14 +103,6 @@
       <workItem from="1790780490315" duration="5722000" />
       <workItem from="1791136745207" duration="808000" />
       <workItem from="1791214082108" duration="9000" />
-    </task>
-    <task id="LOCAL-00117" summary="Wyśrodkowanie okna w obszarze roboczym ekranu i włączenie obsługi DPI- obszar_roboczy() pobiera przez SystemParametersInfoW obszar ekranu bez paska zadań. SetProcessDpiAwareness(1) usuwa rozmycie przy skalowaniu Windows 125%/150%. Okno ma rozmiar startowy dopasowany do ekranu i można je powiększać (usunięty maxsize).">
-      <option name="closed" value="true" />
-      <created>1792519142470</created>
-      <option name="number" value="00117" />
-      <option name="presentableId" value="LOCAL-00117" />
-      <option name="project" value="LOCAL" />
-      <updated>1792519142470</updated>
     </task>
     <task id="LOCAL-00118" summary="Dodanie do listy RODZAJE_WIDOKOW nowego widoku - filtr przyczyn przekroczeń i dopisku na końcu pliku dotyczącego tego filtra.">
       <option name="closed" value="true" />
@@ -490,7 +488,15 @@
       <option name="project" value="LOCAL" />
       <updated>1793008446811</updated>
     </task>
-    <option name="localTasksCounter" value="166" />
+    <task id="LOCAL-00166" summary="Poukładanie stałych w sekcje w poniższej kolejności:&#10;1. Dane i przepisy&#10;2. Progi i zakresy&#10;3. Kategorie, czynniki i klasyfikacje&#10;4. Wygląd: czcionki i kolory&#10;5. Widoki&#10;6. Filtry i tabela analizy przyczyn&#10;7. Teksty tooltipów">
+      <option name="closed" value="true" />
+      <created>1793009439204</created>
+      <option name="number" value="00166" />
+      <option name="presentableId" value="LOCAL-00166" />
+      <option name="project" value="LOCAL" />
+      <updated>1793009439204</updated>
+    </task>
+    <option name="localTasksCounter" value="167" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -520,7 +526,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Zmiany w widoki.py. Refaktoryzacja widoku analizy przyczyn: klasa zamiast funkcji zagnieżdżonych&quot; -m &quot;WidokAnalizyPrzyczyn trzyma stan w atrybutach, wyczysc i odswiez są metodami. Czysta logika (parsuj_procent, tekst_licznika, rozpakuj_kolumny) wydzielona do funkcji modułu. Dodany brakujący parametr opisy_naglowkow – nagłówki DPR, DLP, Onkologiczny itd. pokazują opisy. pokaz_analize_przyczyn bez zmian w interfejsie" />
     <MESSAGE value="W diagramie kołowym dotyczącym protokołu onkologicznego procenty były obcinane, było on mały i niezbyt czytelny, dlatego powiększyłam go w dashboardzie a nazwy kategorii zostały przeniesione do legendy z liczbą i udziałem %." />
     <MESSAGE value="Ponowne zwiększenie średnicy koła w diagramie, żeby był jeszcze bardziej czytelny" />
     <MESSAGE value="Usunęłam białe obramowanie wycinków wykresu kołowego" />
@@ -545,7 +550,8 @@
     <MESSAGE value="Usunęłam z agregacje.py całą funkcję filtruj_przyczyny i wkleiłam ją na koniec przetwarzanie_danych.py. W&#10;agregacje.py: z importu ze stale usunięte KLUCZ_BRAK_CZYNNIKA, WARTOSC_WSZYSTKIE. W&#10;przetwarzanie_danych.py: w imporcie dopisany KLUCZ_BRAK_CZYNNIKA i na końcu dopisana funkcja filtruj_do_analizy_przyczyn(dane)&#10;W widoki.py: z importu from agregacje import (...) usunęłąm filtruj_przyczyny.&#10;Do importu from przetwarzanie_danych import (...) dopisane filtruj_przyczyny, filtruj_do_analizy_przyczyn.&#10;W WidokAnalizyPrzyczyn.__init__ zamiana pacjenci = dane[dane[&quot;przekroczenie_dlp&quot;] | dane[&quot;podejrzany_wiersz&quot;]] na pacjenci = filtruj_do_analizy_przyczyn(dane)." />
     <MESSAGE value="W przetwarzanie_danych.py, pod czy_onkologiczny, dopisałam funkcję kategoria_onkologiczna(wartosc_protokolu). W agregacje.py zmiana import na from przetwarzanie_danych import kategoria_wiekowa, kategoria_onkologiczna i zastąpienie funkcji policz_kategorie_onkologiczne(kolumna_onko). W widoki.py, pokaz_pareto_przyczyn: zamiana zbuduj_liste_wynikow(pacjenci) na zbuduj_rekordy_przyczyn(pacjenci) i usunięcie zbuduj_liste_wynikow z importu. W przetwarzanie_danych.py: usunięcie funkcji zbuduj_liste_wynikow. W wykresy.py dopisane do importu policz_wg_kolumny i zamienione: w narysuj_liczbe_faz: counts = policz_wg_kolumny(pacjenci, &quot;liczba_faz&quot;, sortuj_wg_indeksu=True) w narysuj_rodzaj_badania: counts = policz_wg_kolumny(pacjenci, &quot;rodzaj_badania_tk&quot;).sort_values()." />
     <MESSAGE value="Poprawki w agregacje.py: przeniesienie funkcji etykieta_czynnika nad wygeneruj_wnioski_pareto, która jej używa.&#10;W wygeneruj_wnioski_analizy zmienna lokalna etykieta_czynnika zasłaniała funkcję o tej samej nazwie, dlatego zmiana jej nazwy na nazwa_czynnika (linia z .replace(&quot;\n&quot;, &quot; &quot;) oraz {etykieta_czynnika} w f-stringu)." />
-    <option name="LAST_COMMIT_MESSAGE" value="Poprawki w agregacje.py: przeniesienie funkcji etykieta_czynnika nad wygeneruj_wnioski_pareto, która jej używa.&#10;W wygeneruj_wnioski_analizy zmienna lokalna etykieta_czynnika zasłaniała funkcję o tej samej nazwie, dlatego zmiana jej nazwy na nazwa_czynnika (linia z .replace(&quot;\n&quot;, &quot; &quot;) oraz {etykieta_czynnika} w f-stringu)." />
+    <MESSAGE value="Poukładanie stałych w sekcje w poniższej kolejności:&#10;1. Dane i przepisy&#10;2. Progi i zakresy&#10;3. Kategorie, czynniki i klasyfikacje&#10;4. Wygląd: czcionki i kolory&#10;5. Widoki&#10;6. Filtry i tabela analizy przyczyn&#10;7. Teksty tooltipów" />
+    <option name="LAST_COMMIT_MESSAGE" value="Poukładanie stałych w sekcje w poniższej kolejności:&#10;1. Dane i przepisy&#10;2. Progi i zakresy&#10;3. Kategorie, czynniki i klasyfikacje&#10;4. Wygląd: czcionki i kolory&#10;5. Widoki&#10;6. Filtry i tabela analizy przyczyn&#10;7. Teksty tooltipów" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1789659520225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

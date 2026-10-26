@@ -1,23 +1,17 @@
-#Widoki aplikacji: jedna funkcja `pokaz_*` = jeden ekran wybierany przyciskiem.
-import pandas as pd
+# Widoki aplikacji: jedna funkcja `pokaz_*` = jeden ekran wybierany przyciskiem.
 import tkinter as tk
-import matplotlib.pyplot as plt
-
 from datetime import date
-
 from tkinter import filedialog, messagebox
 
+import matplotlib.pyplot as plt
+import pandas as pd
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-
 from matplotlib.layout_engine import TightLayoutEngine
 
 from agregacje import (
     policz_wg_kolumny, policz_wg_grupy_wiekowej, policz_klasyfikacje,
     wygeneruj_wnioski_pareto, wygeneruj_wnioski_analizy, wygeneruj_wnioski_brak_dpr, przygotuj_tabele_eksportu
 )
-from stale import (
-    KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW, KLASYFIKACJA_OPISY, CZCIONKA,
-    ETYKIETY_GRUP_WIEKOWYCH, KLUCZ_BRAK_CZYNNIKA, WARTOSC_WSZYSTKIE, KOLUMNY_TABELI_PRZYCZYN, OPIS_DANYCH_DO_WERYFIKACJI, OPISY_NAGLOWKOW_PRZYCZYN, KOLOR_TLA_PRZYP_DO_WERYFIKACJI)
 from komponenty import (
     zbuduj_tabele, zbuduj_panel_podsumowania, Tooltip, TooltipTabeli, zbuduj_filtr_plci,
     zbuduj_filtr_kategorii_bmi, zbuduj_panel_wnioskow, zbuduj_panel_filtrow,
@@ -26,10 +20,15 @@ from przetwarzanie_danych import (
     filtruj_przekroczenia, filtruj_bezpieczne,
     filtruj_pacjentow_dashboardu, zbuduj_rekordy_przyczyn, filtruj_przyczyny, filtruj_do_analizy_przyczyn
 )
+from stale import (
+    KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW, KLASYFIKACJA_OPISY, CZCIONKA,
+    ETYKIETY_GRUP_WIEKOWYCH, KLUCZ_BRAK_CZYNNIKA, WARTOSC_WSZYSTKIE, KOLUMNY_TABELI_PRZYCZYN,
+    OPIS_DANYCH_DO_WERYFIKACJI, OPISY_NAGLOWKOW_PRZYCZYN, KOLOR_TLA_PRZYP_DO_WERYFIKACJI)
 from wykresy import (
     zbuduj_dashboard_przekroczenia, zbuduj_wykres_liczebnosci,
     zbuduj_wykres_kolowy_liczebnosci, zbuduj_wykres_pareto, kolory_rodzajow_badan
 )
+
 
 def osadz_wykres(parent, fig):
     # Układ "tight" przeliczany przy każdym rysowaniu – także po zmianie rozmiaru wykresu
@@ -43,6 +42,7 @@ def osadz_wykres(parent, fig):
     canvas.get_tk_widget().pack(fill="both", expand=True)
     plt.close(fig)  # zwalnia figurę z pamięci pyplot; wykres zostaje w oknie
     return canvas
+
 
 def pokaz_liczebnosc_wg_kolumny(parent, dane, kolumna, tytul, sortuj_wg_indeksu=False,
                                 typ_wykresu="slupkowy", kolory=None):
@@ -64,13 +64,15 @@ def pokaz_liczebnosc_wg_kolumny(parent, dane, kolumna, tytul, sortuj_wg_indeksu=
 
     return osadz_wykres(parent, fig)
 
+
 def pokaz_liczbe_pacjentow_wg_wieku(parent, dane):
     counts = policz_wg_grupy_wiekowej(filtruj_bezpieczne(dane))
     fig = zbuduj_wykres_liczebnosci(counts, "Liczba pacjentów wg wieku")
     return osadz_wykres(parent, fig)
 
+
 def pokaz_pareto_przyczyn(parent, dane):
-    #Widok 'Pareto przyczyn przekroczeń' - które przyczyny odpowiadają za większość przypadków.
+    # Widok 'Pareto przyczyn przekroczeń' - które przyczyny odpowiadają za większość przypadków.
     pacjenci = filtruj_przekroczenia(filtruj_bezpieczne(dane))
     wyniki = zbuduj_rekordy_przyczyn(pacjenci)
     counts = policz_klasyfikacje(wyniki)
@@ -79,6 +81,7 @@ def pokaz_pareto_przyczyn(parent, dane):
     zbuduj_panel_wnioskow(parent, wygeneruj_wnioski_pareto(counts, wyniki),
                           side="bottom", pady=(5, 20))
     return osadz_wykres(parent, fig)
+
 
 def pokaz_dashboard_przekroczenia(parent, dane):
     wybrana_plec = tk.StringVar(value=WARTOSC_WSZYSTKIE)
@@ -113,8 +116,9 @@ def pokaz_dashboard_przekroczenia(parent, dane):
     odswiez()
     return obszar_wykresu
 
+
 def wiersz_tabeli_przyczyn(rekord):
-    #Krotka wartości jednego wiersza – w kolejności KOLUMNY_TABELI_PRZYCZYN.
+    # Krotka wartości jednego wiersza – w kolejności KOLUMNY_TABELI_PRZYCZYN.
     pacjent = f"⚠ {rekord['patient_id']}" if rekord["podejrzany"] else rekord["patient_id"]
     wiek = str(int(rekord["wiek"])) if pd.notna(rekord["wiek"]) else "—"
     plec = rekord["plec"] if pd.notna(rekord["plec"]) else "—"
@@ -134,12 +138,13 @@ def wiersz_tabeli_przyczyn(rekord):
         *("✓" if rekord["factors"][klucz] else "" for klucz in KLUCZE_CZYNNIKOW),
     )
 
+
 def dodaj_tooltip_klasyfikacji(tabela, kolumna_id):
-    #Tooltip z pełną nazwą i opisem klasyfikacji przyczyny w podanej kolumnie (np. '#8').
+    # Tooltip z pełną nazwą i opisem klasyfikacji przyczyny w podanej kolumnie (np. '#8').
     def tekst_dymka(wiersz_id):
         klasyfikacja = tabela.set(wiersz_id, "klasyfikacja")
         if "podejrzany" in tabela.item(wiersz_id, "tags"):
-            opis = OPIS_DANYCH_DO_WERYFIKACJI      # wiersz ⚠ – błędne lub niepełne dane
+            opis = OPIS_DANYCH_DO_WERYFIKACJI  # wiersz ⚠ – błędne lub niepełne dane
         else:
             opis = KLASYFIKACJA_OPISY.get(klasyfikacja, "Brak dodatkowego opisu dla tej klasyfikacji.")
         return f"{klasyfikacja}\n\n{opis}"
@@ -150,7 +155,7 @@ def dodaj_tooltip_klasyfikacji(tabela, kolumna_id):
 # ---------- Funkcje pomocnicze widoku analizy przyczyn (bez Tkintera) ----------
 
 def rozpakuj_kolumny(definicje):
-    #Zamienia listę (klucz, nagłówek, szerokość, wyrównanie) na argumenty zbuduj_tabele.
+    # Zamienia listę (klucz, nagłówek, szerokość, wyrównanie) na argumenty zbuduj_tabele.
     kolumny = tuple(k for k, _, _, _ in definicje)
     naglowki = {k: n for k, n, _, _ in definicje}
     szerokosci = {k: s for k, _, s, _ in definicje}
@@ -159,7 +164,7 @@ def rozpakuj_kolumny(definicje):
 
 
 def parsuj_procent(tekst):
-    #Tekst ze Spinboxa -> liczba; puste lub błędne pole traktujemy jak 0.
+    # Tekst ze Spinboxa -> liczba; puste lub błędne pole traktujemy jak 0.
     try:
         return float(tekst.replace(",", "."))
     except ValueError:
@@ -167,7 +172,7 @@ def parsuj_procent(tekst):
 
 
 def tekst_licznika(wybrane, liczba_waznych):
-    #Opis liczby wyników nad tabelą przyczyn.
+    # Opis liczby wyników nad tabelą przyczyn.
     pokazane = sum(1 for r in wybrane if not r["podejrzany"])
     podejrzane = len(wybrane) - pokazane
     tekst = f"Wyniki: {pokazane} z {liczba_waznych} pacjentów z przekroczeniem"
@@ -236,7 +241,7 @@ class WidokAnalizyPrzyczyn:
                 z["min_procent"], z["podejrzane"]]
 
     def _aktualne_filtry(self):
-        #Odczytuje zmienne Tk i zwraca argumenty dla filtruj_przyczyny.
+        # Odczytuje zmienne Tk i zwraca argumenty dla filtruj_przyczyny.
         z = self.zmienne
         return {
             "czynniki": {k for k, zmienna in z["czynniki"].items() if zmienna.get()},
@@ -281,8 +286,9 @@ class WidokAnalizyPrzyczyn:
         self.wybrane = filtruj_przyczyny(self.rekordy, **self._aktualne_filtry())
         self._wypelnij_tabele(self.wybrane)
         self.licznik.config(text=tekst_licznika(self.wybrane, self.liczba_waznych))
+
     def eksportuj_csv(self):
-        #Zapisuje wiersze widoczne w tabeli (po filtrach) do pliku CSV dla polskiego Excela.
+        # Zapisuje wiersze widoczne w tabeli (po filtrach) do pliku CSV dla polskiego Excela.
         if not self.wybrane:
             messagebox.showinfo("Eksport", "Brak wierszy do eksportu – zmień ustawienia filtrów.",
                                 parent=self.parent)
@@ -313,6 +319,7 @@ class WidokAnalizyPrzyczyn:
 
         messagebox.showinfo("Eksport", f"Zapisano {len(self.wybrane)} wierszy do pliku:\n{sciezka}",
                             parent=self.parent)
+
 
 def pokaz_analize_przyczyn(parent, dane):
     return WidokAnalizyPrzyczyn(parent, dane)

@@ -1,9 +1,10 @@
-#Agregacje: zamiana surowych danych na liczby gotowe do wyświetlenia.
+# Agregacje: zamiana surowych danych na liczby gotowe do wyświetlenia.
 import pandas as pd
+
+from przetwarzanie_danych import kategoria_wiekowa, kategoria_onkologiczna
 from stale import (
     ETYKIETY_GRUP_WIEKOWYCH, KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW, KLASYFIKACJA_KILKA_CZYNNIKOW
 )
-from przetwarzanie_danych import kategoria_wiekowa, kategoria_onkologiczna
 
 
 def policz_wg_grupy_wiekowej(dane):
@@ -11,19 +12,23 @@ def policz_wg_grupy_wiekowej(dane):
     counts = grupy.value_counts()
     return counts.reindex(ETYKIETY_GRUP_WIEKOWYCH, fill_value=0)
 
+
 def policz_wg_kolumny(dane, kolumna, sortuj_wg_indeksu=False):
     """Zlicza wystąpienia wartości w danej kolumnie DataFrame."""
     counts = dane[kolumna].value_counts()
     return counts.sort_index() if sortuj_wg_indeksu else counts
 
+
 def policz_kategorie_onkologiczne(kolumna_onko):
     return kolumna_onko.apply(kategoria_onkologiczna).value_counts()
+
 
 def policz_aktywne_czynniki(wyniki, klucz_czynnika):
     return sum(1 for wynik in wyniki if wynik["factors"][klucz_czynnika])
 
+
 def policz_klasyfikacje(wyniki):
-    #Funkcja ta zlicza wystąpienia każdej klasyfikacji przyczyny przekroczenia, malejąco.
+    # Funkcja ta zlicza wystąpienia każdej klasyfikacji przyczyny przekroczenia, malejąco.
 
     # Pomija wiersze oznaczone jako podejrzane (`waliduj_dane`) - dla nich
     # klasyfikacja to tekst ostrzegawczy, nie prawdziwa przyczyna, więc
@@ -31,14 +36,15 @@ def policz_klasyfikacje(wyniki):
     klasyfikacje = [w["klasyfikacja"] for w in wyniki if not w.get("podejrzany")]
     return pd.Series(klasyfikacje).value_counts()
 
+
 def etykieta_czynnika(klucz):
-    #Etykieta czynnika w jednej linii, z małej litery (skrót DLP zostaje bez zmian).
+    # Etykieta czynnika w jednej linii, z małej litery (skrót DLP zostaje bez zmian).
     etykieta = ETYKIETY_CZYNNIKOW[klucz].replace("\n", " ")
     return etykieta[0].lower() + etykieta[1:]
 
 
 def wygeneruj_wnioski_pareto(counts, wyniki=None):
-    #Generowanie krótkiego opisu tekstowego najważniejszych obserwacji z rozkładu Pareto.
+    # Generowanie krótkiego opisu tekstowego najważniejszych obserwacji z rozkładu Pareto.
     suma = counts.sum()
     if suma == 0:
         return "Brak przekroczeń dawki w bieżących danych."
@@ -78,8 +84,9 @@ def wygeneruj_wnioski_pareto(counts, wyniki=None):
         f"{skumulowany.iloc[liczba_kategorii_do_80 - 1]:.0f}% wszystkich przekroczeń."
     )
 
+
 def wygeneruj_wnioski_analizy(wyniki):
-    #Generowanie krótkiego opisu najważniejszych obserwacji z tabeli analizy przyczyn.
+    # Generowanie krótkiego opisu najważniejszych obserwacji z tabeli analizy przyczyn.
     wyniki_wazne = [w for w in wyniki if not w.get("podejrzany")]
 
     if not wyniki_wazne:
@@ -106,6 +113,7 @@ def wygeneruj_wnioski_analizy(wyniki):
         f"({udzial_czynnika:.0f}%). Najwięcej przekroczeń dotyczy okolicy '{najczestsza_okolica}' "
         f"({udzial_okolicy:.0f}% przypadków). Średnie przekroczenie dawki: {sredni_procent:.1f}%."
     )
+
 
 def wygeneruj_wnioski_brak_dpr(dane):
     """Opis badań bez DPR w przepisach albo None, gdy takich badań nie ma w danych."""
@@ -142,6 +150,7 @@ def wygeneruj_wnioski_brak_dpr(dane):
 
     return opis + " Nie można dla nich ocenić przekroczenia dawki, dlatego nie są uwzględniane w analizie przekroczeń."
 
+
 def przygotuj_tabele_eksportu(rekordy):
     """Tabela (DataFrame) do eksportu CSV – surowe liczby zamiast tekstów sformatowanych do wyświetlenia."""
     wiersze = []
@@ -168,6 +177,6 @@ def przygotuj_tabele_eksportu(rekordy):
         wiersze.append(wiersz)
 
     tabela = pd.DataFrame(wiersze)
-    tabela["Wiek"] = tabela["Wiek"].astype("Int64")   # 61 zamiast 61,0 (Int64 dopuszcza puste pola)
+    tabela["Wiek"] = tabela["Wiek"].astype("Int64")  # 61 zamiast 61,0 (Int64 dopuszcza puste pola)
     tabela["% przekroczenia"] = tabela["% przekroczenia"].astype(float).round(1)
     return tabela

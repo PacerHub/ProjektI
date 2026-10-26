@@ -1,4 +1,4 @@
-#Stałe konfiguracyjne aplikacji: mapowania, progi, etykiety i teksty opisowe.
+# Stałe konfiguracyjne aplikacji: mapowania, progi, etykiety i teksty opisowe.
 
 # ===== 1. Dane i przepisy =====
 
@@ -49,7 +49,7 @@ WIEK_PEDIATRYCZNY = 16
 
 # Górne granice (wyłączne) kategorii BMI z KATEGORIE_BMI; ostatnia kategoria nie ma górnej granicy
 PROGI_BMI = [18.5, 25, 30, 35]
-PROG_NADWAGI = 25   # od tej wartości BMI czynnik "nadwaga / otyłość"
+PROG_NADWAGI = 25  # od tej wartości BMI czynnik "nadwaga / otyłość"
 
 GRANICE_WIEKU = [15, 17, 25, 35, 45, 55, 65, 75]
 
@@ -104,18 +104,18 @@ PALETA_KOLOROW = [
     "#EAAC8B",
 ]
 
-KOLOR_TLA_PRZYP_DO_WERYFIKACJI = "#fff3cd"   # żółte tło wierszy ⚠
-KOLOR_TLA_DYMKA = "#ffffe0"            # tło tooltipów tabeli
+KOLOR_TLA_PRZYP_DO_WERYFIKACJI = "#fff3cd"  # żółte tło wierszy ⚠
+KOLOR_TLA_DYMKA = "#ffffe0"  # tło tooltipów tabeli
 KOLOR_TEKSTU_STOPKI = "#555555"
-KOLOR_LINII_PARETO = "#333333"         # linia skumulowanego %
-KOLOR_PROGU_PARETO = PALETA_KOLOROW[2] # przerywana linia 80%
-KOLOR_NAGLOWKA = "#1f4e79"          # ciemnoniebieski – belka z tytułem aplikacji
+KOLOR_LINII_PARETO = "#333333"  # linia skumulowanego %
+KOLOR_PROGU_PARETO = PALETA_KOLOROW[2]  # przerywana linia 80%
+KOLOR_NAGLOWKA = "#1f4e79"  # ciemnoniebieski – belka z tytułem aplikacji
 KOLOR_TEKSTU_NAGLOWKA = "white"
 KOLOR_NAGLOWKOW_TABELI = "#2e75b6"  # niebieski – tytuły kolumn tabeli
 KOLOR_NAGLOWKOW_TABELI_HOVER = "#255f94"
 KOLOR_TEKSTU_NAGLOWKOW_TABELI = "white"
 # Panel wniosków (Pareto, analiza przyczyn)
-KOLOR_TLA_WNIOSKOW = "#eaf2fa"      # jasnoniebieskie tło panelu
+KOLOR_TLA_WNIOSKOW = "#eaf2fa"  # jasnoniebieskie tło panelu
 KOLOR_AKCENTU_WNIOSKOW = "#1f4e79"  # pasek z lewej strony i tytuł "Wnioski"
 KOLOR_TEKSTU_WNIOSKOW = "#1a1a1a"
 KOLOR_BRAK_DPR = "#9e9e9e"  # szary – wyróżnienie tych badań na wykresie
@@ -153,8 +153,8 @@ WIDOKI_LICZEBNOSCI = {
 
 # ===== 6. Filtry i tabela analizy przyczyn =====
 
-WARTOSC_WSZYSTKIE = "wszystkie"           # pozycja "bez filtra" w listach rozwijanych
-KLUCZ_BRAK_CZYNNIKA = "brak"              # pacjenci bez żadnego znanego czynnika
+WARTOSC_WSZYSTKIE = "wszystkie"  # pozycja "bez filtra" w listach rozwijanych
+KLUCZ_BRAK_CZYNNIKA = "brak"  # pacjenci bez żadnego znanego czynnika
 ETYKIETA_BRAKU_CZYNNIKA = "Brak znanego czynnika"
 
 KOLUMNY_TABELI_PRZYCZYN = [
@@ -219,7 +219,7 @@ KLASYFIKACJA_OPISY = {
         "szum pomiarowy/losowy, błąd protokołu\n"
         "lub coś, co wymaga ręcznej weryfikacji."
     ),
-    }
+}
 
 # Opis w tooltipie dla wierszy oznaczonych ⚠ (niepełne lub błędne dane)
 OPIS_DANYCH_DO_WERYFIKACJI = (
@@ -258,5 +258,3 @@ OPISY_NAGLOWKOW_PRZYCZYN = {
         f"wynosi co najmniej {PROG_WYSOKIEGO_DLP_FAZY:.0%} DPR."
     ),
 }
-
-
