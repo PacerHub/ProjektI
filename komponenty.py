@@ -17,7 +17,7 @@ from stale import (
 
 
 def umiesc_dymek(okno, x_root, y_root, odstep=12):
-    """Ustawia dymek obok kursora tak, żeby nie wychodził poza ekran."""
+    # Ustawia dymek obok kursora tak, żeby nie wychodził poza ekran.
     okno.update_idletasks()  # Tk liczy rozmiar dymka po spakowaniu etykiety
     szer, wys = okno.winfo_reqwidth(), okno.winfo_reqheight()
     ekran_szer, ekran_wys = okno.winfo_screenwidth(), okno.winfo_screenheight()
@@ -87,8 +87,8 @@ class Tooltip:
 
 
 class TooltipTabeli:
-    """Dymek z pełną treścią komórki lub nagłówka Treeview – tylko gdy tekst jest ucięty.
-    Nagłówki z opisem w opisy_naglowkow pokazują ten opis zawsze."""
+    # Dymek z pełną treścią komórki lub nagłówka Treeview – tylko gdy tekst jest ucięty.
+    # Nagłówki z opisem w opisy_naglowkow pokazują ten opis zawsze.
 
     MARGINES_KOMORKI = 12  # px zapasu na wewnętrzny odstęp komórki
     MARGINES_NAGLOWKA = 16  # nagłówek ma większy padding (5, 10)
@@ -285,7 +285,7 @@ def ustaw_czcionke_aplikacji(root, rozmiar=10, rozmiar_przyciskow=9, rozmiar_tab
 
 
 def zbuduj_przycisk_rozwijany(rodzic, tekst, opcje, po_wyborze):
-    """Przycisk, który po kliknięciu rozwija listę widoków."""
+    # Przycisk, który po kliknięciu rozwija listę widoków.
     przycisk = tk.Menubutton(rodzic, text=f"{tekst} ▾", relief="raised",
                              borderwidth=2, padx=8, pady=4, direction="below")
     menu = tk.Menu(przycisk, tearoff=False)
@@ -297,11 +297,11 @@ def zbuduj_przycisk_rozwijany(rodzic, tekst, opcje, po_wyborze):
 
 
 def zbuduj_panel_wnioskow(parent, tekst, side="top", pady=(5, 10)):
-    """Wyróżniony panel z automatycznie wygenerowanymi wnioskami.
+    #Wyróżniony panel z automatycznie wygenerowanymi wnioskami.
 
-    Ramka z jasnym tłem, kolorowym paskiem po lewej, tytułem 'Wnioski'
-    i tekstem, który zawija się do aktualnej szerokości okna.
-    """
+    #Ramka z jasnym tłem, kolorowym paskiem po lewej, tytułem 'Wnioski'
+    #i tekstem, który zawija się do aktualnej szerokości okna.
+
     panel = tk.Frame(parent, bg=KOLOR_TLA_WNIOSKOW,
                      highlightbackground=KOLOR_AKCENTU_WNIOSKOW, highlightthickness=1)
     panel.pack(side=side, fill="x", padx=20, pady=pady)
@@ -328,7 +328,7 @@ def zbuduj_panel_wnioskow(parent, tekst, side="top", pady=(5, 10)):
 
 
 def zbuduj_filtr_plci(parent, zmienna):
-    """Pasek radiobuttonów do filtrowania danych wg płci: wszyscy / kobiety / mężczyźni."""
+    # Pasek radiobuttonów do filtrowania danych wg płci: wszyscy / kobiety / mężczyźni.
     panel = tk.Frame(parent)
     panel.pack(fill="x", pady=(0, 10))
 
@@ -344,7 +344,7 @@ def zbuduj_filtr_plci(parent, zmienna):
 
 
 def zbuduj_filtr_kategorii_bmi(parent, zmienna):
-    """Pasek radiobuttonów do filtrowania danych wg kategorii BMI."""
+    # Pasek radiobuttonów do filtrowania danych wg kategorii BMI.
     panel = tk.Frame(parent)
     panel.pack(fill="x", pady=(0, 10))
 
@@ -363,12 +363,12 @@ def zbuduj_filtr_kategorii_bmi(parent, zmienna):
 
 
 def zbuduj_panel_filtrow(parent, zmienne: dict[str, Any], okolice, grupy_wiekowe, po_wyczyszczeniu):
-    """Panel filtrów widoku 'Analiza przyczyn przekroczeń'.
+    #Panel filtrów widoku 'Analiza przyczyn przekroczeń'.
 
-    zmienne – słownik zmiennych Tk: 'czynniki' (słownik klucz -> BooleanVar), 'okolica',
-    'grupa_wiekowa', 'min_procent' (StringVar) i 'podejrzane' (BooleanVar).
-    Odświeżanie tabeli podpina widok przez trace_add – tutaj budujemy tylko kontrolki.
-    """
+    # zmienne – słownik zmiennych Tk: 'czynniki' (słownik klucz -> BooleanVar), 'okolica',
+    # 'grupa_wiekowa', 'min_procent' (StringVar) i 'podejrzane' (BooleanVar).
+    #Odświeżanie tabeli podpina widok przez trace_add – tutaj budujemy tylko kontrolki.
+
     panel = tk.Frame(parent)
     panel.pack(fill="x", padx=20, pady=(5, 5))
 

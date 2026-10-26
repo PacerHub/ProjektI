@@ -154,8 +154,8 @@ def klasyfikuj_przyczyne(factors):
 
 
 def analizuj_podejrzany_wiersz(wiersz):
-    """Wynik dla wiersza do weryfikacji: pokazuje wszystkie dane, które da się wiarygodnie
-    wyliczyć, a '—' tylko tam, gdzie wartości brakuje lub jest błędna."""
+    # Wynik dla wiersza do weryfikacji: pokazuje wszystkie dane, które da się wiarygodnie
+    # wyliczyć, a '—' tylko tam, gdzie wartości brakuje lub jest błędna.
     wiek = wiersz["wiek"]
     bmi = wiersz["bmi"]
     liczba_faz = wiersz["liczba_faz"]
@@ -225,7 +225,7 @@ def analizuj_pacjenta(wiersz):
 
 
 def zbuduj_rekordy_przyczyn(pacjenci):
-    """Wynik analizy każdego pacjenta + dane potrzebne w tabeli filtra (wiek, płeć, badanie, grupa wiekowa)."""
+    # Wynik analizy każdego pacjenta + dane potrzebne w tabeli filtra (wiek, płeć, badanie, grupa wiekowa).
     rekordy = []
     for _, wiersz in pacjenci.iterrows():
         wynik = analizuj_pacjenta(wiersz)
@@ -256,7 +256,7 @@ def filtruj_przekroczenia(dane):
 
 
 def filtruj_wg_plci(pacjenci, wybor):
-    """Zwraca podzbiór pacjentów wg wyboru filtra: 'wszystkie' | 'kobiety' | 'mezczyzni'."""
+    # Zwraca podzbiór pacjentów wg wyboru filtra: 'wszystkie' | 'kobiety' | 'mezczyzni'.
     if wybor == "kobiety":
         return pacjenci[pacjenci["plec"] == "K"]
     if wybor == "mezczyzni":
@@ -265,7 +265,7 @@ def filtruj_wg_plci(pacjenci, wybor):
 
 
 def filtruj_wg_kategorii_bmi(pacjenci, wybor):
-    """Zwraca podzbiór pacjentów wg wybranej kategorii BMI (lub wszystkich przy 'wszyscy')."""
+    # Zwraca podzbiór pacjentów wg wybranej kategorii BMI (lub wszystkich przy 'wszyscy').
     if wybor == WARTOSC_WSZYSTKIE or len(pacjenci) == 0:
         return pacjenci
     kategorie = pacjenci.apply(lambda w: kategoria_bmi(w["wiek"], w["bmi"]), axis=1)
@@ -273,7 +273,7 @@ def filtruj_wg_kategorii_bmi(pacjenci, wybor):
 
 
 def filtruj_pacjentow_dashboardu(dane, plec="wszyscy", bmi=WARTOSC_WSZYSTKIE):
-    """Zwraca pacjentów z przekroczoną dawką po zastosowaniu wszystkich filtrów dashboardu."""
+    # Zwraca pacjentów z przekroczoną dawką po zastosowaniu wszystkich filtrów dashboardu.
     pacjenci = filtruj_przekroczenia(filtruj_bezpieczne(dane))
     pacjenci = filtruj_wg_plci(pacjenci, plec)
     pacjenci = filtruj_wg_kategorii_bmi(pacjenci, bmi)
@@ -282,13 +282,13 @@ def filtruj_pacjentow_dashboardu(dane, plec="wszyscy", bmi=WARTOSC_WSZYSTKIE):
 
 def filtruj_przyczyny(rekordy, czynniki, okolica=WARTOSC_WSZYSTKIE,
                       grupa_wiekowa=WARTOSC_WSZYSTKIE, min_procent=0, pokaz_podejrzane=True):
-    """Zwraca rekordy pasujące do filtrów, posortowane malejąco po % przekroczenia.
+    # Zwraca rekordy pasujące do filtrów, posortowane malejąco po % przekroczenia.
 
-    czynniki – zbiór zaznaczonych kluczy; pacjent przechodzi, jeśli ma KTÓRYKOLWIEK z nich
-    (pacjent bez żadnego czynnika przechodzi, gdy zaznaczono KLUCZ_BRAK_CZYNNIKA).
-    Wiersze podejrzane nie mają wiarygodnych danych, więc pozostałe filtry ich nie dotyczą –
-    decyduje tylko pokaz_podejrzane. Trafiają na koniec listy.
-    """
+    # czynniki – zbiór zaznaczonych kluczy; pacjent przechodzi, jeśli ma KTÓRYKOLWIEK z nich
+    # (pacjent bez żadnego czynnika przechodzi, gdy zaznaczono KLUCZ_BRAK_CZYNNIKA).
+    # Wiersze podejrzane nie mają wiarygodnych danych, więc pozostałe filtry ich nie dotyczą –
+    # decyduje tylko pokaz_podejrzane. Trafiają na koniec listy.
+
     wybrane = []
     for rekord in rekordy:
         if rekord["podejrzany"]:
@@ -319,5 +319,5 @@ def filtruj_przyczyny(rekordy, czynniki, okolica=WARTOSC_WSZYSTKIE,
 
 
 def filtruj_do_analizy_przyczyn(dane):
-    """Pacjenci z przekroczeniem + wiersze do weryfikacji (te mogą nie mieć DLP, więc nie są 'przekroczeniem')."""
+    # Pacjenci z przekroczeniem + wiersze do weryfikacji (te mogą nie mieć DLP, więc nie są 'przekroczeniem').
     return dane[dane["przekroczenie_dlp"] | dane["podejrzany_wiersz"]]

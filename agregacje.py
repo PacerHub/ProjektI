@@ -116,7 +116,7 @@ def wygeneruj_wnioski_analizy(wyniki):
 
 
 def wygeneruj_wnioski_brak_dpr(dane):
-    """Opis badań bez DPR w przepisach albo None, gdy takich badań nie ma w danych."""
+    # Opis badań bez DPR w przepisach albo None, gdy takich badań nie ma w danych.
     # Udział liczony względem WSZYSTKICH wykonanych badań – także tych z błędnie
     # wprowadzonymi danymi, bo badanie zostało fizycznie wykonane, a błąd dotyczy zapisu.
     bez_dpr = dane[dane["brak_dpr"]]
@@ -152,7 +152,7 @@ def wygeneruj_wnioski_brak_dpr(dane):
 
 
 def przygotuj_tabele_eksportu(rekordy):
-    """Tabela (DataFrame) do eksportu CSV – surowe liczby zamiast tekstów sformatowanych do wyświetlenia."""
+    # Tabela (DataFrame) do eksportu CSV – surowe liczby zamiast tekstów sformatowanych do wyświetlenia.
     wiersze = []
     for r in rekordy:
         wiersz = {

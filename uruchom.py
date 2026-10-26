@@ -1,4 +1,4 @@
-# Tutaj składane są okna z gotowych klocków (`przetwarzanie_danych`, `widoki`) i obsługa
+# Tutaj składane są okna z gotowych elementów (`przetwarzanie_danych`, `widoki`) i ma miejsce obsługa
 # kliknięć przycisków.
 
 import ctypes
@@ -19,7 +19,7 @@ from widoki import (
 
 
 def wyostrz_wyswietlanie():
-    # Windows: ostre czcionki i wykresy przy skalowaniu ekranu 125%/150%. Musi być PRZED tk.Tk().
+    # Windows: ostre czcionki i wykresy przy skalowaniu ekranu 125%/150%.
     if sys.platform != "win32":
         return
     try:
@@ -46,7 +46,7 @@ def obszar_roboczy(okno):
 
 def zbuduj_okno():
     # Tworzenie i konfiguracja głównego okna aplikacji
-    wyostrz_wyswietlanie()  # musi być wywołane przed tk.Tk()
+    wyostrz_wyswietlanie()
 
     okno = tk.Tk()
     ustaw_czcionke_aplikacji(okno, rozmiar=11, rozmiar_przyciskow=10,

@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Dodanie definicji protokołu onkologicznego w stale.py OPISY_NAGLOWKOW_PRZYCZYN">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="Naprawa błędów, które wyświetlił PyCharm: w widoki.py i komponenty.py  dodanie importu from typing import Any i zmiana nagłówków funkcji def _utworz_zmienne() -&gt; dict[str, Any]: oraz def zbuduj_panel_filtrow(parent, zmienne: dict[str, Any], okolice, grupy_wiekowe, po_wyczyszczeniu):. Objęcie pd.isna(...) / pd.notna(...) funkcją bool(...) w przetwarzanie_danych.py">
+      <change beforePath="$PROJECT_DIR$/agregacje.py" beforeDir="false" afterPath="$PROJECT_DIR$/agregacje.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komponenty.py" beforeDir="false" afterPath="$PROJECT_DIR$/komponenty.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/przetwarzanie_danych.py" beforeDir="false" afterPath="$PROJECT_DIR$/przetwarzanie_danych.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/uruchom.py" beforeDir="false" afterPath="$PROJECT_DIR$/uruchom.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/widoki.py" beforeDir="false" afterPath="$PROJECT_DIR$/widoki.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,14 +99,6 @@
       <workItem from="1790780490315" duration="5722000" />
       <workItem from="1791136745207" duration="808000" />
       <workItem from="1791214082108" duration="9000" />
-    </task>
-    <task id="LOCAL-00121" summary="Zmiana importu ze stale.py w komponenty.py oraz dodanie na końcu pliku funkcji zbuduj_panel_filtrow">
-      <option name="closed" value="true" />
-      <created>1792520167938</created>
-      <option name="number" value="00121" />
-      <option name="presentableId" value="LOCAL-00121" />
-      <option name="project" value="LOCAL" />
-      <updated>1792520167938</updated>
     </task>
     <task id="LOCAL-00122" summary="Uzupelnienie importów z agregacje, stale, komponenty, przetwarzanie danych. Dodanie funkcji wiersz_tabeli_filtra, pokaz_filtr_przyczyn, wyczysc,o dswiez.">
       <option name="closed" value="true" />
@@ -493,7 +484,15 @@
       <option name="project" value="LOCAL" />
       <updated>1793016797841</updated>
     </task>
-    <option name="localTasksCounter" value="170" />
+    <task id="LOCAL-00170" summary="Naprawa błędów, które wyświetlił PyCharm: w widoki.py i komponenty.py  dodanie importu from typing import Any i zmiana nagłówków funkcji def _utworz_zmienne() -&gt; dict[str, Any]: oraz def zbuduj_panel_filtrow(parent, zmienne: dict[str, Any], okolice, grupy_wiekowe, po_wyczyszczeniu):. Objęcie pd.isna(...) / pd.notna(...) funkcją bool(...) w przetwarzanie_danych.py">
+      <option name="closed" value="true" />
+      <created>1793017670206</created>
+      <option name="number" value="00170" />
+      <option name="presentableId" value="LOCAL-00170" />
+      <option name="project" value="LOCAL" />
+      <updated>1793017670206</updated>
+    </task>
+    <option name="localTasksCounter" value="171" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -523,7 +522,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Usunęłam białe obramowanie wycinków wykresu kołowego" />
     <MESSAGE value="Minimalnie zmniejszyłam jeszcze średnicę diagramu kołowego i poprawiłam, żeby przed nazwą funkcji nie było _" />
     <MESSAGE value="Poprawka, żeby w wierszach tabeli dotyczących pacjentów do weryfikacji pokazywało pozostałe dane: okolica, liczba faz, BMI i % przekroczenia. Wiersze te nie są nadal uzwględniane w statystykach, ale zwracają uwagę, żeby się im przyjrzeć." />
     <MESSAGE value="Dodałam eksport tabeli analizy przyczyn do CSV. Przycisk 'Eksportuj tabelę do CSV' zapisuje wiersze widoczne po filtrach. Format dla polskiego Excela, surowe liczby zamiast tekstów z tabeli, dodatkowe kolumny 'Rodzaj badania' i 'Do weryfikacji'. Obsługa anulowania, pustej tabeli i pliku otwartego w Excelu." />
@@ -548,7 +546,8 @@
     <MESSAGE value="Poukładanie stałych w sekcje w poniższej kolejności:&#10;1. Dane i przepisy&#10;2. Progi i zakresy&#10;3. Kategorie, czynniki i klasyfikacje&#10;4. Wygląd: czcionki i kolory&#10;5. Widoki&#10;6. Filtry i tabela analizy przyczyn&#10;7. Teksty tooltipów" />
     <MESSAGE value="Uporządkowanie funkcji w przetwarzanie_danych.py:wczytaj_dane → walidacja (oznacz_podejrzane_dane) → oznacz_przekroczenia → funkcje pojedynczego pacjenta (czy_*, oblicz_*, kategoria_*, ustal_okolice_anatomiczna, wyznacz_czynniki, klasyfikuj_przyczyne) → analizuj_podejrzany_wiersz, analizuj_pacjenta, zbuduj_rekordy_przyczyn → na końcu wszystkie filtruj_*. Zastosowanie w każdym pliku .py: Code → Reformat Code: optimize imports i cleanup code" />
     <MESSAGE value="Dodanie definicji protokołu onkologicznego w stale.py OPISY_NAGLOWKOW_PRZYCZYN" />
-    <option name="LAST_COMMIT_MESSAGE" value="Dodanie definicji protokołu onkologicznego w stale.py OPISY_NAGLOWKOW_PRZYCZYN" />
+    <MESSAGE value="Naprawa błędów, które wyświetlił PyCharm: w widoki.py i komponenty.py  dodanie importu from typing import Any i zmiana nagłówków funkcji def _utworz_zmienne() -&gt; dict[str, Any]: oraz def zbuduj_panel_filtrow(parent, zmienne: dict[str, Any], okolice, grupy_wiekowe, po_wyczyszczeniu):. Objęcie pd.isna(...) / pd.notna(...) funkcją bool(...) w przetwarzanie_danych.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Naprawa błędów, które wyświetlił PyCharm: w widoki.py i komponenty.py  dodanie importu from typing import Any i zmiana nagłówków funkcji def _utworz_zmienne() -&gt; dict[str, Any]: oraz def zbuduj_panel_filtrow(parent, zmienne: dict[str, Any], okolice, grupy_wiekowe, po_wyczyszczeniu):. Objęcie pd.isna(...) / pd.notna(...) funkcją bool(...) w przetwarzanie_danych.py" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1789659520225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
