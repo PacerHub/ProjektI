@@ -1,10 +1,16 @@
 #Widoki aplikacji: jedna funkcja `pokaz_*` = jeden ekran wybierany przyciskiem.
-from datetime import date
-from tkinter import filedialog, messagebox
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-import matplotlib.pyplot as plt
-from matplotlib.layout_engine import TightLayoutEngine
 import pandas as pd
+import tkinter as tk
+import matplotlib.pyplot as plt
+
+from datetime import date
+
+from tkinter import filedialog, messagebox
+
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+
+from matplotlib.layout_engine import TightLayoutEngine
+
 from agregacje import (
     policz_wg_kolumny, policz_wg_grupy_wiekowej, policz_klasyfikacje,
     wygeneruj_wnioski_pareto, wygeneruj_wnioski_analizy, filtruj_przyczyny, wygeneruj_wnioski_brak_dpr, przygotuj_tabele_eksportu
@@ -24,10 +30,6 @@ from wykresy import (
     zbuduj_dashboard_przekroczenia, zbuduj_wykres_liczebnosci,
     zbuduj_wykres_kolowy_liczebnosci, zbuduj_wykres_pareto, kolory_rodzajow_badan
 )
-
-import tkinter as tk
-
-
 
 def osadz_wykres(parent, fig):
     # Układ "tight" przeliczany przy każdym rysowaniu – także po zmianie rozmiaru wykresu
@@ -140,37 +142,6 @@ def dodaj_tooltip_klasyfikacji(tabela, kolumna_id):
             opis = OPIS_DANYCH_DO_WERYFIKACJI      # wiersz ⚠ – błędne lub niepełne dane
         else:
             opis = KLASYFIKACJA_OPISY.get(klasyfikacja, "Brak dodatkowego opisu dla tej klasyfikacji.")
-        return f"{klasyfikacja}\n\n{opis}"
-
-    return Tooltip(tabela, kolumna_docelowa=kolumna_id, pobierz_tekst=tekst_dymka)
-
-def wiersz_tabeli_przyczyn(rekord):
-    #Krotka wartości jednego wiersza – w kolejności KOLUMNY_TABELI_PRZYCZYN.
-    pacjent = f"⚠ {rekord['patient_id']}" if rekord["podejrzany"] else rekord["patient_id"]
-    wiek = str(int(rekord["wiek"])) if pd.notna(rekord["wiek"]) else "—"
-    plec = rekord["plec"] if pd.notna(rekord["plec"]) else "—"
-    bmi = (
-        f"{rekord['bmi']} ({rekord['kategoria_bmi']})"
-        if rekord["bmi"] is not None else rekord["kategoria_bmi"]
-    )
-    dpr = f"{rekord['dpr']:.0f}" if pd.notna(rekord["dpr"]) else "—"
-    dlp = f"{rekord['dlp']:.1f}" if pd.notna(rekord["dlp"]) else "—"
-    procent = (
-        f"{rekord['procent_przekroczenia']:+.1f}%"
-        if rekord["procent_przekroczenia"] is not None else "—"
-    )
-    return (
-        pacjent, wiek, plec, rekord["okolica"], bmi, rekord["kategoria_faz"], dpr, dlp, procent,
-        rekord["klasyfikacja"], rekord["aktywne_czynniki"],
-        *("✓" if rekord["factors"][klucz] else "" for klucz in KLUCZE_CZYNNIKOW),
-    )
-
-
-def dodaj_tooltip_klasyfikacji(tabela, kolumna_id):
-    #Tooltip z pełną nazwą i opisem klasyfikacji przyczyny w podanej kolumnie (np. '#8').
-    def tekst_dymka(wiersz_id):
-        klasyfikacja = tabela.set(wiersz_id, "klasyfikacja")
-        opis = KLASYFIKACJA_OPISY.get(klasyfikacja, "Brak dodatkowego opisu dla tej klasyfikacji.")
         return f"{klasyfikacja}\n\n{opis}"
 
     return Tooltip(tabela, kolumna_docelowa=kolumna_id, pobierz_tekst=tekst_dymka)
