@@ -30,14 +30,13 @@ BADANIA_BEZ_DPR = ["TK jamy brzusznej i miednicy"]
 
 # Źródło diagnostycznych poziomów referencyjnych (DPR) – wartości referencyjne w pliku CSV
 ZRODLO_DPR = (
-    "Rozporządzenie Ministra Zdrowia z dnia 6 grudnia 2022 r. w sprawie diagnostycznych "
+    "(Diagnostycznego Poziomu Referencyjnego) Rozporządzenie Ministra Zdrowia z dnia 6 grudnia 2022 r. w sprawie diagnostycznych "
     "poziomów referencyjnych (Dz.U. 2022 poz. 2626), załącznik nr 1, tabela 3 – wydane "
     "na podstawie art. 33g ust. 3 ustawy z dnia 29 listopada 2000 r. – Prawo atomowe"
 )
 ZRODLO_DPR_KROTKO = (
-    "Rozporządzenie MZ z 6.12.2022 r. w sprawie DPR - Diagnostycznego Poziomu Referencyjnego (Dz.U. 2022 poz. 2626), "
-    "wyd. na podst. art. 33g ust. 3 ustawy – Prawo atomowe"
-)
+    "Rozporządzenie MZ z 6.12.2022 r. w sprawie DPR (Dz.U. 2022 poz. 2626), "
+    "wyd. na podst. art. 33g ust. 3 ustawy – Prawo atomowe")
 
 # ===== 2. Progi i zakresy =====
 
@@ -237,7 +236,7 @@ OPISY_NAGLOWKOW_PRZYCZYN = {
         "Punkt odniesienia dla typowego pacjenta,\n"
         "nie sztywny limit prawny. Może być\n"
         "przekroczony przy uzasadnieniu klinicznym.\n\n"
-        f"Źródło: {ZRODLO_DPR_KROTKO}."
+        f"Źródło: {ZRODLO_DPR_KROTKO} ."
     ),
     "dlp": (
         "DLP – iloczyn dawka-długość.\n"
@@ -245,7 +244,12 @@ OPISY_NAGLOWKOW_PRZYCZYN = {
         "u pacjenta dla pojedynczej fazy\n"
         "badania — porównywana z DPR."
     ),
-    "onkologiczny": "Protokół onkologiczny",
+    "onkologiczny": (
+        "Protokół onkologiczny\n\n"
+        "Badanie jamy brzusznej wykonane w protokole\n"
+        "onkologicznym – zwykle wielofazowe skanowanie\n"
+        "(faza natywna / tętnicza / żylna)."
+    ),
     "procent": "% przekroczenia = (DLP zmierzone na fazę ÷ DPR na fazę − 1) × 100",
     "kategoria_faz": (
         "Liczba faz skanowania w badaniu.\n\n"
