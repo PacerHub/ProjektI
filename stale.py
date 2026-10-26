@@ -27,6 +27,13 @@ EXAM_REGION = {
 # 20% powyżej wartości referencyjnej DLP na fazę uznajemy za "wysokie"
 PROG_WYSOKIEGO_DLP_FAZY = 1.20
 
+# Pacjent pediatryczny: wiek < WIEK_PEDIATRYCZNY
+WIEK_PEDIATRYCZNY = 16
+# Górne granice (wyłączne) kategorii BMI z KATEGORIE_BMI; ostatnia kategoria nie ma górnej granicy
+PROGI_BMI = [18.5, 25, 30, 35]
+PROG_NADWAGI = 25   # od tej wartości BMI czynnik "nadwaga / otyłość"
+ETYKIETA_BMI_PEDIATRYCZNY = "nie dotyczy (pacjent pediatryczny)"
+
 # Nazwy widoków wybieranych przyciskami, w kolejności wyświetlania
 RODZAJE_WIDOKOW = [
     "Liczba pacjentów wg rodzaju badania",

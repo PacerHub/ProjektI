@@ -3,7 +3,7 @@
 import pandas as pd
 from stale import (
     EXAM_REGION, PROG_WYSOKIEGO_DLP_FAZY, GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH,
-    ZAKRES_WIEKU, ZAKRES_BMI, ZAKRES_LICZBY_FAZ, KLUCZE_CZYNNIKOW, BADANIA_BEZ_DPR
+    ZAKRES_WIEKU, ZAKRES_BMI, ZAKRES_LICZBY_FAZ, KLUCZE_CZYNNIKOW, BADANIA_BEZ_DPR, WIEK_PEDIATRYCZNY, PROGI_BMI, PROG_NADWAGI, ETYKIETA_BMI_PEDIATRYCZNY, KATEGORIE_BMI
 )
 
 def oznacz_podejrzane_dane(dane):
@@ -76,7 +76,7 @@ def filtruj_przekroczenia(dane):
 
 
 def czy_pediatryczny(wiek):
-    return bool(wiek < 16)
+    return bool(wiek < WIEK_PEDIATRYCZNY)
 
 
 def czy_onkologiczny(wartosc_protokolu):
@@ -100,7 +100,7 @@ def czy_wysokie_dlp_fazy(stosunek_dlp, prog=PROG_WYSOKIEGO_DLP_FAZY):
 
 
 def czy_nadwaga_lub_otylosc(jest_pediatryczny, bmi):
-    return bool((not jest_pediatryczny) and bmi >= 25)
+    return bool((not jest_pediatryczny) and bmi >= PROG_NADWAGI)
 
 
 def kategoria_liczby_faz(liczba_faz):
@@ -112,18 +112,12 @@ def kategoria_liczby_faz(liczba_faz):
 
 
 def kategoria_bmi(wiek, bmi):
-    if wiek < 16:
-        return "nie dotyczy (pacjent pediatryczny)"
-    if bmi < 18.5:
-        return "niedowaga"
-    if bmi < 25:
-        return "waga prawidłowa"
-    if bmi < 30:
-        return "nadwaga"
-    if bmi < 35:
-        return "otyłość I stopnia"
-    return "otyłość II stopnia"
-
+    if wiek < WIEK_PEDIATRYCZNY:
+        return ETYKIETA_BMI_PEDIATRYCZNY
+    for prog, kategoria in zip(PROGI_BMI, KATEGORIE_BMI):
+        if bmi < prog:
+            return kategoria
+    return KATEGORIE_BMI[-1]
 
 def ustal_okolice_anatomiczna(rodzaj_badania):
     return EXAM_REGION.get(rodzaj_badania, "nieznana")
