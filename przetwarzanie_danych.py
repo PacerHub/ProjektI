@@ -3,7 +3,7 @@
 import pandas as pd
 from stale import (
     EXAM_REGION, PROG_WYSOKIEGO_DLP_FAZY, GRANICE_WIEKU, ETYKIETY_GRUP_WIEKOWYCH,
-    ZAKRES_WIEKU, ZAKRES_BMI, ZAKRES_LICZBY_FAZ, KLUCZE_CZYNNIKOW, BADANIA_BEZ_DPR, WIEK_PEDIATRYCZNY, PROGI_BMI, PROG_NADWAGI, ETYKIETA_BMI_PEDIATRYCZNY, KATEGORIE_BMI,ETYKIETY_KLASYFIKACJI, KLASYFIKACJA_BRAK_CZYNNIKA, KLASYFIKACJA_KILKA_CZYNNIKOW, WARTOSC_WSZYSTKIE
+    ZAKRES_WIEKU, ZAKRES_BMI, ZAKRES_LICZBY_FAZ, KLUCZE_CZYNNIKOW, BADANIA_BEZ_DPR, WIEK_PEDIATRYCZNY, PROGI_BMI, PROG_NADWAGI, ETYKIETA_BMI_PEDIATRYCZNY, KATEGORIE_BMI,ETYKIETY_KLASYFIKACJI, KLASYFIKACJA_BRAK_CZYNNIKA, KLASYFIKACJA_KILKA_CZYNNIKOW, WARTOSC_WSZYSTKIE, KLUCZ_BRAK_CZYNNIKA
 )
 
 def oznacz_podejrzane_dane(dane):
@@ -259,3 +259,44 @@ def zbuduj_rekordy_przyczyn(pacjenci):
             "dlp": wiersz["dlp_zmierzony_na_faze_mGy_cm"],
         })
     return rekordy
+
+def filtruj_przyczyny(rekordy, czynniki, okolica=WARTOSC_WSZYSTKIE,
+                      grupa_wiekowa=WARTOSC_WSZYSTKIE, min_procent=0, pokaz_podejrzane=True):
+    """Zwraca rekordy pasujące do filtrów, posortowane malejąco po % przekroczenia.
+
+    czynniki – zbiór zaznaczonych kluczy; pacjent przechodzi, jeśli ma KTÓRYKOLWIEK z nich
+    (pacjent bez żadnego czynnika przechodzi, gdy zaznaczono KLUCZ_BRAK_CZYNNIKA).
+    Wiersze podejrzane nie mają wiarygodnych danych, więc pozostałe filtry ich nie dotyczą –
+    decyduje tylko pokaz_podejrzane. Trafiają na koniec listy.
+    """
+    wybrane = []
+    for rekord in rekordy:
+        if rekord["podejrzany"]:
+            if pokaz_podejrzane:
+                wybrane.append(rekord)
+            continue
+
+        aktywne = [klucz for klucz in KLUCZE_CZYNNIKOW if rekord["factors"][klucz]]
+        if aktywne:
+            pasuje_przyczyna = any(klucz in czynniki for klucz in aktywne)
+        else:
+            pasuje_przyczyna = KLUCZ_BRAK_CZYNNIKA in czynniki
+        if not pasuje_przyczyna:
+            continue
+
+        if okolica != WARTOSC_WSZYSTKIE and rekord["okolica"] != okolica:
+            continue
+        if grupa_wiekowa != WARTOSC_WSZYSTKIE and rekord["grupa_wiekowa"] != grupa_wiekowa:
+            continue
+        if rekord["procent_przekroczenia"] < min_procent:
+            continue
+
+        wybrane.append(rekord)
+
+    # False < True, więc najpierw zwykłe wiersze (malejąco po %), na końcu podejrzane
+    wybrane.sort(key=lambda r: (r["podejrzany"], -(r["procent_przekroczenia"] or 0)))
+    return wybrane
+
+def filtruj_do_analizy_przyczyn(dane):
+    """Pacjenci z przekroczeniem + wiersze do weryfikacji (te mogą nie mieć DLP, więc nie są 'przekroczeniem')."""
+    return dane[dane["przekroczenie_dlp"] | dane["podejrzany_wiersz"]]

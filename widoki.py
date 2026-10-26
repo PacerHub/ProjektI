@@ -13,7 +13,7 @@ from matplotlib.layout_engine import TightLayoutEngine
 
 from agregacje import (
     policz_wg_kolumny, policz_wg_grupy_wiekowej, policz_klasyfikacje,
-    wygeneruj_wnioski_pareto, wygeneruj_wnioski_analizy, filtruj_przyczyny, wygeneruj_wnioski_brak_dpr, przygotuj_tabele_eksportu
+    wygeneruj_wnioski_pareto, wygeneruj_wnioski_analizy, wygeneruj_wnioski_brak_dpr, przygotuj_tabele_eksportu
 )
 from stale import (
     KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW, KLASYFIKACJA_OPISY, CZCIONKA,
@@ -24,7 +24,7 @@ from komponenty import (
 )
 from przetwarzanie_danych import (
     filtruj_przekroczenia, zbuduj_liste_wynikow, filtruj_bezpieczne,
-    filtruj_pacjentow_dashboardu, zbuduj_rekordy_przyczyn,
+    filtruj_pacjentow_dashboardu, zbuduj_rekordy_przyczyn, filtruj_przyczyny, filtruj_do_analizy_przyczyn
 )
 from wykresy import (
     zbuduj_dashboard_przekroczenia, zbuduj_wykres_liczebnosci,
@@ -184,8 +184,7 @@ class WidokAnalizyPrzyczyn:
     def __init__(self, parent, dane):
         self.parent = parent
 
-        # Przekroczenia + wiersze podejrzane (te mogą nie mieć DLP, więc nie są "przekroczeniem")
-        pacjenci = dane[dane["przekroczenie_dlp"] | dane["podejrzany_wiersz"]]
+        pacjenci = filtruj_do_analizy_przyczyn(dane)
         self.rekordy = zbuduj_rekordy_przyczyn(pacjenci)
         self.liczba_waznych = sum(1 for r in self.rekordy if not r["podejrzany"])
         okolice = sorted({r["okolica"] for r in self.rekordy if not r["podejrzany"]})
