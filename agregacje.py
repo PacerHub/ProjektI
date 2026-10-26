@@ -3,7 +3,7 @@ import pandas as pd
 from stale import (
     ETYKIETY_GRUP_WIEKOWYCH, KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW, KLASYFIKACJA_KILKA_CZYNNIKOW
 )
-from przetwarzanie_danych import kategoria_wiekowa
+from przetwarzanie_danych import kategoria_wiekowa, kategoria_onkologiczna
 
 
 def policz_wg_grupy_wiekowej(dane):
@@ -17,11 +17,7 @@ def policz_wg_kolumny(dane, kolumna, sortuj_wg_indeksu=False):
     return counts.sort_index() if sortuj_wg_indeksu else counts
 
 def policz_kategorie_onkologiczne(kolumna_onko):
-    kategorie = kolumna_onko.apply(
-        lambda x: "tak" if x is True or x == True
-        else ("nie" if x is False or x == False else "nie dotyczy")
-    )
-    return kategorie.value_counts()
+    return kolumna_onko.apply(kategoria_onkologiczna).value_counts()
 
 def policz_aktywne_czynniki(wyniki, klucz_czynnika):
     return sum(1 for wynik in wyniki if wynik["factors"][klucz_czynnika])

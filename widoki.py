@@ -23,7 +23,7 @@ from komponenty import (
     zbuduj_filtr_kategorii_bmi, zbuduj_panel_wnioskow, zbuduj_panel_filtrow,
 )
 from przetwarzanie_danych import (
-    filtruj_przekroczenia, zbuduj_liste_wynikow, filtruj_bezpieczne,
+    filtruj_przekroczenia, filtruj_bezpieczne,
     filtruj_pacjentow_dashboardu, zbuduj_rekordy_przyczyn, filtruj_przyczyny, filtruj_do_analizy_przyczyn
 )
 from wykresy import (
@@ -72,7 +72,7 @@ def pokaz_liczbe_pacjentow_wg_wieku(parent, dane):
 def pokaz_pareto_przyczyn(parent, dane):
     #Widok 'Pareto przyczyn przekroczeń' - które przyczyny odpowiadają za większość przypadków.
     pacjenci = filtruj_przekroczenia(filtruj_bezpieczne(dane))
-    wyniki = zbuduj_liste_wynikow(pacjenci)
+    wyniki = zbuduj_rekordy_przyczyn(pacjenci)
     counts = policz_klasyfikacje(wyniki)
     fig = zbuduj_wykres_pareto(counts)
     # Panel pakowany PRZED wykresem z side="bottom", żeby wykres go nie wypchnął poza okno

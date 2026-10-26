@@ -82,6 +82,11 @@ def czy_pediatryczny(wiek):
 def czy_onkologiczny(wartosc_protokolu):
     return bool(wartosc_protokolu is True or wartosc_protokolu == True)
 
+def kategoria_onkologiczna(wartosc_protokolu):
+    """'tak' / 'nie' / 'nie dotyczy' (puste pole = badanie nie dotyczy jamy brzusznej)."""
+    if pd.isna(wartosc_protokolu):
+        return "nie dotyczy"
+    return "tak" if czy_onkologiczny(wartosc_protokolu) else "nie"
 
 def czy_wielofazowy(liczba_faz):
     return int(liczba_faz) >= 2
@@ -215,10 +220,6 @@ def kategoria_wiekowa(wiek):
         if wiek <= gorna_granica:
             return etykieta
     return ETYKIETY_GRUP_WIEKOWYCH[-1]
-
-def zbuduj_liste_wynikow(pacjenci):
-#Uruchamia analizę dla każdego wiersza DataFrame i zwraca listę wyników.
-    return [analizuj_pacjenta(wiersz) for _, wiersz in pacjenci.iterrows()]
 
 def filtruj_wg_plci(pacjenci, wybor):
     """Zwraca podzbiór pacjentów wg wyboru filtra: 'wszystkie' | 'kobiety' | 'mezczyzni'."""

@@ -7,7 +7,7 @@ from stale import (
     PALETA_KOLOROW, ROZMIAR_TYTULU_WYKRESU, GRUBOSC_TYTULU_WYKRESU, ROZMIAR_TYTULU_DASHBOARDU,
     BADANIA_BEZ_DPR, KOLOR_BRAK_DPR, KOLOR_LINII_PARETO, KOLOR_PROGU_PARETO
 )
-from agregacje import policz_kategorie_onkologiczne, policz_wg_grupy_wiekowej
+from agregacje import policz_kategorie_onkologiczne, policz_wg_grupy_wiekowej, policz_wg_kolumny
 
 def kolory_cyklicznie(n):
     return [PALETA_KOLOROW[i % len(PALETA_KOLOROW)] for i in range(n)]
@@ -25,7 +25,7 @@ def ustaw_tytul_panelu(ax, tekst):
 
 def narysuj_liczbe_faz(ax, pacjenci):
     #Rysuje słupkowy rozkład liczby faz badania.
-    counts = pacjenci["liczba_faz"].value_counts().sort_index()
+    counts = policz_wg_kolumny(pacjenci, "liczba_faz", sortuj_wg_indeksu=True)
     etykiety = counts.index.astype(str)
 
     ax.bar(etykiety, counts.values, color=kolory_cyklicznie(len(counts)))
@@ -59,7 +59,7 @@ def narysuj_protokol_onkologiczny(ax, pacjenci):
 
 def narysuj_rodzaj_badania(ax, pacjenci):
     #Rysuje poziomy słupkowy rozkład rodzajów badania.
-    counts = pacjenci["rodzaj_badania_tk"].value_counts().sort_values()
+    counts = policz_wg_kolumny(pacjenci, "rodzaj_badania_tk").sort_values()
 
     ax.barh(counts.index, counts.values, color=kolory_cyklicznie(len(counts)))
     ustaw_tytul_panelu(ax, "Rodzaj badania")
