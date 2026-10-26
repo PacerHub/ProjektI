@@ -31,6 +31,12 @@ def policz_klasyfikacje(wyniki):
     klasyfikacje = [w["klasyfikacja"] for w in wyniki if not w.get("podejrzany")]
     return pd.Series(klasyfikacje).value_counts()
 
+def etykieta_czynnika(klucz):
+    #Etykieta czynnika w jednej linii, z małej litery (skrót DLP zostaje bez zmian).
+    etykieta = ETYKIETY_CZYNNIKOW[klucz].replace("\n", " ")
+    return etykieta[0].lower() + etykieta[1:]
+
+
 def wygeneruj_wnioski_pareto(counts, wyniki=None):
     #Generowanie krótkiego opisu tekstowego najważniejszych obserwacji z rozkładu Pareto.
     suma = counts.sum()
@@ -72,12 +78,6 @@ def wygeneruj_wnioski_pareto(counts, wyniki=None):
         f"{skumulowany.iloc[liczba_kategorii_do_80 - 1]:.0f}% wszystkich przekroczeń."
     )
 
-
-def etykieta_czynnika(klucz):
-    #Etykieta czynnika w jednej linii, z małej litery (skrót DLP zostaje bez zmian).
-    etykieta = ETYKIETY_CZYNNIKOW[klucz].replace("\n", " ")
-    return etykieta[0].lower() + etykieta[1:]
-
 def wygeneruj_wnioski_analizy(wyniki):
     #Generowanie krótkiego opisu najważniejszych obserwacji z tabeli analizy przyczyn.
     wyniki_wazne = [w for w in wyniki if not w.get("podejrzany")]
@@ -99,10 +99,10 @@ def wygeneruj_wnioski_analizy(wyniki):
 
     sredni_procent = sum(w["procent_przekroczenia"] for w in wyniki_wazne) / n
 
-    etykieta_czynnika = ETYKIETY_CZYNNIKOW[najczestszy_klucz].replace("\n", " ")
+    nazwa_czynnika = ETYKIETY_CZYNNIKOW[najczestszy_klucz].replace("\n", " ")
 
     return (
-        f"Najczęstszy czynnik: '{etykieta_czynnika}' — {czynniki_counts[najczestszy_klucz]} z {n} pacjentów "
+        f"Najczęstszy czynnik: '{nazwa_czynnika}' — {czynniki_counts[najczestszy_klucz]} z {n} pacjentów "
         f"({udzial_czynnika:.0f}%). Najwięcej przekroczeń dotyczy okolicy '{najczestsza_okolica}' "
         f"({udzial_okolicy:.0f}% przypadków). Średnie przekroczenie dawki: {sredni_procent:.1f}%."
     )
