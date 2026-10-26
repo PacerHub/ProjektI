@@ -334,6 +334,7 @@ def zbuduj_filtr_plci(parent, zmienna):
 
     tk.Label(panel, text="Płeć:", font=(CZCIONKA, 10, "bold")).pack(side="left", padx=(10, 5))
 
+    # Wielkie litery celowo – odróżniają filtr płci od filtra kategorii BMI (małe litery).
     opcje = [("WSZYSCY", WARTOSC_WSZYSTKIE), ("KOBIETY", "kobiety"), ("MĘŻCZYŹNI", "mezczyzni")]
     for tekst, wartosc in opcje:
         tk.Radiobutton(

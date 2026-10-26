@@ -77,7 +77,7 @@ def dodaj_naglowek(okno):
 
 def dodaj_stopke(okno):
     # Źródło wartości referencyjnych widoczne na dole okna we wszystkich widokach
-    tk.Label(okno, text=f"Źródło DPR - Diagnostycznego Poziomu Referencyjnego: {ZRODLO_DPR_KROTKO}",
+    tk.Label(okno, text=f"Źródło DPR - Diagnostycznych Poziomów Referencyjnych: {ZRODLO_DPR_KROTKO}",
              font=(CZCIONKA, 9), fg=KOLOR_TEKSTU_STOPKI, anchor="w").pack(side="bottom", fill="x", padx=10, pady=(0, 4))
 
 

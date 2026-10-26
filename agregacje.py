@@ -30,7 +30,7 @@ def policz_aktywne_czynniki(wyniki, klucz_czynnika):
 def policz_klasyfikacje(wyniki):
     # Funkcja ta zlicza wystąpienia każdej klasyfikacji przyczyny przekroczenia, malejąco.
 
-    # Pomija wiersze oznaczone jako podejrzane (`waliduj_dane`) - dla nich
+    # Pomija wiersze oznaczone jako podejrzane (`oznacz_podejrzane_dane`) - dla nich
     # klasyfikacja to tekst ostrzegawczy, nie prawdziwa przyczyna, więc
     # nie ma sensu wliczać ich do statystyki.
     klasyfikacje = [w["klasyfikacja"] for w in wyniki if not w.get("podejrzany")]

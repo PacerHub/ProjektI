@@ -153,7 +153,7 @@ def zbuduj_wykres_kolowy_liczebnosci(counts, tytul, kolory=None):
 
 
 def zbuduj_wykres_pareto(counts, tytul="Pareto przyczyn przekroczeń"):
-    # Słupki liczebności klasyfikacji + linia skumulowanego procentu (zasada Pareto)."""
+    # Słupki liczebności klasyfikacji + linia skumulowanego procentu (zasada Pareto).
     skumulowany_procent = counts.cumsum() / counts.sum() * 100
 
     fig, ax1 = plt.subplots(figsize=(11, 6.5))

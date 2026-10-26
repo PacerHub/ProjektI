@@ -122,9 +122,9 @@ W aplikacji źródło jest zapisane w stałych `ZRODLO_DPR` i `ZRODLO_DPR_KROTKO
 
 ```
 ├── uruchom.py               # punkt startowy: okno, nagłówek, stopka, przyciski, przełączanie widoków
-├── stale.py                 # stałe: ścieżka danych, progi, etykiety, kolory, kolumny tabel, źródło DPR, opisy tooltipów
-├── przetwarzanie_danych.py  # wczytanie CSV, walidacja, analiza pojedynczego pacjenta, filtry
-├── agregacje.py             # zliczenia, filtrowanie przyczyn, generowanie wniosków
+├── stale.py                 # stałe w sekcjach: dane i przepisy, progi, kategorie, wygląd, widoki, tabela, teksty tooltipów
+├── przetwarzanie_danych.py  # wczytanie CSV, walidacja, analiza pojedynczego pacjenta, wszystkie filtry danych
+├── agregacje.py             # zliczenia, generowanie wniosków
 ├── wykresy.py               # budowa wykresów matplotlib
 ├── komponenty.py            # elementy GUI wielokrotnego użytku: tabela, panele, filtry, tooltipy
 ├── widoki.py                # ekrany aplikacji (m.in. klasa WidokAnalizyPrzyczyn)
@@ -161,7 +161,7 @@ Historia commitów (ponad 120 commitów, wrzesień–październik 2026) pokazuje
 | 3. Rozbudowa analizy | 20–24.09 | walidacja danych, wykres Pareto, automatyczne wnioski, polskie nazwy modułów, czcionki i kolory, przycisk rozwijany |
 | 4. Zalecenia prowadzącego | 1–13.10 | filtry płci i BMI w dashboardzie, wydzielenie logiki filtrowania, wnioski z rozbiciem na czynniki składowe |
 | 5. Dopracowanie | 20–24.10 | panel wniosków, tooltipy, filtry w analizie przyczyn, badania bez DPR i źródło prawne DPR, kolumny DPR i DLP z definicjami, dane 150 badań, klasa widoku analizy przyczyn, dokumentacja |
-
+| 6. Porządkowanie kodu | 25–26.10 | usunięcie zdublowanych funkcji (naprawa tooltipa wierszy ⚠), wszystkie filtry w jednym module, progi wieku i BMI, etykiety klasyfikacji i kolory przeniesione do `stale.py`, podział `stale.py` na sekcje, usunięcie powtórzonej logiki |
 ---
 
 ## Wykorzystanie AI
@@ -188,7 +188,7 @@ AI pomagało przełożyć te założenia na kod: walidację danych, filtrowanie,
 
 ### 3. Szukanie błędów
 
-AI pomagało diagnozować błędy na podstawie komunikatów (`ImportError`, `IndentationError`, `AttributeError`, `ZeroDivisionError`) oraz wyjaśniało ich przyczyny, np. błędne wcięcia, brakujące importy, metody usunięte przy wklejaniu kodu, dzielenie przez zero przy DPR = 0. Problemy w działaniu aplikacji wykrywałam sama, testując każdą zmianę – m.in. skalę osi co 0,2 przy jednym pacjencie, nieczytelny histogram wieku, ucinane etykiety osi i tooltipy przy krawędzi ekranu, powtórzoną liczbę we wnioskach, puste kolumny w wierszach do weryfikacji.
+AI pomagało diagnozować błędy na podstawie komunikatów (`ImportError`, `IndentationError`, `AttributeError`, `ZeroDivisionError`) oraz wyjaśniało ich przyczyny, np. błędne wcięcia, brakujące importy, metody usunięte przy wklejaniu kodu, dzielenie przez zero przy DPR = 0. Problemy w działaniu aplikacji wykrywałam sama, testując każdą zmianę – m.in. skalę osi co 0,2 przy jednym pacjencie, nieczytelny histogram wieku, ucinane etykiety osi i tooltipy przy krawędzi ekranu, powtórzoną liczbę we wnioskach, puste kolumny w wierszach do weryfikacji. Na koniec AI przejrzało strukturę projektu i wskazało miejsca do uporządkowania (zdublowane funkcje, filtry i stałe w niewłaściwych modułach, powtórzoną logikę). Zmiany wprowadzałam sama, krok po kroku, według przygotowanych instrukcji.
 
 ### Mój udział
 

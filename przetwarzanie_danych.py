@@ -265,14 +265,14 @@ def filtruj_wg_plci(pacjenci, wybor):
 
 
 def filtruj_wg_kategorii_bmi(pacjenci, wybor):
-    # Zwraca podzbiór pacjentów wg wybranej kategorii BMI (lub wszystkich przy 'wszyscy').
+    # Zwraca podzbiór pacjentów wg wybranej kategorii BMI (lub wszystkich przy 'wszystkie').
     if wybor == WARTOSC_WSZYSTKIE or len(pacjenci) == 0:
         return pacjenci
     kategorie = pacjenci.apply(lambda w: kategoria_bmi(w["wiek"], w["bmi"]), axis=1)
     return pacjenci[kategorie == wybor]
 
 
-def filtruj_pacjentow_dashboardu(dane, plec="wszyscy", bmi=WARTOSC_WSZYSTKIE):
+def filtruj_pacjentow_dashboardu(dane, plec=WARTOSC_WSZYSTKIE, bmi=WARTOSC_WSZYSTKIE):
     # Zwraca pacjentów z przekroczoną dawką po zastosowaniu wszystkich filtrów dashboardu.
     pacjenci = filtruj_przekroczenia(filtruj_bezpieczne(dane))
     pacjenci = filtruj_wg_plci(pacjenci, plec)

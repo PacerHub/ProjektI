@@ -26,11 +26,13 @@ EXAM_REGION = {
     "TK jamy brzusznej i miednicy": "jama brzuszna / miednica",
 }
 
+# Badania wykonywane w praktyce, dla których rozporządzenie NIE określa DPR.
+# Brak DPR nie jest dla nich błędem danych – nie da się tylko ocenić przekroczenia.
 BADANIA_BEZ_DPR = ["TK jamy brzusznej i miednicy"]
 
 # Źródło diagnostycznych poziomów referencyjnych (DPR) – wartości referencyjne w pliku CSV
 ZRODLO_DPR = (
-    "(Diagnostycznego Poziomu Referencyjnego) Rozporządzenie Ministra Zdrowia z dnia 6 grudnia 2022 r. w sprawie diagnostycznych "
+    "(Diagnostycznego Poziomu Referencyjnego) - Rozporządzenie Ministra Zdrowia z dnia 6 grudnia 2022 r. w sprawie diagnostycznych "
     "poziomów referencyjnych (Dz.U. 2022 poz. 2626), załącznik nr 1, tabela 3 – wydane "
     "na podstawie art. 33g ust. 3 ustawy z dnia 29 listopada 2000 r. – Prawo atomowe"
 )
@@ -74,7 +76,7 @@ ETYKIETY_CZYNNIKOW = {
     "wysoki_dlp_fazy": "Wysokie DLP\nfazy",
     "nadwaga_otylosc": "Nadwaga / otyłość",
 }
-
+# Nazwa klasyfikacji, gdy aktywny jest dokładnie jeden czynnik
 ETYKIETY_KLASYFIKACJI = {
     "pediatryczny": "pacjent <16 lat",
     "onkologiczny": "protokół onkologiczny",
@@ -118,8 +120,6 @@ KOLOR_TLA_WNIOSKOW = "#eaf2fa"  # jasnoniebieskie tło panelu
 KOLOR_AKCENTU_WNIOSKOW = "#1f4e79"  # pasek z lewej strony i tytuł "Wnioski"
 KOLOR_TEKSTU_WNIOSKOW = "#1a1a1a"
 KOLOR_BRAK_DPR = "#9e9e9e"  # szary – wyróżnienie tych badań na wykresie
-# Badania wykonywane w praktyce, dla których rozporządzenie NIE określa DPR.
-# Brak DPR nie jest dla nich błędem danych – nie da się tylko ocenić przekroczenia.
 
 # ===== 5. Widoki =====
 
@@ -179,7 +179,6 @@ KOLUMNY_TABELI_PRZYCZYN = [
 # ===== 7. Teksty tooltipów =====
 
 # Etykiety klasyfikacji przyczyny -> opis pokazywany w tooltipie
-# Nazwa klasyfikacji, gdy aktywny jest dokładnie jeden czynnik
 KLASYFIKACJA_OPISY = {
     "pacjent <16 lat": (
         "Główną przyczyną przekroczenia jest wiek\n"
@@ -236,7 +235,7 @@ OPISY_NAGLOWKOW_PRZYCZYN = {
         "Punkt odniesienia dla typowego pacjenta,\n"
         "nie sztywny limit prawny. Może być\n"
         "przekroczony przy uzasadnieniu klinicznym.\n\n"
-        f"Źródło: {ZRODLO_DPR_KROTKO} ."
+        f"Źródło: {ZRODLO_DPR_KROTKO}."
     ),
     "dlp": (
         "DLP – iloczyn dawka-długość.\n"

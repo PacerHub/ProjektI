@@ -90,11 +90,11 @@ Dla każdego pacjenta z przekroczeniem wyznaczanych jest 5 czynników (prawda/fa
 
 | Czynnik | Warunek |
 |---|---|
-| Pacjent <16 lat | wiek < 16 |
+| Pacjent <16 lat | wiek < 16 (`WIEK_PEDIATRYCZNY`) |
 | Protokół onkologiczny | `protokol_onkologiczny_jamy_brzusznej` = True |
 | Wielofazowe badanie | liczba faz ≥ 2 |
 | Wysokie DLP fazy | DLP zmierzone ≥ 120% DPR (`PROG_WYSOKIEGO_DLP_FAZY = 1.20`) |
-| Nadwaga / otyłość | BMI ≥ 25 i pacjent nie jest pediatryczny |
+| Nadwaga / otyłość | BMI ≥ 25 (`PROG_NADWAGI`) i pacjent nie jest pediatryczny |
 
 ### 3.4. Klasyfikacja przyczyny
 
@@ -104,9 +104,11 @@ Dla każdego pacjenta z przekroczeniem wyznaczanych jest 5 czynników (prawda/fa
 | 1 | nazwa tego czynnika, np. „nadwaga/otyłość pacjenta” |
 | 2 lub więcej | „połączenie kilku czynników” |
 
+Nazwy klasyfikacji są zapisane w `stale.py` (`ETYKIETY_KLASYFIKACJI`, `KLASYFIKACJA_BRAK_CZYNNIKA`, `KLASYFIKACJA_KILKA_CZYNNIKOW`).
+
 ### 3.5. Kategorie pomocnicze
 
-- **Kategoria BMI** (dorośli): niedowaga < 18,5; waga prawidłowa < 25; nadwaga < 30; otyłość I stopnia < 35; otyłość II stopnia ≥ 35. Dla pacjentów < 16 lat: „nie dotyczy (pacjent pediatryczny)”.
+- **Kategoria BMI** (dorośli): niedowaga < 18,5; waga prawidłowa < 25; nadwaga < 30; otyłość I stopnia < 35; otyłość II stopnia ≥ 35. Dla pacjentów < 16 lat: „nie dotyczy (pacjent pediatryczny)” (progi w PROGI_BMI, nazwy w KATEGORIE_BMI).
 - **Grupy wiekowe:** <16 lat, 16-17, 18-25, 26-35, 36-45, 46-55, 56-65, 66-75, powyżej 75 lat (granice w `GRANICE_WIEKU`).
 - **Liczba faz:** „1 faza”, „2 fazy”, „więcej faz (n)”.
 
@@ -151,8 +153,10 @@ Dane: wszyscy pacjenci bez wierszy podejrzanych.
 Dane: pacjenci z przekroczeniem, bez wierszy podejrzanych.
 
 **Filtry** (przełączniki radiowe nad wykresami):
-- *Płeć:* Wszyscy / Kobiety / Mężczyźni,
-- *Kategoria BMI:* Wszyscy / niedowaga / waga prawidłowa / nadwaga / otyłość I stopnia / otyłość II stopnia.
+- *Płeć:* WSZYSCY / KOBIETY / MĘŻCZYŹNI,
+- *Kategoria BMI:* wszyscy / niedowaga / waga prawidłowa / nadwaga / otyłość I stopnia / otyłość II stopnia.
+
+Opcje filtra płci są pisane wielkimi literami, a filtra BMI małymi, żeby oba rodzaje filtrowania łatwo było odróżnić.
 
 Zmiana filtra natychmiast przebudowuje wszystkie 4 panele. Układ wykresów jest przeliczany przy każdej zmianie rozmiaru okna, a długie etykiety (np. rodzaje badań) są zawijane do kilku linii, żeby nie były ucinane. Jeśli po filtrowaniu nie ma pacjentów, zamiast wykresów pojawia się komunikat „Brak pacjentów z przekroczoną dawką dla wybranych filtrów.”
 
@@ -197,12 +201,12 @@ W wierszach podejrzanych wyświetlane są wszystkie dane, które da się wiarygo
 | % przekroczenia | np. „+53.9%” |
 | Klasyfikacja przyczyny | wg punktu 3.4; dla wierszy podejrzanych – powód podejrzenia |
 | Aktywne czynniki | lista czynników tekstem |
-| <16 lat, Onkologiczny, Wielofazowe, Wysokie DLP, Nadwaga/otyłość | ✓ gdy czynnik występuje |
+| <16 lat, Protokół onkologiczny, Wielofazowe, Wysokie DLP, Nadwaga/otyłość | ✓ gdy czynnik występuje |
 
 **Tooltipy w tabeli:**
 - kolumna *Klasyfikacja przyczyny* – po najechaniu dymek z pełną nazwą klasyfikacji i jej opisem (`KLASYFIKACJA_OPISY`),
 - kolumna *Klasyfikacja przyczyny* w wierszach ⚠ – wyjaśnienie, że dane są niepełne lub błędne i nie są uwzględniane w statystykach,
-- nagłówki *DPR na fazę* i *DLP zmierzone na fazę* – definicje DPR (ze źródłem) i DLP; nagłówek *Onkologiczny* – pełna nazwa czynnika „Protokół onkologiczny”; nagłówki *% przekroczenia*, *Liczba faz* i *Wysokie DLP* – wzór na % przekroczenia, wyjaśnienie, dlaczego porównywane jest DLP jednej fazy, i próg wysokiego DLP fazy (`OPISY_NAGLOWKOW_PRZYCZYN` w `stale.py`),
+- nagłówki *DPR na fazę* i *DLP zmierzone na fazę* – definicje DPR (ze źródłem) i DLP; „nagłówek Protokół onkologiczny – definicja protokołu onkologicznego”; nagłówki *% przekroczenia*, *Liczba faz* i *Wysokie DLP* – wzór na % przekroczenia, wyjaśnienie, dlaczego porównywane jest DLP jednej fazy, i próg wysokiego DLP fazy (`OPISY_NAGLOWKOW_PRZYCZYN` w `stale.py`),
 - pozostałe komórki i nagłówki – dymek z pełną treścią, **tylko jeśli tekst jest ucięty** (szerokość tekstu mierzona czcionką tabeli).
 
 Dymki pojawiają się obok kursora; gdy nie mieszczą się przy prawej lub dolnej krawędzi ekranu, są wyświetlane na lewo od kursora lub nad nim.
@@ -265,9 +269,9 @@ Wykresy zbiorcze i wnioski o przekroczeniach liczone są tylko z 142 poprawnych 
 
 | Moduł | Odpowiedzialność | Zależy od Tkintera |
 |---|---|---|
-| `stale.py` | konfiguracja: ścieżka danych, progi, etykiety, kolory, definicje kolumn | nie |
-| `przetwarzanie_danych.py` | wczytanie CSV, walidacja, analiza pacjenta, filtry płci/BMI | nie |
-| `agregacje.py` | zliczenia, filtrowanie przyczyn, generowanie wniosków | nie |
+| `stale.py` | konfiguracja w sekcjach: dane i przepisy, progi i zakresy, kategorie i klasyfikacje, wygląd (czcionki, kolory), widoki, tabela analizy przyczyn, teksty tooltipów | nie |
+| `przetwarzanie_danych.py` | wczytanie CSV, walidacja, analiza pacjenta, wszystkie filtry danych (bezpieczne wiersze, przekroczenia, płeć, BMI, dashboard, analiza przyczyn) | nie |
+| `agregacje.py` | zliczenia, generowanie wniosków | nie |
 | `wykresy.py` | budowa figur matplotlib | nie |
 | `komponenty.py` | elementy GUI: tabela, karty, panel wniosków, panele filtrów, tooltipy, przycisk rozwijany, ustawienia czcionek | tak |
 | `widoki.py` | składanie ekranów z komponentów i wykresów; widok analizy przyczyn jako klasa `WidokAnalizyPrzyczyn` (stan filtrów w atrybutach, `odswiez` i `wyczysc` jako metody) | tak |
