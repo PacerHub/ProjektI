@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="W stale.py dodane ETYKIETY_KLASYFIKACJI, KLASYFIKACJA_BRAK_CZYNNIKA, KLASYFIKACJA_KILKA_CZYNNIKÓW, z KLASYFIKACJA_OPISY usunięcie wpisu &quot;onkologiczny&quot;. W przetwarzanie_danych.py dopisanie ETYKIETY_KLASYFIKACJI, KLASYFIKACJA_BRAK_CZYNNIKA, KLASYFIKACJA_KILKA_CZYNNIKOW. Zmiany w funkcji klasyfikuj_przyczyne. W agregacje.py w imporcie ze stale dopisane KLASYFIKACJA_KILKA_CZYNNIKOW.&#10;W wygeneruj_wnioski_pareto zamiana obu tekstów &quot;połączenie kilku czynników&quot; (obecnie linie 49 i 52) na KLASYFIKACJA_KILKA_CZYNNIKOW.">
+    <list default="true" id="a464fab0-5225-43a6-8a99-fcc1d8733e02" name="Changes" comment="W komponenty.py zbuduj_filtr_plci: w liście opcje zamiana (&quot;Wszyscy&quot;, &quot;wszyscy&quot;) na (&quot;Wszyscy&quot;, WARTOSC_WSZYSTKIE).&#10;zbuduj_filtr_kategorii_bmi: zamiana value=&quot;wszyscy&quot; na value=WARTOSC_WSZYSTKIE. W widoki.py (pokaz_dashboard_przekroczenia)&#10;zamiana obu tk.StringVar(value=&quot;wszyscy&quot;) na tk.StringVar(value=WARTOSC_WSZYSTKIE). W przetwarzanie_danych.py: w imporcie ze stale.py dopisane WARTOSC_WSZYSTKIE, filtruj_wg_kategorii_bmi: zamiana wyboru == &quot;wszyscy&quot; na wybor == WARTOSC_WSZYSTKIE.&#10;filtruj_pacjentow_dashboardu: zmiana sygnatury na def filtruj_pacjentow_dashboardu(dane, plec=WARTOSC_WSZYSTKIE, bmi=WARTOSC_WSZYSTKIE):.&#10;W docstringu filtruj_wg_plci zamiana 'wszyscy' na 'wszystkie'.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/komponenty.py" beforeDir="false" afterPath="$PROJECT_DIR$/komponenty.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/przetwarzanie_danych.py" beforeDir="false" afterPath="$PROJECT_DIR$/przetwarzanie_danych.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stale.py" beforeDir="false" afterPath="$PROJECT_DIR$/stale.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/uruchom.py" beforeDir="false" afterPath="$PROJECT_DIR$/uruchom.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/widoki.py" beforeDir="false" afterPath="$PROJECT_DIR$/widoki.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wykresy.py" beforeDir="false" afterPath="$PROJECT_DIR$/wykresy.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -99,22 +101,6 @@
       <workItem from="1790780490315" duration="5722000" />
       <workItem from="1791136745207" duration="808000" />
       <workItem from="1791214082108" duration="9000" />
-    </task>
-    <task id="LOCAL-00111" summary="Usunięcie zdublowanych funkcji filtrów płci i BMI- pierwsze wersje (z on_change) były nadpisywane przez późniejsze definicje i nigdzie nieużywane">
-      <option name="closed" value="true" />
-      <created>1792517820145</created>
-      <option name="number" value="00111" />
-      <option name="presentableId" value="LOCAL-00111" />
-      <option name="project" value="LOCAL" />
-      <updated>1792517820145</updated>
-    </task>
-    <task id="LOCAL-00112" summary="Zlikwidowane nadpisywanie stylu tabel w zbuduj_tabele&quot; - czcionki, wysokość wierszy i odstęp nagłówków ustawia wyłącznie ustaw_czcionke_aplikacji, więc parametr rozmiar_tabeli zaczyna działać.">
-      <option name="closed" value="true" />
-      <created>1792518038462</created>
-      <option name="number" value="00112" />
-      <option name="presentableId" value="LOCAL-00112" />
-      <option name="project" value="LOCAL" />
-      <updated>1792518038463</updated>
     </task>
     <task id="LOCAL-00113" summary="Zamykanie figury matplotlib po osadzeniu w oknie&quot; - plt.close(fig) w _osadz_wykres zapobiega gromadzeniu się figur przy przełączaniu widoków (ostrzeżenie 'More than 20 figures').">
       <option name="closed" value="true" />
@@ -492,7 +478,23 @@
       <option name="project" value="LOCAL" />
       <updated>1793005427900</updated>
     </task>
-    <option name="localTasksCounter" value="160" />
+    <task id="LOCAL-00160" summary="W komponenty.py zbuduj_filtr_plci: w liście opcje zamiana (&quot;Wszyscy&quot;, &quot;wszyscy&quot;) na (&quot;Wszyscy&quot;, WARTOSC_WSZYSTKIE).&#10;zbuduj_filtr_kategorii_bmi: zamiana value=&quot;wszyscy&quot; na value=WARTOSC_WSZYSTKIE. W widoki.py (pokaz_dashboard_przekroczenia)&#10;zamiana obu tk.StringVar(value=&quot;wszyscy&quot;) na tk.StringVar(value=WARTOSC_WSZYSTKIE). W przetwarzanie_danych.py: w imporcie ze stale.py dopisane WARTOSC_WSZYSTKIE, filtruj_wg_kategorii_bmi: zamiana wyboru == &quot;wszyscy&quot; na wybor == WARTOSC_WSZYSTKIE.&#10;filtruj_pacjentow_dashboardu: zmiana sygnatury na def filtruj_pacjentow_dashboardu(dane, plec=WARTOSC_WSZYSTKIE, bmi=WARTOSC_WSZYSTKIE):.&#10;W docstringu filtruj_wg_plci zamiana 'wszyscy' na 'wszystkie'.">
+      <option name="closed" value="true" />
+      <created>1793006254675</created>
+      <option name="number" value="00160" />
+      <option name="presentableId" value="LOCAL-00160" />
+      <option name="project" value="LOCAL" />
+      <updated>1793006254675</updated>
+    </task>
+    <task id="LOCAL-00161" summary="W komponenty.py zbuduj_filtr_plci: w liście opcje zamiana (&quot;Wszyscy&quot;, &quot;wszyscy&quot;) na (&quot;Wszyscy&quot;, WARTOSC_WSZYSTKIE).&#10;zbuduj_filtr_kategorii_bmi: zamiana value=&quot;wszyscy&quot; na value=WARTOSC_WSZYSTKIE. W widoki.py (pokaz_dashboard_przekroczenia)&#10;zamiana obu tk.StringVar(value=&quot;wszyscy&quot;) na tk.StringVar(value=WARTOSC_WSZYSTKIE). W przetwarzanie_danych.py: w imporcie ze stale.py dopisane WARTOSC_WSZYSTKIE, filtruj_wg_kategorii_bmi: zamiana wyboru == &quot;wszyscy&quot; na wybor == WARTOSC_WSZYSTKIE.&#10;filtruj_pacjentow_dashboardu: zmiana sygnatury na def filtruj_pacjentow_dashboardu(dane, plec=WARTOSC_WSZYSTKIE, bmi=WARTOSC_WSZYSTKIE):.&#10;W docstringu filtruj_wg_plci zamiana 'wszyscy' na 'wszystkie'.">
+      <option name="closed" value="true" />
+      <created>1793006327233</created>
+      <option name="number" value="00161" />
+      <option name="presentableId" value="LOCAL-00161" />
+      <option name="project" value="LOCAL" />
+      <updated>1793006327233</updated>
+    </task>
+    <option name="localTasksCounter" value="162" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -522,8 +524,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Poprawione błędne wcięcia w funkcji oznacz_podejrzane_dane oraz nieprawidłowe importy." />
-    <MESSAGE value="stale.py, widoki.py&#10;Dodanie opisu w tooltipie klasyfikacji dla wierszy do weryfikacji. Wiersze oznaczone ⚠ (tag 'podejrzany') pokazywały 'Brak dodatkowego opisu'. Teraz tooltip wyjaśnia, że dane są niepełne lub błędne i nie są uwzględniane w statystykach." />
     <MESSAGE value="widoki.py wykresy.py&#10;Zmiana, żeby niee ucinało etykiet osi wykresów nad panelem wniosków. Układ 'tight' przeliczany przy każdej zmianie rozmiaru wykresu w oknie (wcześniej plt.tight_layout() liczył miejsce tylko dla rozmiaru początkowego). Długie etykiety rodzajów badań i przyczyn zawijane do kilku linii" />
     <MESSAGE value="Zmiany w stale.py, przetwarzanie_danych.py, komponenty.py, widoki.py Przywrócenie kolumn DPR i DLP na fazę z definicjami w tooltipach nagłówków, które zniknęły razem ze starą tabelą 'Pacjenci z przekroczoną dawką' przy zamianie jej na dashboard. Teraz są w tabeli analizy przyczyn; definicje w OPISY_NAGLOWKOW_PRZYCZYN (stale.py), DPR ze źródłem prawnym. Zmiana nagłówka kolumny 'Onko' na 'Onkologiczny' w tabeli analizy przyczyn. Dodanie tooltipu 'Protokół onkologiczny' na nagłówku kolumny Onkologiczny" />
     <MESSAGE value="Poprawka nazwy kolumny z onkologiczny na protokół onkologiczny i zmiany szerokości kolumn w stale.py" />
@@ -547,7 +547,9 @@
     <MESSAGE value="Usunięcie zdublowanych funkcji wiersz_tabeli_przyczyn i dodaj_tooltip_klasyfikacji w widoki.py. Przeniesienie importu tkinter as tk z linii 28 do pozostałych importów" />
     <MESSAGE value="Nazwy ketegorii BMI przeniosłam w jedno miejscr- do KATEGORIE_BMI w stale.py" />
     <MESSAGE value="W stale.py dodane ETYKIETY_KLASYFIKACJI, KLASYFIKACJA_BRAK_CZYNNIKA, KLASYFIKACJA_KILKA_CZYNNIKÓW, z KLASYFIKACJA_OPISY usunięcie wpisu &quot;onkologiczny&quot;. W przetwarzanie_danych.py dopisanie ETYKIETY_KLASYFIKACJI, KLASYFIKACJA_BRAK_CZYNNIKA, KLASYFIKACJA_KILKA_CZYNNIKOW. Zmiany w funkcji klasyfikuj_przyczyne. W agregacje.py w imporcie ze stale dopisane KLASYFIKACJA_KILKA_CZYNNIKOW.&#10;W wygeneruj_wnioski_pareto zamiana obu tekstów &quot;połączenie kilku czynników&quot; (obecnie linie 49 i 52) na KLASYFIKACJA_KILKA_CZYNNIKOW." />
-    <option name="LAST_COMMIT_MESSAGE" value="W stale.py dodane ETYKIETY_KLASYFIKACJI, KLASYFIKACJA_BRAK_CZYNNIKA, KLASYFIKACJA_KILKA_CZYNNIKÓW, z KLASYFIKACJA_OPISY usunięcie wpisu &quot;onkologiczny&quot;. W przetwarzanie_danych.py dopisanie ETYKIETY_KLASYFIKACJI, KLASYFIKACJA_BRAK_CZYNNIKA, KLASYFIKACJA_KILKA_CZYNNIKOW. Zmiany w funkcji klasyfikuj_przyczyne. W agregacje.py w imporcie ze stale dopisane KLASYFIKACJA_KILKA_CZYNNIKOW.&#10;W wygeneruj_wnioski_pareto zamiana obu tekstów &quot;połączenie kilku czynników&quot; (obecnie linie 49 i 52) na KLASYFIKACJA_KILKA_CZYNNIKOW." />
+    <MESSAGE value="W komponenty.py zbuduj_filtr_plci: w liście opcje zamiana (&quot;Wszyscy&quot;, &quot;wszyscy&quot;) na (&quot;WSZYSCY&quot;, WARTOSC_WSZYSTKIE) plus &quot;Mężczyźni&quot; na &quot;MĘŻCZYŹNI&quot; i &quot;Kobiety&quot; &quot;KOBIETY&quot;.&#10;zbuduj_filtr_kategorii_bmi: zamiana value=&quot;wszyscy&quot; na value=WARTOSC_WSZYSTKIE. W widoki.py (pokaz_dashboard_przekroczenia)&#10;zamiana obu tk.StringVar(value=&quot;wszyscy&quot;) na tk.StringVar(value=WARTOSC_WSZYSTKIE). W przetwarzanie_danych.py: w imporcie ze stale.py dopisane WARTOSC_WSZYSTKIE, filtruj_wg_kategorii_bmi: zamiana wyboru == &quot;wszyscy&quot; na wybor == WARTOSC_WSZYSTKIE.&#10;filtruj_pacjentow_dashboardu: zmiana sygnatury na def filtruj_pacjentow_dashboardu(dane, plec=WARTOSC_WSZYSTKIE, bmi=WARTOSC_WSZYSTKIE):.&#10;W docstringu filtruj_wg_plci zamiana 'wszyscy' na 'wszystkie'." />
+    <MESSAGE value="W komponenty.py zbuduj_filtr_plci: w liście opcje zamiana (&quot;Wszyscy&quot;, &quot;wszyscy&quot;) na (&quot;Wszyscy&quot;, WARTOSC_WSZYSTKIE).&#10;zbuduj_filtr_kategorii_bmi: zamiana value=&quot;wszyscy&quot; na value=WARTOSC_WSZYSTKIE. W widoki.py (pokaz_dashboard_przekroczenia)&#10;zamiana obu tk.StringVar(value=&quot;wszyscy&quot;) na tk.StringVar(value=WARTOSC_WSZYSTKIE). W przetwarzanie_danych.py: w imporcie ze stale.py dopisane WARTOSC_WSZYSTKIE, filtruj_wg_kategorii_bmi: zamiana wyboru == &quot;wszyscy&quot; na wybor == WARTOSC_WSZYSTKIE.&#10;filtruj_pacjentow_dashboardu: zmiana sygnatury na def filtruj_pacjentow_dashboardu(dane, plec=WARTOSC_WSZYSTKIE, bmi=WARTOSC_WSZYSTKIE):.&#10;W docstringu filtruj_wg_plci zamiana 'wszyscy' na 'wszystkie'." />
+    <option name="LAST_COMMIT_MESSAGE" value="W komponenty.py zbuduj_filtr_plci: w liście opcje zamiana (&quot;Wszyscy&quot;, &quot;wszyscy&quot;) na (&quot;Wszyscy&quot;, WARTOSC_WSZYSTKIE).&#10;zbuduj_filtr_kategorii_bmi: zamiana value=&quot;wszyscy&quot; na value=WARTOSC_WSZYSTKIE. W widoki.py (pokaz_dashboard_przekroczenia)&#10;zamiana obu tk.StringVar(value=&quot;wszyscy&quot;) na tk.StringVar(value=WARTOSC_WSZYSTKIE). W przetwarzanie_danych.py: w imporcie ze stale.py dopisane WARTOSC_WSZYSTKIE, filtruj_wg_kategorii_bmi: zamiana wyboru == &quot;wszyscy&quot; na wybor == WARTOSC_WSZYSTKIE.&#10;filtruj_pacjentow_dashboardu: zmiana sygnatury na def filtruj_pacjentow_dashboardu(dane, plec=WARTOSC_WSZYSTKIE, bmi=WARTOSC_WSZYSTKIE):.&#10;W docstringu filtruj_wg_plci zamiana 'wszyscy' na 'wszystkie'." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ProjektI$Projekt_05_09_26.coverage" NAME="Projekt-05-09-26 Coverage Results" MODIFIED="1789659520225" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

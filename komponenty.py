@@ -7,7 +7,7 @@ from stale import (
     CZCIONKA, KOLOR_NAGLOWKOW_TABELI, KOLOR_NAGLOWKOW_TABELI_HOVER, KOLOR_TEKSTU_NAGLOWKOW_TABELI,
     KATEGORIE_BMI, KOLOR_TLA_WNIOSKOW, KOLOR_AKCENTU_WNIOSKOW, KOLOR_TEKSTU_WNIOSKOW,
     KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW, KLUCZ_BRAK_CZYNNIKA, ETYKIETA_BRAKU_CZYNNIKA,
-    WARTOSC_WSZYSTKIE,
+    WARTOSC_WSZYSTKIE, KOLOR_TLA_DYMKA
 )
 from tkinter import ttk
 from agregacje import policz_aktywne_czynniki
@@ -170,7 +170,7 @@ class TooltipTabeli:
         self.okno.wm_overrideredirect(True)
         tk.Label(
             self.okno, text=tekst, justify="left", padx=8, pady=5,
-            bg="#ffffe0", relief="solid", borderwidth=1, wraplength=400,
+            bg=KOLOR_TLA_DYMKA, relief="solid", borderwidth=1, wraplength=400,
         ).pack()
         umiesc_dymek(self.okno, x_root, y_root)
 

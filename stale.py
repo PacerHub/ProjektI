@@ -115,6 +115,12 @@ PALETA_KOLOROW = [
     "#EAAC8B",
 ]
 
+KOLOR_TLA_PRZYP_DO_WERYFIKACJI = "#fff3cd"   # żółte tło wierszy ⚠
+KOLOR_TLA_DYMKA = "#ffffe0"            # tło tooltipów tabeli
+KOLOR_TEKSTU_STOPKI = "#555555"
+KOLOR_LINII_PARETO = "#333333"         # linia skumulowanego %
+KOLOR_PROGU_PARETO = PALETA_KOLOROW[2] # przerywana linia 80%
+
 CZCIONKA = "Book Antiqua"
 
 WIDOKI_LICZEBNOSCI = {

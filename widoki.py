@@ -17,7 +17,7 @@ from agregacje import (
 )
 from stale import (
     KLUCZE_CZYNNIKOW, ETYKIETY_CZYNNIKOW, KLASYFIKACJA_OPISY, CZCIONKA,
-    ETYKIETY_GRUP_WIEKOWYCH, KLUCZ_BRAK_CZYNNIKA, WARTOSC_WSZYSTKIE, KOLUMNY_TABELI_PRZYCZYN, OPIS_DANYCH_DO_WERYFIKACJI, OPISY_NAGLOWKOW_PRZYCZYN)
+    ETYKIETY_GRUP_WIEKOWYCH, KLUCZ_BRAK_CZYNNIKA, WARTOSC_WSZYSTKIE, KOLUMNY_TABELI_PRZYCZYN, OPIS_DANYCH_DO_WERYFIKACJI, OPISY_NAGLOWKOW_PRZYCZYN, KOLOR_TLA_PRZYP_DO_WERYFIKACJI)
 from komponenty import (
     zbuduj_tabele, zbuduj_panel_podsumowania, Tooltip, TooltipTabeli, zbuduj_filtr_plci,
     zbuduj_filtr_kategorii_bmi, zbuduj_panel_wnioskow, zbuduj_panel_filtrow,
@@ -260,7 +260,7 @@ class WidokAnalizyPrzyczyn:
     def _zbuduj_tabele(self):
         kolumny, naglowki, szerokosci, kotwice = rozpakuj_kolumny(KOLUMNY_TABELI_PRZYCZYN)
         tabela = zbuduj_tabele(self.parent, kolumny, naglowki, szerokosci, kotwice)
-        tabela.tag_configure("podejrzany", background="#fff3cd")
+        tabela.tag_configure("podejrzany", background=KOLOR_TLA_PRZYP_DO_WERYFIKACJI)
 
         # Numer kolumny liczony z listy – nie trzeba go poprawiać po zmianie kolejności kolumn
         kolumna_klasyfikacji = f"#{kolumny.index('klasyfikacja') + 1}"

@@ -5,7 +5,7 @@ import textwrap
 from matplotlib.patches import Patch
 from stale import (
     PALETA_KOLOROW, ROZMIAR_TYTULU_WYKRESU, GRUBOSC_TYTULU_WYKRESU, ROZMIAR_TYTULU_DASHBOARDU,
-    BADANIA_BEZ_DPR, KOLOR_BRAK_DPR,
+    BADANIA_BEZ_DPR, KOLOR_BRAK_DPR, KOLOR_LINII_PARETO, KOLOR_PROGU_PARETO
 )
 from agregacje import policz_kategorie_onkologiczne, policz_wg_grupy_wiekowej
 
@@ -66,6 +66,7 @@ def narysuj_rodzaj_badania(ax, pacjenci):
     ax.set_xlabel("Liczba pacjentów")
     ax.xaxis.set_major_locator(MaxNLocator(integer=True))
     ax.tick_params(axis="y", labelsize=7)
+
 
 
 def narysuj_wiek(ax, pacjenci):
@@ -160,13 +161,13 @@ def zbuduj_wykres_pareto(counts, tytul="Pareto przyczyn przekroczeń"):
         ax1.text(x, y, str(y), ha="center", va="bottom", fontsize=9)
 
     ax2 = ax1.twinx()
-    ax2.plot(pozycje, skumulowany_procent.values, color="#333333", marker="o", linewidth=1.5)
+    ax2.plot(pozycje, skumulowany_procent.values, color=KOLOR_LINII_PARETO, marker="o", linewidth=1.5)
     ax2.set_ylabel("Skumulowany %")
     ax2.set_ylim(0, 110)
 
     # linia pomocnicza na 80% - klasyczny próg zasady Pareto (80/20)
-    ax2.axhline(80, color="#B56576", linestyle="--", linewidth=1)
-    ax2.text(len(counts) - 1, 83, "80%", color="#B56576", ha="right", fontsize=9)
+    ax2.axhline(80, color=KOLOR_PROGU_PARETO, linestyle="--", linewidth=1)
+    ax2.text(len(counts) - 1, 83, "80%", color=KOLOR_PROGU_PARETO, ha="right", fontsize=9)
 
     ustaw_tytul_panelu(ax1, tytul)
     plt.tight_layout()
