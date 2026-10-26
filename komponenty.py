@@ -3,6 +3,7 @@
 import tkinter as tk
 import tkinter.font as tkfont
 from tkinter import ttk
+from typing import Any
 
 import matplotlib.pyplot as plt
 
@@ -361,7 +362,7 @@ def zbuduj_filtr_kategorii_bmi(parent, zmienna):
     return panel
 
 
-def zbuduj_panel_filtrow(parent, zmienne, okolice, grupy_wiekowe, po_wyczyszczeniu):
+def zbuduj_panel_filtrow(parent, zmienne: dict[str, Any], okolice, grupy_wiekowe, po_wyczyszczeniu):
     """Panel filtrów widoku 'Analiza przyczyn przekroczeń'.
 
     zmienne – słownik zmiennych Tk: 'czynniki' (słownik klucz -> BooleanVar), 'okolica',

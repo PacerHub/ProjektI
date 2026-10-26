@@ -32,23 +32,23 @@ def oznacz_podejrzane_dane(dane):
         for kolumna in kolumny_wymagane:
             if kolumna == "dlp_referencyjny_na_faze_mGy_cm" and wiersz["brak_dpr"]:
                 continue  # brak DPR w przepisach, a nie brak danych
-            if pd.isna(wiersz[kolumna]):
+            if bool(pd.isna(wiersz[kolumna])):
                 powody.append(f"brak wartości w '{kolumna}'")
 
-        if pd.notna(wiersz["wiek"]) and not (ZAKRES_WIEKU[0] <= wiersz["wiek"] <= ZAKRES_WIEKU[1]):
+        if bool(pd.notna(wiersz["wiek"])) and not (ZAKRES_WIEKU[0] <= wiersz["wiek"] <= ZAKRES_WIEKU[1]):
             powody.append(f"wiek poza zakresem {ZAKRES_WIEKU}")
 
-        if pd.notna(wiersz["bmi"]) and not (ZAKRES_BMI[0] <= wiersz["bmi"] <= ZAKRES_BMI[1]):
+        if bool(pd.notna(wiersz["bmi"])) and not (ZAKRES_BMI[0] <= wiersz["bmi"] <= ZAKRES_BMI[1]):
             powody.append(f"BMI poza zakresem {ZAKRES_BMI}")
 
-        if pd.notna(wiersz["liczba_faz"]) and not (
+        if bool(pd.notna(wiersz["liczba_faz"])) and not (
                 ZAKRES_LICZBY_FAZ[0] <= wiersz["liczba_faz"] <= ZAKRES_LICZBY_FAZ[1]):
             powody.append(f"liczba faz poza zakresem {ZAKRES_LICZBY_FAZ}")
 
-        if pd.notna(wiersz["dlp_referencyjny_na_faze_mGy_cm"]) and wiersz["dlp_referencyjny_na_faze_mGy_cm"] <= 0:
+        if bool(pd.notna(wiersz["dlp_referencyjny_na_faze_mGy_cm"])) and wiersz["dlp_referencyjny_na_faze_mGy_cm"] <= 0:
             powody.append("DPR <= 0")
 
-        if pd.notna(wiersz["dlp_zmierzony_na_faze_mGy_cm"]) and wiersz["dlp_zmierzony_na_faze_mGy_cm"] < 0:
+        if bool(pd.notna(wiersz["dlp_zmierzony_na_faze_mGy_cm"])) and wiersz["dlp_zmierzony_na_faze_mGy_cm"] < 0:
             powody.append("DLP ujemne")
 
         if powody:
@@ -124,7 +124,7 @@ def kategoria_wiekowa(wiek):
 
 def kategoria_onkologiczna(wartosc_protokolu):
     """'tak' / 'nie' / 'nie dotyczy' (puste pole = badanie nie dotyczy jamy brzusznej)."""
-    if pd.isna(wartosc_protokolu):
+    if bool(pd.isna(wartosc_protokolu)):
         return "nie dotyczy"
     return "tak" if czy_onkologiczny(wartosc_protokolu) else "nie"
 
@@ -162,11 +162,11 @@ def analizuj_podejrzany_wiersz(wiersz):
     dpr = wiersz["dlp_referencyjny_na_faze_mGy_cm"]
     dlp = wiersz["dlp_zmierzony_na_faze_mGy_cm"]
 
-    wiek_ok = pd.notna(wiek) and ZAKRES_WIEKU[0] <= wiek <= ZAKRES_WIEKU[1]
-    bmi_ok = pd.notna(bmi) and ZAKRES_BMI[0] <= bmi <= ZAKRES_BMI[1]
+    wiek_ok = bool(pd.notna(wiek)) and ZAKRES_WIEKU[0] <= wiek <= ZAKRES_WIEKU[1]
+    bmi_ok = bool(pd.notna(bmi)) and ZAKRES_BMI[0] <= bmi <= ZAKRES_BMI[1]
 
     # Kategoria BMI zależy od wieku, więc liczymy ją tylko przy poprawnym wieku i BMI
-    if pd.isna(bmi):
+    if bool(pd.isna(bmi)):
         kategoria = "—"
     elif not bmi_ok:
         kategoria = "poza zakresem"
@@ -177,13 +177,13 @@ def analizuj_podejrzany_wiersz(wiersz):
 
     # % przekroczenia tylko przy sensownych wartościach (DPR = 0 -> dzielenie przez zero)
     procent = None
-    if pd.notna(dpr) and pd.notna(dlp) and dpr > 0 and dlp >= 0:
+    if bool(pd.notna(dpr)) and bool(pd.notna(dlp)) and dpr > 0 and dlp >= 0:
         procent = oblicz_procent_przekroczenia(oblicz_stosunek_dlp(dlp, dpr))
 
     return {
         "okolica": ustal_okolice_anatomiczna(wiersz["rodzaj_badania_tk"]),
-        "kategoria_faz": kategoria_liczby_faz(int(liczba_faz)) if pd.notna(liczba_faz) else "—",
-        "bmi": round(float(bmi), 1) if pd.notna(bmi) else None,
+        "kategoria_faz": kategoria_liczby_faz(int(liczba_faz)) if bool(pd.notna(liczba_faz)) else "—",
+        "bmi": round(float(bmi), 1) if bool(pd.notna(bmi)) else None,
         "kategoria_bmi": kategoria,
         "procent_przekroczenia": procent,
         "klasyfikacja": f"⚠ dane do weryfikacji ({wiersz.get('powod_podejrzenia', 'nieznany powód')})",
@@ -236,7 +236,7 @@ def zbuduj_rekordy_przyczyn(pacjenci):
             "wiek": wiek,
             "plec": wiersz["plec"],
             "rodzaj_badania": wiersz["rodzaj_badania_tk"],
-            "grupa_wiekowa": kategoria_wiekowa(wiek) if pd.notna(wiek) else "—",
+            "grupa_wiekowa": kategoria_wiekowa(wiek) if bool(pd.notna(wiek)) else "—",
             "dpr": wiersz["dlp_referencyjny_na_faze_mGy_cm"],
             "dlp": wiersz["dlp_zmierzony_na_faze_mGy_cm"],
         })

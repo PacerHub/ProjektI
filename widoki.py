@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.layout_engine import TightLayoutEngine
+from typing import Any
 
 from agregacje import (
     policz_wg_kolumny, policz_wg_grupy_wiekowej, policz_klasyfikacje,
@@ -223,7 +224,7 @@ class WidokAnalizyPrzyczyn:
     # ---------- stan filtrów ----------
 
     @staticmethod
-    def _utworz_zmienne():
+    def _utworz_zmienne() -> dict[str, Any]:
         return {
             "czynniki": {
                 klucz: tk.BooleanVar(value=True)

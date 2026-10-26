@@ -119,8 +119,8 @@ def dodaj_panel_przyciskow(okno, dane, kontener):
     w_menu = {nazwa: etykieta for etykieta, nazwa in WIDOKI_LICZBA_PACJENTOW}
 
     def obsluz_klikniecie(wybrany):
-        for tekst, przycisk in przyciski.items():
-            przycisk.config(relief="sunken" if tekst == wybrany else "raised")
+        for nazwa_widoku, przycisk_widoku in przyciski.items():
+            przycisk_widoku.config(relief="sunken" if nazwa_widoku == wybrany else "raised")
 
         # Przycisk rozwijany: wciśnięty i z opisem wyboru, gdy wybrano widok z jego listy
         if wybrany in w_menu:
